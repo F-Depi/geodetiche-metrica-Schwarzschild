@@ -1,0 +1,21 @@
+% ::setlocal makeprg=cd\ latex\ &&\ pdflatex\ -interaction=batchmode\ main.tex\ &&\ xdg-open\ main.pdf
+\documentclass[a4paper,twoside]{book}
+
+\input{Impaginazione/packages}
+\newcommand{\Sh}[0]{Schwarzschild}
+
+\begin{document}
+
+     
+\input{Impaginazione/inizio}
+
+\chapter{Uno}
+\input{capitoli/capitolo1}
+
+\chapter{Due}
+\input{capitoli/capitolo2}
+
+\input{Impaginazione/fine}
+
+
+\end{document}

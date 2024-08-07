@@ -1,0 +1,42 @@
+% ::setlocal makeprg=cd\ latex\ &&\ pdflatex\ -interaction=batchmode\ main.tex\ &&\ xdg-open\ main.pdf
+% then to compile and open the file just run :make
+
+\documentclass[a4paper, titlepage]{book}
+\newcommand{\Punit}[0]{\frac{\unit{\mega\electronvolt}}{c^2 \unit{\femto\cubic\meter}}}
+
+%\verb|\stretchto| with aspect ratio limit of 4.4
+
+\input{packages.tex}
+
+% To stretch integrals
+\usepackage{scalerel}[2016-12-29]
+\def\stretchint#1{\vcenter{\hbox{\stretchto[440]{\displaystyle\int}{#1}}}}
+\def\scaleint#1{\vcenter{\hbox{\scaleto[3ex]{\displaystyle\int}{#1}}}}
+\def\bs{\mkern-12mu} % and set amount of backspacing for lower limit of integration
+
+%\input{frontespizio.tex}
+
+
+\begin{document}
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\newpage
+
+\section{Introduzione}
+
+Studio delle geodetiche in metrica di \Sh{}.
+Partendo da una delle più semplici geometrie dello spazio-tempo che offre la relatività generale, la metrica di \Sh{}, vengono studiati alcuni dei fenomeni più comuni ad essa associati dal punto di vista teorico.
+% Lista delle cose che metto
+Nella seconda parte vengono fatte delle simulazioni numeriche
+% per? su? quante? vediamo..
+
+\chapter{capitoli/capitolo1_teoria.tex}
+
+
+\chapter*{Conclusione}
+\addcontentsline{toc}{chapter}{Conclusione}
+
+\end{document}
