@@ -1,5 +1,7 @@
-% ::setlocal makeprg=cd\ latex\ &&\ pdflatex\ -interaction=batchmode\ main.tex\ &&\ xdg-open\ main.pdf
-\section{Why the \Sh{} Geometry}
+% ::setlocal makeprg=cd\ latex\ &&\ pdflatex\ -interaction=batchmode\ main.tex\ &&\ xdg-open\ main.pdf\ &&\ exit
+\section{Introduction}
+
+\subsection{Why the \Sh{} Geometry}
 
 Newtonian mechanics is built upon the concept of absolute time and space.
 Once the concept of \textit{inertial frame} is well defined, physics can be
@@ -13,7 +15,7 @@ space, measured as:
     \label{eq:euclide}
 \end{equation}
 
-On the other end, time is \textit{just} seen as a parameter, common to every 
+On the other hand, time is \textit{just} seen as a parameter, common to every 
 inertial frame, that can be used to determine the particle velocity and
 acceleration.
 
@@ -54,7 +56,95 @@ the familiar three-dimensional Euclidean geometry and are now in
 four-dimensional spacetime, usually referred to as \textit{flat spacetime} or
 \textit{Minkowski space}.
 
+This new geometry allowed for a reformulation of Maxwell's Equations and
+brought (and explained) fenomena like time dilation, length contraction and the
+relativity of simultaneity.
+The last one in particular, the concept that the simultaneity of two events
+depends on the frame of reference, poses a thread to the \textit{force} of
+gravity.
+Up until this point gravity was defined as the istantaneous force $F_{12}$
+acting on a mass $m_1$ at time $t$ due to a second mass $m_2$:
 
+\begin{equation}
+    F_{12} = G \frac{m_1 m_2}{|r_1(t) - r_2(t)|^2}
+    \label{eq:force_of_gravity}
+\end{equation}
+
+The abjective \textit{istantaneous} in a theory where nothing can travel faster
+then the speed of light should already raise some concern.
+But looking at $r_1(t)$ and $r_2(t)$ in eq. \ref{eq:force_of_gravity}, that are
+supposed to indicate the positions of the masses in the same istant of time,
+makes it even more clear that the force $F_{12}$ can't be the same in all
+frames of reference.
+
+Solving this issue gave birth to the theory of general relativity, where a mass
+is not a source of gravitational force, but it's responsible for bending the
+four-dimensional spacetime.
+This implies that when we observe a particle deviating its trajectory from a
+straight line in the presence of a massive object, it's not because of a force
+acting on it.
+In fact we can consider the particle free and moving from point A to point B
+along the shortest path, it's just that in a curved surface the shortest path
+is not a straight line.
+
+These idea surely doesn't make things more intuitive to imagine, but the
+implication on the formalism that is needed to discuss the theory are even
+worst.
+Bending the space we are working on because of the presence of a mass means
+that the line element $\mathrm{d}s^2$ must change.
+The implication of this and the theories that lie behind (Einstein field
+equations most notably) are behind the scope of this thesis.
+
+Here we will focus on a specific study case: the geometry of empty space
+outside a spherically symmetric source of curvature, for example, a spherical
+star.
+This is one of the simplest curved spacetimes of general relativity because of
+the many symmetries that presents and, luckily, is also one of the most useful.
+The line element of what is called \Sh{} geometry is
+
+\begin{equation}
+    \mathrm{d}s^2 = - \left(1 - \frac{2 G M}{c^2 r} \right) (c \mathrm{d}t)^2
+    + \left(1 - \frac{2 G M}{c^2 r} \right)^{-1} \mathrm{d}r^2
+    + r^2 (\mathrm{d}\theta^2 + \sin^2 \theta \mathrm{d}\phi^2)
+    \label{eq:Sh_ds}
+\end{equation}
+
+expressed in spherical coordinates centered in the center of the mass.
+
+
+\subsection{Notation and formalisms}
+\label{ssec:notation}
+In the \textit{flat spacetime}, chosen a particular inertial frame, we
+introduce a basis for four-vectors
+$\{ \mathbf{e_t}, \mathbf{e_x}, \mathbf{e_y}, \mathbf{e_z} \}$, or equivalently
+$\{ \mathbf{e_0}, \mathbf{r_r}, \mathbf{e_2}, \mathbf{e_3} \}$, of unit length.
+Any four-vector $\textbf{a}$ can then be written as
+
+\begin{equation}
+    \textbf{a}
+    = a^t \mathbf{e_r} + a^x \mathbf{e_x} + a^y \mathbf{e_y} + a^z \mathbf{e_z}
+    = a^0 \mathbf{e_0} + a^1 \mathbf{e_1} + a^2 \mathbf{e_2} + a^3 \mathbf{e_3}
+    \label{eq:a}
+\end{equation}
+
+where $(a_t,~a_x,~a_y,~a_z)$, or $(a_0,~a_1,~a_2,~a_3)$, are the components of
+the four-vector.
+Both notations will be used.
+
+Another useful convention is to use Roman letters (usually $i$ or $j$) to refer
+to indices 1, 2, 3 and Greek letters (usually $\mu$ or $\nu$) to refer to
+indices 0, 1, 2, 3.
+Using Einstein notation the expression in eq. \ref{eq:a}, can be rewritten
+simply as $\textbf{a} = a^\mu e_\mu$.
+Other useful ways to specify the components of $\textbf{a}$ are
+
+\begin{equation}
+    a^\mu = (a^t, a^x, a^y, a^z) \quad a^\mu = (a^t, a^i) \quad a^\mu
+    = (a^t, \vec a)
+    \label{eq:a_notation}
+\end{equation}
+
+where $\vec a = a^i e_i$ is the tree-dimensional vector $(e_1, e_2, e_3)$
 
 
 
