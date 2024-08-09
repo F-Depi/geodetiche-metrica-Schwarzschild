@@ -1,10 +1,10 @@
 % ::setlocal makeprg=cd\ latex\ &&\ pdflatex\ -interaction=batchmode\ main.tex\ &&\ xdg-open\ main.pdf\ &&\ exit
 \section{Introduction}
 
-\subsection{Why the \Sh{} Geometry}
+\subsection{Why the \Sh Geometry}
 
 Newtonian mechanics is built upon the concept of absolute time and space.
-Once the concept of \textit{inertial frame} is well defined, physics can be
+Once the concept of \textit{inertial frame} is well-defined, physics can be
 done on a space described by Euclidean geometry.
 Free particles (particles on which no forces are acting) move in a straight
 line, which is the shortest distance between two points in a three-dimensional
@@ -60,12 +60,12 @@ four-dimensional spacetime, usually referred to as \textit{flat spacetime} or
 \textit{Minkowski space}.
 
 This new geometry allowed for a reformulation of Maxwell's Equations and
-brought (and explained) fenomena like time dilation, length contraction and the
+brought (and explained) phenomena like time dilation, length contraction and the
 relativity of simultaneity.
 The last one in particular, the concept that the simultaneity of two events
 depends on the frame of reference, poses a thread to the \textit{force} of
 gravity.
-Up until this point gravity was defined as the istantaneous force $F_{12}$
+Up until this point gravity was defined as the instantaneous force $F_{12}$
 acting on a mass $m_1$ at time $t$ due to a second mass $m_2$:
 
 \begin{equation}
@@ -73,10 +73,10 @@ acting on a mass $m_1$ at time $t$ due to a second mass $m_2$:
     \label{eq:force_of_gravity}
 \end{equation}
 
-The abjective \textit{istantaneous} in a theory where nothing can travel faster
-then the speed of light should already raise some concern.
+The adjective \textit{instantaneous} in a theory where nothing can travel
+faster than the speed of light should already raise some concern.
 But looking at $r_1(t)$ and $r_2(t)$ in eq. \ref{eq:force_of_gravity}, that are
-supposed to indicate the positions of the masses in the same istant of time,
+supposed to indicate the positions of the masses in the same instant of time,
 makes it even more clear that the force $F_{12}$ can't be the same in all
 frames of reference.
 
@@ -86,17 +86,18 @@ bending the four-dimensional spacetime itself.
 This implies that when we observe a particle deviating its trajectory from a
 straight line in the presence of a massive object, it's not because of a force
 acting on it.
-In fact we can consider the particle free and moving from point A to point B
+In fact, we can consider the particle free and moving from point A to point B
 along the shortest path, it's just that in the curved surface bent by the mass
 the shortest path is not a straight line.
 
 While this concept may not enhance our intuitive understanding, the
 implications and the mathematical formalism required to articulate the theory
-are even more challenging. If the presence of mass distorts the space we work
-in, this necessitate a change in the line element $\mathrm{d}s^2$.
+are even more challenging.
+If the presence of mass distorts the space we work in, changing in the line
+element $\mathrm{d}s^2$ is then necessary.
 The detail of the theories, particularly the Einstein field equations, that
-desiribe this distortion and allow us to evaluate the new $\mathrm{d}s$ from a
-give distribution of masslare beyond the scope of this thesis.
+describe this distortion and allow us to evaluate the new $\mathrm{d}s$ from a
+give distribution of mass are beyond the scope of this thesis.
 Our focus will be on evaluating the effect that are observable, given the line
 element.
 
@@ -107,44 +108,52 @@ star.
 It's one of the simplest because of the many symmetries that presents and,
 luckily, is also one of the most useful.
 
-The line element of what is more commonly know as the \Sh{} geometry is
+The line element of what is more commonly know as the \Sh geometry is
 
-\begin{equation}
+\begin{equation*}
     \mathrm{d}s^2 = - \left(1 - \frac{2 G M}{c^2 r} \right) (c \mathrm{d}t)^2
     + \left(1 - \frac{2 G M}{c^2 r} \right)^{-1} \mathrm{d}r^2
     + r^2 (\mathrm{d}\theta^2 + \sin^2 \theta \mathrm{d}\phi^2)
-    \label{eq:Sh_ds}
-\end{equation}
+\end{equation*}
 
 expressed in spherical coordinates centered in the mass responsible for bending
 the space.
 
 
-\newpage
-\subsection{Notation and formalisms} \label{ssec:notation}
 
-In the \textit{flat spacetime}, once we have chosen a particular inertial
-frame, we can introduce a basis for four-vectors
-$\{ \mathbf{e_t}, \mathbf{e_x}, \mathbf{e_y}, \mathbf{e_z} \}$, or equivalently
-$\{ \mathbf{e_0}, \mathbf{e_1}, \mathbf{e_2}, \mathbf{e_3} \}$, of unit length.
+
+\newpage
+\subsection{Notation and Formalism} \label{ssec:notation}
+
+In the \textit{flat spacetime} we can introduce a coordinate basis for
+four-vectors
+\begin{equation}
+    \mathbf{e_t} = (1,0,0,0), \quad
+    \mathbf{e_x} = (0,1,0,0), \quad
+    \mathbf{e_y} = (0,0,1,0), \quad
+    \mathbf{e_z} = (0,0,0,1).
+\end{equation}
+The set 
+$\{ \mathbf{e_t}, \mathbf{e_x}, \mathbf{e_y}, \mathbf{e_z} \}$, is often
+referred to as $\{ \mathbf{e_0}, \mathbf{e_1}, \mathbf{e_2}, \mathbf{e_3} \}$.
 Any four-vector $\textbf{a}$ can then be written as
 
 \begin{equation}
     \textbf{a}
-    = a^t \mathbf{e_r} + a^x \mathbf{e_x} + a^y \mathbf{e_y} + a^z \mathbf{e_z}
+    = a^t \mathbf{e_t} + a^x \mathbf{e_x} + a^y \mathbf{e_y} + a^z \mathbf{e_z}
     = a^0 \mathbf{e_0} + a^1 \mathbf{e_1} + a^2 \mathbf{e_2} + a^3 \mathbf{e_3}
     \label{eq:a}
 \end{equation}
 
-where $(a_t,~a_x,~a_y,~a_z)$, or $(a_0,~a_1,~a_2,~a_3)$, are the components of
-the four-vector.
+where $(a_t,~a_x,~a_y,~a_z)$, or equivalently $(a_0,~a_1,~a_2,~a_3)$, are the
+components of the four-vector.
 Both notations will be used.
 
 Another useful convention is to use Roman letters (usually $i$ or $j$) to refer
 to indices 1, 2, 3 and Greek letters (usually $\mu$ or $\nu$) to refer to
 indices 0, 1, 2, 3.
 Using Einstein notation the expression in eq. \ref{eq:a}, can be rewritten
-simply as $\textbf{a} = a^\mu e_\mu$.
+simply as $\textbf{a} = a^\mu \mathbf {e_\mu}$.
 Other useful ways to specify the components of $\textbf{a}$ are
 
 \begin{equation*}
@@ -152,14 +161,14 @@ Other useful ways to specify the components of $\textbf{a}$ are
     = (a^t, \vec a)
 \end{equation*}
 
-where $\vec a = a^i e_i$ is the tree-dimensional vector $(e_1, e_2, e_3)$.
+where $\vec a = a^i e_i$ is the tree-dimensional vector $(a_x, a_y, a_z)$.
 
-The length of the four-vector $\mathbf{a}$ must match the definition given with the
-$\Delta s^2$ in \ref{eq:Minkowski}, it's useful to define the
+The length of the four-vector $\mathbf{a}$ must match the definition given with
+the $\Delta s^2$ in \ref{eq:Minkowski}, it's useful to define the
 \textit{metric} $\eta_{\nu \mu}$ so that
 
 \begin{equation}
-    \eta_{\alpha \beta} = 
+    \eta_{\nu \mu} = 
     \begin{array}{cc}
         \begin{pNiceMatrix}[first-row,first-col][columns-width = auto]
               & t & x & y & z \\
@@ -173,9 +182,9 @@ $\Delta s^2$ in \ref{eq:Minkowski}, it's useful to define the
     \mathrm{d}s^2 = \eta_{\nu \mu} \mathrm{d}x^\nu \mathrm{d}x^\mu
 \end{equation}
 
-where a double sum is implied and we rightfully notice that the minus sign has
+where a double sum is implied, and we rightfully notice that the minus sign has
 appeared again under the $t$ component.
-Now we campactly write
+Now we can compactly write
 
 \begin{equation}
     \mathbf{a} \cdot \mathbf{a} = \eta_{\mu \nu} \, a^\mu \, a^\nu
@@ -184,13 +193,13 @@ Now we campactly write
 
 Without any claim of rigorously demonstrating it, we can say that since this
 scalar product is built from the line element $\mathrm{d}s^2$, it's the same
-in every inertial frame one might choose. Quantities that have this properties
+in every inertial frame one might choose. Quantities that have these properties
 are \textit{invariant}.
 
-When working in the \Sh{} geometry it's useful to adopt the \Sh{} coordinates,
+When working in the \Sh geometry it's useful to adopt the \Sh coordinates,
 spherical coordinates centered at the center of the mass $M$, and use
 geometrized units, where $G = c = 1$.
-Then line element and the metric can be rewritten as
+The line element and the metric can be rewritten as
 
 \begin{equation}
     \mathrm{d}s^2 = - \left(1 - \frac{2 M}{r} \right) (c \mathrm{d}t)^2
@@ -200,7 +209,7 @@ Then line element and the metric can be rewritten as
 \end{equation}
 
 \begin{equation}
-    g_{\alpha \beta} = 
+    g_{\nu \mu} = 
     \begin{array}{cc}
         \begin{pNiceMatrix}[first-row,first-col][columns-width = auto]
               & t & r & \theta & \phi \\
@@ -210,7 +219,15 @@ Then line element and the metric can be rewritten as
             \phi~~ & 0 & 0 & 0 & r^2 \sin^2 \theta \\
         \end{pNiceMatrix} &
     \end{array}
+    .
     \label{eq:Sh_g}
+\end{equation}
+
+It's worth noting that, given \ref{eq:Sh_ds}, the orthonormal frame indtroduced
+becomes
+
+\begin{equation}
+    \mathbf{\hat e_t} = \left(1 - \frac{2M}{r}\right)^{-1/2} \mathbf{e_t}
 \end{equation}
 
 \newpage
