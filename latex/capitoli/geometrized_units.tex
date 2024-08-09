@@ -1,0 +1,81 @@
+% ::setlocal makeprg=cd\ latex\ &&\ pdflatex\ -interaction=batchmode\ main.tex\ &&\ xdg-open\ main.pdf\ &&\ exit
+
+\chapter{Geometrized Units} \label{ap:geometrized_units}
+
+In general relativity the constants $G \simeq \num{6.67430e-11}
+\unit{\newton\meter\squared\per\kilo\gram\squared}$ and 
+$c = \num{299792458} \unit[per-mode = symbol]{\meter\per\second}$ appears quite
+often, so it's useful to redefine our units of measurements to cancel them out.
+Let's take the \Sh line element as an example
+
+\begin{equation}
+    \mathrm{d}s^2 = - \left(1 - \frac{2 G M}{c^2 r} \right) (c \mathrm{d}t)^2
+    + \left(1 - \frac{2 G M}{c^2 r} \right)^{-1} \mathrm{d}r^2
+    + r^2 (\mathrm{d}\theta^2 + \sin^2 \theta \mathrm{d}\phi^2)
+    \, .
+    \label{ap1:eq:1}
+\end{equation}
+
+Time always appears next to the speed of light, $ct$. This is effectively as if
+we were measuring time with the distance that light can cover in t seconds.
+%We can then substitute $\hat t = ct$ and get
+%
+%\begin{equation*}
+%    \mathrm{d}s^2 = - \left(1 - \frac{2 G M}{c^2 r} \right) \mathrm{d} \hat t^2
+%    + \left(1 - \frac{2 G M}{c^2 r} \right)^{-1} \mathrm{d}r^2
+%    + r^2 (\mathrm{d}\theta^2 + \sin^2 \theta \mathrm{d}\phi^2)
+%    \, .
+%\end{equation*}
+
+The mass $M$ is measured in \unit{\kilogram} in S.I. units.
+If we multiply it by $G$ and divide by $c^2$ we get 
+
+\begin{equation*}
+    \left[\frac{GM}{c^2} \right] =
+    \frac{\unit{\newton\meter\squared\per\kilo\gram\squared\kilo\gram}}
+    {\unit{\meter\squared\per\second\squared}} = 
+    \frac{\unit{\newton}}{\unit{\kilogram}} \unit{\second\squared}=
+    \unit{\meter} \, .
+\end{equation*}
+
+So, in a less intuitive way, we can measure the mass as a distance too.
+
+Substituting $\hat t = ct$ and $\hat M = \frac{GM}{c^2}$ in eq. \ref{ap1:eq:1}
+gives
+
+
+\begin{equation*}
+    \mathrm{d}s^2 = - \left(1 - \frac{2 \hat M}{r} \right) \mathrm{d} \hat t^2
+    + \left(1 - \frac{2 \hat M}{r} \right)^{-1} \mathrm{d}r^2
+    + r^2 (\mathrm{d}\theta^2 + \sin^2 \theta \mathrm{d}\phi^2)
+    \, .
+\end{equation*}
+
+In this way we went from a $\mathcal{LMT}$(Length Mass Time) units system, to
+an $\mathcal{L}$ one.
+Since it will be clearly said when this convention, loosely referred to as
+$G = c = 1$, is in use we will omit the \textit{hat} in the new defined
+variables.
+
+To go back to $\mathcal{LMT}$ units we just need to substitute back
+$t \rightarrow ct$ and $M \rightarrow \frac{GM}{c^2}$, being extra careful
+on cases like the speed, that is derived from time and therefor inherits a
+$1 / c$ factor.
+
+Table \ref{tab:G=1_ex} shows some typical value for geometrized units.
+
+\begin{table}[h!!!]
+    \centering
+    \begin{tabular}{c|c|c}
+         & S.I. units & Geometrized units \\
+         \hline
+         Mass of the Earth & \num{5.97e24} \unit{\kilogram} & 4.43 \unit{\milli\meter} \\
+         \hline
+         Mass of the Sun & \num{1.99e30} \unit{\kilogram} & 1.48 \unit{\kilo\meter} \\
+         \hline
+         M87 black hole & \num{6.5e9}$M_\odot$ & 64.2 \unit{\astronomicalunit} \\
+         \hline
+    \end{tabular}
+    \label{tab:G=1_ex}
+    \caption{Some common masses of the universe expressed in unit of length.}
+\end{table}

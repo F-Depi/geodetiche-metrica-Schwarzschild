@@ -23,7 +23,7 @@ With the appearance of Maxwell's Equations it became clear that what they
 predicted (the speed of light being constant in every inertial frame) was in
 contrast with the description of our space given by Newtonian Mechanics, where
 the speed of anything changes with respect to the inertial frame chosen.
-Between Maxwell's Equations end Newtonian mechanics Einstein chose to modify 
+Between Maxwell's Equations and Newtonian mechanics Einstein chose to modify 
 the latter and wrote his two postulates for the theory of Special Relativity:
 
 \begin{itemize}
@@ -49,9 +49,9 @@ In special relativity distances measured this way are the same for every
 observer in every inertial frame possible.
 
 The appearance of time in a formula that is supposed to give us the distance
-between 2 objects is surely destabilizing at first, but geometry teaches us
+between two objects is surely destabilizing at first, but geometry teaches us
 that fixing the way we calculate $\Delta s^2$, more properly referred to as the
-\textit{line element} $\mathrm{d}s^2$, it's enough to describe the geometry of
+\textit{line element} $\mathrm{d}s^2$, is enough to describe the geometry of
 the space that we are using.
 Since eq. \ref{eq:Minkowski} is different from eq. \ref{eq:euclide}, in
 particular there is a minus sign in front of $\Delta t^2$, we moved away from
@@ -63,7 +63,7 @@ This new geometry allowed for a reformulation of Maxwell's Equations and
 brought (and explained) phenomena like time dilation, length contraction and the
 relativity of simultaneity.
 The last one in particular, the concept that the simultaneity of two events
-depends on the frame of reference, poses a thread to the \textit{force} of
+depends on the frame of reference, poses a threat to the \textit{force} of
 gravity.
 Up until this point gravity was defined as the instantaneous force $F_{12}$
 acting on a mass $m_1$ at time $t$ due to a second mass $m_2$:
@@ -77,35 +77,35 @@ The adjective \textit{instantaneous} in a theory where nothing can travel
 faster than the speed of light should already raise some concern.
 But looking at $r_1(t)$ and $r_2(t)$ in eq. \ref{eq:force_of_gravity}, that are
 supposed to indicate the positions of the masses in the same instant of time,
-makes it even more clear that the force $F_{12}$ can't be the same in all
+makes it even clearer that the force $F_{12}$ can't be the same in all
 frames of reference.
 
 Solving this issue gave birth to the theory of general relativity, where a mass
-is not a source of gravitational force anymore, but it's responsible for
+is not a source of gravitational force anymore, but is responsible for
 bending the four-dimensional spacetime itself.
 This implies that when we observe a particle deviating its trajectory from a
-straight line in the presence of a massive object, it's not because of a force
+straight line in the presence of a massive object, it is not because of a force
 acting on it.
 In fact, we can consider the particle free and moving from point A to point B
-along the shortest path, it's just that in the curved surface bent by the mass
+along the shortest path, it is just that in the curved surface bent by the mass
 the shortest path is not a straight line.
 
 While this concept may not enhance our intuitive understanding, the
 implications and the mathematical formalism required to articulate the theory
 are even more challenging.
-If the presence of mass distorts the space we work in, changing in the line
-element $\mathrm{d}s^2$ is then necessary.
-The detail of the theories, particularly the Einstein field equations, that
+If the presence of mass distorts the space we work in, changing the line
+element $\mathrm{d}s^2$ is therefore necessary.
+The details of the theories, particularly the Einstein field equations, that
 describe this distortion and allow us to evaluate the new $\mathrm{d}s$ from a
 give distribution of mass are beyond the scope of this thesis.
-Our focus will be on evaluating the effect that are observable, given the line
+Our focus will be on evaluating the observable effects, given the line
 element.
 
 More specifically we will study one of the simplest curved spacetime that
 general relativity has to offer: the geometry of empty space outside a
 spherically symmetric source of curvature, for example, a spherical
 star.
-It's one of the simplest because of the many symmetries that presents and,
+It is one of the simplest because of the many symmetries that presents and,
 luckily, is also one of the most useful.
 
 The line element of what is more commonly know as the \Sh geometry is
@@ -132,6 +132,7 @@ four-vectors
     \mathbf{e_x} = (0,1,0,0), \quad
     \mathbf{e_y} = (0,0,1,0), \quad
     \mathbf{e_z} = (0,0,0,1).
+    \label{eq:coord_base}
 \end{equation}
 The set 
 $\{ \mathbf{e_t}, \mathbf{e_x}, \mathbf{e_y}, \mathbf{e_z} \}$, is often
@@ -164,7 +165,7 @@ Other useful ways to specify the components of $\textbf{a}$ are
 where $\vec a = a^i e_i$ is the tree-dimensional vector $(a_x, a_y, a_z)$.
 
 The length of the four-vector $\mathbf{a}$ must match the definition given with
-the $\Delta s^2$ in \ref{eq:Minkowski}, it's useful to define the
+the $\Delta s^2$ in \ref{eq:Minkowski}, it is useful to define the
 \textit{metric} $\eta_{\nu \mu}$ so that
 
 \begin{equation}
@@ -192,21 +193,20 @@ Now we can compactly write
 \end{equation}
 
 Without any claim of rigorously demonstrating it, we can say that since this
-scalar product is built from the line element $\mathrm{d}s^2$, it's the same
+scalar product is built from the line element $\mathrm{d}s^2$, it is the same
 in every inertial frame one might choose. Quantities that have these properties
 are \textit{invariant}.
 
-When working in the \Sh geometry it's useful to adopt the \Sh coordinates,
+When working in the \Sh geometry it is useful to adopt the \Sh coordinates,
 spherical coordinates centered at the center of the mass $M$, and use
-geometrized units, where $G = c = 1$.
+geometrized units, where $G = c = 1$ (Appendix \ref{ap:geometrized_units}).
 The line element and the metric can be rewritten as
 
-\begin{equation}
-    \mathrm{d}s^2 = - \left(1 - \frac{2 M}{r} \right) (c \mathrm{d}t)^2
+\begin{equation*}
+    \mathrm{d}s^2 = - \left(1 - \frac{2 M}{r} \right) (\mathrm{d}t)^2
     + \left(1 - \frac{2 M}{r} \right)^{-1} \mathrm{d}r^2
     + r^2 (\mathrm{d}\theta^2 + \sin^2 \theta \mathrm{d}\phi^2)
-    \label{eq:Sh_ds}
-\end{equation}
+\end{equation*}
 
 \begin{equation}
     g_{\nu \mu} = 
@@ -223,13 +223,76 @@ The line element and the metric can be rewritten as
     \label{eq:Sh_g}
 \end{equation}
 
-It's worth noting that, given \ref{eq:Sh_ds}, the orthonormal frame indtroduced
-becomes
+It's worth pointing out that, given \ref{eq:Sh_ds}, the coordinate basis
+introduced in \ref{eq:coord_base} is not normalized in this geometry, for example:
 
 \begin{equation}
-    \mathbf{\hat e_t} = \left(1 - \frac{2M}{r}\right)^{-1/2} \mathbf{e_t}
+    \mathbf{e_t \cdot e_t} = g_{\nu \mu} e_t^\mu e_t^\nu = g_{00}
+    = - (1 - 2 M /r)
 \end{equation}
 
-\newpage
-\section{Conserved Quantities}
+If we want an orthonormal tetrad we can define
 
+\begin{align}
+    \mathbf{\hat e_t} &= \left(1 - \frac{2M}{r}\right)^{-1/2} \mathbf{e_t}
+    \quad &&\implies \quad
+    \mathbf{\hat e_t \cdot \hat e_t} = g_{\nu \mu} \hat e_t^\mu \hat e_t^\nu
+    = g_{00} \left(1 - \frac{2M}{r}\right)^{-1} = - 1 \\
+    %
+    \mathbf{\hat e_r} &= \left(1 - \frac{2M}{r}\right)^{1/2} \mathbf{e_r}
+    \quad &&\implies \quad
+    \mathbf{\hat e_r \cdot \hat e_r} = g_{\nu \mu} \hat e_r^\mu \hat e_r^\nu
+    = g_{00} \left(1 - \frac{2M}{r}\right) = 1 \\
+    %
+    \mathbf{\hat e_\theta} &= \frac{1}{r} \mathbf{e_t}
+    \quad &&\implies \quad
+    \mathbf{\hat e_\theta \cdot \hat e_\theta} = 1 \\
+    %
+    \mathbf{\hat e_\phi} &= \frac{1}{r \sin \theta} \mathbf{e_t}
+    \quad &&\implies \quad
+    \mathbf{\hat e_\phi \cdot \hat e_\phi} = 1 \\
+\end{align}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Proprieties of the Metric}
+
+Let's first analyze the \Sh metric in more detail:
+
+\begin{equation}
+    \mathrm{d}s^2 = - \left(1 - \frac{2 M}{r} \right) (\mathrm{d}t)^2
+    + \left(1 - \frac{2 M}{r} \right)^{-1} \mathrm{d}r^2
+    + r^2 (\mathrm{d}\theta^2 + \sin^2 \theta \mathrm{d}\phi^2)
+    \label{eq:Sh_ds}
+\end{equation}
+
+There are two singularities in $r = 0$ and $r = 2M$.
+The first one is intrinsic to the spherical coordinate system and, since the
+metric is only valid in the space outside the start, doesn't concern us.
+The second occur at what is defined as the \textit{\Sh radius} $r_s = 2M$.
+Every non-black hole object has a radius larger than its \Sh radius.
+The nature and significance of this will become clearer in the subsequent
+sections.
+
+On the other hand, if we take the limit as $r$ approaches infinity, we notice that the
+metric becomes asymptotically flat, approaching the metric of \Mi space.
+
+Finally, $\mathrm{d}s^2$ is independent of the coordinates $t$ and $\phi$.
+This is expected, as the mass responsible for curving the spacetime is static
+and spherically symmetric.
+The metric’s independence from time and rotation implies the existence of two
+easy \textit{killing vectors}:
+
+\begin{equation}
+    \xi = (1, 0, 0, 0) \quad \text{and} \quad \eta = (0, 0, 0, 1) \, .
+\end{equation}
+
+A \textit{killing vector} is a direction in the four-dimension spacetime along
+which we can freely move without changing the metric.
+This means that the spacetime metric $g_{\nu \mu}$ remains unchanged, and with
+it distances ($\Delta s^2 = g_{\mu \nu} x^\nu x^\mu$) and other quantities
+evaluated with it.
