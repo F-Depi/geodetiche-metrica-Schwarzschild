@@ -302,7 +302,7 @@ We start by considering the four-momentum $\mathbf{p}$ of a particle of mass
 $m$, defined as
 
 \begin{equation}
-    p^\mu := m u^\mu = m \dv[]{x^\mu}{\tau}
+    p^\mu := m u^\mu = m \dv{x^\mu}{\tau}
 \end{equation}
 
 where $u$ is the four-velocity of the particle, $x$ its position and $\tau$ the
@@ -311,9 +311,9 @@ Therefor the quantities
 
 \begin{align*}
     E &= - \mathbf{\xi \cdot p} =
-    - g_{00} \, p^0 = m \left( 1 - \frac{2M}{r} \right) \dv[]{x^t}{\tau} \\
+    - g_{00} \, p^0 = m \left( 1 - \frac{2M}{r} \right) \dv{x^t}{\tau} \\
     L &= \mathbf{\eta \cdot p} =
-    g_{33} \, p^\phi = m r^2 \sin^2 \theta \dv[]{x^\phi}{\tau}
+    g_{33} \, p^\phi = m r^2 \sin^2 \theta \dv{x^\phi}{\tau}
 \end{align*}
 
 will be conserved along the geodesic.
@@ -323,15 +323,38 @@ To simplify the expressions the discussion will use renormalized quantities
 
 \begin{subequations}
     \begin{align}
-        e &= \frac{E}{m} = \left( 1 - \frac{2M}{r} \right) \dv[]{x^t}{\tau}
-        \label{eq:conserved_l} \\
-        l &= \frac{L}{m} = r^2 \sin^2 \theta \dv[]{x^\phi}{\tau} \, .
+        e &= \frac{E}{m} = \left( 1 - \frac{2M}{r} \right) \dv{x^t}{\tau}
+        \label{eq:conserved_e} \\
+        l &= \frac{L}{m} = r^2 \sin^2 \theta \dv{x^\phi}{\tau} \, .
         \label{eq:conserved_l}
     \end{align}
 \end{subequations}
 
 $e$ and $l$ are the conserved energy and angular momentum per unit rest mass.
 
+In the next sections the normalization of the four-velocity $\mathbf u$ will be
+really useful too
+
+\begin{subequations}
+    \begin{align}
+        &\mathbf{u \cdot u} = g_{\nu \mu} u^\nu u^\mu = -1 
+        &&\text{for } m \neq 0 \label{eq:u_normalization_mass} \\
+        &\mathbf{u \cdot u} = g_{\nu \mu} u^\nu u^\mu = 0 
+        &&\text{for } m = 0 \label{eq:u_normalization_light} \, .
+    \end{align}
+    \label{eq:u_normalization}
+\end{subequations}
+
+It's not a property of the metric, but it's valid for every $g_{\nu \mu}$.
+Equations \ref{eq:u_normalization} can be derived like this
+
+\begin{align*}
+    \mathrm{d}s^2 &= g_{\nu \mu} \mathrm{d}x^\nu \mathrm{d}x^\mu \\
+    \dv{s^2}{\tau^2} &= g_{\nu \mu} \dv{x^\nu}{\tau} \dv{x^\mu}{\tau} \, .
+\end{align*}
+
+From here we use $\mathrm{d}s^2 = 0$ for a light ray, or the definition of
+proper time $\mathrm{d}\tau^2 = - \mathrm{d}s^2$ for a massive particle.
 
 \section{Gravitational Redshift}
 
@@ -372,10 +395,10 @@ their own tetrad is
 Taking the limit as $r'$ approaches infinity and using $E = \hbar \omega$ for
 the energy of the photon
 
-\begin{equation}
+\begin{equation*}
     \omega_\infty = \omega_* \left(1 - \frac{2M}{r} \right)^{1/2} \, .
     \label{eq:redshift}
-\end{equation}
+\end{equation*}
 
 Here, $\omega_\infty$ is the frequency measured by a distant observer at
 $r >> r_s$, while $w_*$ denotes the frequency measured at a specific distance
@@ -422,14 +445,21 @@ compared to the one they have at the point of emission.
 \end{minipage}
 \hspace{0.02 \textwidth}
 \begin{minipage}{0.57 \textwidth}
-    We now study the orbits of test particle in this geometry.
-    Test particles are defined as particle having a mass small enough to not
-    disturb the geometry of the space surrounding them.
+    We now study the orbits of a \textit{test particle} in this geometry.
+    A \textit{test particle} is defined as a particle with a mass so small that
+    it does not significantly disturb the surrounding spacetime geometry.
 
     From eq. \ref{eq:conserved_l} we know that the angular momentum is
-    conserved.
+    conserved, so we can expect the orbit to lie on a plane.
     Without loosing generality we can imagine the particle path to stay in the
-    $xy$ plane, fixing $\theta = \pi / 2$.
-    
+    $xy$ plane, fixing $\theta = \pi / 2$ and, consequently,
+    \begin{equation*}
+        u^\theta = \dv{\theta}{\tau} = 0 
+    \end{equation*}
+    \begin{equation*}
+        l = r^2 \sin^2 \theta \dv{\phi}{\tau} = r^2 \dv{\phi}{\tau}
+    \end{equation*}
 \end{minipage}
+
+
 
