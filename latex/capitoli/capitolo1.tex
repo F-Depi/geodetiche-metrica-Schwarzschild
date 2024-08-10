@@ -321,11 +321,14 @@ We already named them $E$ and $L$ as they are respectively the energy and the
 angular momentum at large $r$ and low velocities.
 To simplify the expressions the discussion will use renormalized quantities
 
-\begin{align}
-    e &= \frac{E}{m} = \left( 1 - \frac{2M}{r} \right) \dv[]{x^t}{\tau} \\
-    l &= \frac{L}{m} = r^2 \sin^2 \theta \dv[]{x^\phi}{\tau} \, .
-    \label{eq:conserved_e_l}
-\end{align}
+\begin{subequations}
+    \begin{align}
+        e &= \frac{E}{m} = \left( 1 - \frac{2M}{r} \right) \dv[]{x^t}{\tau}
+        \label{eq:conserved_l} \\
+        l &= \frac{L}{m} = r^2 \sin^2 \theta \dv[]{x^\phi}{\tau} \, .
+        \label{eq:conserved_l}
+    \end{align}
+\end{subequations}
 
 $e$ and $l$ are the conserved energy and angular momentum per unit rest mass.
 
@@ -382,3 +385,51 @@ compared to the one they have at the point of emission.
 
 
 \section{Particle Orbits}
+
+\begin{minipage}{0.4 \textwidth}
+% 3D AXIS with spherical coordinates
+\tdplotsetmaincoords{60}{110}
+\begin{tikzpicture}[scale=2,tdplot_main_coords]
+  
+    % Red vector coordinates
+    \def\rvec{1.6}
+    \def\thetavec{30}
+    \def\phivec{60}
+    
+    % AXES
+    \coordinate (O) at (0,0,0);
+    \draw[thick,->] (0,0,0) -- (2,0,0) node[below left=-3]{$x$};
+    \draw[thick,->] (0,0,0) -- (0,2,0) node[right=-1]{$y$};
+    \draw[thick,->] (0,0,0) -- (0,0,2) node[above=-1]{$z$};
+    
+    % VECTORS
+    \tdplotsetcoord{P}{\rvec}{\thetavec}{\phivec}
+    \draw[thick,red] (O)  -- (P) node[above right=-2] {$(r, \theta, \phi)$};
+    \draw[dashed]   (O)  -- (Pxy);
+    \draw[dashed]   (P)  -- (Pxy);
+    
+    % ARCS
+    \tdplotdrawarc[thick,->]{(O)}{0.4}{0}{\phivec} {anchor=north}{$\phi$}
+    \tdplotsetthetaplanecoords{\phivec}
+    \tdplotdrawarc[thick,->,tdplot_rotated_coords]{(0,0,0)}{0.5}{0}{\thetavec}
+        {anchor=south west}{\hspace{-1mm}$\theta$}
+
+    % Center Point
+    \shade[inner color=white, outer color=blue!60!black] (0,0,0) circle (3pt);
+
+    \label{fig:spherical_coordinates}
+\end{tikzpicture}
+\end{minipage}
+\hspace{0.02 \textwidth}
+\begin{minipage}{0.57 \textwidth}
+    We now study the orbits of test particle in this geometry.
+    Test particles are defined as particle having a mass small enough to not
+    disturb the geometry of the space surrounding them.
+
+    From eq. \ref{eq:conserved_l} we know that the angular momentum is
+    conserved.
+    Without loosing generality we can imagine the particle path to stay in the
+    $xy$ plane, fixing $\theta = \pi / 2$.
+    
+\end{minipage}
+
