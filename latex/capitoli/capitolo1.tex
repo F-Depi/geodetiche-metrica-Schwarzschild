@@ -356,6 +356,7 @@ Equations \ref{eq:u_normalization} can be derived like this
 From here we use $\mathrm{d}s^2 = 0$ for a light ray, or the definition of
 proper time $\mathrm{d}\tau^2 = - \mathrm{d}s^2$ for a massive particle.
 
+
 \section{Gravitational Redshift}
 
 Let's consider a static observer in $r$.
@@ -415,9 +416,9 @@ compared to the one they have at the point of emission.
 \begin{tikzpicture}[scale=2,tdplot_main_coords]
   
     % Red vector coordinates
-    \def\rvec{1.6}
-    \def\thetavec{30}
-    \def\phivec{60}
+    \def\rvec{1.15}
+    \def\thetavec{90}
+    \def\phivec{70}
     
     % AXES
     \coordinate (O) at (0,0,0);
@@ -427,8 +428,8 @@ compared to the one they have at the point of emission.
     
     % VECTORS
     \tdplotsetcoord{P}{\rvec}{\thetavec}{\phivec}
-    \draw[thick,red] (O)  -- (P) node[above right=-2] {$(r, \theta, \phi)$};
-    \draw[dashed]   (O)  -- (Pxy);
+    \draw[thick,red] (O)  -- (P) node[below right=2] {$(r, \theta = \frac{\pi}{2}, \phi)$};
+    %\draw[dashed]   (O)  -- (Pxy);
     \draw[dashed]   (P)  -- (Pxy);
     
     % ARCS
@@ -436,6 +437,16 @@ compared to the one they have at the point of emission.
     \tdplotsetthetaplanecoords{\phivec}
     \tdplotdrawarc[thick,->,tdplot_rotated_coords]{(0,0,0)}{0.5}{0}{\thetavec}
         {anchor=south west}{\hspace{-1mm}$\theta$}
+
+    % Particle trajectory in XY plane
+    \draw[thick,green,domain=-1.5:1.8,samples=100,variable=\t] 
+        plot (\t, {1.5 - 1/(\t + 2)}, 0);
+    % Dashed at the beginning
+    \draw[thick,green,dashed,domain=1.8:2.3,samples=100,variable=\t] 
+        plot (\t, {1.5 - 1/(\t + 2)}, 0);
+    % Dashed at the end
+    \draw[thick,green,dashed,domain=-1.55:-1.5,samples=100,variable=\t] 
+        plot (\t, {1.5 - 1/(\t + 2)}, 0);
 
     % Center Point
     \shade[inner color=white, outer color=blue!60!black] (0,0,0) circle (3pt);
@@ -461,5 +472,47 @@ compared to the one they have at the point of emission.
     \end{equation*}
 \end{minipage}
 
+The four-velocity of our test particle can be written as
+\begin{equation*}
+    u^\mu
+    = \left(\dv{x^t}{\tau}, \dv{x^r}{\tau}, \dv{x^\theta}{\tau}, \dv{x^\phi}{\tau} \right)
+    = \left(\dv{t}{\tau}, \dv{r}{\tau}, 0, \frac{l}{r^2} \right) \, .
+\end{equation*}
 
+Where we simplified the notation using $t = x^t$ and $r = x^r$.
+Thanks to the normalization of $\mathbf u$ and using $\theta = \pi / 2$ again,
+we can now write
+
+\begin{equation*}
+    - 1 = g_{\nu \mu} u^\nu u^\mu =
+    - \left(1 - \frac{2M}{r} \right) \left(\dv{t}{\tau} \right)^2
+    + \left(1 - \frac{2M}{r} \right)^{- 1} \left(\dv{r}{\tau} \right)^2
+    + \frac{l^2}{r^2}
+\end{equation*}
+
+By using the conserved energy per unit rest mass found in \ref{eq:conserved_e} to
+eliminate the dependence from $t$ and rearranging the expression, we have
+
+\begin{equation}
+    \mathcal E = \frac{e^2 - 1}{2} = \frac{1}{2} \left(\dv{r}{\tau}\right)^2
+    + \frac{l^2}{2 r^2} - \frac{M}{2} - \frac{M l^2}{r^3}
+    \label{eq:found_epsilon}
+\end{equation}
+
+Here we divided everything by a factor 2 and defined $\mathcal E$, so that is
+resembled the Newtonian case.
+We can also define an effective potential
+
+\begin{equation*}
+    V_{eff}(r) = \frac{l^2}{2 r^2} - \frac{M}{2} - \frac{M l^2}{r^3}
+\end{equation*}
+
+and rewrite eq. \ref{eq:found_epsilon} as
+
+\begin{equation}
+    \mathcal E = \frac{1}{2} \left(\dv{r}{\tau}\right)^2 + V_{eff}(r) \, .
+    \label{eq:epsilon_equation}
+\end{equation}
+
+Where $\mathcal E$ is dimentionless and constant.
 
