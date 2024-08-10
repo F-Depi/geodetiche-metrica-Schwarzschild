@@ -233,11 +233,13 @@ introduced in \ref{eq:coord_base} is not normalized in this geometry, for exampl
 
 If we want an orthonormal tetrad we can define
 
+\begin{subequations}
 \begin{align}
     \mathbf{\hat e_t} &= \left(1 - \frac{2M}{r}\right)^{-1/2} \mathbf{e_t}
     \quad &&\implies \quad
     \mathbf{\hat e_t \cdot \hat e_t} = g_{\nu \mu} \hat e_t^\mu \hat e_t^\nu
-    = g_{00} \left(1 - \frac{2M}{r}\right)^{-1} = - 1 \\
+    = g_{00} \left(1 - \frac{2M}{r}\right)^{-1} = - 1
+    \label{eq:local_ON_base_t}\\
     %
     \mathbf{\hat e_r} &= \left(1 - \frac{2M}{r}\right)^{1/2} \mathbf{e_r}
     \quad &&\implies \quad
@@ -250,8 +252,10 @@ If we want an orthonormal tetrad we can define
     %
     \mathbf{\hat e_\phi} &= \frac{1}{r \sin \theta} \mathbf{e_t}
     \quad &&\implies \quad
-    \mathbf{\hat e_\phi \cdot \hat e_\phi} = 1 \\
+    \mathbf{\hat e_\phi \cdot \hat e_\phi} = 1
 \end{align}
+    \label{eq:local_ON_base}
+\end{subequations}
 
 
 
@@ -289,10 +293,94 @@ easy \textit{killing vectors}:
 
 \begin{equation}
     \xi = (1, 0, 0, 0) \quad \text{and} \quad \eta = (0, 0, 0, 1) \, .
+    \label{eq:xi_eta}
 \end{equation}
 
-A \textit{killing vector} is a direction in the four-dimension spacetime along
-which we can freely move without changing the metric.
-This means that the spacetime metric $g_{\nu \mu}$ remains unchanged, and with
-it distances ($\Delta s^2 = g_{\mu \nu} x^\nu x^\mu$) and other quantities
-evaluated with it.
+A \textit{killing vector} is a direction in the four-dimensional spacetime
+along which we can freely move without changing the metric.
+It is a general way to describe a symmetry of the metric.
+Since symmetries correspond to conserved quantities they will be a key point in
+studying the trajectories of free particles, the \textit{geodesics}.
+
+We start by considering the four-momentum $\mathbf{p}$ of a particle of mass
+$m$, defined as
+
+\begin{equation}
+    p^\mu := m u^\mu = m \dv[]{x^\mu}{\tau}
+\end{equation}
+
+where $u$ is the four-velocity of the particle, $x$ its position and $\tau$ the
+proper time.
+Therefor the quantities
+
+\begin{align*}
+    E &= - \mathbf{\xi \cdot p} =
+    - g_{00} \, p^0 = m \left( 1 - \frac{2M}{r} \right) \dv[]{x^t}{\tau} \\
+    L &= \mathbf{\eta \cdot p} =
+    g_{33} \, p^\phi = m r^2 \sin^2 \theta \dv[]{x^\phi}{\tau}
+\end{align*}
+
+will be conserved along the geodesic.
+We already named them $E$ and $L$ as they are respectively the energy and the
+angular momentum at large $r$ and low velocities.
+To simplify the expressions the discussion will use renormalized quantities
+
+\begin{align}
+    e &= \frac{E}{m} = \left( 1 - \frac{2M}{r} \right) \dv[]{x^t}{\tau} \\
+    l &= \frac{L}{m} = r^2 \sin^2 \theta \dv[]{x^\phi}{\tau} \, .
+    \label{eq:conserved_e_l}
+\end{align}
+
+$e$ and $l$ are the conserved energy and angular momentum per unit rest mass.
+
+
+
+\section{Gravitational Redshift}
+
+Let's consider a static observer in $r$.
+When the observer measures the energy of a photon, that corresponds to the $t$
+component of $\mathbf{p}$, they do that using their local orthonormal tetrad
+that we described in \ref{eq:local_ON_base}.
+
+Referring to $p^{\hat t}$ as the value measured in the orthonormal tetrad
+$\{\hat e_t, \hat e_r, \hat e_\theta, \hat e_\phi \}$ and
+$p^t$ as the value measured with the coordinate basis
+$\{e_{t}, e_{r}, e_{\theta}, e_{\phi} \}$, the energy measured in $r$ will be
+
+\begin{equation*}
+    E(r) = p^{\hat t} = \mathbf{p \cdot \hat e_t}
+    = \mathbf{p \cdot e_t} \left(1 - \frac{2M}{r} \right)^{-1/2}
+    = \mathbf{p \cdot \xi} \left(1 - \frac{2M}{r} \right)^{-1/2} \\
+\end{equation*}
+\begin{equation}
+    \left(1 - \frac{2M}{r} \right)^{1/2} E(r) = \mathbf{p \cdot \xi}
+    = \text{const} \, .
+    \label{eq:photon_energy1}
+\end{equation}
+
+Where we used the expression for $\hat e_t$ from eq. \ref{eq:local_ON_base_t}
+and notice that $\mathbf{e_t} = \xi$ from eq. \ref{eq:coord_base} and eq.
+\ref{eq:xi_eta}. 
+Solving for the constant $\mathbf{p} \cdot \xi$ we find the expression in
+\ref{eq:photon_energy1}. The relationship between the energy of a photon
+measured at $r'$ and the one measured at $r$ from two static observers using
+their own tetrad is
+
+\begin{equation*}
+    \left(1 - \frac{2M}{r'} \right)^{1/2} E(r')
+    = \left(1 - \frac{2M}{r} \right)^{1/2} E(r)
+\end{equation*}
+
+Taking the limit as $r'$ approaches infinity and using $E = \hbar \omega$ for
+the energy of the photon
+
+\begin{equation}
+    \omega_\infty = \omega_* \left(1 - \frac{2M}{r} \right)^{1/2} \, .
+    \label{eq:redshift}
+\end{equation}
+
+Here, $\omega_\infty$ is the frequency measured by a distant observer at
+$r >> r_s$, while $w_*$ denotes the frequency measured at a specific distance
+$r$.
+Photons observed at a certain distance from a star exhibit a lower frequency
+compared to the one they have at the point of emission.
