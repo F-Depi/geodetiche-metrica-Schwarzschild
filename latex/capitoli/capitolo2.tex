@@ -1,6 +1,19 @@
 % ::setlocal makeprg=cd\ latex\ &&\ pdflatex\ -interaction=batchmode\ main.tex\ &&\ xdg-open\ main.pdf
 Computed in \texttt{C} and animated in \texttt{python}
-(hopefully, if I have enough time)
 
-% ciaooooo \cite{eco2017come}
+\begin{subequations}
+\label{cap2:eq:orbits}
+    \begin{align}[left = {\empheqlbrace}]
+        \left(\dv{r}{\tau}\right)^2 &= e^2 - \left(1 - \frac{2M}{r}\right)
+        \left(1 + \frac{l^2}{r^2}\right) \label{cap2:eq:r_of_tau} \\
+        %
+        \dv{\phi}{\tau} &= \frac{l}{r^2} \label{cap2:eq:phi_of_tau}\\
+        %
+        \dv{t}{\tau} &= \frac{e}{1 - 2 M / r} \label{cap2:eq:t_of_tau}
+    \end{align}
+\end{subequations}
+
+
+% Come fare una citazione, non funziona...
+ciaooooo \cite{eco2017come}
 

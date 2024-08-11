@@ -12,7 +12,7 @@ space, measured as:
 
 \begin{equation}
     \Delta s^2 = \Delta x^2 + \Delta y^2 + \Delta z^2 \, .
-    \label{eq:euclide}
+    \label{cap1:eq:euclide}
 \end{equation}
 
 On the other hand, time is \textit{just} seen as a parameter, common to every 
@@ -42,7 +42,7 @@ distances
 
 \begin{equation}
     \Delta s^2 = - c^2 \Delta t^2 + \Delta x^2 + \Delta y^2 + \Delta z^2 \, .
-    \label{eq:Minkowski}
+    \label{cap1:eq:Minkowski}
 \end{equation}
 
 In special relativity distances measured this way are the same for every
@@ -53,7 +53,7 @@ between two objects is surely destabilizing at first, but geometry teaches us
 that fixing the way we calculate $\Delta s^2$, more properly referred to as the
 \textit{line element} $\mathrm{d}s^2$, is enough to describe the geometry of
 the space that we are using.
-Since eq. \ref{eq:Minkowski} is different from eq. \ref{eq:euclide}, in
+Since eq. \ref{cap1:eq:Minkowski} is different from eq. \ref{cap1:eq:euclide}, in
 particular there is a minus sign in front of $\Delta t^2$, we moved away from
 the familiar three-dimensional Euclidean geometry and are now in
 four-dimensional spacetime, usually referred to as \textit{flat spacetime} or
@@ -70,12 +70,12 @@ acting on a mass $m_1$ at time $t$ due to a second mass $m_2$:
 
 \begin{equation}
     F_{12} = G \frac{m_1 m_2}{|r_1(t) - r_2(t)|^2}
-    \label{eq:force_of_gravity}
+    \label{cap1:eq:force_of_gravity}
 \end{equation}
 
 The adjective \textit{instantaneous} in a theory where nothing can travel
 faster than the speed of light should already raise some concern.
-But looking at $r_1(t)$ and $r_2(t)$ in eq. \ref{eq:force_of_gravity}, that are
+But looking at $r_1(t)$ and $r_2(t)$ in eq. \ref{cap1:eq:force_of_gravity}, that are
 supposed to indicate the positions of the masses in the same instant of time,
 makes it even clearer that the force $F_{12}$ can't be the same in all
 frames of reference.
@@ -122,7 +122,7 @@ the space.
 \newpage
 
 
-\subsection{Notation and Formalism} \label{ssec:notation}
+\subsection{Notation and Formalism} \label{cap1:ssec:notation}
 
 In the \textit{flat spacetime} we can introduce a coordinate basis for
 four-vectors
@@ -131,7 +131,7 @@ four-vectors
     \mathbf{e_x} = (0,1,0,0), \quad
     \mathbf{e_y} = (0,0,1,0), \quad
     \mathbf{e_z} = (0,0,0,1).
-    \label{eq:coord_base}
+    \label{cap1:eq:coord_base}
 \end{equation}
 The set 
 $\{ \mathbf{e_t}, \mathbf{e_x}, \mathbf{e_y}, \mathbf{e_z} \}$, is often
@@ -142,7 +142,7 @@ Any four-vector $\textbf{a}$ can then be written as
     \textbf{a}
     = a^t \mathbf{e_t} + a^x \mathbf{e_x} + a^y \mathbf{e_y} + a^z \mathbf{e_z}
     = a^0 \mathbf{e_0} + a^1 \mathbf{e_1} + a^2 \mathbf{e_2} + a^3 \mathbf{e_3}
-    \label{eq:a}
+    \label{cap1:eq:a}
 \end{equation}
 
 where $(a_t,~a_x,~a_y,~a_z)$, or equivalently $(a_0,~a_1,~a_2,~a_3)$, are the
@@ -152,7 +152,7 @@ Both notations will be used.
 Another useful convention is to use Roman letters (usually $i$ or $j$) to refer
 to indices 1, 2, 3 and Greek letters (usually $\mu$ or $\nu$) to refer to
 indices 0, 1, 2, 3.
-Using Einstein notation the expression in eq. \ref{eq:a}, can be rewritten
+Using Einstein notation the expression in eq. \ref{cap1:eq:a}, can be rewritten
 simply as $\textbf{a} = a^\mu \mathbf {e_\mu}$.
 Other useful ways to specify the components of $\textbf{a}$ are
 
@@ -164,7 +164,7 @@ Other useful ways to specify the components of $\textbf{a}$ are
 where $\vec a = a^i e_i$ is the tree-dimensional vector $(a_x, a_y, a_z)$.
 
 The length of the four-vector $\mathbf{a}$ must match the definition given with
-the $\Delta s^2$ in \ref{eq:Minkowski}, it is useful to define the
+the $\Delta s^2$ in \ref{cap1:eq:Minkowski}, it is useful to define the
 \textit{metric} $\eta_{\nu \mu}$ so that
 
 \begin{equation}
@@ -219,11 +219,11 @@ The line element and the metric can be rewritten as
         \end{pNiceMatrix} &
     \end{array}
     .
-    \label{eq:Sh_g}
+    \label{cap1:eq:Sh_g}
 \end{equation}
 
-It's worth pointing out that, given \ref{eq:Sh_ds}, the coordinate basis
-introduced in \ref{eq:coord_base} is not normalized in this geometry, for example:
+It's worth pointing out that, given \ref{cap1:eq:Sh_ds}, the coordinate basis
+introduced in \ref{cap1:eq:coord_base} is not normalized in this geometry, for example:
 
 \begin{equation}
     \mathbf{e_t \cdot e_t} = g_{\nu \mu} e_t^\mu e_t^\nu = g_{00}
@@ -238,7 +238,7 @@ If we want an orthonormal tetrad we can define
     \quad &&\implies \quad
     \mathbf{\hat e_t \cdot \hat e_t} = g_{\nu \mu} \hat e_t^\mu \hat e_t^\nu
     = g_{00} \left(1 - \frac{2M}{r}\right)^{-1} = - 1
-    \label{eq:local_ON_base_t}\\
+    \label{cap1:eq:local_ON_base_t}\\
     %
     \mathbf{\hat e_r} &= \left(1 - \frac{2M}{r}\right)^{1/2} \mathbf{e_r}
     \quad &&\implies \quad
@@ -253,7 +253,7 @@ If we want an orthonormal tetrad we can define
     \quad &&\implies \quad
     \mathbf{\hat e_\phi \cdot \hat e_\phi} = 1
 \end{align}
-    \label{eq:local_ON_base}
+    \label{cap1:eq:local_ON_base}
 \end{subequations}
 
 \newpage
@@ -267,7 +267,7 @@ Let's first analyze the \Sh metric in more detail:
     \mathrm{d}s^2 = - \left(1 - \frac{2 M}{r} \right) (\mathrm{d}t)^2
     + \left(1 - \frac{2 M}{r} \right)^{-1} \mathrm{d}r^2
     + r^2 (\mathrm{d}\theta^2 + \sin^2 \theta \mathrm{d}\phi^2)
-    \label{eq:Sh_ds}
+    \label{cap1:eq:Sh_ds}
 \end{equation}
 
 There are two singularities in $r = 0$ and $r = 2M$.
@@ -289,7 +289,7 @@ easy \textit{killing vectors}:
 
 \begin{equation}
     \xi = (1, 0, 0, 0) \quad \text{and} \quad \eta = (0, 0, 0, 1) \, .
-    \label{eq:xi_eta}
+    \label{cap1:eq:xi_eta}
 \end{equation}
 
 A \textit{killing vector} is a direction in the four-dimensional spacetime
@@ -324,9 +324,9 @@ To simplify the expressions the discussion will use renormalized quantities
 \begin{subequations}
     \begin{align}
         e &= \frac{E}{m} = \left( 1 - \frac{2M}{r} \right) \dv{x^t}{\tau}
-        \label{eq:conserved_e} \\
+        \label{cap1:eq:conserved_e} \\
         l &= \frac{L}{m} = r^2 \sin^2 \theta \dv{x^\phi}{\tau} \, .
-        \label{eq:conserved_l}
+        \label{cap1:eq:conserved_l}
     \end{align}
 \end{subequations}
 
@@ -338,15 +338,15 @@ really useful too
 \begin{subequations}
     \begin{align}
         &\mathbf{u \cdot u} = g_{\nu \mu} u^\nu u^\mu = -1 
-        &&\text{for } m \neq 0 \label{eq:u_normalization_mass} \\
+        &&\text{for } m \neq 0 \label{cap1:eq:u_normalization_mass} \\
         &\mathbf{u \cdot u} = g_{\nu \mu} u^\nu u^\mu = 0 
-        &&\text{for } m = 0 \label{eq:u_normalization_light} \, .
+        &&\text{for } m = 0 \label{cap1:eq:u_normalization_light} \, .
     \end{align}
-    \label{eq:u_normalization}
+    \label{cap1:eq:u_normalization}
 \end{subequations}
 
 It's not a property of the metric, but it's valid for every $g_{\nu \mu}$.
-Equations \ref{eq:u_normalization} can be derived like this
+Equations \ref{cap1:eq:u_normalization} can be derived like this
 
 \begin{align*}
     \mathrm{d}s^2 &= g_{\nu \mu} \mathrm{d}x^\nu \mathrm{d}x^\mu \\
@@ -362,7 +362,7 @@ proper time $\mathrm{d}\tau^2 = - \mathrm{d}s^2$ for a massive particle.
 Let's consider a static observer in $r$.
 When the observer measures the energy of a photon, that corresponds to the $t$
 component of $\mathbf{p}$, they do that using their local orthonormal tetrad
-that we described in \ref{eq:local_ON_base}.
+that we described in \ref{cap1:eq:local_ON_base}.
 
 Referring to $p^{\hat t}$ as the value measured in the orthonormal tetrad
 $\{\hat e_t, \hat e_r, \hat e_\theta, \hat e_\phi \}$ and
@@ -372,19 +372,19 @@ $\{e_{t}, e_{r}, e_{\theta}, e_{\phi} \}$, the energy measured in $r$ will be
 \begin{equation*}
     E(r) = p^{\hat t} = \mathbf{p \cdot \hat e_t}
     = \mathbf{p \cdot e_t} \left(1 - \frac{2M}{r} \right)^{-1/2}
-    = \mathbf{p \cdot \xi} \left(1 - \frac{2M}{r} \right)^{-1/2} \\
+    = \mathbf{p \cdot \xi} \left(1 - \frac{2M}{r} \right)^{-1/2}
 \end{equation*}
 \begin{equation}
     \left(1 - \frac{2M}{r} \right)^{1/2} E(r) = \mathbf{p \cdot \xi}
     = \text{const} \, .
-    \label{eq:photon_energy1}
+    \label{cap1:eq:photon_energy1}
 \end{equation}
 
-Where we used the expression for $\hat e_t$ from eq. \ref{eq:local_ON_base_t}
-and notice that $\mathbf{e_t} = \xi$ from eq. \ref{eq:coord_base} and eq.
-\ref{eq:xi_eta}. 
+Where we used the expression for $\hat e_t$ from eq. \ref{cap1:eq:local_ON_base_t}
+and notice that $\mathbf{e_t} = \xi$ from eq. \ref{cap1:eq:coord_base} and eq.
+\ref{cap1:eq:xi_eta}. 
 Solving for the constant $\mathbf{p} \cdot \xi$ we find the expression in
-\ref{eq:photon_energy1}. The relationship between the energy of a photon
+\ref{cap1:eq:photon_energy1}. The relationship between the energy of a photon
 measured at $r'$ and the one measured at $r$ from two static observers using
 their own tetrad is
 
@@ -398,7 +398,7 @@ the energy of the photon
 
 \begin{equation*}
     \omega_\infty = \omega_* \left(1 - \frac{2M}{r} \right)^{1/2} \, .
-    \label{eq:redshift}
+    \label{cap1:eq:redshift}
 \end{equation*}
 
 Here, $\omega_\infty$ is the frequency measured by a distant observer at
@@ -411,6 +411,7 @@ compared to the one they have at the point of emission.
 \section{Particle Orbits}
 
 \begin{minipage}{0.4 \textwidth}
+
 % 3D AXIS with spherical coordinates
 \tdplotsetmaincoords{60}{110}
 \begin{tikzpicture}[scale=2,tdplot_main_coords]
@@ -422,13 +423,13 @@ compared to the one they have at the point of emission.
     
     % AXES
     \coordinate (O) at (0,0,0);
-    \draw[thick,->] (0,0,0) -- (2,0,0) node[below left=-3]{$x$};
-    \draw[thick,->] (0,0,0) -- (0,2,0) node[right=-1]{$y$};
-    \draw[thick,->] (0,0,0) -- (0,0,2) node[above=-1]{$z$};
+    \draw[thick,->] (0,0,0) -- (2,0,0) node[right=1]{$x$};
+    \draw[thick,->] (0,0,0) -- (0,2,0) node[above=1]{$y$};
+    \draw[thick,->] (0,0,0) -- (0,0,2) node[left=1]{$z$};
     
     % VECTORS
     \tdplotsetcoord{P}{\rvec}{\thetavec}{\phivec}
-    \draw[thick,red] (O)  -- (P) node[below right=2] {$(r, \theta = \frac{\pi}{2}, \phi)$};
+    \draw[thick,red] (O)  -- (P) node[below right] {$(r, \theta = \frac{\pi}{2}, \phi)$};
     %\draw[dashed]   (O)  -- (Pxy);
     \draw[dashed]   (P)  -- (Pxy);
     
@@ -445,13 +446,13 @@ compared to the one they have at the point of emission.
     \draw[thick,green,dashed,domain=1.8:2.3,samples=100,variable=\t] 
         plot (\t, {1.5 - 1/(\t + 2)}, 0);
     % Dashed at the end
-    \draw[thick,green,dashed,domain=-1.55:-1.5,samples=100,variable=\t] 
+    \draw[thick,green,dashed,domain=-1.55:-1.52,samples=100,variable=\t] 
         plot (\t, {1.5 - 1/(\t + 2)}, 0);
 
     % Center Point
     \shade[inner color=white, outer color=blue!60!black] (0,0,0) circle (3pt);
 
-    \label{fig:spherical_coordinates}
+    \label{cap1:fig:spherical_coordinates}
 \end{tikzpicture}
 \end{minipage}
 \hspace{0.02 \textwidth}
@@ -460,7 +461,7 @@ compared to the one they have at the point of emission.
     A \textit{test particle} is defined as a particle with a mass so small that
     it does not significantly disturb the surrounding spacetime geometry.
 
-    From eq. \ref{eq:conserved_l} we know that the angular momentum is
+    From eq. \ref{cap1:eq:conserved_l} we know that the angular momentum is
     conserved, so we can expect the orbit to lie on a plane.
     Without loosing generality we can imagine the particle path to stay in the
     $xy$ plane, fixing $\theta = \pi / 2$ and, consequently,
@@ -471,6 +472,7 @@ compared to the one they have at the point of emission.
         l = r^2 \sin^2 \theta \dv{\phi}{\tau} = r^2 \dv{\phi}{\tau}
     \end{equation*}
 \end{minipage}
+\hspace{0.02 \textwidth}
 
 The four-velocity of our test particle can be written as
 \begin{equation*}
@@ -490,29 +492,98 @@ we can now write
     + \frac{l^2}{r^2}
 \end{equation*}
 
-By using the conserved energy per unit rest mass found in \ref{eq:conserved_e} to
+By using the conserved energy per unit rest mass found in \ref{cap1:eq:conserved_e} to
 eliminate the dependence from $t$ and rearranging the expression, we have
 
 \begin{equation}
     \mathcal E = \frac{e^2 - 1}{2} = \frac{1}{2} \left(\dv{r}{\tau}\right)^2
     + \frac{l^2}{2 r^2} - \frac{M}{2} - \frac{M l^2}{r^3}
-    \label{eq:found_epsilon}
+    \label{cap1:eq:found_epsilon}
 \end{equation}
 
-Here we divided everything by a factor 2 and defined $\mathcal E$, so that is
-resembled the Newtonian case.
+Here we divided everything by a factor 2 and defined the dimensionless and
+constant $\mathcal E$, so that it resembled the Newtonian case.
 We can also define an effective potential
 
-\begin{equation*}
-    V_{eff}(r) = \frac{l^2}{2 r^2} - \frac{M}{2} - \frac{M l^2}{r^3}
-\end{equation*}
-
-and rewrite eq. \ref{eq:found_epsilon} as
-
 \begin{equation}
-    \mathcal E = \frac{1}{2} \left(\dv{r}{\tau}\right)^2 + V_{eff}(r) \, .
-    \label{eq:epsilon_equation}
+    V_{eff}(r) = \frac{l^2}{2 r^2} - \frac{M}{r} - \frac{M l^2}{r^3} \, .
+    \label{cap1:eq:Veff}
 \end{equation}
 
-Where $\mathcal E$ is dimentionless and constant.
+To better understand eq. \ref{cap1:eq:Veff}, we can express it in
+$\mathcal{LMT}$ units, substituting
+$l \rightarrow L / (m c)$ and $ M \rightarrow G M / c^2$ and multiplying both
+sides by the rest mass $m c^2$ used to normalize eq. \ref{cap1:eq:found_epsilon}.
+
+\begin{equation*}
+    m c^2 V_{eff}(r)
+    = \frac{L^2}{2 m r^2} - \frac{G M m}{r} - \frac{G M L^2}{c^2 m r^3}
+\end{equation*}
+The first two terms are identical to the Newtonian potential for a particle of
+mass $m$ and angular momentum $L$, orbiting around an object of mass $M$.
+The third one is new, ignorable for $GML^2 << c^2 m r^3$, and it is proportional to
+$r^{-3}$.
+
+Figure \ref{cap1:fig:VeffvsVN} shows the effect of the $r^{-3}$ term: the infinite
+centrifugal barrier of the Newtonian potential disappears in $V_{eff}$ and a
+particle with enough energy can fall to the center of the massive object.
+
+\begin{figure}[h]
+\begin{minipage}{0.49 \textwidth}
+    \centering
+    \includegraphics[width = \textwidth]{Figures/Veff.eps}
+    \caption{Effective potential defined in eq. \ref{cap1:eq:Veff} against the
+    Newtonian potential, $\frac{l}{M} = 4$. \\
+    The $r^{-3}$ term dominates for $r \sim r_s$ and the
+    particle can fall into the massive object.
+    On the other hand the Newtonian potential presents its characteristic
+    infinite centrifugal barrier.}
+    \label{cap1:fig:VeffvsVN}
+\end{minipage}
+\hspace{0.009 \textwidth}
+\begin{minipage}{0.49 \textwidth}
+    \centering
+    \includegraphics[width = \textwidth]{Figures/Veff_tanti.eps}
+    \caption{Plot of $V_{eff}$ for $\frac{l}{M} = [1, \sqrt{12}, 4.3, 8]$.
+    For $\frac{l}{M} = \sqrt{12}$ (green) there is only one stationary point
+    and it is not stable.
+    For $\frac{l}{M} = 1$ (red) there is no stationary point.
+    The only stable points can be found for $\frac{l}{M} > \sqrt{12}$,
+    in $r_{min}$, defined in eq. \ref{cap1:eq:r_min_max}.}
+    \label{cap1:fig:Veff_tanti}
+\end{minipage}
+\end{figure}
+
+Taking the derivative of $V_{eff}$ with respect to $r$ gives us the stationary
+points for $\frac{l}{M} \geq \sqrt{12}$.
+
+\begin{subequations}
+\begin{align}
+    r_\text{min/max} &= \frac{l^2}{2 M} \left[1 \pm
+    \sqrt{1 - 12 \left( \frac{M}{l} \right)^2} \, \right]
+    &&\frac{l}{M} > \sqrt{12} \label{cap1:eq:r_min_max} \\
+    %
+    r_\text{ISCO} &= 6 M
+    &&\frac{l}{M} = \sqrt{12} \label{cap1:eq:r_ISCO}
+\end{align}
+\label{cap1:eq:stationary_r}
+\end{subequations}
+
+For $\frac{l}{M} < \sqrt{12}$ there are none and the particle is destined
+to fall towards the mass.
+
+In eq. \ref{cap1:eq:r_min_max} $r_\text{min/max}$ correspond to an unstable point and to a stable
+one respectively.
+The case in eq. \ref{cap1:eq:r_ISCO} represents an unstable point, the curve
+associated with it is represented in green in figure
+\ref{cap1:fig:Veff_tanti}.
+
+As in the Newtonian case a bound orbit exists only when $V_{eff}$ has a stable
+stationary point and the total energy given to the particle is not greater then
+$V_{eff}(r_{min})$.
+
+
+\section{The Simplest Geodesic, a Radial Infall}
+
+
 
