@@ -497,14 +497,23 @@ By using the conserved energy per unit rest mass found in \ref{cap1:eq:conserved
 eliminate the dependence from $t$ and rearranging the expression, we have
 
 \begin{equation}
+    e^2 = \left(\dv{r}{\tau}\right)^2 + \left(1 + \frac{l^2}{r^2}\right)
+    \left(1 - \frac{2M}{r} \right) \, .
+   \label{cap1:eq:found_e}
+\end{equation}
+
+To compare eq. \ref{cap1:eq:found_e} with the Newtonian case we can expand
+the multiplication, bring the 1 on the left side and divide by a factor of 2.
+
+\begin{equation}
     \mathcal E = \frac{e^2 - 1}{2} = \frac{1}{2} \left(\dv{r}{\tau}\right)^2
     + \frac{l^2}{2 r^2} - \frac{M}{r} - \frac{M l^2}{r^3}
     \label{cap1:eq:found_epsilon}
 \end{equation}
 
-Here we divided everything by a factor 2 and defined the dimensionless and
-constant $\mathcal E$, so that it resembled the Newtonian case.
-We can also define an effective potential
+By defining this dimensionless constant $\mathcal E$, we can now see the
+derivative of $r$ as the kinetic energy and the other terms as an effective
+potential acting on the particle, defined as
 
 \begin{equation}
     V_{eff}(r) = \frac{l^2}{2 r^2} - \frac{M}{r} - \frac{M l^2}{r^3} \, .
@@ -586,6 +595,8 @@ $V_{eff}(r_{min})$.
 
 \newpage
 
+%% something about how orbts are in general with respect to e and max(V_eff)?
+%% See figure 12.2 pag 345 Stuart
 
 \section{The Simplest Geodesics: Radial Infalls}
 
@@ -744,13 +755,9 @@ particle must orbit at the minimum of $V_{eff}$
     \label{cap1:eq:r_min}
 \end{equation}
 
-And that from eq. \ref{cap1:eq:found_epsilon} the derivative of $r$ vanishes
+And that from eq. \ref{cap1:eq:found_e} the derivative of $r$ vanishes
 and we can write everything as
 
-\begin{equation*}
-    \frac{e^2 - 1}{2} = \frac{1}{2} \left(\dv{r}{\tau}\right)^2
-    + \frac{l^2}{2 r^2} - \frac{M}{r} - \frac{M l^2}{r^3} 
-\end{equation*}
 \begin{equation}
     e^2 = \left(1 + \frac{l^2}{r^2} \right)
     \left(1 - \frac{2M}{r}\right) \, .
@@ -758,14 +765,14 @@ and we can write everything as
 \end{equation}
 
 Instead of substituting $r$ from eq. \ref{cap1:eq:r_min} into eq.
-\ref{cap1:eq:circular_orbit1}, it is (probably) easier to solve eq. \ref{cap1:eq:r_min} for
-$l^{-2}$ obtaining
+\ref{cap1:eq:circular_orbit1}, it is easier to solve eq. \ref{cap1:eq:r_min} for
+$1 / l^2$ obtaining
 
 \begin{equation}
     \frac{1}{l^2} = \frac{1}{M r} - \frac{3}{r^2} \, ,
 \end{equation}
 
-and then using the result to rewrite eq. \ref{cap1:eq:circular_orbit1} as
+and then use it to rewrite eq. \ref{cap1:eq:circular_orbit1} as
 
 \begin{align*}
     \frac{e^2}{l^2} &= \left(\frac{1}{l^2} + \frac{1}{r^2} \right)
@@ -812,4 +819,34 @@ Therefore, we have
     \left( 1, 0, 0, \sqrt{\frac{M}{r^3}} \right)
 \end{equation}
 
-\subsection{Precession}
+
+\subsection{General Shapes and Precession}
+
+In general if we want to characterize the shape of a orbit, restricted to the
+$xy$ plane, we need to express $\phi$ as a function of $r$.
+To do so we can use eq. \ref{cap1:eq:conserved_l} and eq. \ref{cap1:eq:found_e}
+and rewrite them respectively as
+
+\begin{subequations}
+\begin{align}
+    \dv{\phi}{\tau} &= \frac{l}{r^2} \label{cap1:eq:shape1} \\
+    \dv{r}{\tau} &= \pm \sqrt{e^2 - \left(1 + \frac{l^2}{r^2}\right)
+    \left(1 - \frac{2M}{r}\right)} \label{cap1:eq:shape2} \, .
+\end{align}
+\label{cap1:eq:to_find_shape}
+\end{subequations}
+
+This time we had no reason to keep one sign or the other in eq.
+\ref{cap1:eq:shape2}.
+Dividing \ref{cap1:eq:shape2} into \ref{cap1:eq:shape1} gives
+
+\begin{equation}
+    \dv{\phi}{r} = \pm \frac{l}{r^2}
+    \left[e^2 - \left(1 + \frac{l^2}{r^2}\right)
+    \left(1 - \frac{2M}{r}\right)\right]
+    \label{cap1:eq:shape}
+\end{equation}
+
+The function $\phi(r)$ can be found simply by integrating the right-hand side. The
+result can be expressed in terms of elliptic functions but not in a very enlightening
+way for those not familiar with them. \cite{hartle2021gravity}
