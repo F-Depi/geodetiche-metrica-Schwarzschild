@@ -497,7 +497,7 @@ eliminate the dependence from $t$ and rearranging the expression, we have
 
 \begin{equation}
     \mathcal E = \frac{e^2 - 1}{2} = \frac{1}{2} \left(\dv{r}{\tau}\right)^2
-    + \frac{l^2}{2 r^2} - \frac{M}{2} - \frac{M l^2}{r^3}
+    + \frac{l^2}{2 r^2} - \frac{M}{r} - \frac{M l^2}{r^3}
     \label{cap1:eq:found_epsilon}
 \end{equation}
 
@@ -583,7 +583,72 @@ stationary point and the total energy given to the particle is not greater then
 $V_{eff}(r_{min})$.
 
 
-\section{The Simplest Geodesic, a Radial Infall}
+\section{The Simplest Geodesics: Radial Infall}
+
+The simplest case we can consider is a radial infall where $\phi$ stays
+constant so that $l = 0$.
+In this case eq. \ref{cap1:eq:found_epsilon} becomes
 
 
+\begin{equation*}
+    \frac{e^2 - 1}{2} = \frac{1}{2} \left(\dv{r}{\tau}\right)^2 - \frac{M}{r}
+\end{equation*}
+\begin{equation}
+    \dv{r}{\tau} = - \sqrt{e^2 - 1 + \frac{2 M}{r}} \, .
+    \label{cap1:eq:radial_infall_ODE}
+\end{equation}
 
+Where we chose the negative root as the radius is decreasing.
+From eq. \ref{cap1:eq:radial_infall_ODE} we can distinguish 3 cases:
+\begin{itemize}
+    \item{$e^2 < 1$:} particle has to start from a finite radius $r = R$ for
+        the argument of the square root to be positive;
+    \item{$e = 1$:} the particle starts at rest from $r = \infty$ (that implies
+        $\dv{t}{\tau} = 1$ at infinity so $e = 1$ from eq. \ref{cap1:eq:conserved_e});
+    \item{$e^2 > 1$:} the particle starts from $r = \infty$, but with some inward
+        velocity.
+\end{itemize}
+We choose to analyze the case where $e = 1$ and we can easily solve eq.
+\ref{cap1:eq:radial_infall_ODE} analytically.
+We get
+
+\begin{equation*}
+    r^{1/2} \mathrm{d}r = -(2M)^{1/2} \mathrm{d}\tau
+\end{equation*}
+\begin{equation}
+    r(\tau) = \left(\frac{3}{2}\right)^{2/3}
+    (2M)^{1/3} (\tau_* - \tau)^{2/3} \, .
+    \label{cap1:eq:radial_infall_r_of_tau}
+\end{equation}
+
+Where $\tau_*$ is an integration constant that fixes the proper time when
+$r = 0$.
+
+It's worth making a comparison with the same equation
+(\ref{cap1:eq:radial_infall_ODE}) solved in respect to the \Sh time $t$.
+We can use the chain rule and eliminate the dependence from $\tau$ using eq.
+\ref{cap1:eq:conserved_e}.
+
+\begin{align*}
+    - \sqrt{\frac{2 M}{r}} = \dv{r}{\tau} = \dv{t}{\tau} \dv{r}{t}
+    = \left(1 - \frac{2M}{r} \right)^{-1} \dv{r}{t}
+\end{align*}
+\begin{equation*}
+    \dv{t}{r} = - \left(\frac{2 M}{r}\right)^{-1/2}
+    \left(1 - \frac{2M}{r} \right)^{-1} \,  \, 
+\end{equation*}
+
+The integration is not as immediate as the previous one, but can be done with
+simple techniques.
+The result, fixing a similar time constant $t_*$ as before, is
+
+\begin{equation}
+    t = t_* + 2M \left[ -\frac{3}{2} \left(\frac{r}{2M}\right)^{3/2}
+    - 2 \left(\frac{r}{2M}\right)^{1/2}
+    + \ln \abs{\frac{(r/2M)^{1/2} + 1}{(r/2M)^{1/2} - 1}} \right] \, .
+\end{equation}
+
+% The graph from page 344 of Black Holes, White Dwarfs, and Neutron Stars
+% (stuart L., Shapiro Saul A. Teukolsky
+% is from Gravitation Misner Thorne Wheeler
+% https://archive.org/details/GravitationMisnerThorneWheeler/page/n689/mode/2up

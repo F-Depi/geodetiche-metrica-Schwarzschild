@@ -30,6 +30,7 @@ def plot_Vs(l_per_M, save=['yes','no']):
     if save == 'yes': plt.savefig('../latex/Figures/Veff.eps', format='eps')
     plt.show()
 
+
 def plot_some_Veff(save=['yes','no']):
 
     lines = ['--', '-', ':', '-.']; kk = 0
@@ -50,6 +51,39 @@ def plot_some_Veff(save=['yes','no']):
     if save == 'yes': plt.savefig('../latex/Figures/Veff_tanti.eps', format='eps')
     plt.show()
 
+
+def plot_radial_infall(save=['yes','no']):
+
+    # It's not just about plotting them, we also need to choose tau* and t* so
+    # that the slopes appears together in the graph.
+    # Also we have t(r) and not r(t)...
+    # Get the start tau from r(tau)
+    start_tau = 20
+    tau = np.arange(0,start_tau,0.01)
+    r_tau = (3/4)**(2/3) * (start_tau - tau)**(2/3)
+
+    # Eval t(r), shift it so that it starts at t=0, plot (t(r), r)
+    r = np.arange(2,r_tau[0],0.01)
+    log_arg = (np.sqrt(r/2) + 1)/abs(np.sqrt(r/2) - 1)
+    t = 2*( (-2/3) * (r/2)**(3/2) - 2*np.sqrt(r/2) + np.log(log_arg) )
+    t = t - t[-1]
+
+    # It wont' make any sense anyway because the functions where found from
+    # r=infinity ad we are plotting a fall from a finite r.
+
+    plt.figure()
+    plt.plot(tau, r_tau, 'r-', label=r'$\frac{r}{M} \left( \frac{\tau}{M} \right)$')
+    plt.plot(t, r, 'b-', label=r'$\frac{r}{M} \left( \frac{t}{M} \right)$')
+    plt.xlabel(r'$\frac{time}{M}$')
+    plt.ylabel(r'$\frac{r}{M}$')
+    plt.legend()
+    plt.tight_layout()
+    if save == 'yes': plt.savefig('../latex/Figures/Veff.eps', format='eps')
+    plt.show()
+
 ''' Veff vs Newtonian V '''
 # plot_Vs(4, 'yes')
-plot_some_Veff('yes')
+# plot_some_Veff('yes')
+
+''' r(tau) vs r(t) '''
+plot_radial_infall('no')
