@@ -1,4 +1,4 @@
-[main.pdf file](https://github.com/F-Depi/geodetiche-metrica-Schwarzschild/blob/0bcd95501155d5e2dd8e5d264a3bc463948aa661/latex/main.pdf) found in latex/
+[main.pdf](https://github.com/F-Depi/geodetiche-metrica-Schwarzschild/blob/0bcd95501155d5e2dd8e5d264a3bc463948aa661/latex/main.pdf) file found in latex/
 
 [Overleaf link](https://www.overleaf.com/read/mgwqrhrwhphc#dfb5b3) updated less often, often close to compile timeout.
 
