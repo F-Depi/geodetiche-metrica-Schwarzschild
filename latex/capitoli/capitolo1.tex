@@ -307,7 +307,7 @@ $m$, defined as
 
 where $u$ is the four-velocity of the particle, $x$ its position and $\tau$ the
 proper time.
-Therefor the quantities
+Therefore the quantities
 
 \begin{align*}
     E &= - \mathbf{\xi \cdot p} =
@@ -409,6 +409,7 @@ compared to the one they have at the point of emission.
 
 
 \section{Particle Orbits}
+\label{cap1:sec:orbits}
 
 \begin{minipage}{0.4 \textwidth}
 
@@ -584,7 +585,9 @@ $V_{eff}(r_{min})$.
 
 
 \newpage
-\section{The Simplest Geodesics: Radial Infall}
+
+
+\section{The Simplest Geodesics: Radial Infalls}
 
 The simplest case we can consider is a radial infall where $\phi$ stays
 constant so that $l = 0$.
@@ -684,15 +687,129 @@ make both equations start from the same point $r \simeq 12M$ at time 0.
     rather $t(r)$) gets asymptotically close the $r_s = 2M$, the dashed black
     line.}
     \label{cap1:fig:radial_infall}
+
+    % Va bene il grafico? credo potrebbe essere poco appropriato perché tempo 
+    % proprio e tempo di \Sh dovrebbero essere uguali solo a r = \infty.
+    % In teoria dovrei utilizzare l'equazione differenziale con e^2 < 1 in modo che
+    % la particella parta da una distanza finita.
+    % C'è il grafico fatto bene a pagina 344 del
+    % Black Holes, White Dwarfs, and Neutron Stars (stuart L., Shapiro Saul A. Teukolsky)
+    % che a sua volta è stato preso dal Gravitation Misner Thorne Wheeler 1973,
+    % che ho trovato sull'Internet Archive
+    % https://archive.org/details/GravitationMisnerThorneWheeler/page/n689/mode/2up
+    % le 4 pagine sono in doc/
 \end{figure}
 
-% Va bene il grafico? credo potrebbe essere poco appropriato perché tempo 
-% proprio e tempo di \Sh dovrebbero essere uguali solo a r = \infty.
-% In teoria dovrei utilizzare l'equazione differenziale con e^2 < 1 in modo che
-% la particella parta da una distanza finita.
-% C'è il grafico fatto bene a pagina 344 del
-% Black Holes, White Dwarfs, and Neutron Stars (stuart L., Shapiro Saul A. Teukolsky)
-% che a sua volta è stato preso dal Gravitation Misner Thorne Wheeler 1973,
-% che ho trovato sull'Internet Archive
-% https://archive.org/details/GravitationMisnerThorneWheeler/page/n689/mode/2up
-% le 4 pagine sono in doc/
+
+\section{Stable Orbits}
+
+
+\subsection{Circular Orbits}
+
+In section \ref{cap1:sec:orbits} we discussed the points the effective
+potential $V_{eff}$ had minima and maxima.
+In particular, we found that for $l / M > \sqrt{12}$ the potential had a stable
+stationary point.
+
+Let's analyze the scenario where the particle has the right combination of
+energy $e$ and angular momentum $l$ to stay at the fixed radius orbiting
+around the massive object.
+
+First of all, the four-velocity of the particle will be
+
+\begin{equation}
+    u^\mu = \left(\dv{t}{\tau}, 0, 0, \dv{\phi}{\tau} \right)
+    = \left(\dv{t}{\tau}, 0, 0, \dv{t}{\tau} \Omega \right)
+    = u^t (1, 0, 0, \Omega) \,
+    \label{cap1:eq:circular_orbit_u}
+\end{equation}
+
+Where we defined $\Omega := \dv{\phi}{t}$: the rate of which $\phi$ changes with
+respect to the \Sh time $t$.
+Using eq. \ref{cap1:eq:conserved_e} and eq. \ref{cap1:eq:conserved_l} $\Omega$
+can be rewritten as
+
+\begin{equation}
+    \Omega = \dv{\phi}{t} = \dv{\tau}{t} \dv{\phi}{\tau} =
+    \frac{1}{r^2} \left(1 - \frac{2M}{r} \right) \frac{l}{e}\, .
+    \label{cap1:eq:Omega}
+\end{equation}
+
+A second equation for $\frac{l}{e}$ comes with the restriction that the
+particle must orbit at the minimum of $V_{eff}$
+
+\begin{equation}
+    r = \frac{l^2}{2 M} \left[1 +
+    \sqrt{1 - 12 \left( \frac{M}{l} \right)^2} \, \right] \, .
+    \label{cap1:eq:r_min}
+\end{equation}
+
+And that from eq. \ref{cap1:eq:found_epsilon} the derivative of $r$ vanishes
+and we can write everything as
+
+\begin{equation*}
+    \frac{e^2 - 1}{2} = \frac{1}{2} \left(\dv{r}{\tau}\right)^2
+    + \frac{l^2}{2 r^2} - \frac{M}{r} - \frac{M l^2}{r^3} 
+\end{equation*}
+\begin{equation}
+    e^2 = \left(1 + \frac{l^2}{r^2} \right)
+    \left(1 - \frac{2M}{r}\right) \, .
+    \label{cap1:eq:circular_orbit1}
+\end{equation}
+
+Instead of substituting $r$ from eq. \ref{cap1:eq:r_min} into eq.
+\ref{cap1:eq:circular_orbit1}, it is (probably) easier to solve eq. \ref{cap1:eq:r_min} for
+$l^{-2}$ obtaining
+
+\begin{equation}
+    \frac{1}{l^2} = \frac{1}{M r} - \frac{3}{r^2} \, ,
+\end{equation}
+
+and then using the result to rewrite eq. \ref{cap1:eq:circular_orbit1} as
+
+\begin{align*}
+    \frac{e^2}{l^2} &= \left(\frac{1}{l^2} + \frac{1}{r^2} \right)
+    \left(1 - \frac{2M}{r}\right)
+    %
+    = \left(\frac{1}{M r}
+    - \frac{3}{r^2}
+    + \frac{1}{r^2}\right)
+    \left(1 - \frac{2M}{r}\right) 
+    %
+    = \frac{1}{M r} \left(1
+    - \frac{2 M}{r} \right)^2 \\
+\end{align*}
+\begin{equation}
+    \frac{l}{e} = \sqrt{M r} \left(1
+    - \frac{2 M}{r} \right)^{-1}
+    \label{cap1:eq:circular_orbit2}
+\end{equation}
+
+We can finally substitute eq. \ref{cap1:eq:circular_orbit2} into eq.
+\ref{cap1:eq:Omega} to get
+
+\begin{equation}
+    \Omega^2 = \frac{M}{r^3}
+    \label{cap1:eq:Omega2}
+\end{equation}
+
+that gives the angular velocity observed from infinity of a particle in a
+circular orbit.
+With the value of $\Omega$ found in eq. \ref{cap1:eq:Omega2} we can find the
+normalization of the four-velocity defined in \ref{cap1:eq:circular_orbit_u}.
+
+\begin{align*}
+    - 1 = \mathbf{u \cdot u} = g_{\nu \mu} u^\nu u^\mu
+    &= (u^t)^2 \left[- \left(1 - \frac{2M}{r}\right) + r^2 \Omega^2 \right] \\
+    (u^t)^2 &= \left[ 1 - \frac{2M}{r} - \frac{M}{r}\right]^{-1} \\
+    u^t &= \left( 1 - \frac{3M}{r} \right)^{-1/2} \\
+\end{align*}
+
+Therefore, we have
+
+\begin{equation}
+    u^\mu = \left( 1 - \frac{3M}{r} \right)^{-1/2}
+    \left( 1, 0, 0, \sqrt{\frac{M}{r^3}} \right)
+\end{equation}
+
+\subsection{Precession}
