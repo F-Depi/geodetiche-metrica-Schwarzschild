@@ -396,10 +396,10 @@ their own tetrad is
 Taking the limit as $r'$ approaches infinity and using $E = \hbar \omega$ for
 the energy of the photon
 
-\begin{equation*}
+\begin{equation}
     \omega_\infty = \omega_* \left(1 - \frac{2M}{r} \right)^{1/2} \, .
     \label{cap1:eq:redshift}
-\end{equation*}
+\end{equation}
 
 Here, $\omega_\infty$ is the frequency measured by a distant observer at
 $r >> r_s$, while $w_*$ denotes the frequency measured at a specific distance
@@ -583,6 +583,7 @@ stationary point and the total energy given to the particle is not greater then
 $V_{eff}(r_{min})$.
 
 
+\newpage
 \section{The Simplest Geodesics: Radial Infall}
 
 The simplest case we can consider is a radial infall where $\phi$ stays
@@ -595,23 +596,27 @@ In this case eq. \ref{cap1:eq:found_epsilon} becomes
 \end{equation*}
 \begin{equation}
     \dv{r}{\tau} = - \sqrt{e^2 - 1 + \frac{2 M}{r}} \, .
-    \label{cap1:eq:radial_infall_ODE}
+    \label{cap1:eq:radial_infall_ODE_1}
 \end{equation}
 
 Where we chose the negative root as the radius is decreasing.
-From eq. \ref{cap1:eq:radial_infall_ODE} we can distinguish 3 cases:
+From eq. \ref{cap1:eq:radial_infall_ODE_1} we can distinguish 3 cases:
 \begin{itemize}
-    \item{$e^2 < 1$:} particle has to start from a finite radius $r = R$ for
-        the argument of the square root to be positive;
+    \item{$e^2 < 1$:} the particle has to start from a finite radius $r = R$
+        for the argument of the square root to be positive;
     \item{$e = 1$:} the particle starts at rest from $r = \infty$ (that implies
         $\dv{t}{\tau} = 1$ at infinity so $e = 1$ from eq. \ref{cap1:eq:conserved_e});
     \item{$e^2 > 1$:} the particle starts from $r = \infty$, but with some inward
         velocity.
 \end{itemize}
-We choose to analyze the case where $e = 1$ and we can easily solve eq.
-\ref{cap1:eq:radial_infall_ODE} analytically.
+We choose to analyze the case where $e = 1$ so that eq.
+\ref{cap1:eq:radial_infall_ODE_1} can be solved analytically.
 We get
 
+\begin{equation}
+    \dv{r}{\tau} = - \sqrt{\frac{2 M}{r}} \, .
+    \label{cap1:eq:radial_infall_ODE_2}
+\end{equation}
 \begin{equation*}
     r^{1/2} \mathrm{d}r = -(2M)^{1/2} \mathrm{d}\tau
 \end{equation*}
@@ -621,13 +626,17 @@ We get
     \label{cap1:eq:radial_infall_r_of_tau}
 \end{equation}
 
-Where $\tau_*$ is an integration constant that fixes the proper time when
-$r = 0$.
+Where $\tau_*$ is an integration constant that fixes the proper time $\tau$
+when the particle arrives at $r = 0$.
+An observer that falls together with the particle will measure a finite time
+when he reaches $r = 2M$, and finally $r = 0$.
 
-It's worth making a comparison with the same equation
-(\ref{cap1:eq:radial_infall_ODE}) solved in respect to the \Sh time $t$.
-We can use the chain rule and eliminate the dependence from $\tau$ using eq.
-\ref{cap1:eq:conserved_e}.
+On the contrary the experience from an observer far away from the source of
+curvature, that measures the \Sh time $t$ it's much different.
+To see this we can solve eq. \ref{cap1:eq:radial_infall_ODE_2} in respect to the 
+\Sh time $t$.
+Using the chain rule to derive $r$ in respect of $t$ and eliminating the
+dependence from $\tau$ using eq. \ref{cap1:eq:conserved_e} with $e = 1$, we get
 
 \begin{align*}
     - \sqrt{\frac{2 M}{r}} = \dv{r}{\tau} = \dv{t}{\tau} \dv{r}{t}
@@ -638,17 +647,52 @@ We can use the chain rule and eliminate the dependence from $\tau$ using eq.
     \left(1 - \frac{2M}{r} \right)^{-1} \,  \, 
 \end{equation*}
 
-The integration is not as immediate as the previous one, but can be done with
-simple techniques.
+The integration is not as immediate as the previous one, but can be resolved
+with simple techniques.
 The result, fixing a similar time constant $t_*$ as before, is
 
 \begin{equation}
     t = t_* + 2M \left[ -\frac{3}{2} \left(\frac{r}{2M}\right)^{3/2}
     - 2 \left(\frac{r}{2M}\right)^{1/2}
     + \ln \abs{\frac{(r/2M)^{1/2} + 1}{(r/2M)^{1/2} - 1}} \right] \, .
+    \label{cap1:eq:radial_infall_r_of_t}
 \end{equation}
 
-% The graph from page 344 of Black Holes, White Dwarfs, and Neutron Stars
-% (stuart L., Shapiro Saul A. Teukolsky
-% is from Gravitation Misner Thorne Wheeler
+We can't find $r(t)$ explicitly as was done previously, but expression in
+\ref{cap1:eq:radial_infall_r_of_t} already tells us that for
+$r \rightarrow 2M$ the time measured by a far observer goes to infinity.
+This implies that the distant observer will never see the particle reach
+$r = 2M$ and enter the \Sh radius.
+They will instead measure a signal infinitely redshifted as described by eq.
+\ref{cap1:eq:redshift}, asymptotically going to $\omega_\infty = 0$.
+That is why the \Sh radius is also referred to as a
+\textit{source of infinite redshift}.
+Figure \ref{cap1:fig:radial_infall} shows eq.
+\ref{cap1:eq:radial_infall_r_of_tau} and eq
+\ref{cap1:eq:radial_infall_r_of_t}, the integration constant where chosen to
+make both equations start from the same point $r \simeq 12M$ at time 0.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.5 \textwidth]{Figures/radial_infall.eps}
+    \caption{Eq. \ref{cap1:eq:radial_infall_r_of_tau} and eq
+    \ref{cap1:eq:radial_infall_r_of_t} describing the fall from
+    $r \simeq 12M$ on.
+    The integration constants $\tau_*$ and $t_*$ where fixed so that both
+    equations started from the same $r(0)$.
+    $r(\tau)$ gets to 0 quick quickly (at $\tau = \tau_*$), while $r(t)$ (or
+    rather $t(r)$) gets asymptotically close the $r_s = 2M$, the dashed black
+    line.}
+    \label{cap1:fig:radial_infall}
+\end{figure}
+
+% Va bene il grafico? credo potrebbe essere poco appropriato perché tempo 
+% proprio e tempo di \Sh dovrebbero essere uguali solo a r = \infty.
+% In teoria dovrei utilizzare l'equazione differenziale con e^2 < 1 in modo che
+% la particella parta da una distanza finita.
+% C'è il grafico fatto bene a pagina 344 del
+% Black Holes, White Dwarfs, and Neutron Stars (stuart L., Shapiro Saul A. Teukolsky)
+% che a sua volta è stato preso dal Gravitation Misner Thorne Wheeler 1973,
+% che ho trovato sull'Internet Archive
 % https://archive.org/details/GravitationMisnerThorneWheeler/page/n689/mode/2up
+% le 4 pagine sono in doc/
