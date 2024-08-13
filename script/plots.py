@@ -14,14 +14,18 @@ plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
 plt.rc('legend', fontsize=MEDIUM_SIZE)    # legend fontsize
 
 
+def fun_V_eff(r_per_M, l_per_M):
+    return l_per_M**2 * r_per_M**-2 / 2 - r_per_M**-1 - l_per_M**2 * r_per_M**-3
+
+
 def plot_Vs(l_per_M, save=['yes','no']):
 
-    filename = '../latex/Figures/Veff.eps'
+    filename = '../latex/Figures/V_eff.eps'
     r_per_M = np.arange(2,40,0.1)
-    Veff = l_per_M**2 * r_per_M**-2 / 2 - r_per_M**-1 - l_per_M**2 * r_per_M**-3
-    label_eff = r'$V_{eff} \, \left( \frac{r}{M} \right)$'
+    Veff = fun_V_eff(r_per_M, l_per_M)
+    label_eff = r'$V_{\rm eff} \, \left( \frac{r}{M} \right)$'
     VNewt = l_per_M**2 * r_per_M**-2 / 2 - r_per_M**-1
-    label_Newt = r'$V_\text{Newt} \, \left( \frac{r}{M} \right)$'
+    label_Newt = r'$V_{\rm Newt} \, \left( \frac{r}{M} \right)$'
 
     plt.figure()
     plt.plot(r_per_M, Veff, 'r-', label=label_eff)
@@ -35,22 +39,24 @@ def plot_Vs(l_per_M, save=['yes','no']):
     plt.show()
 
 
-def plot_some_Veff(save=['yes','no']):
+def plot_some_V_eff(save=['yes','no']):
 
-    filename = '../latex/Figures/Veff_tanti.eps'
+    filename = '../latex/Figures/V_eff_tanti.eps'
 
     lines = ['--', '-', ':', '-.']; kk = 0
     lines = ['-','-','-','-']
-    l_per_M = np.array([8,  4.3, np.sqrt(12), 1])
+    l_per_M = np.array([6,  4.3, np.sqrt(12), 1])
+    l_str = ['6', '4.3', r'$\sqrt{12}$', '1']
     r_per_M = np.arange(2,50,0.1)
     plt.figure()
 
     for x in l_per_M:
-        Veff = x**2 * r_per_M**-2 / 2 - r_per_M**-1 - x**2 * r_per_M**-3
-        lab = r'$V_{eff}, ~~ \frac{l}{M} = $'+str(x)[:4]
+        Veff = fun_V_eff(r_per_M, x)
+        lab = r'$V_{\rm eff}, ~~ \frac{l}{M} = $' + l_str[kk]
         plt.plot(r_per_M, Veff, linestyle=lines[kk],  label=lab)
         kk += 1
-    plt.ylim([-0.2, 0.4])
+    plt.xlim([0, 50])
+    plt.ylim([-0.2, 0.36])
     plt.xlabel(r'$\frac{r}{M}$')
     plt.ylabel(r'$V$')
     plt.legend(loc='upper right')
@@ -89,16 +95,47 @@ def plot_radial_infall(save=['yes','no']):
     plt.plot(tau, r_tau, 'r-', label=label_tau)
     plt.xlim([0,t[0]])
     plt.ylim([0, 12.5])
-    plt.xlabel(r'$\frac{time}{M}$')
+    plt.xlabel(r'$\frac{\rm time}{M}$')
     plt.ylabel(r'$\frac{r}{M}$', rotation=0)
     plt.legend()
     plt.tight_layout()
     if save == 'yes': plt.savefig(filename, format='eps')
     plt.show()
 
+
+def plot_V_eff_orbits(save=['yes','no']):
+
+    filename = '../latex/Figures/V_eff_orbits.eps'
+    r_per_M = np.arange(2.1,70,0.1)
+    l_per_M = 4
+    Veff = fun_V_eff(r_per_M, l_per_M)
+    label_eff = r'$V_{\rm eff} \, \left( \frac{r}{M} \right)$'
+
+    skrt = np.sqrt(1 - 12 / l_per_M**2)
+    r_min = l_per_M**2 / 2 * (1 + skrt)
+    V_max = fun_V_eff(r_min, l_per_M)
+    r_max = l_per_M**2 / 2 * (1 - skrt)
+    V_min = fun_V_eff(r_max, l_per_M)
+
+    plt.figure()
+    plt.plot(r_per_M, Veff, 'r-', label=label_eff)
+    plt.plot(r_min, V_max)
+    plt.plot(r_max, V_min)
+    plt.ylim([-0.06, 0.01])
+    plt.xlabel(r'$\frac{r}{M}$')
+    plt.ylabel(r'$V$')
+    plt.legend()
+    plt.tight_layout()
+    if save == 'yes': plt.savefig(filename, format='eps')
+    plt.show()
+
+
 ''' Veff vs Newtonian V '''
-# plot_Vs(4, 'yes')
-# plot_some_Veff('yes')
+#plot_Vs(4, 'yes')
+#plot_some_V_eff('yes')
 
 ''' r(tau) vs r(t) '''
-plot_radial_infall('yes')
+#plot_radial_infall('yes')
+
+''' Veff vs values of e '''
+plot_V_eff_orbits('yes')

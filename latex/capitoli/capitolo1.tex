@@ -522,10 +522,10 @@ potential acting on the particle, defined as
 
 \begin{equation}
     V_{\rm eff}(r) = \frac{l^2}{2 r^2} - \frac{M}{r} - \frac{M l^2}{r^3} \, .
-    \label{cap1:eq:Veff}
+    \label{cap1:eq:V_eff}
 \end{equation}
 
-To better understand eq. \ref{cap1:eq:Veff}, we can express it in
+To better understand eq. \ref{cap1:eq:V_eff}, we can express it in
 $\mathcal{LMT}$ units, substituting
 $l \rightarrow L / (m c)$ and $ M \rightarrow G M / c^2$ and multiplying both
 sides by the rest mass $m c^2$ used to normalize eq. \ref{cap1:eq:found_epsilon}.
@@ -539,33 +539,33 @@ mass $m$ and angular momentum $L$, orbiting around an object of mass $M$.
 The third one is new, ignorable for $GML^2 \ll c^2 m r^3$, and it is proportional to
 $r^{-3}$.
 
-Figure \ref{cap1:fig:VeffvsVN} shows the effect of the $r^{-3}$ term: the infinite
+Figure \ref{cap1:fig:V_effvsVN} shows the effect of the $r^{-3}$ term: the infinite
 centrifugal barrier of the Newtonian potential disappears in $V_{\rm eff}$ and a
 particle with enough energy can fall to the center of the massive object.
 
 \begin{figure}[h]
 \begin{minipage}{0.49 \textwidth}
     \centering
-    \includegraphics[width = \textwidth]{Figures/Veff.eps}
-    \caption{Effective potential defined in eq. \ref{cap1:eq:Veff} against the
+    \includegraphics[width = \textwidth]{Figures/V_eff.eps}
+    \caption{Effective potential defined in eq. \ref{cap1:eq:V_eff} against the
     Newtonian potential, $\frac{l}{M} = 4$. \\
     The $r^{-3}$ term dominates for $r \sim r_s$ and the
     particle can fall into the massive object.
     On the other hand the Newtonian potential presents its characteristic
     infinite centrifugal barrier.}
-    \label{cap1:fig:VeffvsVN}
+    \label{cap1:fig:V_effvsVN}
 \end{minipage}
 \hspace{0.009 \textwidth}
 \begin{minipage}{0.49 \textwidth}
     \centering
-    \includegraphics[width = \textwidth]{Figures/Veff_tanti.eps}
-    \caption{Plot of $V_{\rm eff}$ for $\frac{l}{M} = [1, \sqrt{12}, 4.3, 8]$.
+    \includegraphics[width = \textwidth]{Figures/V_eff_tanti.eps}
+    \caption{Plot of $V_{\rm eff}$ for $\frac{l}{M} = [1, \sqrt{12}, 4.3, 6]$.
     For $\frac{l}{M} = \sqrt{12}$ (green) there is only one stationary point
     and it is not stable.
     For $\frac{l}{M} = 1$ (red) there is no stationary point.
     The only stable points can be found for $\frac{l}{M} > \sqrt{12}$,
     in $r_{\rm min}$, defined in eq. \ref{cap1:eq:r_min_max}.}
-    \label{cap1:fig:Veff_tanti}
+    \label{cap1:fig:V_eff_tanti}
 \end{minipage}
 \end{figure}
 
@@ -591,7 +591,7 @@ In eq. \ref{cap1:eq:r_min_max} $r_{\rm min/max}$ correspond to an unstable point
 one respectively.
 The case in eq. \ref{cap1:eq:r_ISCO} represents an unstable point, the curve
 associated with it is represented in green in figure
-\ref{cap1:fig:Veff_tanti}.
+\ref{cap1:fig:V_eff_tanti}.
 
 As in the Newtonian case a bound orbit exists only when $V_{\rm eff}$ has a stable
 stationary point and the total energy given to the particle is not greater then
@@ -606,12 +606,13 @@ $V_{\rm eff}(r_{\rm min})$.
 \section{The Simplest Geodesics: Radial Infalls}
 
 The simplest case we can consider is a radial infall where $\phi$ stays
-constant so that $l = 0$.
-In this case eq. \ref{cap1:eq:found_epsilon} becomes
+constant.
+From eq. \ref{cap1:eq:conserved_l} this implies $l = 0$.
+Eq. \ref{cap1:eq:found_e} becomes
 
 
 \begin{equation*}
-    \frac{e^2 - 1}{2} = \frac{1}{2} \left(\dv{r}{\tau}\right)^2 - \frac{M}{r}
+    e^2 = \left(\dv{r}{\tau}\right)^2 + 1 - \frac{2M}{r}
 \end{equation*}
 \begin{equation}
     \dv{r}{\tau} = - \sqrt{e^2 - 1 + \frac{2 M}{r}} \, .
@@ -619,7 +620,8 @@ In this case eq. \ref{cap1:eq:found_epsilon} becomes
 \end{equation}
 
 Where we chose the negative root as the radius is decreasing.
-From eq. \ref{cap1:eq:radial_infall_ODE_1} we can distinguish 3 cases:
+Looking at the parameter $e$ in eq. \ref{cap1:eq:radial_infall_ODE_1} we can
+distinguish 3 cases:
 \begin{itemize}
     \item{$e^2 < 1$:} the particle has to start from a finite radius $r = R$
         for the argument of the square root to be positive;
@@ -648,12 +650,12 @@ We get
 Where $\tau_*$ is an integration constant that fixes the proper time $\tau$
 when the particle arrives at $r = 0$.
 An observer that falls together with the particle will measure a finite time
-when he reaches $r = 2M$, and finally $r = 0$.
+when he reaches $r = 2M$ and $\tau = \tau_*$ at $r = 0$.
 
 On the contrary the experience from an observer far away from the source of
 curvature, that measures the \Sh time $t$ it's much different.
-To see this we can solve eq. \ref{cap1:eq:radial_infall_ODE_2} in respect to the 
-\Sh time $t$.
+To see this we can solve eq. \ref{cap1:eq:radial_infall_ODE_2} in respect to
+the \Sh time $t$.
 Using the chain rule to derive $r$ in respect of $t$ and eliminating the
 dependence from $\tau$ using eq. \ref{cap1:eq:conserved_e} with $e = 1$, we get
 
@@ -677,7 +679,7 @@ The result, fixing a similar time constant $t_*$ as before, is
     \label{cap1:eq:radial_infall_r_of_t}
 \end{equation}
 
-We can't find $r(t)$ explicitly as was done previously, but expression in
+We can't find $r(t)$ explicitly as was done previously, but the expression in
 \ref{cap1:eq:radial_infall_r_of_t} already tells us that for
 $r \rightarrow 2M$ the time measured by a far observer goes to infinity.
 This implies that the distant observer will never see the particle reach
@@ -688,20 +690,21 @@ That is why the \Sh radius is also referred to as a
 \textit{source of infinite redshift}.
 Figure \ref{cap1:fig:radial_infall} shows eq.
 \ref{cap1:eq:radial_infall_r_of_tau} and eq
-\ref{cap1:eq:radial_infall_r_of_t}, the integration constant where chosen to
-make both equations start from the same point $r \simeq 12M$ at time 0.
+\ref{cap1:eq:radial_infall_r_of_t}, the integration constants $\tau_*$ and
+$t_*$ where chosen to make both equations start from the same point
+$r \simeq 12M$ at $\tau = t =  0$.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width = 0.5 \textwidth]{Figures/radial_infall.eps}
-    \caption{Eq. \ref{cap1:eq:radial_infall_r_of_tau} and eq
+    \includegraphics[width = 0.8 \textwidth]{Figures/radial_infall.eps}
+    \caption{Eq. \ref{cap1:eq:radial_infall_r_of_tau} and eq.
     \ref{cap1:eq:radial_infall_r_of_t} describing the fall from
     $r \simeq 12M$ on.
     The integration constants $\tau_*$ and $t_*$ where fixed so that both
     equations started from the same $r(0)$.
-    $r(\tau)$ gets to 0 quick quickly (at $\tau = \tau_*$), while $r(t)$ (or
-    rather $t(r)$) gets asymptotically close the $r_s = 2M$, the dashed black
-    line.}
+    $r(\tau)$ gets to 0 quickly (at $\tau = \tau_*$), while $t(r)$ goes to
+    infinity for $r \rightarrow r_s = 2M$. The \Sh radius $r_s$ is represented
+    with the dashed black line.}
     \label{cap1:fig:radial_infall}
 
     % Va bene il grafico? credo potrebbe essere poco appropriato perché tempo 
@@ -717,8 +720,21 @@ make both equations start from the same point $r \simeq 12M$ at time 0.
 \end{figure}
 
 
+\newpage
 \section{Stable Orbits}
 
+In figure \ref{cap1:fig:V_eff_tanti} we analyzed the role that $\frac{l}{M}$ has
+on the effective potential $V_{\rm eff}$ defined in eq. \ref{cap1:eq:V_eff}.
+
+The most interesting case lies where $\frac{l}{M} < \sqrt{12}$.
+In figure \ref{cap1:fig:V_eff_orbite} 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.7 \textwidth]{Figures/V_eff_orbits.eps}
+    \caption{placeholder}
+    \label{cap1:fig:V_eff_orbite}
+\end{figure}
 
 \subsection{Circular Orbits}
 
@@ -856,3 +872,12 @@ The function $\phi(r)$ can be found simply by integrating the right-hand side.
 The result can be expressed in terms of elliptic functions but not in a very
 enlightening way for those not familiar with them
 \footcite[page 202]{hartle2021gravity}.
+
+An interesting parameter to study is the precession, defined as
+
+\begin{equation}
+    \delta \phi_{\rm prec} = \Delta \phi - 2 \pi
+    \label{cap1:eq:precession}
+\end{equation}
+
+Where $\Delta \phi$ is defined as 
