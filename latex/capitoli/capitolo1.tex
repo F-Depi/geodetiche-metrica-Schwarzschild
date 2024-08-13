@@ -1,4 +1,9 @@
 % ::setlocal makeprg=cd\ latex\ &&\ pdflatex\ -interaction=batchmode\ main.tex\ &&\ xdg-open\ main.pdf\ &&\ exit
+
+\textit{The content of this chapter is mostly based on
+\fullcite{hartle2021gravity} and \fullcite[cap 12]{shapiro2008black}}
+
+
 \section{Introduction}
 
 \subsection{Why the \Sh Geometry}
@@ -128,7 +133,7 @@ In the \textit{flat spacetime} we can introduce a coordinate basis for
 four-vectors
 \begin{equation}
     \mathbf{e_t} = (1,0,0,0), \quad
-    \mathbf{e_x} = (0,1,0,0), \quad
+    \mathbf{e_y} = (0,1,0,0), \quad
     \mathbf{e_y} = (0,0,1,0), \quad
     \mathbf{e_z} = (0,0,0,1).
     \label{cap1:eq:coord_base}
@@ -402,7 +407,7 @@ the energy of the photon
 \end{equation}
 
 Here, $\omega_\infty$ is the frequency measured by a distant observer at
-$r >> r_s$, while $w_*$ denotes the frequency measured at a specific distance
+$r \gg r_s$, while $w_*$ denotes the frequency measured at a specific distance
 $r$.
 Photons observed at a certain distance from a star exhibit a lower frequency
 compared to the one they have at the point of emission.
@@ -516,7 +521,7 @@ derivative of $r$ as the kinetic energy and the other terms as an effective
 potential acting on the particle, defined as
 
 \begin{equation}
-    V_{eff}(r) = \frac{l^2}{2 r^2} - \frac{M}{r} - \frac{M l^2}{r^3} \, .
+    V_{\rm eff}(r) = \frac{l^2}{2 r^2} - \frac{M}{r} - \frac{M l^2}{r^3} \, .
     \label{cap1:eq:Veff}
 \end{equation}
 
@@ -526,16 +531,16 @@ $l \rightarrow L / (m c)$ and $ M \rightarrow G M / c^2$ and multiplying both
 sides by the rest mass $m c^2$ used to normalize eq. \ref{cap1:eq:found_epsilon}.
 
 \begin{equation*}
-    m c^2 V_{eff}(r)
+    m c^2 V_{\rm eff}(r)
     = \frac{L^2}{2 m r^2} - \frac{G M m}{r} - \frac{G M L^2}{c^2 m r^3}
 \end{equation*}
 The first two terms are identical to the Newtonian potential for a particle of
 mass $m$ and angular momentum $L$, orbiting around an object of mass $M$.
-The third one is new, ignorable for $GML^2 << c^2 m r^3$, and it is proportional to
+The third one is new, ignorable for $GML^2 \ll c^2 m r^3$, and it is proportional to
 $r^{-3}$.
 
 Figure \ref{cap1:fig:VeffvsVN} shows the effect of the $r^{-3}$ term: the infinite
-centrifugal barrier of the Newtonian potential disappears in $V_{eff}$ and a
+centrifugal barrier of the Newtonian potential disappears in $V_{\rm eff}$ and a
 particle with enough energy can fall to the center of the massive object.
 
 \begin{figure}[h]
@@ -554,26 +559,26 @@ particle with enough energy can fall to the center of the massive object.
 \begin{minipage}{0.49 \textwidth}
     \centering
     \includegraphics[width = \textwidth]{Figures/Veff_tanti.eps}
-    \caption{Plot of $V_{eff}$ for $\frac{l}{M} = [1, \sqrt{12}, 4.3, 8]$.
+    \caption{Plot of $V_{\rm eff}$ for $\frac{l}{M} = [1, \sqrt{12}, 4.3, 8]$.
     For $\frac{l}{M} = \sqrt{12}$ (green) there is only one stationary point
     and it is not stable.
     For $\frac{l}{M} = 1$ (red) there is no stationary point.
     The only stable points can be found for $\frac{l}{M} > \sqrt{12}$,
-    in $r_{min}$, defined in eq. \ref{cap1:eq:r_min_max}.}
+    in $r_{\rm min}$, defined in eq. \ref{cap1:eq:r_min_max}.}
     \label{cap1:fig:Veff_tanti}
 \end{minipage}
 \end{figure}
 
-Taking the derivative of $V_{eff}$ with respect to $r$ gives us the stationary
+Taking the derivative of $V_{\rm eff}$ with respect to $r$ gives us the stationary
 points for $\frac{l}{M} \geq \sqrt{12}$.
 
 \begin{subequations}
 \begin{align}
-    r_\text{min/max} &= \frac{l^2}{2 M} \left[1 \pm
+    r_{\rm min / max} &= \frac{l^2}{2 M} \left[1 \pm
     \sqrt{1 - 12 \left( \frac{M}{l} \right)^2} \, \right]
     &&\frac{l}{M} > \sqrt{12} \label{cap1:eq:r_min_max} \\
     %
-    r_\text{ISCO} &= 6 M
+    r_{\rm ISCO} &= 6 M
     &&\frac{l}{M} = \sqrt{12} \label{cap1:eq:r_ISCO}
 \end{align}
 \label{cap1:eq:stationary_r}
@@ -582,15 +587,15 @@ points for $\frac{l}{M} \geq \sqrt{12}$.
 For $\frac{l}{M} < \sqrt{12}$ there are none and the particle is destined
 to fall towards the mass.
 
-In eq. \ref{cap1:eq:r_min_max} $r_\text{min/max}$ correspond to an unstable point and to a stable
+In eq. \ref{cap1:eq:r_min_max} $r_{\rm min/max}$ correspond to an unstable point and to a stable
 one respectively.
 The case in eq. \ref{cap1:eq:r_ISCO} represents an unstable point, the curve
 associated with it is represented in green in figure
 \ref{cap1:fig:Veff_tanti}.
 
-As in the Newtonian case a bound orbit exists only when $V_{eff}$ has a stable
+As in the Newtonian case a bound orbit exists only when $V_{\rm eff}$ has a stable
 stationary point and the total energy given to the particle is not greater then
-$V_{eff}(r_{min})$.
+$V_{\rm eff}(r_{\rm min})$.
 
 
 \newpage
@@ -718,7 +723,7 @@ make both equations start from the same point $r \simeq 12M$ at time 0.
 \subsection{Circular Orbits}
 
 In section \ref{cap1:sec:orbits} we discussed the points the effective
-potential $V_{eff}$ had minima and maxima.
+potential $V_{\rm eff}$ had minima and maxima.
 In particular, we found that for $l / M > \sqrt{12}$ the potential had a stable
 stationary point.
 
@@ -747,7 +752,7 @@ can be rewritten as
 \end{equation}
 
 A second equation for $\frac{l}{e}$ comes with the restriction that the
-particle must orbit at the minimum of $V_{eff}$
+particle must orbit at the minimum of $V_{\rm eff}$
 
 \begin{equation}
     r = \frac{l^2}{2 M} \left[1 +
@@ -847,6 +852,7 @@ Dividing \ref{cap1:eq:shape2} into \ref{cap1:eq:shape1} gives
     \label{cap1:eq:shape}
 \end{equation}
 
-The function $\phi(r)$ can be found simply by integrating the right-hand side. The
-result can be expressed in terms of elliptic functions but not in a very enlightening
-way for those not familiar with them. \cite{hartle2021gravity}
+The function $\phi(r)$ can be found simply by integrating the right-hand side.
+The result can be expressed in terms of elliptic functions but not in a very
+enlightening way for those not familiar with them
+\footcite[page 202]{hartle2021gravity}.
