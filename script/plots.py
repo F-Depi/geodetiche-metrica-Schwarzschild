@@ -1,6 +1,7 @@
 # ::setlocal makeprg=cd\ script\ &&\ python\ plots.py
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy.optimize import root_scalar
 
 SMALL_SIZE = 13
 MEDIUM_SIZE = 18
@@ -106,25 +107,55 @@ def plot_radial_infall(save=['yes','no']):
 def plot_V_eff_orbits(save=['yes','no']):
 
     filename = '../latex/Figures/V_eff_orbits.eps'
-    r_per_M = np.arange(2.1,70,0.1)
-    l_per_M = 4
+    right_lim = 70
+    r_per_M = np.arange(2.1,right_lim,0.1)
+    l_per_M = 4.1
     Veff = fun_V_eff(r_per_M, l_per_M)
-    label_eff = r'$V_{\rm eff} \, \left( \frac{r}{M} \right)$'
+    label_eff = r'$V_{\rm eff} \, (r)$'
 
     skrt = np.sqrt(1 - 12 / l_per_M**2)
-    r_min = l_per_M**2 / 2 * (1 + skrt)
-    V_max = fun_V_eff(r_min, l_per_M)
-    r_max = l_per_M**2 / 2 * (1 - skrt)
-    V_min = fun_V_eff(r_max, l_per_M)
+    r_min = l_per_M**2 / 2 * (1 - skrt)
+    V_1 = fun_V_eff(r_min, l_per_M)
 
-    plt.figure()
-    plt.plot(r_per_M, Veff, 'r-', label=label_eff)
-    plt.plot(r_min, V_max)
-    plt.plot(r_max, V_min)
-    plt.ylim([-0.06, 0.01])
+    r_max = l_per_M**2 / 2 * (1 + skrt)
+    V_2 = fun_V_eff(r_max, l_per_M)
+    lab_e4 = r'$e_4 = V_{\rm eff} \, (r_{\rm max})$'
+
+    e1 = 0.02
+    x1_right =right_lim 
+    lab_e1 = r'$e_1 =$'+str(e1)
+
+    e2 = 0.005
+    x2_left = root_scalar(lambda x: fun_V_eff(x, l_per_M) - e2, bracket=[r_min, r_max], method='bisect').root
+    x2_right =right_lim 
+    lab_e2 = r'$e_2 =$'+str(e2)
+
+    e3 = -0.030
+    x1_left = 0
+    x3_left = root_scalar(lambda x: fun_V_eff(x, l_per_M) - e3, bracket=[r_min, r_max], method='bisect').root
+    x3_right = root_scalar(lambda x: fun_V_eff(x, l_per_M) - e3, bracket=[r_max, right_lim], method='bisect').root
+    lab_e3 = r'$e_3 =$'+str(e3)
+
+    arrow_x = 40
+    arrow_down = fun_V_eff(arrow_x, l_per_M)
+    arrow_up = e2
+    lab_arrow = r'$\left( \frac{\text{d} r}{\text{d} \tau} \right) ^2$  '
+
+    plt.figure(figsize=(10,5))
+    plt.plot(r_per_M, Veff, color='black', label=label_eff)
+    plt.plot(r_min, V_1, 'rx', markersize=7)
+    plt.hlines(e1, x1_left, x1_right, linestyle='--', color='b', label=lab_e1)
+    plt.hlines(e2, x2_left, x2_right, linestyle='--', color='g', label=lab_e2)
+    plt.hlines(e3, x3_left, x3_right, linestyle='--', color='orange', label=lab_e3)
+    plt.plot(r_max, V_2, 'ro', label=lab_e4)
+    plt.annotate('', xy=(arrow_x, arrow_down), xytext=(arrow_x, arrow_up),
+             arrowprops=dict(arrowstyle='<->', lw=1.5, color='black'))
+    plt.text(arrow_x, (arrow_up + arrow_down)/2, lab_arrow, fontsize=20, ha='right', va='center')
+    plt.ylim([-0.06, 0.03])
+    plt.xlim([0, right_lim])
     plt.xlabel(r'$\frac{r}{M}$')
     plt.ylabel(r'$V$')
-    plt.legend()
+    plt.legend(loc='lower right')
     plt.tight_layout()
     if save == 'yes': plt.savefig(filename, format='eps')
     plt.show()
