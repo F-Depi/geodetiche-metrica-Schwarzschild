@@ -547,12 +547,13 @@ $ M \rightarrow G M / c^2$
 \end{equation*}
 The first two terms are identical to the Newtonian potential for a particle
 with angular momentum (per mass) $l$, orbiting around an object of mass $M$.
-The third one is new, ignorable for $GMl^2 \ll c^2 r^3$, and it is proportional to
-$r^{-3}$.
+The third one is new, ignorable for $GMl^2 \ll c^2 r^3$, and it is proportional
+to $r^{-3}$.
 
-Figure \ref{cap1:fig:V_effvsVN} shows the effect of the $r^{-3}$ term: the infinite
-centrifugal barrier of the Newtonian potential disappears in $V_{\rm eff}$ and a
-particle with enough energy can fall to the center of the massive object.
+Figure \ref{cap1:fig:V_effvsVN} shows the effect of the $r^{-3}$ term: the
+infinite centrifugal barrier of the Newtonian potential disappears in
+$V_{\rm eff}$ and a particle with enough energy can fall to the center of the
+massive object.
 
 \begin{figure}[h]
 \begin{minipage}{0.49 \textwidth}
@@ -580,12 +581,12 @@ particle with enough energy can fall to the center of the massive object.
 \end{minipage}
 \end{figure}
 
-Taking the derivative of $V_{\rm eff}$ with respect to $r$ gives us the stationary
-points for $\frac{l}{M} \geq \sqrt{12}$.
+Taking the derivative of $V_{\rm eff}$ with respect to $r$ gives us the
+stationary points for $\frac{l}{M} \geq \sqrt{12}$.
 
 \begin{subequations}
 \begin{align}
-    r_{\substack{\rm min \\ \rm max}} &= \frac{l^2}{2 M} \left[1 \pm
+    r_{+ / -} &= \frac{l^2}{2 M} \left[1 \pm
     \sqrt{1 - 12 \left( \frac{M}{l} \right)^2} \, \right]
     &&\frac{l}{M} > \sqrt{12} \label{cap1:eq:r_min_max} \\
     %
@@ -595,13 +596,11 @@ points for $\frac{l}{M} \geq \sqrt{12}$.
 \label{cap1:eq:stationary_r}
 \end{subequations}
 
-
-
-In eq. \ref{cap1:eq:r_min_max} $r_{\rm min}$ and $r_{\rm max}$ correspond
+In eq. \ref{cap1:eq:r_min_max} $r_-$ and $r_+$ correspond
 to an unstable point and to a stable one respectively.
 
 The case described by eq. \ref{cap1:eq:r_ISCO} represents the
-\textit{innermost stable circular orbit} (\textit{ISCO}).
+\textit{innermost stable circular orbit} (ISCO).
 As the name suggests, it is the smallest stable orbit that a particle can
 theoretically follow.
 It is shown in green in Figure \ref{cap1:fig:V_eff_tanti}.
@@ -612,8 +611,8 @@ is destined to fall towards the mass (red line in Figure
 
 As in the Newtonian case a bound orbit exists only when $V_{\rm eff}$ has a
 stable stationary point and the total energy given to the particle is not
-greater than $V_{\rm eff}(r_{\rm min})$ (a more detailed explanation in
-Section \ref{cap1:sec:stable_orbits}
+greater than $V_{\rm eff}(r_-)$ (a more detailed explanation in
+Section \ref{cap1:sec:stable_orbits}).
 
 \newpage
 
@@ -744,7 +743,7 @@ $r \simeq 12M$ at $\tau = t =  0$.
 In Section \ref{cap1:sec:particle_orbits} we analyzed the role that
 $\frac{l}{M}$ has on the effective potential $V_{\rm eff}$ defined in eq.
 \ref{cap1:eq:V_eff} and found out that for $\frac{l}{M} > \sqrt{12}$ it has two
-stationary points $r_{\rm min/max}$ defined in eq. \ref{cap1:eq:r_min_max}.
+stationary points $r_{+ / -}$ defined in eq. \ref{cap1:eq:r_min_max}.
 
 For clarity, we rewrite eq. \ref{cap1:eq:found_epsilon} below, accompanied by a
 visual representation in Figure \ref{cap1:fig:V_eff_orbits}.
@@ -782,24 +781,23 @@ This is the case of a circular orbit, and it will be explored in Section
 In the yellow case, $\mathcal E = -0.03$, the particle has some \textit{spare}
 energy (not enough to escape) to change its radius between the two turning
 points $P_1$ and $P_2$
-This results in an ellipse around the massive object.
+This results in an ellipse-like shape around the massive object.
 \footnote{As we will see in Section \ref{cap1:sec:precession} it's not
 exactly an ellipse as in the Newtonian case.}
 
 Finally, the green case, $\mathcal E = 0.005$, and the blue one,
 $\mathcal E = 0.02$, are not stable orbits.
-In the first case, the particle has one turning point $P_3$ and has enough energy
-to escape the potential well and go back towards infinity.
-In the latter, the particle as a bigger energy than $V_{\rm eff} (r_{\rm min})$
+In the first case, the particle has one turning point $P_3$ and has enough
+energy to escape the potential well and go back towards infinity.
+In the latter, the particle as a bigger energy than $V_{\rm eff} (r_-)$
 and can fall into the massive object.
-
 
 
 \subsection{Circular Orbits}
 \label{cap1:ssec:circular_orbits}
 
 As we have seen from Figure \ref{cap1:fig:V_eff_orbits} a particle can draw a
-circular orbits if it has an energy $\mathcal E = V_{\rm eff}(r_{\rm max})$.
+circular orbits if it has an energy $\mathcal E = V_{\rm eff}(r_+)$.
 It is possible to find the relationship between the energy $e$
 and angular momentum $l$ that makes this possible.
 
@@ -814,7 +812,7 @@ First of all, the four-velocity of the particle will be
 
 Where we defined $\Omega := \dv{\phi}{t}$: the rate of which $\phi$ changes with
 respect to the \Sh time $t$.
-Using eq. \ref{cap1:eq:conserved_e} and eq. \ref{cap1:eq:conserved_l} $\Omega$
+Using eq. \ref{cap1:eq:conserved_e} and eq. \ref{cap1:eq:conserved_l}, $\Omega$
 can be rewritten as
 
 \begin{equation}
@@ -824,7 +822,8 @@ can be rewritten as
 \end{equation}
 
 A second equation for $\frac{l}{e}$ comes with the restriction that the
-particle must orbit at the minimum of $V_{\rm eff}$
+particle must orbit at the minimum of $V_{\rm eff}$, from eq.
+\ref{cap1:eq:r_min_max}
 
 \begin{equation}
     r = \frac{l^2}{2 M} \left[1 +
@@ -832,7 +831,7 @@ particle must orbit at the minimum of $V_{\rm eff}$
     \label{cap1:eq:r_min}
 \end{equation}
 
-And that from eq. \ref{cap1:eq:found_e} the derivative of $r$ vanishes
+Using eq. \ref{cap1:eq:found_e} the derivative of $r$ vanishes
 and we can write everything as
 
 \begin{equation}
@@ -900,7 +899,9 @@ Therefore, we have
 \subsection{General Shapes and Precession}
 \label{cap1:sec:precession}
 
-In general if we want to characterize the shape of a orbit, restricted to the
+To complete the discussion on bound orbit we can have a look at a more general
+case, where $V_{\rm eff} < \mathcal E < 0$.
+If we want to characterize the shape of the orbit, as always restricted to the
 $xy$ plane, we need to express $\phi$ as a function of $r$.
 To do so we can use eq. \ref{cap1:eq:conserved_l} and eq. \ref{cap1:eq:found_e}
 and rewrite them respectively as
@@ -921,7 +922,7 @@ Dividing \ref{cap1:eq:shape2} into \ref{cap1:eq:shape1} gives
 \begin{equation}
     \dv{\phi}{r} = \pm \frac{l}{r^2}
     \left[e^2 - \left(1 + \frac{l^2}{r^2}\right)
-    \left(1 - \frac{2M}{r}\right)\right]
+    \left(1 - \frac{2M}{r}\right)\right]^{-1/2}
     \label{cap1:eq:shape}
 \end{equation}
 
@@ -930,11 +931,34 @@ The result can be expressed in terms of elliptic functions but not in a very
 enlightening way for those not familiar with them
 \footcite[page 202]{hartle2021gravity}.
 
-An interesting parameter to study is the precession, defined as
+An interesting parameter to study is the \textit{precession}, defined as
 
 \begin{equation}
     \delta \phi_{\rm prec} = \Delta \phi - 2 \pi
     \label{cap1:eq:precession}
 \end{equation}
 
-Where $\Delta \phi$ is defined as 
+To define $\Delta \phi$ consider the turning points $P_1$ and $P_2$ in Figure
+\ref{cap1:fig:V_eff_orbits}.
+\textit{One orbit} is complete when the particle starts from the inner turning
+point, $P_1$, and gets back to it.
+We can equivalently consider $P_2$ as a starting and ending point.
+$\Delta \phi$ is the angle swept during one orbit.
+It's also useful to notice that the angle swept in one orbit is twice the angle
+swept between $P_1$ and $P_2$, thus we can rewrite $\Delta \phi$ as
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.5 \textwidth]{Figures/precession_bozza.png}
+    \caption{placeholder}
+    \label{cap1:fig:precession}
+\end{figure}
+
+\begin{equation}
+    \Delta \phi = \int_{P_1}^{P_2} \dv{\phi}{r} \mathrm{d}r
+    = 2 l \int_{P_1}^{P_2} \frac{1}{r^2}
+    \left[e^2 - \left(1 + \frac{l^2}{r^2}\right)
+    \left(1 - \frac{2M}{r}\right)\right]^{-1/2} \mathrm{d}r
+\end{equation}
+
+

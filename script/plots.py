@@ -110,7 +110,7 @@ def plot_V_eff_orbits(save=['yes','no']):
     right_lim = 70
     bottom_lim = -0.06
 
-    r_per_M = np.arange(2.1,right_lim,0.1)
+    r_per_M = np.arange(2.1,right_lim,0.01)
     l_per_M = 4.1
     Veff = fun_V_eff(r_per_M, l_per_M)
     label_eff = r'$V_{\rm eff} \, (r)$'
@@ -122,7 +122,7 @@ def plot_V_eff_orbits(save=['yes','no']):
     # Different values of E
     r_max = l_per_M**2 / 2 * (1 + skrt)
     V_2 = fun_V_eff(r_max, l_per_M)
-    lab_e4 = r'$\mathcal{E}_4 = V_{\rm eff} \, (r_{\rm max})$'
+    lab_e4 = r'$\mathcal{E}_4 = V_{\rm eff} \, (r_+)$'
 
     e1 = 0.02
     x1_right =right_lim 
@@ -169,7 +169,7 @@ def plot_V_eff_orbits(save=['yes','no']):
     plt.text(x2_left + 0.5, e2 - 5e-3, r'$P_3$', fontsize=15)
 
     tiks = [0,10,20,30,40,50,60,70] + [r_min, r_max]
-    lab_tiks = ['0','10','20','30','40','50','60','70'] + [r'$r_{\rm min}$', r'$r_{\rm max}$']
+    lab_tiks = ['0','10','20','30','40','50','60','70'] + [r'$r_-$', r'$r_+$']
     plt.xticks(tiks, lab_tiks)
 
     plt.ylim([bottom_lim, 0.03])
@@ -190,4 +190,4 @@ def plot_V_eff_orbits(save=['yes','no']):
 #plot_radial_infall('yes')
 
 ''' Veff vs values of e '''
-plot_V_eff_orbits('yes')
+plot_V_eff_orbits('no')
