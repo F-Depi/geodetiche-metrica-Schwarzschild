@@ -414,7 +414,7 @@ compared to the one they have at the point of emission.
 
 
 \section{Particle Orbits}
-\label{cap1:sec:orbits}
+\label{cap1:sec:particle_orbits}
 
 \begin{minipage}{0.4 \textwidth}
 
@@ -460,15 +460,20 @@ compared to the one they have at the point of emission.
 
     \label{cap1:fig:spherical_coordinates}
 \end{tikzpicture}
+\captionof{figure}{Visual representation of the spherical coordinates used.
+The green line represents a possible trajectory on the $xy$ plane. \\}
 \end{minipage}
 \hspace{0.02 \textwidth}
 \begin{minipage}{0.57 \textwidth}
-    We now study the orbits of a \textit{test particle} in this geometry.
-    A \textit{test particle} is defined as a particle with a mass so small that
-    it does not significantly disturb the surrounding spacetime geometry.
+    To further analyze the \Sh geometry, we will now explore the behavior of a
+    test particle within it.
+    A \textit{test particle} refers to an object with mass so small that its
+    influence on the surrounding spacetime is negligible, allowing us to
+    analyze its motion without altering the geometry of the spacetime itself.
 
-    From eq. \ref{cap1:eq:conserved_l} we know that the angular momentum is
-    conserved, so we can expect the orbit to lie on a plane.
+    As already established from eq. \ref{cap1:eq:conserved_l} the angular
+    momentum is conserved during the motion of a particle in this geometry.
+    This implies that the particle's orbit must lie within a plane.
     Without loosing generality we can imagine the particle path to stay in the
     $xy$ plane, fixing $\theta = \pi / 2$ and, consequently,
     \begin{equation*}
@@ -477,19 +482,24 @@ compared to the one they have at the point of emission.
     \begin{equation*}
         l = r^2 \sin^2 \theta \dv{\phi}{\tau} = r^2 \dv{\phi}{\tau}
     \end{equation*}
+
+    Refer to Figure \ref{cap1:fig:spherical_coordinates} for a visual
+    representation.
 \end{minipage}
 \hspace{0.02 \textwidth}
 
-The four-velocity of our test particle can be written as
+The four-velocity of our test particle can then be written as
 \begin{equation*}
     u^\mu
-    = \left(\dv{x^t}{\tau}, \dv{x^r}{\tau}, \dv{x^\theta}{\tau}, \dv{x^\phi}{\tau} \right)
+    = \left(\dv{x^t}{\tau}, \dv{x^r}{\tau}, \dv{x^\theta}{\tau},
+    \dv{x^\phi}{\tau} \right)
     = \left(\dv{t}{\tau}, \dv{r}{\tau}, 0, \frac{l}{r^2} \right) \, .
 \end{equation*}
 
 Where we simplified the notation using $t = x^t$ and $r = x^r$.
-Thanks to the normalization of $\mathbf u$ and using $\theta = \pi / 2$ again,
-we can now write
+Thanks to the normalization of $\mathbf u$ (eq.
+\ref{cap1:eq:u_normalization_mass}) and using $\theta = \pi / 2$ again, we can
+write
 
 \begin{equation*}
     - 1 = g_{\nu \mu} u^\nu u^\mu =
@@ -498,8 +508,9 @@ we can now write
     + \frac{l^2}{r^2}
 \end{equation*}
 
-By using the conserved energy per unit rest mass found in \ref{cap1:eq:conserved_e} to
-eliminate the dependence from $t$ and rearranging the expression, we have
+By using the conserved energy per unit rest mass found in
+\ref{cap1:eq:conserved_e} to eliminate the dependence from $t$ and rearranging
+the expression, we have
 
 \begin{equation}
     e^2 = \left(\dv{r}{\tau}\right)^2 + \left(1 + \frac{l^2}{r^2}\right)
@@ -508,17 +519,17 @@ eliminate the dependence from $t$ and rearranging the expression, we have
 \end{equation}
 
 To compare eq. \ref{cap1:eq:found_e} with the Newtonian case we can expand
-the multiplication, bring the 1 on the left side and divide by a factor of 2.
+the multiplication, subtract 1 from both sides and divide by a factor of 2:
 
 \begin{equation}
     \mathcal E = \frac{e^2 - 1}{2} = \frac{1}{2} \left(\dv{r}{\tau}\right)^2
-    + \frac{l^2}{2 r^2} - \frac{M}{r} - \frac{M l^2}{r^3}
+    + \frac{l^2}{2 r^2} - \frac{M}{r} - \frac{M l^2}{r^3} \, .
     \label{cap1:eq:found_epsilon}
 \end{equation}
 
 By defining this dimensionless constant $\mathcal E$, we can now see the
-derivative of $r$ as the kinetic energy and the other terms as an effective
-potential acting on the particle, defined as
+derivative of $r$ as the kinetic energy (per unit rest mass) and the other
+terms as an effective potential acting on the particle, defined as
 
 \begin{equation}
     V_{\rm eff}(r) = \frac{l^2}{2 r^2} - \frac{M}{r} - \frac{M l^2}{r^3} \, .
@@ -526,17 +537,17 @@ potential acting on the particle, defined as
 \end{equation}
 
 To better understand eq. \ref{cap1:eq:V_eff}, we can express it in
-$\mathcal{LMT}$ units, substituting
-$l \rightarrow L / (m c)$ and $ M \rightarrow G M / c^2$ and multiplying both
-sides by the rest mass $m c^2$ used to normalize eq. \ref{cap1:eq:found_epsilon}.
+$\mathcal{LMT}$ units, substituting $l \rightarrow l / c$ and 
+$ M \rightarrow G M / c^2$
 
 \begin{equation*}
-    m c^2 V_{\rm eff}(r)
-    = \frac{L^2}{2 m r^2} - \frac{G M m}{r} - \frac{G M L^2}{c^2 m r^3}
+    V_{\rm eff}(r)
+    = \frac{1}{c^2} \left( \frac{l^2}{2 r^2} - \frac{G M}{r}
+    - \frac{G M l^2}{c^2 r^3} \right)
 \end{equation*}
-The first two terms are identical to the Newtonian potential for a particle of
-mass $m$ and angular momentum $L$, orbiting around an object of mass $M$.
-The third one is new, ignorable for $GML^2 \ll c^2 m r^3$, and it is proportional to
+The first two terms are identical to the Newtonian potential for a particle
+with angular momentum (per mass) $l$, orbiting around an object of mass $M$.
+The third one is new, ignorable for $GMl^2 \ll c^2 r^3$, and it is proportional to
 $r^{-3}$.
 
 Figure \ref{cap1:fig:V_effvsVN} shows the effect of the $r^{-3}$ term: the infinite
@@ -574,7 +585,7 @@ points for $\frac{l}{M} \geq \sqrt{12}$.
 
 \begin{subequations}
 \begin{align}
-    r_{\rm min / max} &= \frac{l^2}{2 M} \left[1 \pm
+    r_{\substack{\rm min \\ \rm max}} &= \frac{l^2}{2 M} \left[1 \pm
     \sqrt{1 - 12 \left( \frac{M}{l} \right)^2} \, \right]
     &&\frac{l}{M} > \sqrt{12} \label{cap1:eq:r_min_max} \\
     %
@@ -584,30 +595,35 @@ points for $\frac{l}{M} \geq \sqrt{12}$.
 \label{cap1:eq:stationary_r}
 \end{subequations}
 
-For $\frac{l}{M} < \sqrt{12}$ there are none and the particle is destined
-to fall towards the mass.
 
-In eq. \ref{cap1:eq:r_min_max} $r_{\rm min/max}$ correspond to an unstable point and to a stable
-one respectively.
-The case in eq. \ref{cap1:eq:r_ISCO} represents an unstable point, the curve
-associated with it is represented in green in figure
-\ref{cap1:fig:V_eff_tanti}.
 
-As in the Newtonian case a bound orbit exists only when $V_{\rm eff}$ has a stable
-stationary point and the total energy given to the particle is not greater then
-$V_{\rm eff}(r_{\rm min})$.
+In eq. \ref{cap1:eq:r_min_max} $r_{\rm min}$ and $r_{\rm max}$ correspond
+to an unstable point and to a stable one respectively.
 
+The case described by eq. \ref{cap1:eq:r_ISCO} represents the
+\textit{innermost stable circular orbit} (\textit{ISCO}).
+As the name suggests, it is the smallest stable orbit that a particle can
+theoretically follow.
+It is shown in green in Figure \ref{cap1:fig:V_eff_tanti}.
+
+For $\frac{l}{M} < \sqrt{12}$ there are no stationary points and the particle
+is destined to fall towards the mass (red line in Figure
+\ref{cap1:fig:V_eff_tanti}).
+
+As in the Newtonian case a bound orbit exists only when $V_{\rm eff}$ has a
+stable stationary point and the total energy given to the particle is not
+greater than $V_{\rm eff}(r_{\rm min})$ (a more detailed explanation in
+Section \ref{cap1:sec:stable_orbits}
 
 \newpage
 
-%% something about how orbts are in general with respect to e and max(V_eff)?
-%% See figure 12.2 pag 345 Stuart
 
 \section{The Simplest Geodesics: Radial Infalls}
 
 The simplest case we can consider is a radial infall where $\phi$ stays
 constant.
 From eq. \ref{cap1:eq:conserved_l} this implies $l = 0$.
+
 Eq. \ref{cap1:eq:found_e} becomes
 
 
@@ -723,11 +739,14 @@ $r \simeq 12M$ at $\tau = t =  0$.
 
 
 \section{Stable Orbits}
+\label{cap1:sec:stable_orbits}
 
-In figure \ref{cap1:fig:V_eff_tanti} we analyzed the role that $\frac{l}{M}$ has
-on the effective potential $V_{\rm eff}$ defined in eq. \ref{cap1:eq:V_eff}.
+In Section \ref{cap1:sec:particle_orbits} we analyzed the role that
+$\frac{l}{M}$ has on the effective potential $V_{\rm eff}$ defined in eq.
+\ref{cap1:eq:V_eff} and found out that for $\frac{l}{M} > \sqrt{12}$ it has two
+stationary points $r_{\rm min/max}$ defined in eq. \ref{cap1:eq:r_min_max}.
 
-The most interesting case lies where $\frac{l}{M} < \sqrt{12}$.
+The most interesting case lies where .
 Figure \ref{cap1:fig:V_eff_orbite} shows $V_{\rm eff}$ with $l / M = 4.1$
 together with 4 different values of the energy per rest mass unit $e$.
 
@@ -737,7 +756,7 @@ together with 4 different values of the energy per rest mass unit $e$.
     \caption{In black the effect potential with $l / M = 4.1$. The dashed lines
     together with the red dot represent possible values of $e$ and give 4
     different scenarios. Refer to the text for a detailed explanation. \\
-    Inspired from \cite[page 245, figure 12.2]{shapiro2008black}.}
+    Inspired from \cite[page 245, Figure 12.2]{shapiro2008black}.}
     \label{cap1:fig:V_eff_orbite}
 \end{figure}
 
@@ -749,7 +768,7 @@ required to stay in the minimum of the potential. Here there is no
 
 \subsection{Circular Orbits}
 
-In section \ref{cap1:sec:orbits} we discussed the points the effective
+In Section \ref{cap1:sec:particle_orbits} we discussed the points the effective
 potential $V_{\rm eff}$ had minima and maxima.
 In particular, we found that for $l / M > \sqrt{12}$ the potential had a stable
 stationary point.
