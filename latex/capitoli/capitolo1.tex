@@ -746,36 +746,62 @@ $\frac{l}{M}$ has on the effective potential $V_{\rm eff}$ defined in eq.
 \ref{cap1:eq:V_eff} and found out that for $\frac{l}{M} > \sqrt{12}$ it has two
 stationary points $r_{\rm min/max}$ defined in eq. \ref{cap1:eq:r_min_max}.
 
-The most interesting case lies where .
-Figure \ref{cap1:fig:V_eff_orbite} shows $V_{\rm eff}$ with $l / M = 4.1$
-together with 4 different values of the energy per rest mass unit $e$.
+For clarity, we rewrite eq. \ref{cap1:eq:found_epsilon} below, accompanied by a
+visual representation in Figure \ref{cap1:fig:V_eff_orbits}.
+
+\begin{equation}
+    \left( \dv{r}{\tau} \right)^2 = \mathcal E - V_{\rm eff} (r)
+    \label{cap1:eq:like_newton}
+\end{equation}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width = \textwidth]{Figures/V_eff_orbits.eps}
-    \caption{In black the effect potential with $l / M = 4.1$. The dashed lines
-    together with the red dot represent possible values of $e$ and give 4
-    different scenarios. Refer to the text for a detailed explanation. \\
-    Inspired from \cite[page 245, Figure 12.2]{shapiro2008black}.}
-    \label{cap1:fig:V_eff_orbite}
+    \caption{In black the effective potential with $l / M = 4.1$.
+    The dashed lines, along with the red dot, represent possible values of
+    $\mathcal E$ that give 4 different scenarios.
+    Refer to the text for a detailed explanation. 
+    \textit{This figure inspired from
+    \cite[page 245, Figure 12.2]{shapiro2008black}.}}
+    \label{cap1:fig:V_eff_orbits}
 \end{figure}
 
+From eq. \ref{cap1:eq:like_newton} we know that the particle can change its
+distance $r$ from the massive object only if there is the energy
+$\mathcal E - V_{\rm eff}$ to do so.
+In Figure \ref{cap1:fig:V_eff_orbits}, $V_{\rm eff}$ with $l / M = 4.1$ is
+represented along with 4 different values of $\mathcal E$.
+
 The red full dot represents the case where the particle has exactly the energy
-required to stay in the minimum of the potential. Here there is no
-\textit{spare} energy that the particle can use to move along $r$.
+required to stay in the local minimum of the potential.
+Here there is no \textit{spare} energy that the particle can use to move along
+$r$.
+This is the case of a circular orbit, and it will be explored in Section
+\ref{cap1:ssec:circular_orbits}
+
+In the yellow case, $\mathcal E = -0.03$, the particle has some \textit{spare}
+energy (not enough to escape) to change its radius between the two turning
+points $P_1$ and $P_2$
+This results in an ellipse around the massive object.
+\footnote{As we will see in Section \ref{cap1:sec:precession} it's not
+exactly an ellipse as in the Newtonian case.}
+
+Finally, the green case, $\mathcal E = 0.005$, and the blue one,
+$\mathcal E = 0.02$, are not stable orbits.
+In the first case, the particle has one turning point $P_3$ and has enough energy
+to escape the potential well and go back towards infinity.
+In the latter, the particle as a bigger energy than $V_{\rm eff} (r_{\rm min})$
+and can fall into the massive object.
 
 
 
 \subsection{Circular Orbits}
+\label{cap1:ssec:circular_orbits}
 
-In Section \ref{cap1:sec:particle_orbits} we discussed the points the effective
-potential $V_{\rm eff}$ had minima and maxima.
-In particular, we found that for $l / M > \sqrt{12}$ the potential had a stable
-stationary point.
-
-Let's analyze the scenario where the particle has the right combination of
-energy $e$ and angular momentum $l$ to stay at the fixed radius orbiting
-around the massive object.
+As we have seen from Figure \ref{cap1:fig:V_eff_orbits} a particle can draw a
+circular orbits if it has an energy $\mathcal E = V_{\rm eff}(r_{\rm max})$.
+It is possible to find the relationship between the energy $e$
+and angular momentum $l$ that makes this possible.
 
 First of all, the four-velocity of the particle will be
 
@@ -872,6 +898,7 @@ Therefore, we have
 
 
 \subsection{General Shapes and Precession}
+\label{cap1:sec:precession}
 
 In general if we want to characterize the shape of a orbit, restricted to the
 $xy$ plane, we need to express $\phi$ as a function of $r$.

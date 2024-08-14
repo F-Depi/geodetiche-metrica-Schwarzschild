@@ -108,6 +108,8 @@ def plot_V_eff_orbits(save=['yes','no']):
 
     filename = '../latex/Figures/V_eff_orbits.eps'
     right_lim = 70
+    bottom_lim = -0.06
+
     r_per_M = np.arange(2.1,right_lim,0.1)
     l_per_M = 4.1
     Veff = fun_V_eff(r_per_M, l_per_M)
@@ -117,33 +119,38 @@ def plot_V_eff_orbits(save=['yes','no']):
     r_min = l_per_M**2 / 2 * (1 - skrt)
     V_1 = fun_V_eff(r_min, l_per_M)
 
+    # Different values of E
     r_max = l_per_M**2 / 2 * (1 + skrt)
     V_2 = fun_V_eff(r_max, l_per_M)
-    lab_e4 = r'$e_4 = V_{\rm eff} \, (r_{\rm max})$'
+    lab_e4 = r'$\mathcal{E}_4 = V_{\rm eff} \, (r_{\rm max})$'
 
     e1 = 0.02
     x1_right =right_lim 
-    lab_e1 = r'$e_1 =$'+str(e1)
+    lab_e1 = r'$\mathcal{E}_1 =$'+str(e1)
 
     e2 = 0.005
     x2_left = root_scalar(lambda x: fun_V_eff(x, l_per_M) - e2, bracket=[r_min, r_max], method='bisect').root
     x2_right =right_lim 
-    lab_e2 = r'$e_2 =$'+str(e2)
+    lab_e2 = r'$\mathcal{E}_2 =$'+str(e2)
 
     e3 = -0.030
     x1_left = 0
     x3_left = root_scalar(lambda x: fun_V_eff(x, l_per_M) - e3, bracket=[r_min, r_max], method='bisect').root
     x3_right = root_scalar(lambda x: fun_V_eff(x, l_per_M) - e3, bracket=[r_max, right_lim], method='bisect').root
-    lab_e3 = r'$e_3 =$'+str(e3)
+    lab_e3 = r'$\mathcal{E}_3 =$'+str(e3)
 
+    # Vertical double arrow
     arrow_x = 40
     arrow_down = fun_V_eff(arrow_x, l_per_M)
     arrow_up = e2
     lab_arrow = r'$\left( \frac{\text{d} r}{\text{d} \tau} \right) ^2$  '
 
-    plt.figure(figsize=(10,5))
+
+    ax = plt.figure(figsize=(10,5))
     plt.plot(r_per_M, Veff, color='black', label=label_eff)
-    plt.plot(r_min, V_1, 'rx', markersize=7)
+    #plt.plot(r_min, V_1, 'rx', markersize=7)
+    plt.vlines(r_min, bottom_lim, V_1, color='r', linestyle='--', linewidth=1)
+    plt.vlines(r_max, bottom_lim, V_2, color='r', linestyle='--', linewidth=1)
     plt.hlines(e1, x1_left, x1_right, linestyle='--', color='b', label=lab_e1)
     plt.hlines(e2, x2_left, x2_right, linestyle='--', color='g', label=lab_e2)
     plt.hlines(e3, x3_left, x3_right, linestyle='--', color='orange', label=lab_e3)
@@ -151,7 +158,21 @@ def plot_V_eff_orbits(save=['yes','no']):
     plt.annotate('', xy=(arrow_x, arrow_down), xytext=(arrow_x, arrow_up),
              arrowprops=dict(arrowstyle='<->', lw=1.5, color='black'))
     plt.text(arrow_x, (arrow_up + arrow_down)/2, lab_arrow, fontsize=20, ha='right', va='center')
-    plt.ylim([-0.06, 0.03])
+
+    plt.plot(x3_left, e3, color='orange', marker='o')
+    plt.text(x3_left - 2, e3 - 5e-3, r'$P_1$', fontsize=15)
+
+    plt.plot(x3_right, e3, color='orange', marker='o')
+    plt.text(x3_right + 0.5, e3 - 5e-3, r'$P_2$', fontsize=15)
+
+    plt.plot(x2_left, e2, color='green', marker='o')
+    plt.text(x2_left + 0.5, e2 - 5e-3, r'$P_3$', fontsize=15)
+
+    tiks = [0,10,20,30,40,50,60,70] + [r_min, r_max]
+    lab_tiks = ['0','10','20','30','40','50','60','70'] + [r'$r_{\rm min}$', r'$r_{\rm max}$']
+    plt.xticks(tiks, lab_tiks)
+
+    plt.ylim([bottom_lim, 0.03])
     plt.xlim([0, right_lim])
     plt.xlabel(r'$\frac{r}{M}$')
     plt.ylabel(r'$V$')
