@@ -127,7 +127,8 @@ the space.
 \newpage
 
 
-\subsection{Notation and Formalism} \label{cap1:ssec:notation}
+\subsection{Notation and Formalism}
+\label{cap1:ssec:notation}
 
 In the \textit{flat spacetime} we can introduce a coordinate basis for
 four-vectors
@@ -324,7 +325,8 @@ Therefore the quantities
 will be conserved along the geodesic.
 We already named them $E$ and $L$ as they are respectively the energy and the
 angular momentum at large $r$ and low velocities.
-To simplify the expressions the discussion will use renormalized quantities
+To simplify the expressions used in the discussion will use renormalized
+quantities
 
 \begin{subequations}
     \begin{align}
@@ -335,7 +337,8 @@ To simplify the expressions the discussion will use renormalized quantities
     \end{align}
 \end{subequations}
 
-$e$ and $l$ are the conserved energy and angular momentum per unit rest mass.
+$e$ and $l$ are respectively the conserved energy and angular momentum per unit
+rest mass.
 
 In the next sections the normalization of the four-velocity $\mathbf u$ will be
 really useful too
@@ -956,9 +959,103 @@ swept between $P_1$ and $P_2$, thus we can rewrite $\Delta \phi$ as
 
 \begin{equation}
     \Delta \phi = \int_{P_1}^{P_2} \dv{\phi}{r} \mathrm{d}r
-    = 2 l \int_{P_1}^{P_2} \frac{1}{r^2}
+    = 2 l \int_{r_1}^{r_2} \frac{1}{r^2}
     \left[e^2 - \left(1 + \frac{l^2}{r^2}\right)
     \left(1 - \frac{2M}{r}\right)\right]^{-1/2} \mathrm{d}r
+    \label{cap1:eq:delta_phi}
 \end{equation}
 
+By the definition of the turning points, $r_1$ and $r_2$, the integral we need
+to compute is between the two zeros of the denominator contained in square
+brackets.
+To check the correspondence with the Newtonian case we can solve the integral
+in \ref{cap1:eq:delta_phi} neglecting the $r^{-3}$ term and remembering the
+definition of $\mathcal E$ from eq. \ref{cap1:eq:found_epsilon}:
+
+\begin{equation*}
+    \Delta \phi
+    = 2 l \int_{r_1}^{r_2} \frac{1}{r^2} \left[\mathcal E - \frac{l^2}{r^2}\
+    + \frac{2M}{r} \right]^{-1/2} \mathrm{d}r
+\end{equation*}
+
+Making the substitution $u = 1 / r$ and using the root of the denominator as
+the bounds of integration we get
+
+\begin{equation}
+    \Delta \phi
+    = 2 \int_{u_2}^{u_1} \frac{\mathrm{d} u}{\sqrt{(u_1 - u)(u - u_2)}} 
+    = 2 \pi \quad \quad \forall u_1 \neq u_2
+\end{equation}
+
+where $u_{1/2} = \frac{1}{r_{1/2}}$, but the integral is $\pi$ for every $u_1$
+and $u_2$.
+
+% Problem 15 to get the expression inthe first order of 1 / c^2 ?
+
+\newpage
+
+
+\section{Light Ray orbits}
+
+When working with light, more properly photons, we define the four-velocity
+using the \textit{affine parameter} $\lambda$.
+
+\begin{equation*}
+    u^\mu = \dv{x^\mu}{\lambda} \, .
+\end{equation*}
+
+The conserved quantities $e$ and $l$ defined in \ref{cap1:eq:conserved_e} and
+\ref{cap1:eq:conserved_l} are the same, with the only difference of using
+$\lambda$ instead of the proper time $\tau$.
+
+\begin{subequations}
+    \begin{align*}
+        e &= \left( 1 - \frac{2M}{r} \right) \dv{t}{\lambda} \\
+        l &= r^2 \sin^2 \theta \dv{\phi}{\lambda} \, .
+    \end{align*}
+\end{subequations}
+
+We can therefore restrict the light ray motion to the $xy$ plane
+
+\begin{equation*}
+    u^\mu
+    = \left(\dv{t}{\lambda}, \dv{r}{\lambda}, 0, \frac{l}{r^2} \right) \, .
+\end{equation*}
+
+The only difference lies, as described in eq.
+\ref{cap1:eq:u_normalization_light}, in the normalization of $\mathbf u$, that
+is $\mathbf{u \cdot u} = 0$.
+
+So, with the same intent we had when we found eq. \ref{cap1:eq:found_e} we can
+write
+
+\begin{equation*}
+    0 = g_{\nu \mu} u^\nu u^\mu =
+    - \left(1 - \frac{2M}{r} \right) \left(\dv{t}{\lambda} \right)^2
+    + \left(1 - \frac{2M}{r} \right)^{- 1} \left(\dv{r}{\lambda} \right)^2
+    + \frac{l^2}{r^2}
+\end{equation*}
+
+and then rearrange
+
+\begin{equation}
+    \frac{1}{b^2} = \frac{1}{l^2} \left( \dv{r}{\lambda} \right)^2
+    + W_{\rm eff} (r) \, .
+    \label{cap1:eq:found_b}
+\end{equation}
+
+Where we defined another effective potential, one that acts on light rays only,
+as
+
+\begin{equation}
+    W_{\rm eff} (r) = \frac{1}{r^2} \left( 1 - \frac{2M}{r} \right)
+    \label{cap1:eq:W}
+\end{equation}
+
+and a different constant for the energy
+
+\begin{equation}
+    b^2 = \frac{l^2}{e^2} \, .
+    \label{cap1:eq:b}
+\end{equation}
 
