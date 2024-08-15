@@ -58,7 +58,8 @@ between two objects is surely destabilizing at first, but geometry teaches us
 that fixing the way we calculate $\Delta s^2$, more properly referred to as the
 \textit{line element} $\mathrm{d}s^2$, is enough to describe the geometry of
 the space that we are using.
-Since eq. \ref{cap1:eq:Minkowski} is different from eq. \ref{cap1:eq:euclide}, in
+Since eq. \ref{cap1:eq:Minkowski} is different from eq. \ref{cap1:eq:euclide},
+in
 particular there is a minus sign in front of $\Delta t^2$, we moved away from
 the familiar three-dimensional Euclidean geometry and are now in
 four-dimensional spacetime, usually referred to as \textit{flat spacetime} or
@@ -80,7 +81,8 @@ acting on a mass $m_1$ at time $t$ due to a second mass $m_2$:
 
 The adjective \textit{instantaneous} in a theory where nothing can travel
 faster than the speed of light should already raise some concern.
-But looking at $r_1(t)$ and $r_2(t)$ in eq. \ref{cap1:eq:force_of_gravity}, that are
+But looking at $r_1(t)$ and $r_2(t)$ in eq. \ref{cap1:eq:force_of_gravity},
+that are
 supposed to indicate the positions of the masses in the same instant of time,
 makes it even clearer that the force $F_{12}$ can't be the same in all
 frames of reference.
@@ -229,7 +231,8 @@ The line element and the metric can be rewritten as
 \end{equation}
 
 It's worth pointing out that, given \ref{cap1:eq:Sh_ds}, the coordinate basis
-introduced in \ref{cap1:eq:coord_base} is not normalized in this geometry, for example:
+introduced in \ref{cap1:eq:coord_base} is not normalized in this geometry, for
+example:
 
 \begin{equation}
     \mathbf{e_t \cdot e_t} = g_{\nu \mu} e_t^\mu e_t^\nu = g_{00}
@@ -284,7 +287,8 @@ Every non-black hole object has a radius larger than its \Sh radius.
 The nature and significance of this will become clearer in the subsequent
 sections.
 
-On the other hand, if we take the limit as $r$ approaches infinity, we notice that the
+On the other hand, if we take the limit as $r$ approaches infinity, we notice
+that the
 metric becomes asymptotically flat, approaching the metric of \Mi space.
 
 Finally, $\mathrm{d}s^2$ is independent of the coordinates $t$ and $\phi$.
@@ -313,7 +317,7 @@ $m$, defined as
 
 where $u$ is the four-velocity of the particle, $x$ its position and $\tau$ the
 proper time.
-Therefore the quantities
+Therefore, the quantities
 
 \begin{align*}
     E &= - \mathbf{\xi \cdot p} =
@@ -332,12 +336,13 @@ quantities
     \begin{align}
         e &= \frac{E}{m} = \left( 1 - \frac{2M}{r} \right) \dv{x^t}{\tau}
         \label{cap1:eq:conserved_e} \\
-        l &= \frac{L}{m} = r^2 \sin^2 \theta \dv{x^\phi}{\tau} \, .
+        \ell &= \frac{L}{m} = r^2 \sin^2 \theta \dv{x^\phi}{\tau} \, .
         \label{cap1:eq:conserved_l}
     \end{align}
 \end{subequations}
 
-$e$ and $l$ are respectively the conserved energy and angular momentum per unit
+$e$ and $\ell$ are respectively the conserved energy and angular momentum per
+unit
 rest mass.
 
 In the next sections the normalization of the four-velocity $\mathbf u$ will be
@@ -388,7 +393,8 @@ $\{e_{t}, e_{r}, e_{\theta}, e_{\phi} \}$, the energy measured in $r$ will be
     \label{cap1:eq:photon_energy1}
 \end{equation}
 
-Where we used the expression for $\hat e_t$ from eq. \ref{cap1:eq:local_ON_base_t}
+Where we used the expression for $\hat e_t$ from eq.
+\ref{cap1:eq:local_ON_base_t}
 and notice that $\mathbf{e_t} = \xi$ from eq. \ref{cap1:eq:coord_base} and eq.
 \ref{cap1:eq:xi_eta}. 
 Solving for the constant $\mathbf{p} \cdot \xi$ we find the expression in
@@ -438,7 +444,8 @@ compared to the one they have at the point of emission.
     
     % VECTORS
     \tdplotsetcoord{P}{\rvec}{\thetavec}{\phivec}
-    \draw[thick,red] (O)  -- (P) node[below right] {$(r, \theta = \frac{\pi}{2}, \phi)$};
+    \draw[thick,red] (O)  -- (P) node[below right]
+        {$(r, \theta = \frac{\pi}{2}, \phi)$};
     %\draw[dashed]   (O)  -- (Pxy);
     \draw[dashed]   (P)  -- (Pxy);
     
@@ -461,10 +468,10 @@ compared to the one they have at the point of emission.
     % Center Point
     \shade[inner color=white, outer color=blue!60!black] (0,0,0) circle (3pt);
 
-    \label{cap1:fig:spherical_coordinates}
 \end{tikzpicture}
 \captionof{figure}{Visual representation of the spherical coordinates used.
 The green line represents a possible trajectory on the $xy$ plane. \\}
+\label{cap1:fig:spherical_coordinates}
 \end{minipage}
 \hspace{0.02 \textwidth}
 \begin{minipage}{0.57 \textwidth}
@@ -483,7 +490,7 @@ The green line represents a possible trajectory on the $xy$ plane. \\}
         u^\theta = \dv{\theta}{\tau} = 0 
     \end{equation*}
     \begin{equation*}
-        l = r^2 \sin^2 \theta \dv{\phi}{\tau} = r^2 \dv{\phi}{\tau}
+        \ell = r^2 \sin^2 \theta \dv{\phi}{\tau} = r^2 \dv{\phi}{\tau}
     \end{equation*}
 
     Refer to Figure \ref{cap1:fig:spherical_coordinates} for a visual
@@ -496,7 +503,7 @@ The four-velocity of our test particle can then be written as
     u^\mu
     = \left(\dv{x^t}{\tau}, \dv{x^r}{\tau}, \dv{x^\theta}{\tau},
     \dv{x^\phi}{\tau} \right)
-    = \left(\dv{t}{\tau}, \dv{r}{\tau}, 0, \frac{l}{r^2} \right) \, .
+    = \left(\dv{t}{\tau}, \dv{r}{\tau}, 0, \frac{\ell}{r^2} \right) \, .
 \end{equation*}
 
 Where we simplified the notation using $t = x^t$ and $r = x^r$.
@@ -508,7 +515,7 @@ write
     - 1 = g_{\nu \mu} u^\nu u^\mu =
     - \left(1 - \frac{2M}{r} \right) \left(\dv{t}{\tau} \right)^2
     + \left(1 - \frac{2M}{r} \right)^{- 1} \left(\dv{r}{\tau} \right)^2
-    + \frac{l^2}{r^2}
+    + \frac{\ell^2}{r^2}
 \end{equation*}
 
 By using the conserved energy per unit rest mass found in
@@ -516,7 +523,7 @@ By using the conserved energy per unit rest mass found in
 the expression, we have
 
 \begin{equation}
-    e^2 = \left(\dv{r}{\tau}\right)^2 + \left(1 + \frac{l^2}{r^2}\right)
+    e^2 = \left(\dv{r}{\tau}\right)^2 + \left(1 + \frac{\ell^2}{r^2}\right)
     \left(1 - \frac{2M}{r} \right) \, .
    \label{cap1:eq:found_e}
 \end{equation}
@@ -526,7 +533,7 @@ the multiplication, subtract 1 from both sides and divide by a factor of 2:
 
 \begin{equation}
     \mathcal E = \frac{e^2 - 1}{2} = \frac{1}{2} \left(\dv{r}{\tau}\right)^2
-    + \frac{l^2}{2 r^2} - \frac{M}{r} - \frac{M l^2}{r^3} \, .
+    + \frac{\ell^2}{2 r^2} - \frac{M}{r} - \frac{M \ell^2}{r^3} \, .
     \label{cap1:eq:found_epsilon}
 \end{equation}
 
@@ -535,22 +542,24 @@ derivative of $r$ as the kinetic energy (per unit rest mass) and the other
 terms as an effective potential acting on the particle, defined as
 
 \begin{equation}
-    V_{\rm eff}(r) = \frac{l^2}{2 r^2} - \frac{M}{r} - \frac{M l^2}{r^3} \, .
+    V_{\rm eff}(r)
+    = \frac{\ell^2}{2 r^2} - \frac{M}{r} - \frac{M \ell^2}{r^3} \, .
     \label{cap1:eq:V_eff}
 \end{equation}
 
 To better understand eq. \ref{cap1:eq:V_eff}, we can express it in
-$\mathcal{LMT}$ units, substituting $l \rightarrow l / c$ and 
+$\mathcal{LMT}$ units, substituting $\ell \rightarrow \ell / c$ and 
 $ M \rightarrow G M / c^2$
 
 \begin{equation*}
     V_{\rm eff}(r)
-    = \frac{1}{c^2} \left( \frac{l^2}{2 r^2} - \frac{G M}{r}
-    - \frac{G M l^2}{c^2 r^3} \right)
+    = \frac{1}{c^2} \left( \frac{\ell^2}{2 r^2} - \frac{G M}{r}
+    - \frac{G M \ell^2}{c^2 r^3} \right)
 \end{equation*}
 The first two terms are identical to the Newtonian potential for a particle
-with angular momentum (per mass) $l$, orbiting around an object of mass $M$.
-The third one is new, ignorable for $GMl^2 \ll c^2 r^3$, and it is proportional
+with angular momentum (per mass) $\ell$, orbiting around an object of mass $M$.
+The third one is new, ignorable for $GM\ell^2 \ll c^2 r^3$, and it is
+proportional
 to $r^{-3}$.
 
 Figure \ref{cap1:fig:V_effvsVN} shows the effect of the $r^{-3}$ term: the
@@ -563,7 +572,7 @@ massive object.
     \centering
     \includegraphics[width = \textwidth]{Figures/V_eff.eps}
     \caption{Effective potential defined in eq. \ref{cap1:eq:V_eff} against the
-    Newtonian potential, $\frac{l}{M} = 4$. \\
+    Newtonian potential, $\frac{\ell}{M} = 4$. \\
     The $r^{-3}$ term dominates for $r \sim r_s$ and the
     particle can fall into the massive object.
     On the other hand the Newtonian potential presents its characteristic
@@ -574,27 +583,28 @@ massive object.
 \begin{minipage}{0.49 \textwidth}
     \centering
     \includegraphics[width = \textwidth]{Figures/V_eff_tanti.eps}
-    \caption{Plot of $V_{\rm eff}$ for $\frac{l}{M} = [1, \sqrt{12}, 4.3, 6]$.
-    For $\frac{l}{M} = \sqrt{12}$ (green) there is only one stationary point
+    \caption{Plot of $V_{\rm eff}$ for
+    $\frac{\ell}{M} = [1, \sqrt{12}, 4.3, 6]$.
+    For $\frac{\ell}{M} = \sqrt{12}$ (green) there is only one stationary point
     and it is not stable.
-    For $\frac{l}{M} = 1$ (red) there is no stationary point.
-    The only stable points can be found for $\frac{l}{M} > \sqrt{12}$,
+    For $\frac{\ell}{M} = 1$ (red) there is no stationary point.
+    The only stable points can be found for $\frac{\ell}{M} > \sqrt{12}$,
     in $r_{\rm min}$, defined in eq. \ref{cap1:eq:r_min_max}.}
     \label{cap1:fig:V_eff_tanti}
 \end{minipage}
 \end{figure}
 
 Taking the derivative of $V_{\rm eff}$ with respect to $r$ gives us the
-stationary points for $\frac{l}{M} \geq \sqrt{12}$.
+stationary points for $\frac{\ell}{M} \geq \sqrt{12}$.
 
 \begin{subequations}
 \begin{align}
-    r_{+ / -} &= \frac{l^2}{2 M} \left[1 \pm
-    \sqrt{1 - 12 \left( \frac{M}{l} \right)^2} \, \right]
-    &&\frac{l}{M} > \sqrt{12} \label{cap1:eq:r_min_max} \\
+    r_{+ / -} &= \frac{\ell^2}{2 M} \left[1 \pm
+    \sqrt{1 - 12 \left( \frac{M}{\ell} \right)^2} \, \right]
+    &&\frac{\ell}{M} > \sqrt{12} \label{cap1:eq:r_min_max} \\
     %
     r_{\rm ISCO} &= 6 M
-    &&\frac{l}{M} = \sqrt{12} \label{cap1:eq:r_ISCO}
+    &&\frac{\ell}{M} = \sqrt{12} \label{cap1:eq:r_ISCO}
 \end{align}
 \label{cap1:eq:stationary_r}
 \end{subequations}
@@ -608,7 +618,7 @@ As the name suggests, it is the smallest stable orbit that a particle can
 theoretically follow.
 It is shown in green in Figure \ref{cap1:fig:V_eff_tanti}.
 
-For $\frac{l}{M} < \sqrt{12}$ there are no stationary points and the particle
+For $\frac{\ell}{M} < \sqrt{12}$ there are no stationary points and the particle
 is destined to fall towards the mass (red line in Figure
 \ref{cap1:fig:V_eff_tanti}).
 
@@ -624,7 +634,7 @@ Section \ref{cap1:sec:stable_orbits}).
 
 The simplest case we can consider is a radial infall where $\phi$ stays
 constant.
-From eq. \ref{cap1:eq:conserved_l} this implies $l = 0$.
+From eq. \ref{cap1:eq:conserved_l} this implies $\ell = 0$.
 
 Eq. \ref{cap1:eq:found_e} becomes
 
@@ -640,14 +650,17 @@ Eq. \ref{cap1:eq:found_e} becomes
 Where we chose the negative root as the radius is decreasing.
 Looking at the parameter $e$ in eq. \ref{cap1:eq:radial_infall_ODE_1} we can
 distinguish 3 cases:
+
 \begin{itemize}
     \item{$e^2 < 1$:} the particle has to start from a finite radius $r = R$
         for the argument of the square root to be positive;
     \item{$e = 1$:} the particle starts at rest from $r = \infty$ (that implies
-        $\dv{t}{\tau} = 1$ at infinity so $e = 1$ from eq. \ref{cap1:eq:conserved_e});
-    \item{$e^2 > 1$:} the particle starts from $r = \infty$, but with some inward
-        velocity.
+        $\dv{t}{\tau} = 1$ at infinity so $e = 1$ from eq.
+        \ref{cap1:eq:conserved_e});
+    \item{$e^2 > 1$:} the particle starts from $r = \infty$, but with some
+        inward velocity.
 \end{itemize}
+
 We choose to analyze the case where $e = 1$ so that eq.
 \ref{cap1:eq:radial_infall_ODE_1} can be solved analytically.
 We get
@@ -744,9 +757,9 @@ $r \simeq 12M$ at $\tau = t =  0$.
 \label{cap1:sec:stable_orbits}
 
 In Section \ref{cap1:sec:particle_orbits} we analyzed the role that
-$\frac{l}{M}$ has on the effective potential $V_{\rm eff}$ defined in eq.
-\ref{cap1:eq:V_eff} and found out that for $\frac{l}{M} > \sqrt{12}$ it has two
-stationary points $r_{+ / -}$ defined in eq. \ref{cap1:eq:r_min_max}.
+$\frac{\ell}{M}$ has on the effective potential $V_{\rm eff}$ defined in eq.
+\ref{cap1:eq:V_eff} and found out that for $\frac{\ell}{M} > \sqrt{12}$ it has
+two stationary points $r_{+ / -}$ defined in eq. \ref{cap1:eq:r_min_max}.
 
 For clarity, we rewrite eq. \ref{cap1:eq:found_epsilon} below, accompanied by a
 visual representation in Figure \ref{cap1:fig:V_eff_orbits}.
@@ -759,7 +772,7 @@ visual representation in Figure \ref{cap1:fig:V_eff_orbits}.
 \begin{figure}[h]
     \centering
     \includegraphics[width = \textwidth]{Figures/V_eff_orbits.eps}
-    \caption{In black the effective potential with $l / M = 4.1$.
+    \caption{In black the effective potential with $\ell / M = 4.1$.
     The dashed lines, along with the red dot, represent possible values of
     $\mathcal E$ that give 4 different scenarios.
     Refer to the text for a detailed explanation. 
@@ -771,7 +784,7 @@ visual representation in Figure \ref{cap1:fig:V_eff_orbits}.
 From eq. \ref{cap1:eq:like_newton} we know that the particle can change its
 distance $r$ from the massive object only if there is the energy
 $\mathcal E - V_{\rm eff}$ to do so.
-In Figure \ref{cap1:fig:V_eff_orbits}, $V_{\rm eff}$ with $l / M = 4.1$ is
+In Figure \ref{cap1:fig:V_eff_orbits}, $V_{\rm eff}$ with $\ell / M = 4.1$ is
 represented along with 4 different values of $\mathcal E$.
 
 The red full dot represents the case where the particle has exactly the energy
@@ -802,7 +815,7 @@ and can fall into the massive object.
 As we have seen from Figure \ref{cap1:fig:V_eff_orbits} a particle can draw a
 circular orbits if it has an energy $\mathcal E = V_{\rm eff}(r_+)$.
 It is possible to find the relationship between the energy $e$
-and angular momentum $l$ that makes this possible.
+and angular momentum $\ell$ that makes this possible.
 
 First of all, the four-velocity of the particle will be
 
@@ -820,17 +833,17 @@ can be rewritten as
 
 \begin{equation}
     \Omega = \dv{\phi}{t} = \dv{\tau}{t} \dv{\phi}{\tau} =
-    \frac{1}{r^2} \left(1 - \frac{2M}{r} \right) \frac{l}{e}\, .
+    \frac{1}{r^2} \left(1 - \frac{2M}{r} \right) \frac{\ell}{e}\, .
     \label{cap1:eq:Omega}
 \end{equation}
 
-A second equation for $\frac{l}{e}$ comes with the restriction that the
+A second equation for $\frac{\ell}{e}$ comes with the restriction that the
 particle must orbit at the minimum of $V_{\rm eff}$, from eq.
 \ref{cap1:eq:r_min_max}
 
 \begin{equation}
-    r = \frac{l^2}{2 M} \left[1 +
-    \sqrt{1 - 12 \left( \frac{M}{l} \right)^2} \, \right] \, .
+    r = \frac{\ell^2}{2 M} \left[1 +
+    \sqrt{1 - 12 \left( \frac{M}{\ell} \right)^2} \, \right] \, .
     \label{cap1:eq:r_min}
 \end{equation}
 
@@ -838,23 +851,23 @@ Using eq. \ref{cap1:eq:found_e} the derivative of $r$ vanishes
 and we can write everything as
 
 \begin{equation}
-    e^2 = \left(1 + \frac{l^2}{r^2} \right)
+    e^2 = \left(1 + \frac{\ell^2}{r^2} \right)
     \left(1 - \frac{2M}{r}\right) \, .
     \label{cap1:eq:circular_orbit1}
 \end{equation}
 
 Instead of substituting $r$ from eq. \ref{cap1:eq:r_min} into eq.
 \ref{cap1:eq:circular_orbit1}, it is easier to solve eq. \ref{cap1:eq:r_min} for
-$1 / l^2$ obtaining
+$1 / \ell^2$ obtaining
 
 \begin{equation}
-    \frac{1}{l^2} = \frac{1}{M r} - \frac{3}{r^2} \, ,
+    \frac{1}{\ell^2} = \frac{1}{M r} - \frac{3}{r^2} \, ,
 \end{equation}
 
 and then use it to rewrite eq. \ref{cap1:eq:circular_orbit1} as
 
 \begin{align*}
-    \frac{e^2}{l^2} &= \left(\frac{1}{l^2} + \frac{1}{r^2} \right)
+    \frac{e^2}{\ell^2} &= \left(\frac{1}{\ell^2} + \frac{1}{r^2} \right)
     \left(1 - \frac{2M}{r}\right)
     %
     = \left(\frac{1}{M r}
@@ -866,7 +879,7 @@ and then use it to rewrite eq. \ref{cap1:eq:circular_orbit1} as
     - \frac{2 M}{r} \right)^2 \\
 \end{align*}
 \begin{equation}
-    \frac{l}{e} = \sqrt{M r} \left(1
+    \frac{\ell}{e} = \sqrt{M r} \left(1
     - \frac{2 M}{r} \right)^{-1}
     \label{cap1:eq:circular_orbit2}
 \end{equation}
@@ -911,8 +924,8 @@ and rewrite them respectively as
 
 \begin{subequations}
 \begin{align}
-    \dv{\phi}{\tau} &= \frac{l}{r^2} \label{cap1:eq:shape1} \\
-    \dv{r}{\tau} &= \pm \sqrt{e^2 - \left(1 + \frac{l^2}{r^2}\right)
+    \dv{\phi}{\tau} &= \frac{\ell}{r^2} \label{cap1:eq:shape1} \\
+    \dv{r}{\tau} &= \pm \sqrt{e^2 - \left(1 + \frac{\ell^2}{r^2}\right)
     \left(1 - \frac{2M}{r}\right)} \label{cap1:eq:shape2} \, .
 \end{align}
 \label{cap1:eq:to_find_shape}
@@ -923,8 +936,8 @@ This time we had no reason to keep one sign or the other in eq.
 Dividing \ref{cap1:eq:shape2} into \ref{cap1:eq:shape1} gives
 
 \begin{equation}
-    \dv{\phi}{r} = \pm \frac{l}{r^2}
-    \left[e^2 - \left(1 + \frac{l^2}{r^2}\right)
+    \dv{\phi}{r} = \pm \frac{\ell}{r^2}
+    \left[e^2 - \left(1 + \frac{\ell^2}{r^2}\right)
     \left(1 - \frac{2M}{r}\right)\right]^{-1/2}
     \label{cap1:eq:shape}
 \end{equation}
@@ -959,8 +972,8 @@ swept between $P_1$ and $P_2$, thus we can rewrite $\Delta \phi$ as
 
 \begin{equation}
     \Delta \phi = \int_{P_1}^{P_2} \dv{\phi}{r} \mathrm{d}r
-    = 2 l \int_{r_1}^{r_2} \frac{1}{r^2}
-    \left[e^2 - \left(1 + \frac{l^2}{r^2}\right)
+    = 2 \ell \int_{r_1}^{r_2} \frac{1}{r^2}
+    \left[e^2 - \left(1 + \frac{\ell^2}{r^2}\right)
     \left(1 - \frac{2M}{r}\right)\right]^{-1/2} \mathrm{d}r
     \label{cap1:eq:delta_phi}
 \end{equation}
@@ -973,9 +986,8 @@ in \ref{cap1:eq:delta_phi} neglecting the $r^{-3}$ term and remembering the
 definition of $\mathcal E$ from eq. \ref{cap1:eq:found_epsilon}:
 
 \begin{equation*}
-    \Delta \phi
-    = 2 l \int_{r_1}^{r_2} \frac{1}{r^2} \left[\mathcal E - \frac{l^2}{r^2}\
-    + \frac{2M}{r} \right]^{-1/2} \mathrm{d}r
+    \Delta \phi = 2 \ell \int_{r_1}^{r_2} \frac{1}{r^2} \left[\mathcal E -
+    \frac{\ell^2}{r^2}\ + \frac{2M}{r} \right]^{-1/2} \mathrm{d}r
 \end{equation*}
 
 Making the substitution $u = 1 / r$ and using the root of the denominator as
@@ -1004,22 +1016,23 @@ using the \textit{affine parameter} $\lambda$.
     u^\mu = \dv{x^\mu}{\lambda} \, .
 \end{equation*}
 
-The conserved quantities $e$ and $l$ defined in \ref{cap1:eq:conserved_e} and
+The conserved quantities $e$ and $\ell$ defined in \ref{cap1:eq:conserved_e} and
 \ref{cap1:eq:conserved_l} are the same, with the only difference of using
 $\lambda$ instead of the proper time $\tau$.
 
 \begin{subequations}
     \begin{align*}
         e &= \left( 1 - \frac{2M}{r} \right) \dv{t}{\lambda} \\
-        l &= r^2 \sin^2 \theta \dv{\phi}{\lambda} \, .
+        \ell &= r^2 \sin^2 \theta \dv{\phi}{\lambda} \, .
     \end{align*}
 \end{subequations}
 
-We can therefore restrict the light ray motion to the $xy$ plane
+We can therefore restrict the motion of the light ray motion to the $xy$ plane
+as we did with massive particle and write four-velocity as
 
 \begin{equation*}
     u^\mu
-    = \left(\dv{t}{\lambda}, \dv{r}{\lambda}, 0, \frac{l}{r^2} \right) \, .
+    = \left(\dv{t}{\lambda}, \dv{r}{\lambda}, 0, \frac{\ell}{r^2} \right) \, .
 \end{equation*}
 
 The only difference lies, as described in eq.
@@ -1033,13 +1046,13 @@ write
     0 = g_{\nu \mu} u^\nu u^\mu =
     - \left(1 - \frac{2M}{r} \right) \left(\dv{t}{\lambda} \right)^2
     + \left(1 - \frac{2M}{r} \right)^{- 1} \left(\dv{r}{\lambda} \right)^2
-    + \frac{l^2}{r^2}
+    + \frac{\ell^2}{r^2}
 \end{equation*}
 
 and then rearrange
 
 \begin{equation}
-    \frac{1}{b^2} = \frac{1}{l^2} \left( \dv{r}{\lambda} \right)^2
+    \frac{1}{b^2} = \frac{1}{\ell^2} \left( \dv{r}{\lambda} \right)^2
     + W_{\rm eff} (r) \, .
     \label{cap1:eq:found_b}
 \end{equation}
@@ -1055,7 +1068,7 @@ as
 and a different constant for the energy
 
 \begin{equation}
-    b^2 = \frac{l^2}{e^2} \, .
+    b^2 = \frac{\ell^2}{e^2} \, .
     \label{cap1:eq:b}
 \end{equation}
 
