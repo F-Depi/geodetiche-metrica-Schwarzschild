@@ -334,9 +334,9 @@ quantities
 
 \begin{subequations}
     \begin{align}
-        e &= \frac{E}{m} = \left( 1 - \frac{2M}{r} \right) \dv{x^t}{\tau}
+        e &:= \frac{E}{m} = \left( 1 - \frac{2M}{r} \right) \dv{x^t}{\tau}
         \label{cap1:eq:conserved_e} \\
-        \ell &= \frac{L}{m} = r^2 \sin^2 \theta \dv{x^\phi}{\tau} \, .
+        \ell &:= \frac{L}{m} = r^2 \sin^2 \theta \dv{x^\phi}{\tau} \, .
         \label{cap1:eq:conserved_l}
     \end{align}
 \end{subequations}
@@ -532,7 +532,7 @@ To compare eq. \ref{cap1:eq:found_e} with the Newtonian case we can expand
 the multiplication, subtract 1 from both sides and divide by a factor of 2:
 
 \begin{equation}
-    \mathcal E = \frac{e^2 - 1}{2} = \frac{1}{2} \left(\dv{r}{\tau}\right)^2
+    \mathcal E := \frac{e^2 - 1}{2} = \frac{1}{2} \left(\dv{r}{\tau}\right)^2
     + \frac{\ell^2}{2 r^2} - \frac{M}{r} - \frac{M \ell^2}{r^3} \, .
     \label{cap1:eq:found_epsilon}
 \end{equation}
@@ -652,12 +652,12 @@ Looking at the parameter $e$ in eq. \ref{cap1:eq:radial_infall_ODE_1} we can
 distinguish 3 cases:
 
 \begin{itemize}
-    \item{$e^2 < 1$:} the particle has to start from a finite radius $r = R$
+    \item $e^2 < 1$: the particle has to start from a finite radius $r = R$
         for the argument of the square root to be positive;
-    \item{$e = 1$:} the particle starts at rest from $r = \infty$ (that implies
-        $\dv{t}{\tau} = 1$ at infinity so $e = 1$ from eq.
+    \item $e = 1$: the particle starts at rest from $r = \infty$ (that implies
+        $\dv t \tau = 1$ at infinity so $e = 1$ from eq.
         \ref{cap1:eq:conserved_e});
-    \item{$e^2 > 1$:} the particle starts from $r = \infty$, but with some
+    \item $e^2 > 1$: the particle starts from $r = \infty$, but with some
         inward velocity.
 \end{itemize}
 
@@ -738,16 +738,16 @@ $r \simeq 12M$ at $\tau = t =  0$.
     with the dashed black line.}
     \label{cap1:fig:radial_infall}
 
-    % Va bene il grafico? credo potrebbe essere poco appropriato perché tempo 
-    % proprio e tempo di \Sh dovrebbero essere uguali solo a r = \infty.
-    % In teoria dovrei utilizzare l'equazione differenziale con e^2 < 1 in modo che
-    % la particella parta da una distanza finita.
-    % C'è il grafico fatto bene a pagina 344 del
-    % Black Holes, White Dwarfs, and Neutron Stars (stuart L., Shapiro Saul A. Teukolsky)
-    % che a sua volta è stato preso dal Gravitation Misner Thorne Wheeler 1973,
-    % che ho trovato sull'Internet Archive
-    % https://archive.org/details/GravitationMisnerThorneWheeler/page/n689/mode/2up
-    % le 4 pagine sono in doc/
+    %% Va bene il grafico? credo potrebbe essere poco appropriato perché tempo 
+     % proprio e tempo di \Sh dovrebbero essere uguali solo a r = \infty.
+     % In teoria dovrei utilizzare l'equazione differenziale con e^2 < 1 in modo che
+     % la particella parta da una distanza finita.
+     % C'è il grafico fatto bene a pagina 344 del
+     % Black Holes, White Dwarfs, and Neutron Stars (stuart L., Shapiro Saul A. Teukolsky)
+     % che a sua volta è stato preso dal Gravitation Misner Thorne Wheeler 1973,
+     % che ho trovato sull'Internet Archive
+     % https://archive.org/details/GravitationMisnerThorneWheeler/page/n689/mode/2up
+     % le 4 pagine sono in doc/
 \end{figure}
 
 \newpage
@@ -832,7 +832,7 @@ Using eq. \ref{cap1:eq:conserved_e} and eq. \ref{cap1:eq:conserved_l}, $\Omega$
 can be rewritten as
 
 \begin{equation}
-    \Omega = \dv{\phi}{t} = \dv{\tau}{t} \dv{\phi}{\tau} =
+    \Omega := \dv{\phi}{t} = \dv{\tau}{t} \dv{\phi}{\tau} =
     \frac{1}{r^2} \left(1 - \frac{2M}{r} \right) \frac{\ell}{e}\, .
     \label{cap1:eq:Omega}
 \end{equation}
@@ -950,7 +950,7 @@ enlightening way for those not familiar with them
 An interesting parameter to study is the \textit{precession}, defined as
 
 \begin{equation}
-    \delta \phi_{\rm prec} = \Delta \phi - 2 \pi
+    \delta \phi_{\rm prec} := \Delta \phi - 2 \pi
     \label{cap1:eq:precession}
 \end{equation}
 
@@ -1002,7 +1002,7 @@ the bounds of integration we get
 where $u_{1/2} = \frac{1}{r_{1/2}}$, but the integral is $\pi$ for every $u_1$
 and $u_2$.
 
-% Problem 15 to get the expression inthe first order of 1 / c^2 ?
+%% Problem 15 to get the expression in the first order of 1 / c^2 ?
 
 \newpage
 
@@ -1020,92 +1020,168 @@ The conserved quantities $e$ and $\ell$ defined in \ref{cap1:eq:conserved_e} and
 \ref{cap1:eq:conserved_l} are the same, with the only difference of using
 $\lambda$ instead of the proper time $\tau$.
 
-\begin{subequations}
-    \begin{align*}
-        e &= \left( 1 - \frac{2M}{r} \right) \dv{t}{\lambda} \\
-        \ell &= r^2 \sin^2 \theta \dv{\phi}{\lambda} \, .
-    \end{align*}
-\end{subequations}
+\begin{equation*}
+    e := \left( 1 - \frac{2M}{r} \right) \dv{t}{\lambda} 
+    \quad \quad \quad \quad
+    \ell := r^2 \sin^2 \theta \dv{\phi}{\lambda} \, .
+\end{equation*}
 
 We can therefore restrict the motion of the light ray motion to the $xy$ plane
-as we did with massive particle and write four-velocity as
+as we did with massive particle and use $e$ and $\ell$ to write the
+four-velocity as
 
 \begin{equation*}
     u^\mu
-    = \left(\dv{t}{\lambda}, \dv{r}{\lambda}, 0, \frac{\ell}{r^2} \right) \, .
+    = \left(\dv{t}{\lambda}, \, \dv{r}{\lambda}, \,
+    0, \, \dv{\phi}{\lambda} \right)
+    = \left( e \left(1 - \frac{2M}{r} \right)^{-1}, \, \dv{r}{\lambda}, \,
+    0, \, \frac{\ell}{r^2} \right) \, .
 \end{equation*}
 
 The only difference lies, as described in eq.
 \ref{cap1:eq:u_normalization_light}, in the normalization of $\mathbf u$, that
 is $\mathbf{u \cdot u} = 0$.
 
-So, with the same intent we had when we found eq. \ref{cap1:eq:found_e} we can
+So, with the same intent we had when we found eq. \ref{cap1:eq:found_e}, we can
 write
 
 \begin{equation*}
     0 = g_{\nu \mu} u^\nu u^\mu =
-    - \left(1 - \frac{2M}{r} \right) \left(\dv{t}{\lambda} \right)^2
+    - \left(1 - \frac{2M}{r} \right)^{-1} e^2
     + \left(1 - \frac{2M}{r} \right)^{- 1} \left(\dv{r}{\lambda} \right)^2
     + \frac{\ell^2}{r^2}
 \end{equation*}
 
-and then rearrange
+and then rearrange to get
 
 \begin{equation}
-    \frac{1}{b^2} = \frac{1}{\ell^2} \left( \dv{r}{\lambda} \right)^2
-    + W_{\rm eff} (r) \, .
-    \label{cap1:eq:found_b}
+    e^2 = \left( \dv{r}{\lambda} \right)^2 + \ell^2 \, W_{\rm eff} (r) \, .
+    \label{cap1:eq:found_e_massless}
 \end{equation}
 
-Where we defined another effective potential, one that acts on light rays only,
+Here we defined another effective potential, one that acts on light rays only,
 as
 
 \begin{equation}
-    W_{\rm eff} (r) = \frac{1}{r^2} \left( 1 - \frac{2M}{r} \right)
+    W_{\rm eff} (r) = \frac{1}{r^2} \left( 1 - \frac{2M}{r} \right) \, .
     \label{cap1:eq:W}
 \end{equation}
 
-and a different constant for the energy
-
-\begin{equation}
-    b^2 = \frac{\ell^2}{e^2} \, .
-    \label{cap1:eq:b}
-\end{equation}
-
-We can study this new potential, again, by taking the derivative of it with
-respect to $r$.
-We find out the there is  one stationary point at $r = 3M$ representing
-the maximum of the function, and therefore being unstable.
-The value of the maximum is
-
-\begin{equation}
-    W_{\rm eff} (3 M) = \frac{1}{27 M^2}
-    \label{cap1:eq:max_W_eff}
-\end{equation}
-
-Figure \ref{ca1:fig:W_eff} shows a graph of $W_{\rm eff}$ with $r$ expressed in
-units of the \Sh radius.
-As we have seen there is no stationary stable point.
-
-\begin{figure}[h]
-    \begin{minipage}{0.48 \textwidth}
+\begin{figure}[h!]
     \centering
-    \includegraphics[width = \textwidth]{Figures/W_eff.eps}
+    \includegraphics[width = 0.85 \textwidth]{Figures/W_eff.eps}
     \caption{Effective potential for light rays, $W_{\rm eff}$, described in eq.
         \ref{cap1:eq:W}.
     We can see the maximum ar $r = 3M = 1.5 r_s$ and that the peak of
     $M^2 ~ W_{\rm eff}$ is at $1 / 27 \simeq 0.037$.}
     \label{ca1:fig:W_eff}
-    \end{minipage}
-    \hspace{0.015 \textwidth}
-    \begin{minipage}{0.48 \textwidth}
+\end{figure}
+
+This new potential can be studied, again, by taking the derivative of it with
+respect to $r$.
+We find out the there is one stationary point at $r = 3M$ representing
+the maximum of the function, as we can also see from Figure \ref{ca1:fig:W_eff}.
+This is therefore an unstable point, the value of the potential at the maximum
+is
+
+\begin{equation*}
+    W_{\rm eff} (3 M) = \frac{1}{27 M^2} \, .
+    \label{cap1:eq:max_W_eff}
+\end{equation*}
+
+It's interesting to notice that, unlike in the massive particle case, the
+effective potential $W_{\rm eff}$ is independent of $l$.
+Looking at eq. \ref{cap1:eq:found_e_massless} we can also rewrite it as
+
+\begin{equation}
+    \frac{1}{b^2} := \frac{e^2}{\ell^2}
+    = \frac{1}{\ell^2} \left( \dv{r}{\lambda} \right)^2 + W_{\rm eff} (r) \, .
+    \label{cap1:eq:found_b}
+\end{equation}
+
+where we defined $b = \abs{\ell / e}$.
+Here we can use the fact the geodesic is invariant under an affine parameter
+renormalization to ignore the $1 / \ell^2$ in front of the derivative of the
+radius and understand that only the ratio $\frac{\ell}{e}$ holds
+physical significance in the massless case.
+
+To see what $b$ is, let's consider a particle approaching the massive object from
+far away. In this case well use cartesian coordinates and say that the massive
+object is at the origin while the particle starts from a position $(x, \, d)$,
+refer to figure \ref{cap1:fig:b}.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+
+    % Cartesian axes
+    \draw[thick,->] (-0.5,0) -- (6,0) node[right] {$x$};
+    \draw[thick,->] (0,-0.5) -- (0,2) node[above] {$y$};
+
+    % Particle at (x, d)
+    \def\xP{5}
+    \def\yP{1.5}
+    \def\phiP{{atan(1.5 / 5)}}
+    \filldraw[black] (\xP ,\yP) circle (2pt) node[anchor=south west] {$(x, d)$};
+
+    % Draw the line r and d
+    \draw[dashed] (0,0) -- (\xP, \yP) node[midway, above, sloped] {$r$};
+    \draw[dashed] (\xP,0) -- (\xP, \yP) node[midway,right] {$d$};
+    \draw[->] (\xP, \yP) -- (\xP - 1, \yP) node[above] {$v$};
+
+    % Draw the angle theta
+    \draw[thick,->] (2,0) arc [start angle=0,end angle=\phiP,radius=2cm];
+    \node at (2.2,0.3) {$\phi$};
+
+    % Star at origin (highlighted part)
+    \shade[inner color=white, outer color=blue!60!black] (0,0,0) circle (4pt);
+
+\end{tikzpicture}
+\caption{Visual representation of a photon approaching the massive object
+with an impact parameter $d$.}
+\label{cap1:fig:b}
+\end{figure}
+
+If we evaluate $b$ in this scenario, considering $r \gg r_s$ and $r \gg d$, we
+find out that
+
+\begin{equation*}
+    b = \abs{\frac{\ell}{e}}
+    = \abs{r^2 \dv{\phi}{\lambda} \left(1-\frac{2M}{r}\right)^{-1}\dv{\lambda}{t}}
+    \simeq \abs{r^2 \dv{\phi}{r}}
+    \simeq \abs{r^2 \dv{}{r} \left(\frac{d}{r}\right)}
+    = d \, . 
+\end{equation*}
+\begin{figure}[h!]
     \centering
-    \includegraphics[width = \textwidth]{Figures/W_eff_vs_b.eps}
+    \includegraphics[width = 0.8 \textwidth]{Figures/W_eff_vs_b.eps}
     \caption{Effective potential for light rays $W_{\rm eff}$, described in eq.
         \ref{cap1:eq:W}.
         Different values of the impact parameter $b$ give raise to 3 different
         type of orbits.}
     \label{ca1:fig:W_eff_orbits}
-    \end{minipage}
 \end{figure}
 
+We can then interpret $b$ the \textit{impact parameter} for a light ray at
+infinity.
+The shape of the orbit, determined by evaluating $\dv{r}{\lambda}$ from eq.
+\ref{cap1:fig:b}, is fully characterized by the value of b $b$.
+
+Playing around with the possible values of $b$, because of the shape of
+$W_{\rm eff}$, we can recognize 3 different types of orbits, that are shown in
+Figure \ref{ca1:fig:W_eff_orbits}:
+
+\begin{itemize}
+    \item $b < 3 \sqrt{3} M$ (yellow dashed line): in this case the light ray doesn't
+        have an impact parameter big enough and can surpass the potential
+        barrier falling towards the center of the massive object;
+    \item $b = 3 \sqrt{3} M$ (red dashed line): This represents an edge case where the
+        light ray can theoretically maintain a circular orbit at the unstable
+        stationary point;
+    \item $b > 3 \sqrt{3} M$ (purple dashed line): the light ray as an impact
+        parameter big enough to get close to the massive object and then, at the
+        turning point P, continue its trajectory going back to infinity.
+\end{itemize}
+
+
+%% Section with expample 9.2?

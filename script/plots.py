@@ -189,11 +189,11 @@ def plot_V_eff_orbits(save=['yes','no']):
 def plot_W_eff(save=['yes','no']):
 
     filename = '../latex/Figures/W_eff.eps'
-    right_lim = 12
+    right_lim = 15
     bottom_lim = -0.02
     upper_lim = 0.04
     M = 1
-    plt.figure()
+    plt.figure(figsize=(9, 4))
     r = np.arange(0.9, right_lim,0.001)
     Weff = M**2 * fun_W_eff(r, M)
     label_eff = r'$W_{\rm eff} \, (r)$'
@@ -246,7 +246,7 @@ def plot_W_eff_tanti(save=['yes','no']):
 def plot_W_eff_vs_b(save=['yes','no']):
 
     filename = '../latex/Figures/W_eff_vs_b.eps'
-    right_lim = 12
+    right_lim = 15
     bottom_lim = 0
     upper_lim = 0.05
     M = 1
@@ -264,20 +264,25 @@ def plot_W_eff_vs_b(save=['yes','no']):
                         bracket=[1.5, right_lim], method='bisect').root
     lab_b3 = r'$M^2 / b^2 =$' + str(b3)
 
-    plt.figure()
+    plt.figure(figsize=(10,5))
     r = np.arange(0.9, right_lim,0.001)
     Weff = M**2 * fun_W_eff(r, M)
     label_eff = r'$W_{\rm eff} \, (r)$'
     plt.plot(r, Weff, '-', label=label_eff)
+
+    # dashed lines and turning point
     plt.hlines(b1, x1, right_lim, linestyle='--', color='orange', label=lab_b1)
     plt.hlines(b2, x2, right_lim, linestyle='--', color='r', label=lab_b2)
     plt.hlines(b3, x3, right_lim, linestyle='--', color='purple', label=lab_b3)
+    plt.plot(x3, b3, color='purple', marker='o')
+    plt.text(x3, b3 + 1e-3, r'$P$', fontsize=15)
+
     plt.ylim([bottom_lim, upper_lim])
     plt.xlim([0, right_lim])
     plt.xlabel(r'$\frac{r}{r_{\rm s}}$')
     plt.xlabel(r'$ r / r_s$')
     plt.ylabel(r'$M^2 ~ V$')
-    plt.legend(loc='upper right', fontsize=15)
+    plt.legend(loc='upper right')
     plt.tight_layout()
     if save == 'yes': plt.savefig(filename, format='eps')
     plt.show()
@@ -296,4 +301,4 @@ def plot_W_eff_vs_b(save=['yes','no']):
 ''' Weff '''
 #plot_W_eff('yes')
 #plot_W_eff_tanti('no')
-plot_W_eff_vs_b('yes')
+#plot_W_eff_vs_b('yes')
