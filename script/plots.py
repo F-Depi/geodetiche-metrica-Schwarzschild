@@ -250,23 +250,34 @@ def plot_W_eff_vs_b(save=['yes','no']):
     bottom_lim = 0
     upper_lim = 0.05
     M = 1
+
+    b1 = 0.045
+    x1 = 0
+    lab_b1 = r'$M^2 / b^2 =$' + str(b1)
+
+    b2 = 1 / 27
+    x2 = 1.5
+    lab_b2 = r'$M^2 / b^2 = 1 / 27$'
+
+    b3 = 0.02
+    x3 = root_scalar(lambda x: fun_W_eff(x, M) - b3,
+                        bracket=[1.5, right_lim], method='bisect').root
+    lab_b3 = r'$M^2 / b^2 =$' + str(b3)
+
     plt.figure()
     r = np.arange(0.9, right_lim,0.001)
     Weff = M**2 * fun_W_eff(r, M)
     label_eff = r'$W_{\rm eff} \, (r)$'
     plt.plot(r, Weff, '-', label=label_eff)
-    plt.hlines(0.045, 0, right_lim, linestyle='--', color='purple')
-    plt.hlines(1 / 27, 1.5, right_lim, linestyle='--', color='r')
-    e3 = 0.02
-    root3 = root_scalar(lambda x: fun_W_eff(x, M) - e3, bracket=[1.5, right_lim], method='bisect').root
-    plt.hlines(e3, root3, right_lim, linestyle='--', color='orange')
-
+    plt.hlines(b1, x1, right_lim, linestyle='--', color='orange', label=lab_b1)
+    plt.hlines(b2, x2, right_lim, linestyle='--', color='r', label=lab_b2)
+    plt.hlines(b3, x3, right_lim, linestyle='--', color='purple', label=lab_b3)
     plt.ylim([bottom_lim, upper_lim])
     plt.xlim([0, right_lim])
     plt.xlabel(r'$\frac{r}{r_{\rm s}}$')
     plt.xlabel(r'$ r / r_s$')
     plt.ylabel(r'$M^2 ~ V$')
-    plt.legend(loc='lower right')
+    plt.legend(loc='upper right', fontsize=15)
     plt.tight_layout()
     if save == 'yes': plt.savefig(filename, format='eps')
     plt.show()
