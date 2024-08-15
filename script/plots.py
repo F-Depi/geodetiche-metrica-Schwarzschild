@@ -19,6 +19,10 @@ def fun_V_eff(r_per_M, l_per_M):
     return l_per_M**2 * r_per_M**-2 / 2 - r_per_M**-1 - l_per_M**2 * r_per_M**-3
 
 
+def fun_W_eff(r_per_rs, M):
+    return (1 - 1 / r_per_rs) / r_per_rs**2 / (2 * M)**2
+
+
 def plot_Vs(l_per_M, save=['yes','no']):
 
     filename = '../latex/Figures/V_eff.eps'
@@ -53,7 +57,7 @@ def plot_some_V_eff(save=['yes','no']):
 
     for x in l_per_M:
         Veff = fun_V_eff(r_per_M, x)
-        lab = r'$V_{\rm eff}, ~~ \frac{l}{M} = $' + l_str[kk]
+        lab = r'$V_{\rm eff}, ~~ \frac{\ell}{M} = $' + l_str[kk]
         plt.plot(r_per_M, Veff, linestyle=lines[kk],  label=lab)
         kk += 1
     plt.xlim([0, 50])
@@ -182,6 +186,92 @@ def plot_V_eff_orbits(save=['yes','no']):
     plt.show()
 
 
+def plot_W_eff(save=['yes','no']):
+
+    filename = '../latex/Figures/W_eff.eps'
+    right_lim = 12
+    bottom_lim = -0.02
+    upper_lim = 0.04
+    M = 1
+    plt.figure()
+    r = np.arange(0.9, right_lim,0.001)
+    Weff = M**2 * fun_W_eff(r, M)
+    label_eff = r'$W_{\rm eff} \, (r)$'
+    plt.plot(r, Weff, '-', label=label_eff)
+    plt.axhline(0, color='black')
+    plt.vlines(1, bottom_lim, 0, color='r', linestyle='--', linewidth=1)
+    plt.vlines(1.5, bottom_lim, 1 / 27 / M**2, color='r', linestyle='--', linewidth=1)
+    plt.xticks(list(plt.xticks()[0]) + [1])
+
+    plt.ylim([bottom_lim, upper_lim])
+    plt.xlim([0, right_lim])
+    plt.xlabel(r'$\frac{r}{r_{\rm s}}$')
+    plt.xlabel(r'$ r / r_s$')
+    plt.ylabel(r'$M^2 ~ V$')
+    plt.legend()
+    plt.tight_layout()
+    if save == 'yes': plt.savefig(filename, format='eps')
+    plt.show()
+
+
+def plot_W_eff_tanti(save=['yes','no']):
+
+    filename = '../latex/Figures/W_eff_tanti.eps'
+    right_lim = 12
+    bottom_lim = -0.02
+    plt.figure()
+    r = np.arange(0.9, right_lim, 0.001)
+    lab_masses = ['4.43 mm', '1.48 km', '64,2 au']; kk = 0
+
+    for M in [0.00443, 1480, 6.5e9 * 1480]:
+        Weff = fun_W_eff(r, M)
+        label_eff = r'$W_{\rm eff} \, (r),$ ' + lab_masses[kk]
+        plt.plot(r, Weff, '-', label=label_eff)
+        kk += 1
+
+    plt.axhline(0, color='black')
+    plt.vlines(1, bottom_lim, 0, color='r', linestyle='--', linewidth=1)
+    plt.xticks(list(plt.xticks()[0]) + [1])
+
+    plt.xlim([0, right_lim])
+    plt.yscale('log')
+    plt.xlabel(r'$\frac{r}{r_{\rm s}}$')
+    plt.ylabel(r'$V$')
+    plt.legend(loc='lower right')
+    plt.tight_layout()
+    if save == 'yes': plt.savefig(filename, format='eps')
+    plt.show()
+
+
+def plot_W_eff_vs_b(save=['yes','no']):
+
+    filename = '../latex/Figures/W_eff_vs_b.eps'
+    right_lim = 12
+    bottom_lim = 0
+    upper_lim = 0.05
+    M = 1
+    plt.figure()
+    r = np.arange(0.9, right_lim,0.001)
+    Weff = M**2 * fun_W_eff(r, M)
+    label_eff = r'$W_{\rm eff} \, (r)$'
+    plt.plot(r, Weff, '-', label=label_eff)
+    plt.hlines(0.045, 0, right_lim, linestyle='--', color='purple')
+    plt.hlines(1 / 27, 1.5, right_lim, linestyle='--', color='r')
+    e3 = 0.02
+    root3 = root_scalar(lambda x: fun_W_eff(x, M) - e3, bracket=[1.5, right_lim], method='bisect').root
+    plt.hlines(e3, root3, right_lim, linestyle='--', color='orange')
+
+    plt.ylim([bottom_lim, upper_lim])
+    plt.xlim([0, right_lim])
+    plt.xlabel(r'$\frac{r}{r_{\rm s}}$')
+    plt.xlabel(r'$ r / r_s$')
+    plt.ylabel(r'$M^2 ~ V$')
+    plt.legend(loc='lower right')
+    plt.tight_layout()
+    if save == 'yes': plt.savefig(filename, format='eps')
+    plt.show()
+
+
 ''' Veff vs Newtonian V '''
 #plot_Vs(4, 'yes')
 #plot_some_V_eff('yes')
@@ -190,4 +280,9 @@ def plot_V_eff_orbits(save=['yes','no']):
 #plot_radial_infall('yes')
 
 ''' Veff vs values of e '''
-plot_V_eff_orbits('no')
+#plot_V_eff_orbits('no')
+
+''' Weff '''
+#plot_W_eff('yes')
+#plot_W_eff_tanti('no')
+plot_W_eff_vs_b('yes')
