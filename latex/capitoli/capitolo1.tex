@@ -1221,17 +1221,24 @@ Dividing eq. \ref{cap1:eq:r_of_lambda} into \ref{cap1:eq:phi_of_lambda} gives
 Looking at Figure \ref{cap1:fig:deflection} we can see the deflected ray in
 thick dashed line spanning an angle $\Delta \phi$ (if we consider it coming from
 infinity and going back to infinity).
-A non-deflected ray on the other hand will span an angle of $\pi$
+A non-deflected ray on the other hand will span an angle of $\pi$.
 The deflection we are interested in is therefore the one labeled as
-$\delta \phi_{\rm def}$.
-In the Figure $r_1$ represents the turning point, the one where the light is
-closer to the massive object, and the one that cuts the trajectory in half.
-We can then evaluate half the deflection angle by integrating eq.
+$\delta \phi_{\rm def}$ and is calculated by doing
+
+\begin{equation*}
+    \delta \phi_{\rm def} = \Delta \phi - \pi
+\end{equation*}
+
+In the Figure \ref{cap1:fig:deflection}, $r_1$ represents the turning point, the
+point where the light is closer to the massive object (refer to Figure
+\ref{ca1:fig:W_eff_orbits}), but most importantly in this case, $r_1$ cuts the
+trajectory in half.
+We can then evaluate half the angle angle spanned by integrating eq.
 \ref{cap1:eq:phi_of_r_light} from $r = r_1$ to $r = \infty$.
-Consequently, the full deflection will be
+Consequently, the full angle spanned by the deflected light ray will be
 
 \begin{equation}
-    \delta \phi_{\rm def} = 2\int_{r_1}^\infty \frac{1}{r^2} \left[\frac{1}{b^2}
+    \Delta \phi = 2\int_{r_1}^\infty \frac{1}{r^2} \left[\frac{1}{b^2}
     - \frac{1}{r^2} \left(1 - \frac{2M}{r} \right) \right]^{-1/2} \mathrm{d}r
     \label{cap1:eq:deflection}
 \end{equation}
@@ -1255,17 +1262,25 @@ In the integral in \ref{cap1:eq:deflection} we can make the substitution
 $w = b / r$ to rewrite it as
 
 \begin{equation}
-    \delta \phi_{\rm def} = 2 \int_o^{w_1}
+    \Delta \phi = 2 \int_o^{w_1}
     \left[1 - w^2 \left(1 - \frac{2M}{b}w\right)\right]^{-1/2} \mathrm{d}w
     \label{cap1:eq:deflection_w}
 \end{equation}
 
 where $w_1$ is the value at which the square bracket vanishes.
+Using eq. \ref{cap1:eq:delta_Delta} and eq. \ref{cap1:fig:deflection_w} we can
+numerically evaluate the integral for different values of $b$.
+The result is shown in Figure \ref{cap1:fig:deflection_w}.
 
-Figure \ref{cap1:fig:deflection_w} shows the value of the deflection
 \begin{figure}[h]
     \centering
-    \includegraphics[width = 0.5 \textwidth]{Figures/deflection_w.png}
-    \caption{placeholder}
+    \includegraphics[width = 0.65 \textwidth]{Figures/deflection_w.eps}
+    \caption{Deflection of a light ray because of the gravitational field of a
+    massive object.
+    As $1 / b^2 \rightarrow 27 M^2$ the light ray trajectory gets closer to a
+    circular orbit, and the ray can turn around the massive object multiple
+    times before going back to infinity.}
     \label{cap1:fig:deflection_w}
 \end{figure}
+
+

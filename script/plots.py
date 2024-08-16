@@ -2,6 +2,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.optimize import root_scalar
+from scipy.integrate import quad
 
 SMALL_SIZE = 13
 MEDIUM_SIZE = 18
@@ -289,19 +290,47 @@ def plot_W_eff_vs_b(save=['yes','no']):
 
 
 def integrand_w(w, M_per_b):
-    return (1 - w**2 * (1 - 2 * w * M_per_b))**(-1/2)
+    return (1 - w * w * (1 - 2 * w * M_per_b))**(-1/2)
 
 
-#def plot_W_eff(save=['yes','no']):
-#
-#    filename = '../latex/Figures/deflection_w.eps'
-#
-#    plt.figure()
-#    plt.plot(M_per_b, integral, '-', label=lab_i)
-#    plt.legend()
-#    plt.tight_layout()
-#    if save == 'yes': plt.savefig(filename, format='eps')
-#    plt.show()
+def fun_phi_def(M_per_b):
+    #to find w1 we want the integrand to go to 0. Rewriting it give a cubic
+    # equation 2 M/b w^3 - w^2 + 1 = 0
+    coefficients = [2 * M_per_b, -1, 0, 1]
+    roots = np.roots(coefficients)
+    real_roots = roots[np.isclose(roots.imag, 0)].real
+    positive_roots = real_roots[real_roots > 0]
+    # We want the bigger radius => the smaller w
+    w1 = min(positive_roots)
+
+    integral = quad(lambda w: integrand_w(w, M_per_b), 0, w1)[0]
+
+    return 2 *integral - np.pi
+
+def plot_light_deflection(save=['yes','no']):
+
+    filename = '../latex/Figures/deflection_w.eps'
+
+    limit = np.sqrt(1/27)
+    lab_limit = r'$\frac{M}{b} = \frac{1}{\sqrt{27}}$'
+
+    M_per_b = np.arange(0, limit, 0.0001)
+    integral=[]
+    for i in M_per_b:
+        integral.append(fun_phi_def(i) / np.pi)
+    lab_i = r'$\delta \phi$'
+
+    plt.figure()
+    plt.plot(M_per_b, integral, '-', label=lab_i)
+    plt.axvline(np.sqrt(1/27), color='r', linestyle='--', label=lab_limit)
+    plt.xticks([0, 0.05, 0.1, 0.15, 0.2])
+
+    plt.xlabel(r'$\frac{M}{b}$')
+    plt.ylabel(r'$\frac{\delta \phi_{\rm def}}{\pi}$')
+    plt.legend()
+    plt.tight_layout()
+    if save == 'yes': plt.savefig(filename, format='eps')
+    plt.show()
 
 ''' Veff vs Newtonian V '''
 #plot_Vs(4, 'yes')
@@ -319,4 +348,6 @@ def integrand_w(w, M_per_b):
 #plot_W_eff_vs_b('yes')
 
 ''' Light deflection '''
-#plot_light_deflection('no')
+plot_light_deflection('yes')
+
+
