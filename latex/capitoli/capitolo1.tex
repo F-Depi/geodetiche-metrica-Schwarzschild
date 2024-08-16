@@ -1020,11 +1020,12 @@ The conserved quantities $e$ and $\ell$ defined in \ref{cap1:eq:conserved_e} and
 \ref{cap1:eq:conserved_l} are the same, with the only difference of using
 $\lambda$ instead of the proper time $\tau$.
 
-\begin{equation*}
+\begin{equation}
     e := \left( 1 - \frac{2M}{r} \right) \dv{t}{\lambda} 
     \quad \quad \quad \quad
     \ell := r^2 \sin^2 \theta \dv{\phi}{\lambda} \, .
-\end{equation*}
+    \label{cap1:eq:e_l_light}
+\end{equation}
 
 We can therefore restrict the motion of the light ray motion to the $xy$ plane
 as we did with massive particle and use $e$ and $\ell$ to write the
@@ -1172,16 +1173,99 @@ $W_{\rm eff}$, we can recognize 3 different types of orbits, that are shown in
 Figure \ref{ca1:fig:W_eff_orbits}:
 
 \begin{itemize}
-    \item $b < 3 \sqrt{3} M$ (yellow dashed line): in this case the light ray doesn't
-        have an impact parameter big enough and can surpass the potential
-        barrier falling towards the center of the massive object;
-    \item $b = 3 \sqrt{3} M$ (red dashed line): This represents an edge case where the
-        light ray can theoretically maintain a circular orbit at the unstable
-        stationary point;
-    \item $b > 3 \sqrt{3} M$ (purple dashed line): the light ray as an impact
-        parameter big enough to get close to the massive object and then, at the
-        turning point P, continue its trajectory going back to infinity.
+    \item $b < 3 \sqrt{3} M$ (yellow dashed line): in this case the light ray
+        doesn't have an impact parameter big enough and can surpass the
+        potential barrier falling towards the center of the massive object;
+    \item $b = 3 \sqrt{3} M$ (red dashed line): This represents an edge case 
+        where the light ray can theoretically maintain a circular orbit at the
+        unstable stationary point;
+    \item $b > 3 \sqrt{3} M$ (purple dashed line): Here, the light ray has a
+        sufficiently large impact parameter, allowing it to approach the massive
+        object and, upon reaching the turning point $P$, continue its trajectory
+        back to infinity.
+        This results in a deflection of the light ray's path.
+
+        
 \end{itemize}
 
-
 %% Section with expample 9.2?
+
+
+\section{Deflection of Light}
+
+The phenomenon of light deflection, briefly mentioned earlier, is particularly
+interesting in terms of measurable effects.
+This effect is, for example, visible in distant stars whose light is deflected
+by the sun and then observed from the earth.
+
+To find the deflection it is useful to first express $\phi$ as a function of
+$r$, we can rewrite eq. \ref{cap1:eq:e_l_light} and eq. \ref{cap1:eq:found_b} as
+
+\begin{subequations}
+\begin{align}
+    \frac{1}{\ell} \dv{\phi}{\lambda} &= \frac{1}{r^2}
+    \label{cap1:eq:phi_of_lambda} \\
+    \frac{1}{\ell} \dv{r}{\lambda} &= \sqrt{\frac{1}{b^2} - W_{\rm eff}}
+    \label{cap1:eq:r_of_lambda} \, .
+\end{align}
+\end{subequations}
+
+Dividing eq. \ref{cap1:eq:r_of_lambda} into \ref{cap1:eq:phi_of_lambda} gives
+
+\begin{equation}
+    \dv{\phi}{r} = \frac{1}{r^2} \left[\frac{1}{b^2}
+    - \frac{1}{r^2} \left(1 - \frac{2M}{r} \right) \right]^{-1/2} \, .
+    \label{cap1:eq:phi_of_r_light}
+\end{equation}
+
+Looking at Figure \ref{cap1:fig:deflection} we can see the deflected ray in
+thick dashed line spanning an angle $\Delta \phi$ (if we consider it coming from
+infinity and going back to infinity).
+A non-deflected ray on the other hand will span an angle of $\pi$
+The deflection we are interested in is therefore the one labeled as
+$\delta \phi_{\rm def}$.
+In the Figure $r_1$ represents the turning point, the one where the light is
+closer to the massive object, and the one that cuts the trajectory in half.
+We can then evaluate half the deflection angle by integrating eq.
+\ref{cap1:eq:phi_of_r_light} from $r = r_1$ to $r = \infty$.
+Consequently, the full deflection will be
+
+\begin{equation}
+    \delta \phi_{\rm def} = 2\int_{r_1}^\infty \frac{1}{r^2} \left[\frac{1}{b^2}
+    - \frac{1}{r^2} \left(1 - \frac{2M}{r} \right) \right]^{-1/2} \mathrm{d}r
+    \label{cap1:eq:deflection}
+\end{equation}
+
+remembering from Figure \ref{ca1:fig:W_eff_orbits} that $r_1$ is measured when
+the light ray is in $P$ and $1 / b^2 = W_{\rm eff}(r_1)$
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.5 \textwidth]{Figures/deflection.png}
+    \caption{Deflected ray, in a thick dashed line, against the non-deflected
+    trajectory, in thin dashed line.
+    A non-deflected ray that goes from right to left (infinitely far) would span
+    an angle of $\pi$.
+    The deflected ray instead spans an angle of $\Delta \phi$. \\
+    \textit{From} \cite{hartle2021gravity} \textit{page 211, Figure 9.10}}
+    \label{cap1:fig:deflection}
+\end{figure}
+
+In the integral in \ref{cap1:eq:deflection} we can make the substitution
+$w = b / r$ to rewrite it as
+
+\begin{equation}
+    \delta \phi_{\rm def} = 2 \int_o^{w_1}
+    \left[1 - w^2 \left(1 - \frac{2M}{b}w\right)\right]^{-1/2} \mathrm{d}w
+    \label{cap1:eq:deflection_w}
+\end{equation}
+
+where $w_1$ is the value at which the square bracket vanishes.
+
+Figure \ref{cap1:fig:deflection_w} shows the value of the deflection
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = 0.5 \textwidth]{Figures/deflection_w.png}
+    \caption{placeholder}
+    \label{cap1:fig:deflection_w}
+\end{figure}

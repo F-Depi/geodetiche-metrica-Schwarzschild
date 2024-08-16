@@ -288,6 +288,21 @@ def plot_W_eff_vs_b(save=['yes','no']):
     plt.show()
 
 
+def integrand_w(w, M_per_b):
+    return (1 - w**2 * (1 - 2 * w * M_per_b))**(-1/2)
+
+
+#def plot_W_eff(save=['yes','no']):
+#
+#    filename = '../latex/Figures/deflection_w.eps'
+#
+#    plt.figure()
+#    plt.plot(M_per_b, integral, '-', label=lab_i)
+#    plt.legend()
+#    plt.tight_layout()
+#    if save == 'yes': plt.savefig(filename, format='eps')
+#    plt.show()
+
 ''' Veff vs Newtonian V '''
 #plot_Vs(4, 'yes')
 #plot_some_V_eff('yes')
@@ -302,3 +317,6 @@ def plot_W_eff_vs_b(save=['yes','no']):
 #plot_W_eff('yes')
 #plot_W_eff_tanti('no')
 #plot_W_eff_vs_b('yes')
+
+''' Light deflection '''
+#plot_light_deflection('no')
