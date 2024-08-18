@@ -1,9 +1,127 @@
 % ::setlocal makeprg=cd\ latex\ &&\ pdflatex\ -interaction=batchmode\ main.tex\ &&\ xdg-open\ main.pdf\ &&\ exit
-%%
-Bozza, forse qui va la prima subsection del capitolo uno?
 
-Study of geodesics in \Sh metric
+Newtonian mechanics is built upon the concept of absolute time and space.
+Once the concept of \textit{inertial frame} is well-defined, physics can be
+done on a space described by Euclidean geometry.
+Free particles (particles on which no forces are acting) move in a straight
+line, which is the shortest distance between two points in a three-dimensional
+space, measured as:
 
-Numerical simulations on the second chapter
-%% per? su? quante? vediamo..
+\begin{equation}
+    \Delta s^2 = \Delta x^2 + \Delta y^2 + \Delta z^2 \, .
+    \label{eq:euclide}
+\end{equation}
 
+On the other hand, time is \textit{just} seen as a parameter, common to every 
+inertial frame, that can be used to determine the particle velocity and
+acceleration.
+
+With the appearance of Maxwell's Equations it became clear that what they 
+predicted (the speed of light being constant in every inertial frame) was in
+contrast with the description of our space given by Newtonian Mechanics, where
+the speed of anything changes with respect to the inertial frame chosen.
+Between Maxwell's Equations and Newtonian mechanics Einstein chose to modify 
+the latter and wrote his two postulates for the theory of Special Relativity:
+
+\begin{itemize}
+    \item The laws of physics are invariant (identical) in all inertial frames
+        of reference;
+    \item The speed of light in vacuum,
+        $c = \num{299792458} \unit[per-mode = symbol]{\meter\per\second}$,
+        is the same for all observers, regardless of the motion of light source
+        or observer.
+\end{itemize}
+
+The postulates may or may not be intuitive, but simple observations based on
+them bring us to abandon the idea of absolute space and time and to introduce
+the concept of \textit{spacetime}, together with a new way of measuring
+distances
+
+\begin{equation}
+    \Delta s^2 = - c^2 \Delta t^2 + \Delta x^2 + \Delta y^2 + \Delta z^2 \, .
+    \label{eq:Minkowski}
+\end{equation}
+
+In special relativity distances measured this way are the same for every
+observer in every inertial frame possible.
+
+The appearance of time in a formula that is supposed to give us the distance
+between two objects is surely destabilizing at first, but geometry teaches us
+that fixing the way we calculate $\Delta s^2$, more properly referred to as the
+\textit{line element} $\mathrm{d}s^2$, is enough to describe the geometry of
+the space that we are using.
+Since eq. \ref{eq:Minkowski} is different from eq. \ref{eq:euclide},
+in
+particular there is a minus sign in front of $\Delta t^2$, we moved away from
+the familiar three-dimensional Euclidean geometry and are now in
+four-dimensional spacetime, usually referred to as \textit{flat spacetime} or
+\textit{Minkowski space}.
+
+This new geometry allowed for a reformulation of Maxwell's Equations and
+brought (and explained) phenomena like time dilation, length contraction and the
+relativity of simultaneity.
+The last one in particular, the concept that the simultaneity of two events
+depends on the frame of reference, poses a threat to the \textit{force} of
+gravity.
+Up until this point gravity was defined as the instantaneous force $F_{12}$
+acting on a mass $m_1$ at time $t$ due to a second mass $m_2$:
+
+\begin{equation}
+    F_{12} = G \frac{m_1 m_2}{|r_1(t) - r_2(t)|^2}
+    \label{eq:force_of_gravity}
+\end{equation}
+
+The adjective \textit{instantaneous} in a theory where nothing can travel
+faster than the speed of light should already raise some concern.
+But looking at $r_1(t)$ and $r_2(t)$ in eq. \ref{eq:force_of_gravity}, that are
+supposed to indicate the positions of the masses in the same instant of time,
+makes it even clearer that the force $F_{12}$ can't be the same in all
+frames of reference.
+
+Solving this issue gave birth to the theory of general relativity, where a mass
+is not a source of gravitational force anymore, but is responsible for
+bending the four-dimensional spacetime itself.
+This implies that when we observe a particle deviating its trajectory from a
+straight line in the presence of a massive object, it is not because of a force
+acting on it.
+In fact, we can consider the particle free and moving from point A to point B
+along the shortest path, it is just that in the curved surface bent by the mass
+the shortest path is not a straight line.
+
+While this concept may not enhance our intuitive understanding, the
+implications and the mathematical formalism required to articulate the theory
+are even more challenging.
+If the presence of mass distorts the space we work in, changing the line
+element $\mathrm{d}s^2$ is therefore necessary.
+The details of the theories, particularly the Einstein field equations, that
+describe this distortion and allow us to evaluate the new $\mathrm{d}s$ from a
+give distribution of mass are beyond the scope of this thesis.
+Our focus will be on evaluating the observable effects, given the line
+element.
+
+More specifically we will study one of the simplest curved spacetime that
+general relativity has to offer: the geometry of empty space outside a
+spherically symmetric source of curvature, for example, a spherical
+star.
+It is one of the simplest because of the many symmetries that presents and,
+luckily, is also one of the most useful.
+
+The line element of what is more commonly know as the \Sh geometry is
+
+\begin{equation}
+    \mathrm{d}s^2 = - \left(1 - \frac{2 G M}{c^2 r} \right) (c \mathrm{d}t)^2
+    + \left(1 - \frac{2 G M}{c^2 r} \right)^{-1} \mathrm{d}r^2
+    + r^2 (\mathrm{d}\theta^2 + \sin^2 \theta \mathrm{d}\phi^2)
+    \label{eq:Sh}
+\end{equation}
+
+expressed in spherical coordinates centered in the mass responsible for bending
+the space.
+
+To explore this geometry, we will examine the possible trajectories of both a
+free particle and a photon. By analyzing the paths of particles with varying
+energies and directions as they move around the massive object, we can gain
+insight into some of the implications of the \Sh metric.
+
+
+%% qualcosa sul secondo capitolo?

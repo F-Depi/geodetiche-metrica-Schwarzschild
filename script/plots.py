@@ -198,8 +198,8 @@ def plot_W_eff(save=['yes','no']):
     r = np.arange(0.9, right_lim,0.001)
     Weff = M**2 * fun_W_eff(r, M)
     label_eff = r'$W_{\rm eff} \, (r)$'
-    plt.plot(r, Weff, '-', label=label_eff)
-    plt.axhline(0, color='black')
+    plt.plot(r, Weff, '-', linewidth=2, label=label_eff)
+    plt.axhline(0, linewidth=2, color='black')
     plt.vlines(1, bottom_lim, 0, color='r', linestyle='--', linewidth=1)
     plt.vlines(1.5, bottom_lim, 1 / 27 / M**2, color='r', linestyle='--', linewidth=1)
     plt.xticks(list(plt.xticks()[0]) + [1])
@@ -227,7 +227,7 @@ def plot_W_eff_tanti(save=['yes','no']):
     for M in [0.00443, 1480, 6.5e9 * 1480]:
         Weff = fun_W_eff(r, M)
         label_eff = r'$W_{\rm eff} \, (r),$ ' + lab_masses[kk]
-        plt.plot(r, Weff, '-', label=label_eff)
+        plt.plot(r, Weff, '-', linewidth=2, label=label_eff)
         kk += 1
 
     plt.axhline(0, color='black')
@@ -269,12 +269,12 @@ def plot_W_eff_vs_b(save=['yes','no']):
     r = np.arange(0.9, right_lim,0.001)
     Weff = M**2 * fun_W_eff(r, M)
     label_eff = r'$W_{\rm eff} \, (r)$'
-    plt.plot(r, Weff, '-', label=label_eff)
+    plt.plot(r, Weff, '-', linewidth=2, label=label_eff)
 
     # dashed lines and turning point
-    plt.hlines(b1, x1, right_lim, linestyle='--', color='orange', label=lab_b1)
-    plt.hlines(b2, x2, right_lim, linestyle='--', color='r', label=lab_b2)
-    plt.hlines(b3, x3, right_lim, linestyle='--', color='purple', label=lab_b3)
+    plt.hlines(b1, x1, right_lim, linewidth=2, linestyle='--', color='orange', label=lab_b1)
+    plt.hlines(b2, x2, right_lim, linewidth=2, linestyle='--', color='r', label=lab_b2)
+    plt.hlines(b3, x3, right_lim, linewidth=2, linestyle='--', color='purple', label=lab_b3)
     plt.plot(x3, b3, color='purple', marker='o')
     plt.text(x3, b3 + 1e-3, r'$P$', fontsize=15)
 
@@ -307,6 +307,7 @@ def fun_phi_def(M_per_b):
 
     return 2 *integral - np.pi
 
+
 def plot_light_deflection(save=['yes','no']):
 
     filename = '../latex/Figures/deflection_w.eps'
@@ -321,10 +322,11 @@ def plot_light_deflection(save=['yes','no']):
     lab_i = r'$\delta \phi$'
 
     plt.figure()
-    plt.plot(M_per_b, integral, '-', label=lab_i)
-    plt.axvline(np.sqrt(1/27), color='r', linestyle='--', label=lab_limit)
+    plt.axvline(np.sqrt(1/27), color='r', linestyle='--', linewidth=2, label=lab_limit)
+    plt.plot(M_per_b, integral, linewidth=2, label=lab_i)
     plt.xticks([0, 0.05, 0.1, 0.15, 0.2])
 
+    plt.ylim([0, 2.5])
     plt.xlabel(r'$\frac{M}{b}$')
     plt.ylabel(r'$\frac{\delta \phi_{\rm def}}{\pi}$')
     plt.legend()
