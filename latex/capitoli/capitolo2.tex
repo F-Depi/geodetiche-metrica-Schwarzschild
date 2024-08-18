@@ -1,11 +1,10 @@
 % ::setlocal makeprg=cd\ latex\ &&\ pdflatex\ -interaction=batchmode\ main.tex\ &&\ xdg-open\ main.pdf\ &&\ exit
-Computed in \texttt{C} and animated in \texttt{python}
 
 \begin{subequations}
 \label{cap2:eq:orbits}
     \begin{align}[left = {\empheqlbrace}]
-        \left(\dv{r}{\tau}\right)^2 &= e^2 - \left(1 - \frac{2M}{r}\right)
-        \left(1 + \frac{l^2}{r^2}\right) \label{cap2:eq:r_of_tau} \\
+        \dv{r}{\tau} &= \sqrt{e^2 - \left(1 - \frac{2M}{r}\right)
+        \left(1 + \frac{l^2}{r^2}\right)} \label{cap2:eq:r_of_tau} \\
         %
         \dv{\phi}{\tau} &= \frac{l}{r^2} \label{cap2:eq:phi_of_tau}\\
         %
