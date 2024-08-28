@@ -1,4 +1,4 @@
-# ::setlocal makeprg=cd\ script\ &&\ python\ plots.py
+# ::setlocal makeprg=cd\ script\ &&\ python\ ch1_plots.py
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.optimize import root_scalar
@@ -334,6 +334,7 @@ def plot_light_deflection(save=['yes','no']):
     if save == 'yes': plt.savefig(filename, format='eps')
     plt.show()
 
+
 ''' Veff vs Newtonian V '''
 #plot_Vs(4, 'yes')
 #plot_some_V_eff('yes')
@@ -350,6 +351,6 @@ def plot_light_deflection(save=['yes','no']):
 #plot_W_eff_vs_b('yes')
 
 ''' Light deflection '''
-plot_light_deflection('yes')
+#plot_light_deflection('yes')
 
 
