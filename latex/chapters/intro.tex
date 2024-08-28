@@ -1,11 +1,11 @@
 % ::setlocal makeprg=cd\ latex\ &&\ pdflatex\ -interaction=batchmode\ main.tex\ &&\ xdg-open\ main.pdf\ &&\ exit
 
 Newtonian mechanics is built upon the concept of absolute time and space.
-Once the concept of \textit{inertial frame} is well-defined, physics can be
+Once the concept of \textit{inertial frame} is introduced, physics can be
 done on a space described by Euclidean geometry.
-Free particles (particles on which no forces are acting) move in a straight
-line, which is the shortest distance between two points in a three-dimensional
-space, measured as:
+For inertial observers, free particles (particles on which no net forces are
+acting) move in a straight line, which is the shortest distance between two
+points in a three-dimensional space, measured as:
 
 \begin{equation}
     \Delta s^2 = \Delta x^2 + \Delta y^2 + \Delta z^2 \, .
@@ -13,13 +13,13 @@ space, measured as:
 \end{equation}
 
 On the other hand, time is \textit{just} seen as a parameter, common to every 
-inertial frame, that can be used to determine the particle velocity and
-acceleration.
+inertial frame, that can be used to parametrize the trajectory and to determine
+the particle velocity and acceleration.
 
 With the appearance of Maxwell's Equations it became clear that what they 
 predicted (the speed of light being constant in every inertial frame) was in
 contrast with the description of our space given by Newtonian Mechanics, where
-the speed of anything changes with respect to the inertial frame chosen.
+the speed of anything changes with respect to the chosen inertial frame.
 Between Maxwell's Equations and Newtonian mechanics Einstein chose to modify 
 the latter and wrote his two postulates for the theory of Special Relativity:
 
@@ -42,11 +42,11 @@ distances
     \label{eq:Minkowski}
 \end{equation}
 
-In special relativity distances measured this way are the same for every
-observer in every inertial frame possible.
+In special relativity distances between events measured in this way are the same
+for every observer in every possible inertial frame.
 
 The appearance of time in a formula that is supposed to give us the distance
-between two objects is surely destabilizing at first, but geometry teaches us
+between two events is surely destabilizing at first, but geometry teaches us
 that fixing the way we calculate $\Delta s^2$, more properly referred to as the
 \textit{line element} $\mathrm{d}s^2$, is enough to describe the geometry of
 the space that we are using.
@@ -75,7 +75,7 @@ The adjective \textit{instantaneous} in a theory where nothing can travel
 faster than the speed of light should already raise some concern.
 But looking at $r_1(t)$ and $r_2(t)$ in eq. \ref{eq:force_of_gravity}, that are
 supposed to indicate the positions of the masses in the same instant of time,
-makes it even clearer that the force $F_{12}$ can't be the same in all
+makes it even clearer that the force $F_{12}$ cannot be the same in all
 frames of reference.
 
 Solving this issue gave birth to the theory of general relativity, where a mass
@@ -99,10 +99,12 @@ give distribution of mass are beyond the scope of this thesis.
 Our focus will be on evaluating the observable effects, given the line
 element.
 
-More specifically we will study one of the simplest curved spacetime that
-general relativity has to offer: the geometry of empty space outside a
-spherically symmetric source of curvature, for example, a spherical
-star.
+More specifically, we will study one of the simplest curved spacetimes that
+general relativity offers: a stationary, spherically symmetric spacetime.
+This geometry arises when the source of curvature is a spherical star but can
+also exist in the absence of any source. The latter case is associated with the
+presence of a black hole, with the corresponding solutions referred to as
+\textit{black hole solutions}.
 It is one of the simplest because of the many symmetries that presents and,
 luckily, is also one of the most useful.
 

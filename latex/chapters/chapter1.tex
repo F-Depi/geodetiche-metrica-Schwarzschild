@@ -47,7 +47,7 @@ where $\vec a = a^i e_i$ is the tree-dimensional vector $(a_x, a_y, a_z)$.
 
 The length of the four-vector $\mathbf{a}$ must be evaluated using the line
 element of the flat spacetime, described in eq. \ref{eq:Minkowski}.
-In general, a useful to do that is by first defining the \textit{metric}
+In general, a useful way to do that is by first defining the \textit{metric}
 $\eta_{\nu \mu}$
 
 \begin{equation}
@@ -88,7 +88,7 @@ Given the expression of the line element in eq. \ref{eq:Sh} it is useful to
 adopt geometrized units, where $G = c = 1$
 (Appendix \ref{ap:geometrized_units}).
 From now on we will always use geometrized units (referring to them as
-$\mathcal L$ \textit{}) unless stated otherwise.
+$\mathcal L$) unless stated otherwise.
 The line element and the metric can be rewritten as
 
 \begin{equation}
@@ -113,13 +113,21 @@ The line element and the metric can be rewritten as
     \label{cap1:eq:Sh_g}
 \end{equation}
 
-It's worth pointing out that, given \ref{cap1:eq:Sh_ds1} and \ref{cap1:eq:Sh_g},
-the coordinate basis introduced in \ref{cap1:eq:coord_base} is not normalized,
-for example:
+It is worth pointing out that, given \ref{cap1:eq:Sh_ds1} and
+\ref{cap1:eq:Sh_g}, when we introduce this coordinate frame 
+
+\begin{equation}
+    \mathbf{e_t} = (1,~0,~0,~0) \quad
+    \mathbf{e_r} = (0,~1,~0,~0) \quad
+    \mathbf{e_\theta} = (0,~0,~1,~0) \quad
+    \mathbf{e_\phi} = (0,~0,~0,~1)
+\end{equation}
+
+it has the inconvenience of not being normalized. For example
 
 \begin{equation}
     \mathbf{e_t \cdot e_t} = g_{\nu \mu} e_t^\mu e_t^\nu = g_{00}
-    = - (1 - 2 M /r)
+    = - (1 - 2 M /r) \, .
 \end{equation}
 
 If we want an orthonormal tetrad we can define
@@ -163,9 +171,10 @@ Let's first analyze the \Sh metric in more detail:
 \end{equation}
 
 There are two singularities in $r = 0$ and $r = 2M$.
-The first one is intrinsic to the spherical coordinate system and, since the
-metric is only valid in the space outside the massive object, doesn't concern us.
-The second occur at what is defined as the \textit{\Sh radius} $r_s = 2M$.
+The first one is a true, physical singularity, since the spacetime curvature
+diverges for $r \rightarrow 0$.
+The second one is a coordinate singularity and occurs at what is defined as the
+\Sh $r_s = 2M$.
 Every non-black hole object has a radius larger than its \Sh radius.
 The nature and significance of this will become clearer in the subsequent
 sections.
@@ -178,9 +187,11 @@ to find a more familiar expression.
 
 Finally, $\mathrm{d}s^2$ is independent of the coordinates $t$ and $\phi$.
 This is expected, as the mass responsible for curving the spacetime is static
-and spherically symmetric.
-The metric’s independence from time and rotation implies the existence of two,
-easy to find, \textit{killing vectors}:
+and spherically symmetric or in the case of a black hole solution, the spacetime
+is spherical and stationary (Birkhoff’s theorem guarantees that if the metric is
+spherically symmetric and static, then it is also stationary).
+The metric independence from time and rotation implies the existence of two,
+easy to find, \textit{Killing vectors}:
 
 \begin{equation}
     \xi = (1, 0, 0, 0) \quad \text{and} \quad \eta = (0, 0, 0, 1) \, .
@@ -215,7 +226,7 @@ Therefore, for a free particle, the quantities
 will be conserved during the motion.
 We already named them $E$ and $L$ as they are respectively the energy and the
 angular momentum at large $r$ and low velocities.
-To simplify the expressions used in the discussion will use renormalized
+To simplify the expressions used in the discussion will use normalized
 quantities
 
 \begin{subequations}
@@ -231,7 +242,7 @@ $e$ and $\ell$ are respectively the conserved energy and angular momentum per
 unit
 rest mass.
 
-For a massless particle (e.g. a photon) the proper time can't be used, so
+For a massless particle (e.g. a photon) the proper time can not be used, so
 the four-velocity can be defined using an \textit{affine parameter} $\lambda$.
 
 \begin{equation}
@@ -268,10 +279,10 @@ really useful too
     \label{cap1:eq:u_normalization}
 \end{subequations}
 
-It's not just a property of the metric, but it's valid for every $g_{\nu \mu}$.
+It is not just a property of the metric, but it is valid for every
+$g_{\nu \mu}$.
 Equations \ref{cap1:eq:u_normalization_mass} and
-\ref{cap1:eq:u_normalization_light} can be respectively derived like this
-
+\ref{cap1:eq:u_normalization_light} can be respectively derived in this way:
 \begin{subequations}
 \begin{align}
     g_{\nu \mu} \mathrm{d}x^\nu \mathrm{d}x^\mu = \mathrm{d}s^2
@@ -296,14 +307,16 @@ Using the definition of proper time $\mathrm{d}\tau^2 = - \mathrm{d}s^2$ in
 \section{Gravitational Redshift}
 
 Let's consider a static observer in $r$.
-When the observer measures the energy of a photon, that corresponds to the $t$
-component of $\mathbf{p}$, they do that using their local orthonormal tetrad
+When an observer measures the energy of a photon, that corresponds to the $t$
+component of the four-momentum of the photon, $\mathbf{p}$,
+%%% p?
+they do that using their local orthonormal tetrad
 that we described in \ref{cap1:eq:local_ON_base}.
 
 Referring to $p^{\hat t}$ as the value measured in the orthonormal tetrad
-$\{\hat e_t, \hat e_r, \hat e_\theta, \hat e_\phi \}$ and
+$\{ \mathbf{\hat e_t, \hat e_r, \hat e_\theta, \hat e_\phi} \}$ and
 $p^t$ as the value measured with the coordinate basis
-$\{e_{t}, e_{r}, e_{\theta}, e_{\phi} \}$, the energy measured in $r$ will be
+$\{ \mathbf{e_{t}, e_{r}, e_{\theta}, e_{\phi}} \}$, the energy measured in $r$ will be
 
 \begin{equation*}
     E(r) = p^{\hat t} = \mathbf{p \cdot \hat e_t}
@@ -454,7 +467,7 @@ Rearranging the expression, we have
 \end{equation}
 
 To compare eq. \ref{cap1:eq:found_e} with the Newtonian case we can expand
-the multiplication, subtract 1 from both sides and divide by a factor of 2:
+the product, subtract 1 from both sides and divide by a factor of 2:
 
 \begin{equation}
     \mathcal E := \frac{e^2 - 1}{2} = \frac{1}{2} \left(\dv{r}{\tau}\right)^2
@@ -495,7 +508,7 @@ massive object.
 \begin{figure}[h]
 \begin{minipage}{0.49 \textwidth}
     \centering
-    \includegraphics[width = \textwidth]{Figures/V_eff.eps}
+    \includegraphics[width = \textwidth]{Figures/chapter1/V_eff.eps}
     \caption{Effective potential defined in eq. \ref{cap1:eq:V_eff} against the
     Newtonian potential, $\ell / M = 4$. \\
     The $r^{-3}$ term dominates for $r \sim r_s$ and the
@@ -507,7 +520,7 @@ massive object.
 \hspace{0.009 \textwidth}
 \begin{minipage}{0.49 \textwidth}
     \centering
-    \includegraphics[width = \textwidth]{Figures/V_eff_tanti.eps}
+    \includegraphics[width = \textwidth]{Figures/chapter1/V_eff_tanti.eps}
     \caption{$V_{\rm eff}$ for different values of $\ell / M$.
     For $\ell / M = \sqrt{12}$ (green) we can see $r_{\rm ISCO}$
     the limit of the smallest stable orbit (eq. \ref{cap1:eq:r_ISCO}.
@@ -518,8 +531,8 @@ massive object.
 \end{minipage}
 \end{figure}
 
-Taking the derivative of $V_{\rm eff}$ with respect to $r$ gives us the
-stationary points for $\frac{\ell}{M} \geq \sqrt{12}$.
+By Taking the derivative of $V_{\rm eff}$ with respect to $r$ we can predict the
+existence of stationary points for $\frac{\ell}{M} \geq \sqrt{12}$.
 
 \begin{subequations}
 \begin{align}
@@ -548,14 +561,14 @@ either escapes to infinity or falls towards the mass $M$ (red line in Figure
 
 As in the Newtonian case a bound orbit exists only when $V_{\rm eff}$ has a
 stable stationary point and the total energy given to the particle is not
-greater than $V_{\rm eff}(r_-)$ (a more detailed explanation in
+greater than $V_{\rm eff}(r_-)$ (a more detailed explanation will be given in
 Section \ref{cap1:sec:stable_orbits}).
 
 
 \section{The Simplest Geodesics: Radial Infalls}
 
-The simplest case we can consider is a radial infall where $\phi$ stays
-constant.
+The simplest case of particle we can consider is a radial infall where $\phi$
+stays constant.
 From eq. \ref{cap1:eq:conserved_l} this implies $\ell = 0$.
 
 Eq. \ref{cap1:eq:found_e} becomes
@@ -607,7 +620,7 @@ An observer that falls together with the particle will measure a finite time
 when he reaches $r = 2M$ and $\tau = \tau_*$ at $r = 0$.
 
 On the contrary the experience of an observer far away from the source of
-curvature, that measures the \Sh time $t$ it's much different.
+curvature, that measures the \Sh time $t$ it is much different.
 To see this we can solve eq. \ref{cap1:eq:radial_infall_ODE_2} with respect to
 $t$.
 Using the chain rule to derive $r$ with respect to $t$ and eliminating the
@@ -634,11 +647,11 @@ The result, fixing a similar time constant $t_*$ as before, is
     \label{cap1:eq:radial_infall_r_of_t}
 \end{equation}
 
-We can't find $r(t)$ explicitly as was done previously, but the expression in
-\ref{cap1:eq:radial_infall_r_of_t} already tells us that for
+We can not find $r(t)$ analytically as was done previously, but the expression
+in \ref{cap1:eq:radial_infall_r_of_t} already tells us that for
 $r \rightarrow 2M$ the time measured by a far observer goes to infinity.
-This implies that the distant observer will never see the particle reach
-$r = 2M$ and enter the \Sh radius, they will only see it getting closer and
+This implies that the distant observer will never see the particle reaching
+$r = 2M$ and entering the \Sh radius, they will only see it getting closer and
 closer forever. \\
 If the particle is emitting a signal with a frequency $w_*$, they will measure
 it infinitely redshifted as described by eq. \ref{cap1:eq:redshift},
@@ -653,7 +666,7 @@ $r \simeq 12M$ at $\tau = t =  0$.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width = 0.8 \textwidth]{Figures/radial_infall.eps}
+    \includegraphics[width = 0.8 \textwidth]{Figures/chapter1/radial_infall.eps}
     \caption{Eq. \ref{cap1:eq:radial_infall_r_of_tau} and eq.
     \ref{cap1:eq:radial_infall_r_of_t} describing the fall from
     $r \simeq 12M$ on.
@@ -697,7 +710,7 @@ visual representation in Figure \ref{cap1:fig:V_eff_orbits}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width = \textwidth]{Figures/V_eff_orbits.eps}
+    \includegraphics[width = \textwidth]{Figures/chapter1/V_eff_orbits.eps}
     \caption{In black the effective potential with $\ell / M = 4.1$.
     The dashed horizontal lines, along with the red dot, represent possible
     values of $\mathcal E$ that give 4 different scenarios.
@@ -724,7 +737,7 @@ In the yellow case, $\mathcal E = -0.03$, the particle has some \textit{spare}
 energy (not enough to escape) to change its radius between the two turning
 points $P_1$ and $P_2$.
 This results in an ellipse-like shape around the massive object.
-\footnote{As we will see in Section \ref{cap1:sec:precession} it's not
+\footnote{As we will see in Section \ref{cap1:sec:precession} it is not
 exactly an ellipse as in the Newtonian case.}
 
 Finally, the green case, $\mathcal E = 0.005$, and the blue one,
@@ -753,7 +766,7 @@ First of all, the four-velocity of the particle will be
     \label{cap1:eq:circular_orbit_u}
 \end{equation}
 
-Where we defined $\Omega := \dv{\phi}{t}$: the rate of which $\phi$ changes with
+Where we defined $\Omega := \dv{\phi}{t}$: the rate at which $\phi$ changes with
 respect to the \Sh time $t$.
 Using eq. \ref{cap1:eq:conserved_e} and eq. \ref{cap1:eq:conserved_l}, $\Omega$
 can be rewritten as
@@ -892,8 +905,11 @@ swept between $P_1$ and $P_2$, thus we can rewrite $\Delta \phi$ as
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width = 0.5 \textwidth]{Figures/precession_bozza.png}
-    \caption{placeholder}
+    \includegraphics[width = 0.5 \textwidth]{Figures/chapter1/precession_bozza.png}
+    \caption{Example of precession.
+    Starting from an outer turning point one can trace the orbit ending up at
+    different turning point, therefore sweeping an angle greater than $2 \pi$.
+    \\ \fullcite[Figure 9.6, page 203]{hartle2021gravity}.}
     \label{cap1:fig:precession}
 \end{figure}
 
@@ -985,7 +1001,7 @@ as
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width = 0.85 \textwidth]{Figures/W_eff.eps}
+    \includegraphics[width = 0.85 \textwidth]{Figures/chapter1/W_eff.eps}
     \caption{Effective potential for light rays, $W_{\rm eff}$, described in eq.
         \ref{cap1:eq:W}.
     We can see the maximum ar $r = 3M = 1.5 r_s$ and that the peak of
@@ -1078,7 +1094,7 @@ The shape of the orbit, determined by evaluating $\dv{r}{\lambda}$ from eq.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width = 0.8 \textwidth]{Figures/W_eff_vs_b.eps}
+    \includegraphics[width = 0.8 \textwidth]{Figures/chapter1/W_eff_vs_b.eps}
     \caption{Effective potential for light rays $W_{\rm eff}$, described in eq.
         \ref{cap1:eq:W}.
         Different values of the impact parameter $b$ give raise to 3 different
@@ -1170,7 +1186,7 @@ the light ray is in $P$ and $1 / b^2 = W_{\rm eff}(r_1)$
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width = 0.5 \textwidth]{Figures/deflection.png}
+    \includegraphics[width = 0.5 \textwidth]{Figures/chapter1/deflection.png}
     \caption{Deflected ray, in a thick dashed line, against the non-deflected
     trajectory, in thin dashed line.
     A non-deflected ray that goes from right to left (infinitely far) would span
@@ -1196,7 +1212,7 @@ The result is shown in Figure \ref{cap1:fig:deflection_w}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width = 0.65 \textwidth]{Figures/deflection_w.eps}
+    \includegraphics[width = 0.65 \textwidth]{Figures/chapter1/deflection_w.eps}
     \caption{Deflection of a light ray because of the gravitational field of a
     massive object.
     As $1 / b^2 \rightarrow 27 M^2$ the light ray trajectory gets closer to a
