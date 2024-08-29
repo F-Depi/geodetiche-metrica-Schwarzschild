@@ -30,3 +30,5 @@ python3 ch2_plots.py
 **Infall**: ```./main.x 3 0.2``` \
 ![infall](https://github.com/user-attachments/assets/2708764d-bca2-4a54-94aa-73bf0f893f0e)
 
+**Spirograph**: ```./sim.sh 3 -0.005 -t 116400 -h 0.1``` (a lot of data!)
+![image](https://github.com/user-attachments/assets/031b80e1-d4bf-4ecd-92b4-86765a9c6181)
