@@ -3,8 +3,8 @@
 [Overleaf link](https://www.overleaf.com/read/mgwqrhrwhphc#dfb5b3) updated less often, close to compile timeout.
 
 # Chapter 2: Simulations
-[main.c](script/src/main.c) solves the equations for an orbit of a massive particle. To use it go to the script
-folder and compile it
+[main.c](script/src/main.c) solves the equations for an orbit of a massive particle. To try the programm go to 
+the script folder and compile it
 ```
 cd script && make main
 ```
