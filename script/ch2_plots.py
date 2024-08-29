@@ -42,6 +42,10 @@ def plot_orbit():
     plt.plot([0], [0], 'ko', label='black hole')
     plt.plot(np.cos(r_s), np.sin(r_s), 'k--', label='Event Horizon')
     plt.axis('equal')
+    plt.title('Massive particle in Schwarzschild metric')
+    plt.xlabel(r'$\frac{x}{r_s}$')
+    plt.ylabel(r'$\frac{y}{r_s}$', rotation=0)
+    plt.tight_layout()
     plt.legend()
     plt.show()
 
