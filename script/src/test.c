@@ -19,7 +19,7 @@ void t_hard_to_compute_well(){
     fprintf(f, "tau,r,phi,t\n");
 
     while (r > 1.){
-        TESI_RK4(h, tau, &r, &phi, &t, E, l, &sign);
+        TESI_RK4(h, tau, &r, &phi, &t, E, l, &sign, NULL);
         tau += h;
         if (fmod(tau, 0.001) < 1e-9) 
             fprintf(f, "%.3f,%.3f,%.3f,%.3f\n", tau, r, phi, t);
@@ -35,20 +35,15 @@ void t_hard_to_compute_well(){
 
 int main(){
 
-    double l = sqrt(3);
-    double r_ISCO = 3;
+    // t_hard_to_compute_well();
 
-    printf("%f\n", TESI_Veff(r_ISCO, l));
 
-    FILE *f = fopen("data/Veff.csv", "w");
-    fprintf(f, "r,Veff\n");
-
-    for (double r = 1; r < 10; r += 0.01){
-        fprintf(f, "%.6e,%.6e\n", r, TESI_Veff(r, l));
-    }
-
-    fclose(f);
-
+    /* test outer_turning_point */
+    double l = 0;
+    double E = 0;
+    double r = TESI_outer_turning_point(l, E);
+    printf("r = %f\n", r);
+    printf("dr/dtau = %f\n", E - TESI_Veff(r, l));
 
     return 0;
 }

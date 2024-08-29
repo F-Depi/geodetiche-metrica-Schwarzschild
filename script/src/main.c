@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include <string.h>
 #include "../include/TESI_fun.h"
 
 
@@ -25,11 +26,11 @@ void chack_parameters(double l, double *E, double *r0, int sign){
     else if (*E < V_data[2] && *E > 0)
         printf("unbound orbit\n");
     else if (*E < 0 && *E > V_data[3]){
-        printf("bound orbit, changing r0 to r_min\n");
-        *r0 = V_data[1];
+        printf("bound orbit, changing r0 to the outer turning point\n");
+        *r0 = TESI_outer_turning_point(l, *E);
     }
     else if (*E < V_data[3])
-        printf("infall and already really close!\n");
+        printf("infall and already inside the Sh. radius!\n");
     else {
         printf("not possible\n");
         exit(1);
@@ -57,8 +58,14 @@ void print_help(char *argv[]){
 
 int main(int argc, char *argv[]){
 
-    if (argc < 2 || argc > 7)
+    if (argc < 2){
+        printf("Missing arguments\n");
         print_help(argv);
+    }
+    if (argc > 8){
+        printf("Too many arguments\n");
+        print_help(argv);
+    }
 
 
     double l;
@@ -88,6 +95,8 @@ int main(int argc, char *argv[]){
     double phi = 0.;
     double t = 0.;
     double tau = 0.;
+    char filename[50];
+    sprintf(filename, "data/l%.3f_E%.5f.csv", l, E);
 
     // Optional arguments check
     for (int i = 3; i < argc; i++){
@@ -108,6 +117,9 @@ int main(int argc, char *argv[]){
             case 't':
                 tau_max = atof(argv[i + 1]);
                 break;
+            case 'f':
+                sprintf(filename, "data/%s.csv", argv[i + 1]);
+                break;
             default:
                 printf("Invalid argument %s\n", argv[i]);
                 print_help(argv);
@@ -115,16 +127,19 @@ int main(int argc, char *argv[]){
         i++;
     }
 
-    chack_parameters(l, &E, &r, sign);
+    chack_parameters(l, &E, &r0, sign);
+    r = r0;
     printf("tau_max\t%.3f\n", tau_max);
     printf("h\t%.3e\n\n", h);
 
 
-    FILE *f = fopen("data/orbit.csv", "w");
+    int Nturns = 0;
+    
+    FILE *f = fopen(filename, "w");
     fprintf(f, "tau,r,phi,t\n");
 
     while (tau < tau_max){
-        TESI_RK4(h, tau, &r, &phi, &t, E, l, &sign);
+        TESI_RK4(h, tau, &r, &phi, &t, E, l, &sign, &Nturns);
         tau += h;
         if (r < 0.1){
             printf("\nMass reached (r < 0.1). Simulation terminated.\n");
@@ -141,6 +156,7 @@ int main(int argc, char *argv[]){
 
     fclose(f);
 
+    printf("Turns: %d\n", Nturns);
     printf("\nEnded at:\n");
     printf("r = %f\n", r);
     printf("phi = %f\n", phi / (2 * M_PI));
