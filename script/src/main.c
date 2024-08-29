@@ -117,7 +117,7 @@ int main(int argc, char *argv[]){
 
     chack_parameters(l, &E, &r, sign);
     printf("tau_max\t%.3f\n", tau_max);
-    printf("h\t%.3e\n", h);
+    printf("h\t%.3e\n\n", h);
 
 
     FILE *f = fopen("data/orbit.csv", "w");
@@ -149,6 +149,5 @@ int main(int argc, char *argv[]){
 }
 
 // Unbound orbit:   ./main.x 10 3.5
-// Bound orbit:     ./main.x 3 -0.0032 1 10 1e-3 15500
 // Precession:      ./main.x 3 -0.0032 -t 15000 -r 1000 
 // Infall:          ./main.x 3 0.2
