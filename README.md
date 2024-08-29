@@ -12,7 +12,7 @@ Run the script without any arguments the first time
 ```
 ./main.x
 ```
-Follow the instruction to choose the parameters for the simulation. \
+Follow the instructions to choose the parameters for the simulation. \
 The data is saved in ```data/orbit.csv```, run the python script to automatically plot it
 ```
 python3 ch2_plots.py
