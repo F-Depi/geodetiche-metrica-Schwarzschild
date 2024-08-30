@@ -21,7 +21,13 @@ double TESI_Veff(double r, double l);
 void TESI_Veff_max_min(double l, double *r_max_min);
 
 
-double TESI_outer_turning_point(double l, double E);
+double TESI_bisezione(double a, double b, double l, double E);
+
+
+void TESI_turning_points(double l, double E, double *r12);
+
+
+double TESI_extreme_turning_point(double l, double E);
 
 
 #endif

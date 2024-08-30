@@ -20,6 +20,8 @@ double TESI_fun_phi(double r, double l){
 
 
 double TESI_fun_t(double r, double E){
+    if (r < 1)
+        return 0;
     return sqrt(2 * E + 1) * r / (r - 1.);
 }
 
@@ -58,7 +60,7 @@ int TESI_RK4(double h, double tau, double *r, double *phi, double *t,
 
 double TESI_Veff(double r, double l){
     double foo = 1. / r;
-    return (pow(l * foo, 2) * (1. - foo) - foo) / 4.;
+        return (pow(l * foo, 2) * (1. - foo) - foo) / 2.;
 }
 
 
@@ -92,70 +94,22 @@ void TESI_Veff_max_min(double l, double *r_max_min){
 }
 
 
-double TESI_outer_turning_point(double l, double E){
-    /*
-      Uses bisection method to find the turning outer turning point.
-      a turning point is a point where dr/dt = 0 that implies
-      E - Veff(r) = 0
-    */
-
-    double r_max_min[4];
-    TESI_Veff_max_min(l, r_max_min);
-
-    // We know that it must be greater than r_min
-    double a = r_max_min[1];
-    double b = 1000;
-    double c = (a + b) / 2;
-    double Vc = TESI_Veff(c, l) - E;
-    while (fabs(Vc) > 1e-8 || Vc > 0){ // E > Veff or the solver breaks
-        if (Vc < 0){
-            a = c;
-        }
-        else {
-            b = c;
-        }
-        c = (a + b) / 2;
-        Vc = TESI_Veff(c, l) - E;
-    }
-    return c;
-}
-
-//void TESI_turning_points(double l, double E, double *r1, double *r2){
+//double TESI_outer_turning_point(double l, double E){
 //    /*
-//     * Uses bisection method to find the turning points.
-//     * a turning point is a point where dr/dt = 0 that implies
-//     * E - Veff(r) = 0
-//     * r1 is the inner turning point
-//     * r2 is the outer turning point
-//     */
+//      Uses bisection method to find the turning outer turning point.
+//      a turning point is a point where dr/dt = 0 that implies
+//      E - Veff(r) = 0
+//    */
 //
 //    double r_max_min[4];
 //    TESI_Veff_max_min(l, r_max_min);
 //
-//    // We know that r_max < r1 < r_min < r2
-//    // Find r1
-//    double a = r_max_min[0];
-//    double b = r_max_min[1];
+//    // We know that it must be greater than r_min
+//    double a = r_max_min[1];
+//    double b = 1000;
 //    double c = (a + b) / 2;
 //    double Vc = TESI_Veff(c, l) - E;
-//    while (fabs(Vc) > 1e-8 && Vc > 0){ // E > Veff or the solver breaks
-//        if (Vc > 0){
-//            a = c;
-//        }
-//        else {
-//            b = c;
-//        }
-//        c = (a + b) / 2;
-//        Vc = TESI_Veff(c, l) - E;
-//    }
-//    *r1 = c;
-//
-//    // Find r2
-//    a = r_max_min[1];
-//    b = 100;
-//    c = (a + b) / 2;
-//    Vc = TESI_Veff(c, l) - E;
-//    while (fabs(Vc) > 1e-8 && Vc > 0){ // E > Veff or the solver breaks
+//    while (fabs(Vc) > 1e-8 || Vc > 0){ // E > Veff or the solver breaks
 //        if (Vc < 0){
 //            a = c;
 //        }
@@ -165,7 +119,79 @@ double TESI_outer_turning_point(double l, double E){
 //        c = (a + b) / 2;
 //        Vc = TESI_Veff(c, l) - E;
 //    }
-//    *r2 = c;
+//    return c;
 //}
+double TESI_extreme_turning_point(double l, double E){
+    /*
+      Uses bisection method to find the turning point for a particle already at
+      r < r_max
+      a turning point is a point where dr/dt = 0 that implies
+      E - Veff(r) = 0
+    */
 
+    double r_max_min[4];
+    TESI_Veff_max_min(l, r_max_min);
+
+    // We know that it must be smaller than r_max
+    double a = 1;
+    double b = r_max_min[0];
+    return TESI_bisezione(a, b, l, E);
+}
+
+
+void TESI_turning_points(double l, double E, double *r12){
+    /*
+     * Uses bisection method to find the turning points.
+     * a turning point is a point where dr/dt = 0 that implies
+     * E - Veff(r) = 0
+     * r12[0] = r1, r12[1] = r2
+     * r1 is the inner turning point
+     * r2 is the outer turning point
+     */
+
+    double r_max_min[4];
+    TESI_Veff_max_min(l, r_max_min);
+
+    // We know that r_max < r1 < r_min < r2
+    // Find r1
+    double a = r_max_min[0];
+    double b = r_max_min[1];
+    r12[0] = TESI_bisezione(a, b, l, E);
+
+    // Find r2
+    a = r_max_min[1];
+    b = 1000;
+    if (E - TESI_Veff(b, l) > 0){
+        printf("r2 too big (r2 > 1e3), choose a smoller E or l\n");
+        exit(1);
+    }
+    r12[1] = TESI_bisezione(a, b, l, E);
+}
+
+
+double TESI_bisezione(double a, double b, double l, double E){
+    double start = a;
+    double end = b;
+    double mid;
+
+    if ((E - TESI_Veff(start, l)) * (E - TESI_Veff(end, l)) > 0){
+        printf("No turning points in the interval\n");
+        exit(1);
+    }
+
+    int kk = 0;
+    while (fabs(start - end) > 1e-8 && kk < 100){
+
+        mid = (start + end) / 2;
+        double control = (E - TESI_Veff(start, l)) * (E - TESI_Veff(mid, l));
+
+        if (control < 0) {
+            end = mid;
+        } else {
+            start = mid;
+        }
+    }
+
+    return mid;
+}
 
