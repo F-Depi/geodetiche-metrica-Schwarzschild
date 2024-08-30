@@ -61,32 +61,6 @@ def plot_orbit(foldername):
     plt.show()
 
 
-def precession(foldername):
-
-    filename = None
-    for file in os.listdir(f'data/keep/{foldername}'):
-        if file.endswith(".csv"):
-            filename = f'data/keep/{foldername}/{file}'
-
-    if not filename:
-        print('No file found')
-        exit()
-
-    data = np.loadtxt(filename, delimiter=',', skiprows=1)
-    tau = data[:, 0]
-    r = data[:, 1]
-    phi = data[:, 2]
-    t = data[:, 3]
-
-    plt.figure()
-    plt.plot(phi, r, label='Precession')
-    plt.title(f'Precession of massive particle in Schwarzschild metric\n{filename}')
-    plt.xlabel(r'$\phi$')
-    plt.ylabel(r'$\frac{r}{r_s}$', rotation=0)
-    plt.tight_layout()
-    plt.show()
-
-
 def animate_orbit(foldername):
 
     filename = None
@@ -112,7 +86,7 @@ def animate_orbit(foldername):
 
     min_ax = np.min([x, y]) * 1.1
     max_ax = np.max([x, y]) * 1.1
-    print(min_ax, max_ax)
+
     # Create the figure and axis
     fig, ax = plt.subplots(figsize=(9, 9))
 
@@ -157,8 +131,8 @@ def animate_orbit(foldername):
     # Show the plot
     plt.show()
 
-    filename = f'media/{foldername}.mp4'
-    ani.save(filename, dpi=400, fps=60)
+    filename = f'media/{foldername}2.mp4'
+    #ani.save(filename, writer='ffmpeg', fps=90, dpi=200, extra_args=['-vcodec', 'libx264'])
 
 
 

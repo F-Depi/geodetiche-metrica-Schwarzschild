@@ -343,7 +343,7 @@ def plot_light_deflection(save=['yes','no']):
 #plot_radial_infall('yes')
 
 ''' Veff vs values of e '''
-#plot_V_eff_orbits('no')
+plot_V_eff_orbits('no')
 
 ''' Weff '''
 #plot_W_eff('yes')
