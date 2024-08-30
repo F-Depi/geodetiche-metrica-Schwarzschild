@@ -181,7 +181,6 @@ int main(int argc, char *argv[]){
         kk++;
 
         if (kk % time2print == 0){
-                printf("fps = %s\n", fps);
             fprintf(f, "%.10e,%.10e,%.10e,%.10e\n", tau, r, phi, t);
             printf("\rtau = %.3e\t r = %.3f", tau, r);
         }
