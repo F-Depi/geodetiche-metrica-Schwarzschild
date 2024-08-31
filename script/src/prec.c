@@ -95,8 +95,7 @@ int main(int argc, char *argv[]){
         i++;
     }
     
-    chack_parameters(l, E, &r0, &r_lim, &sign);
-    printf("r0\t%.3f\n", r0);
+    check_parameters(l, E, &r0, &r_lim, &sign);
     printf("h\t%.3e\n", h);
     printf("tau_max\t%.3f\n\n", tau_max);
 
@@ -140,7 +139,7 @@ int main(int argc, char *argv[]){
             printf("\nMass reached (r < 0.1). Simulation terminated.\n");
             break;
         }
-        if (r >= 1.1 * r_lim){
+        if (r >= r_lim){
             printf("\nEscape reached (r > %.0f). Simulation terminated.\n", r_lim);
             break;
         }

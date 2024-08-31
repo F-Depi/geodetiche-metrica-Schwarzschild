@@ -95,24 +95,6 @@ void TESI_Veff_max_min(double l, double *r_max_min){
 }
 
 
-double TESI_extreme_turning_point(double l, double E){
-    /*
-      Uses bisection method to find the turning point for a particle already at
-      r < r_max
-      a turning point is a point where dr/dt = 0 that implies
-      E - Veff(r) = 0
-    */
-
-    double r_max_min[4];
-    TESI_Veff_max_min(l, r_max_min);
-
-    // We know that it must be smaller than r_max
-    double a = 1;
-    double b = r_max_min[0];
-    return TESI_bisezione(a, b, l, E);
-}
-
-
 void TESI_turning_points(double l, double E, double *r12){
     /*
      * Uses bisection method to find the turning points.
@@ -170,26 +152,212 @@ double TESI_bisezione(double a, double b, double l, double E){
 }
 
 
-void chack_parameters(double l, double E, double *r0, double *r_lim, int *sign){
+void TESI_m_case1(double l, double E, double *r0, double *r_lim, int *sign){
 
-    printf("Running with\nl\t%.3f\n", l);
+    printf("Veff(r) has no local maxima or minima\n");
+    // Positive E
+    if (E >= 0){
+        printf("E\t%.3f, ", E);
+
+        if (*sign == 1){
+            printf("positive solution chosen (sign = %d) => escape\n", *sign);
+            *r_lim = 10 * (*r0);
+        }
+        else if (*sign == -1)
+            printf("negative solution chosen (sign = %d) => infall\n", *sign);
+
+        printf("r0\t%.3f\n", *r0);
+    }
+
+    // Negative E
+    else {
+        printf("E\t%.3f => infall\n", E);
+        *r_lim = TESI_bisezione(1, R_MAX, l, E);
+        if (*r0 >= *r_lim){
+            *r0 = (1 - 1e-8) * (*r_lim);
+            *sign = -1;
+            printf("r0\t%.3f\t(That's the maximum allowed)\n", *r0);
+            printf("sign\t%d\t(r0 it's the extreme so the negative solution is forced)\n", *sign);
+        }
+        else{
+            printf("r0\t%.3f\n", *r0);
+            printf("sign = %d\n", *sign);
+        }
+    }
+}
+
+
+void TESI_m_case2(double l, double E, double *r0, double *r_lim, int *sign){
 
     double V_data[4];
     TESI_Veff_max_min(l, V_data);
+    double r_max = V_data[0];
+    double r_min = V_data[1];
+    double Vmax = V_data[2];
+    double Vmin = V_data[3];
+    printf("V_max\t%.6e\t\tr_max\t%.6e\n", V_data[2], V_data[0]);
+    printf("V_min\t%.6e\t\tr_min\t%.6e\n", V_data[3], V_data[1]);
 
-    printf("V_max\t%.6e\n", V_data[2]);
-    printf("V_min\t%.6e\n", V_data[3]);
-    printf("E\t%.6e => ", E);
+    // Positive E
+    if (E >= 0){
+        printf("E\t%.3f, ", E);
 
-    if (E > V_data[2] && *sign == 1){
-        printf("escape (the positive solution was chosen, sign = %d)\n", *sign);
-        *r_lim = 10 * (*r0);
+        if (*sign == 1){
+            printf("=> escape (positive solution chosen)\n");
+            printf("sign\t%d\n", *sign);
+            *r_lim = 10 * (*r0);
+        }
+        else if (*sign == -1)
+            printf("=> infall (negative solution chosen)\n");
+            printf("sign\t%d\n", *sign);
+
+        printf("r0\t%.3f\n", *r0);
     }
-    else if (E >= V_data[2] && *sign == -1)
-        printf("infall (the negative solution was chosen, sign = %d)\n", *sign);
-    else if (E < V_data[2] && E > 0)
-        printf("unbound orbit\n");
-    else if (E < 0 && E >= V_data[3]){
+
+    // Vmax < E < 0
+    else if (E > Vmax && E < 0){
+        printf("E\t%.3f => infall\n", E);
+        *r_lim = TESI_bisezione(1, R_MAX, l, E);
+        if (*r0 >= *r_lim){
+            *r0 = (1 - 1e-8) * (*r_lim);
+            *sign = -1;
+            printf("r0\t%.3f\t(That's the maximum allowed)\n", *r0);
+            printf("sign\t%d\t(r0 it's the extreme so the negative solution is forced)\n", *sign);
+        }
+        else{
+            printf("r0\t%.3f\n", *r0);
+            printf("sign = %d\n", *sign);
+        }
+    }
+    // Vmin < E < Vmax
+    else if (E < Vmax && E > Vmin){
+        // Check if a small r0 was selected with the intention to be beyond r_max
+        // If the user wanted to be beyond r_max
+        if (*r0 < r_max){
+            printf("E\t%.3f => infall (r0 < r_max was chosen)\n", E);
+            *r_lim = TESI_bisezione(1, r_max, l, E);
+
+            if (*r0 >= *r_lim){
+                *r0 = (1 - 1e-8) * *r_lim;
+                *sign = -1;
+                printf("r0\t%.3f\t(That's the maximum allowed)\n", *r0);
+                printf("sign\t%d\t(r0 is the extreme so the negative solution is forced)\n", *sign);
+            }
+            else
+                printf("r0\t%.3f\t\n", *r0);
+        }
+
+        // If the user wants the bound orbit (r1 < r0 < r2)
+        else {
+            double r12[2];
+            TESI_turning_points(l, E, r12);
+            *r_lim = r12[1];
+            printf("E\t%.3f => bound orbit, r1 = %.3f, r2 = %.3f\n", E, r12[0], r12[1]);
+            if (*r0 < r12[0]){
+                *r0 = (1 + 1e-8) * r12[0];
+                *sign = 1;
+                printf("r0\t%.3f\t(That's the minimum allowed)\n", *r0);
+                printf("sign\t%d\t(r0 = r1 so the positive solution is forced)\n", *sign);
+            }
+            else if (*r0 > r12[1]){
+                *r0 = (1 - 1e-8) * r12[1];
+                *sign = -1;
+                printf("r0\t%.3f\t(That's the maximum allowed)\n", *r0);
+                printf("sign\t%d\t(r0 = r2 so the negative solution is forced)\n", *sign);
+            }
+            else {
+                printf("r0\t%.3f\n", *r0);
+                printf("sign\t%d\n", *sign);
+            }
+        }
+    }
+
+    // E < Vmin
+    else if (E < Vmin){
+        double rx = TESI_bisezione(1, r_max, l, E);
+        printf("E\t%.3f => infall\n", E);
+        if (*r0 > rx){
+            *r0 = (1 - 1e-8) * rx;
+            printf("r0\t%.3f\t(That's the maximum allowed)\n", *r0);
+            *sign = -1;
+            printf("sign\t%d\t(r0 is the extreme so the negative solution is forced)\n", *sign);
+        }
+        else {
+            printf("r0\t%.3f\n", *r0);
+            printf("sign\t%d\n", *sign);
+        }
+    }
+    else
+        printf("I don't know this case\n");
+}
+
+
+void TESI_m_case3(double l, double E, double *r0, double *r_lim, int *sign){
+
+    double V_data[4];
+    TESI_Veff_max_min(l, V_data);
+    double r_max = V_data[0];
+    double r_min = V_data[1];
+    double Vmax = V_data[2];
+    double Vmin = V_data[3];
+    printf("V_max\t%.6e\t\tr_max\t%.6e\n", V_data[2], V_data[0]);
+    printf("V_min\t%.6e\t\tr_min\t%.6e\n", V_data[3], V_data[1]);
+
+    // E > Vmax
+    if (E >= Vmax){
+        printf("E\t%.3f, ", E);
+
+        if (*sign == 1){
+            printf("=> escape (positive solution chosen)\n");
+            printf("sign\t%d\n", *sign);
+            *r_lim = 10 * (*r0);
+        }
+        else if (*sign == -1){
+            printf("=> infall (negative solution chosen)\n");
+            printf("sign\t%d\n", *sign);
+        }
+
+        printf("r0\t%.3f\n", *r0);
+    }
+    
+    // Check if E is so low that the particle is already beyond r_max
+    // or r0 is smaller than r_max (=> the user wants to be beyond r_max)
+    else if (E < Vmin || *r0 < r_max){
+        printf("E\t%.3f => infall (r0 < r_max was chosen)\n", E);
+        *r_lim = TESI_bisezione(1, r_max, l, E);
+
+        if (*r0 >= *r_lim){
+            *r0 = (1 - 1e-8) * *r_lim;
+            *sign = -1;
+            printf("r0\t%.3f\t(That's the maximum allowed)\n", *r0);
+            printf("sign\t%d\t(r0 is the extreme so the negative solution is forced)\n", *sign);
+        }
+        else{
+            printf("r0\t%.3f\t\n", *r0);
+            printf("sign\t%d\n", *sign);
+        }
+    }
+
+    // 0 < E < Vmax
+    else if (E < Vmax && E >= 0){
+        printf("E\t%.3f => unbound orbit\n", E);
+        double r1 = TESI_bisezione(r_max, r_min, l, E);
+        if (*r0 <= r1){
+            *r0 = (1 - 1e-8) * r1;
+            *sign = 1;
+            printf("r0\t%.3f\t(That's the minimum allowed)\n", *r0);
+            printf("sign\t%d\t(r0 it's the extreme so the positive solution is forced)\n", *sign);
+        }
+        else{
+            printf("r0\t%.3f\n", *r0);
+            printf("sign = %d\n", *sign);
+        }
+        if (*sign == 1)
+            *r_lim = 10 * (*r0);
+    }
+
+    // Vmin < E < 0
+    else if (E < 0 && E >= Vmin){
         double r12[2];
         TESI_turning_points(l, E, r12);
         *r_lim = r12[1];
@@ -197,26 +365,40 @@ void chack_parameters(double l, double E, double *r0, double *r_lim, int *sign){
         if (*r0 < r12[0]){
             *r0 = (1 + 1e-8) * r12[0];
             *sign = 1;
-            printf("bound orbit, r0 was to small, changed to r1.\n"
-                    "Positive solution chosen, sign = %d.\n", *sign);
+            printf("r0\t%.3f\t(That's the minimum allowed)\n", *r0);
+            printf("sign\t%d\t(r0 = r1 so the positive solution is forced)\n", *sign);
         }
         else if (*r0 > r12[1]){
             *r0 = (1 - 1e-8) * r12[1];
             *sign = -1;
-            printf("bound orbit, r0 was to big, changed to r2.\n"
-                    "Negative solution chosen, sign = %d\n", *sign);
+            printf("r0\t%.3f\t(That's the maximum allowed)\n", *r0);
+            printf("sign\t%d\t(r0 = r2 so the negative solution is forced)\n", *sign);
+        }
+        else {
+            printf("r0\t%.3f\n", *r0);
+            printf("sign\t%d\n", *sign);
         }
     }
-    else if (E < V_data[3]){
-        printf("infall and already beyond r_max!\n");
-        double rx = TESI_extreme_turning_point(l, E);
-        printf("Extreme turning point at r = %.3f\n", rx);
-        if (*r0 > rx){
-            *r0 = rx;
-            printf("r0 too big, changed to r_extreme. Negative solution chosen\n");
-        }
-    }
+    else
+        printf("I don't know this case\n");
+}
+
+
+void check_parameters(double l, double E, double *r0, double *r_lim, int *sign){
+
+    printf("\nl\t%.3f\n", l);
+
+    if (l >= 0      && l <= sqrt(3))
+        TESI_m_case1(l, E, r0, r_lim, sign);
+
+    else if (l > sqrt(3) && l <= 2)
+        TESI_m_case2(l, E, r0, r_lim, sign);
+
+    else if (l > 2)
+        TESI_m_case3(l, E, r0, r_lim, sign);
+
     else {
-        printf("I don't know what will happen\n");
+        printf("l must be positive\n");
+        exit(1);
     }
 }

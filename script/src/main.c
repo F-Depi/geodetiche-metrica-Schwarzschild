@@ -33,7 +33,7 @@ void print_help2(char *argv[]){
     printf("r_max\t\t%.6f\n", V_data[0]);
     printf("r_min\t\t%.6f\n", V_data[1]);
     printf("V(r_max)\t%.6e\n", V_data[2]);
-    printf("V(r_min)\t\b%.6e\n", V_data[3]);
+    printf("V(r_min)\t%.6e\n", V_data[3]);
     printf("Provide E to start the simulation\n");
     exit(1);
 }
@@ -111,8 +111,7 @@ int main(int argc, char *argv[]){
     else 
         time2print = ceil(1 / h / atof(fps));
 
-    chack_parameters(l, E, &r0, &r_lim, &sign);
-    printf("r0\t%.3f\n", r0);
+    check_parameters(l, E, &r0, &r_lim, &sign);
     printf("h\t%.3e\n", h);
     printf("tau_max\t%.3f\n", tau_max);
     printf("Saving data every %d steps (fps = %s)\n", time2print, fps);
@@ -139,7 +138,8 @@ int main(int argc, char *argv[]){
 
         if (kk % time2print == 0){
             fprintf(f, "%.10e,%.10e,%.10e,%.10e\n", tau, r, phi, t);
-            printf("\rtau = %.3e\t r = %.3f", tau, r);
+            printf("\rtau = %.3e | r = %.3f | Turns = %d", tau, r, Nturns);
+            fflush(f);
         }
 
         if (r < 0.1){
@@ -154,12 +154,11 @@ int main(int argc, char *argv[]){
 
     fclose(f);
 
-    printf("Turns: %d\n", Nturns);
     printf("\nEnded at:\n");
+    printf("tau = %f\n", tau);
     printf("r = %f\n", r);
     printf("phi = %f\n", phi / (2 * M_PI));
     printf("t = %f\n", t);
-    printf("tau = %f\n", tau);
 }
 
 // Unbound orbit:   ./main.x 10 3.5

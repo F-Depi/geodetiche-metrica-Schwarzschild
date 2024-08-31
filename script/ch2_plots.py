@@ -6,7 +6,7 @@ import sys
 import os
 
 SMALL_SIZE = 13
-MEDIUM_SIZE = 18
+MEDIUM_SIZE = 14
 BIGGER_SIZE = 18
 
 plt.rc('font', size=SMALL_SIZE)          # controls default text sizes
@@ -26,7 +26,7 @@ def plot_potential():
     plt.show()
 
 
-def plot_orbit(foldername):
+def plot_orbit(foldername, title):
 
     filename = None
     for file in os.listdir(f'data/keep/{foldername}'):
@@ -45,15 +45,20 @@ def plot_orbit(foldername):
 
     r_s = np.linspace(0, 2 * np.pi, 100)
 
+    if title == '':
+        l = filename[1:2]
+        E = filename[8:15]
+        title = rf'Massive Particle with $\hat \ell = {l}$, $\mathcal{{E}} = {E}$'
+
     plt.figure()
     plt.plot(r * np.cos(phi), r * np.sin(phi),
              linestyle='-', marker='.', markersize=1, label='orbit')
     plt.plot(r[0] * np.cos(phi[0]), r[0] * np.sin(phi[0]), 'ro', label='start')
-    plt.plot(r[-1] * np.cos(phi[-1]), r[-1] * np.sin(phi[-1]), 'go', label='end')
+    #plt.plot(r[-1] * np.cos(phi[-1]), r[-1] * np.sin(phi[-1]), 'go', label='end')
     plt.plot([0], [0], 'ko', label='black hole')
     plt.plot(np.cos(r_s), np.sin(r_s), 'k--', label='Event Horizon')
     plt.axis('equal')
-    plt.title(f'Massive particle in Schwarzschild metric\n{filename}')
+    plt.title(title)
     plt.xlabel(r'$\frac{x}{r_s}$')
     plt.ylabel(r'$\frac{y}{r_s}$', rotation=0)
     plt.tight_layout()
@@ -66,13 +71,13 @@ def animate_orbit(foldername):
     filename = None
     for file in os.listdir(f'data/keep/{foldername}'):
         if file.endswith(".csv"):
-            filename = f'data/keep/{foldername}/{file}'
+            filename = file
 
     if not filename:
         print('No file found')
         exit()
 
-    data = np.loadtxt(filename, delimiter=',', skiprows=1)
+    data = np.loadtxt(f'data/keep/{foldername}/{filename}', delimiter=',', skiprows=1)
     tau = data[:, 0]
     r = data[:, 1]
     phi = data[:, 2]
@@ -135,14 +140,73 @@ def animate_orbit(foldername):
     #ani.save(filename, writer='ffmpeg', fps=90, dpi=200, extra_args=['-vcodec', 'libx264'])
 
 
+def fun_tau_r(r):
+    return - 2 / 3 * r**(3/2)
+
+
+def fun_t_r(r):
+    return - 2 / 3 * r**(3/2) - 2 * r**(1/2) + np.log(np.abs( (r**(1/2) + 1) / (r**(1/2) - 1) ))
+
+
+def plt_tvstau():
+
+    foldername = 'radial_infall'
+    filename = None
+    for file in os.listdir(f'data/keep/{foldername}'):
+        if file.endswith(".csv"):
+            filename = file
+
+    if not filename:
+        print('No file found')
+        exit()
+
+    data = np.loadtxt(f'data/keep/{foldername}/{filename}', delimiter=',', skiprows=1)
+    tau = data[:, 0]
+    r = data[:, 1]
+    t = data[:, 3]
+
+    tau = tau[r > 1]
+    t = t[r > 1]
+    r = r[r > 1]
+
+    tau_int_const = tau[0] - fun_tau_r(r[0])
+    analytic_t_tau = tau_int_const + fun_tau_r(r)
+
+    t_int_const = t[0] - fun_t_r(r[0])
+    analytic_t = t_int_const + fun_t_r(r)
+
+
+    plt.figure()
+    plt.plot(r, t, marker='.', linestyle='', label=r'$\hat t$ vs $\hat r$')
+    plt.plot(r, analytic_t, label=r'$\hat t_{\rm analytic}$($\hat r)$')
+    plt.plot(r, tau, marker='.', linestyle='', label=r'$\hat \tau$ vs $\hat r$')
+    plt.plot(r, analytic_t_tau, label=r'$\hat \tau_{\rm analytic}$($\hat r)$')
+    plt.title(f'Radial Infall')
+    plt.xlabel(r'$\hat r$')
+    plt.ylabel('time')
+    plt.gca().invert_xaxis()
+    plt.tight_layout()
+    plt.legend()
+    plt.savefig(f'../latex/Figures/chapter2/{foldername}.eps')
+    plt.show()
+
 
 #plot_potential()
 
 
-foldername = sys.argv[1]
-plot_orbit(foldername)
+#foldername = sys.argv[1]
+#plot_orbit(foldername)
 #precession(foldername)
 #animate_orbit(foldername)
+
+''' radial infall '''
+#plt_tvstau()
+#plot_orbit('radial_infall','Radial Infall')
+
+
+''' Crazy infalls '''
+plot_orbit('infall','')
+#plot_orbit('infall2','')
 
 
 

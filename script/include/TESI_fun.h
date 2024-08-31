@@ -1,6 +1,7 @@
 #ifndef TESI_FUN
 #define TESI_FUN
 
+#define R_MAX 1000
 
 double TESI_fun_r(double r, double E, double l, int *sign, int *Nturns);
 
@@ -27,10 +28,19 @@ double TESI_bisezione(double a, double b, double l, double E);
 void TESI_turning_points(double l, double E, double *r12);
 
 
-double TESI_extreme_turning_point(double l, double E);
+// Used in check_parameters() for l < sqrt(3)
+void TESI_m_case1(double l, double E, double *r0, double *r_lim, int *sign);
 
 
-void chack_parameters(double l, double E, double *r0, double *r_lim, int *sign);
+// Used in check_parameters() for sqrt(3) < l < 3
+void TESI_m_case2(double l, double E, double *r0, double *r_lim, int *sign);
+
+    
+// Used in check_parameters() for l > 3
+void TESI_m_case3(double l, double E, double *r0, double *r_lim, int *sign);
+
+
+void check_parameters(double l, double E, double *r0, double *r_lim, int *sign);
 
 
 #endif
