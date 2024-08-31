@@ -112,6 +112,7 @@ int main(int argc, char *argv[]){
         time2print = ceil(1 / h / atof(fps));
 
     check_parameters(l, E, &r0, &r_lim, &sign);
+    printf("r_lim\t%.3f\n", r_lim);
     printf("h\t%.3e\n", h);
     printf("tau_max\t%.3f\n", tau_max);
     printf("Saving data every %d steps (fps = %s)\n", time2print, fps);
@@ -142,11 +143,11 @@ int main(int argc, char *argv[]){
             fflush(f);
         }
 
-        if (r < 0.1){
+        if (r < 0.5){
             printf("\nMass reached (r < 0.1). Simulation terminated.\n");
             break;
         }
-        if (r > r_lim){
+        if (r > 1.1 * r_lim){
             printf("\nEscape reached (r > %.0f). Simulation terminated.\n", r_lim);
             break;
         }
@@ -159,8 +160,6 @@ int main(int argc, char *argv[]){
     printf("r = %f\n", r);
     printf("phi = %f\n", phi / (2 * M_PI));
     printf("t = %f\n", t);
-}
 
-// Unbound orbit:   ./main.x 10 3.5
-// Precession:      ./main.x 3 -0.0032 -t 15000 -r 1000 
-// Infall:          ./main.x 3 0.2
+    return 0;
+}

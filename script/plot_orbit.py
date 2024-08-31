@@ -8,10 +8,7 @@ import sys
 
 def plot_orbit(l, E):
 
-    if l >= 0:
-        filename = f'l{l:.3f}_E{E:.5f}.csv'
-    else:
-        filename = 'orbit.csv'
+    filename = f'l{l:.3f}_E{E:.5f}.csv'
 
     data = np.loadtxt(f'data/{filename}', delimiter=',', skiprows=1)
     tau = data[:, 0]
@@ -23,13 +20,13 @@ def plot_orbit(l, E):
 
     plt.figure()
     plt.plot(r * np.cos(phi), r * np.sin(phi),
-             linestyle='', marker='.', markersize=0.5, label='orbit')
+             linestyle='-', marker='', markersize=0.5, label='orbit')
     plt.plot(r[0] * np.cos(phi[0]), r[0] * np.sin(phi[0]), 'ro', label='start')
     plt.plot(r[-1] * np.cos(phi[-1]), r[-1] * np.sin(phi[-1]), 'go', label='end')
     plt.plot([0], [0], 'ko', label='black hole')
     plt.plot(np.cos(r_s), np.sin(r_s), 'k--', label='Event Horizon')
     plt.axis('equal')
-    plt.title(f'Massive particle in Schwarzschild metric\n{filename}')
+    plt.title(rf'Massive Particle with $\hat \ell = {l}$, $\mathcal{{E}} = {E}$')
     plt.xlabel(r'$\frac{x}{r_s}$')
     plt.ylabel(r'$\frac{y}{r_s}$', rotation=0)
     plt.tight_layout()

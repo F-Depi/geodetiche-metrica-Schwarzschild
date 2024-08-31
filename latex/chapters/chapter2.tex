@@ -177,21 +177,26 @@ numerical integration is working correctly, as the results are consistent with
 eq. \ref{cap1:eq:radial_infall_r_of_tau} and \ref{cap1:eq:radial_infall_r_of_t}
 found analytically in the previous chapter.
 
-Now that we have a working numerical integration, we can visualize some more
+By integrating numerically with this program, we can visualize some more
 complex infalls.
 
 \begin{figure}[h]
     \begin{minipage}{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Figures/chapter2/infall1.eps}
-        \caption{Plot of the orbit of a particle with $\hat \ell = 1$.}
+        \caption{Plot of the orbit of a particle with $\hat \ell = 1$
+        and $\mathcal E = 0.85993$.
+        The energy was chosen to be slightly above $V_{\rm eff}(r_{\rm max})$ to
+        decrease the radial velocity when approaching $\hat r = r_{\rm max}$.}
     \end{minipage}
     \hspace{0.015 \textwidth}
     \begin{minipage}{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Figures/chapter2/infall2.eps}
-        \caption{Proper time against \Sh time with respect of the radius of a
-        particle with $\hat \ell = 1$.}
+        \caption{$\hat \ell = 1$ and $\mathcal E = -0.042$.
+        The particle starts at $\hat r = 2$ with the radial velocity directed
+        outwards, but has a negative energy and will not be able to escape.}
+
     \end{minipage}
 \end{figure}
 

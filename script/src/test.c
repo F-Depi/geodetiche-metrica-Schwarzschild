@@ -58,25 +58,25 @@ void test_turning_points(){
 
 int main(){
 
-    // test_Veff(3);
+    test_Veff(1.9);
 
     // t_hard_to_compute_well();
 
     // test_turning_points();
     
-    double E = -0.006;
-    double r12[2];
-    TESI_turning_points(3., E, r12);
-    printf("Turning points:\n");
-    printf("r1 = %f\n", r12[0]);
-    printf("r2 = %f\n", r12[1]);
+    // double E = -0.006;
+    // double r12[2];
+    // TESI_turning_points(3., E, r12);
+    // printf("Turning points:\n");
+    // printf("r1 = %f\n", r12[0]);
+    // printf("r2 = %f\n", r12[1]);
 
-    double V1 = TESI_Veff(r12[0], 3.);
-    double V2 = TESI_Veff(r12[1], 3.);
+    // double V1 = TESI_Veff(r12[0], 3.);
+    // double V2 = TESI_Veff(r12[1], 3.);
 
-    printf("E = %.10e\n", E);
-    printf("V1 = %.10e\n", V1);
-    printf("V2 = %.10e\n", V2);
+    // printf("E = %.10e\n", E);
+    // printf("V1 = %.10e\n", V1);
+    // printf("V2 = %.10e\n", V2);
 
     return 0;
 }

@@ -135,7 +135,7 @@ int main(int argc, char *argv[]){
         if (kk % 100 == 0)
             printf("\rtau = %.3e | r = %.3f | Turns = %d", tau, r, Nturns);
 
-        if (r < 0.1){
+        if (r < 0.5){
             printf("\nMass reached (r < 0.1). Simulation terminated.\n");
             break;
         }
@@ -147,8 +147,8 @@ int main(int argc, char *argv[]){
 
     if (tau >= tau_max)
         printf("\nMaximum proper time reached\n");
-}
 
-// Unbound orbit:   ./main.x 10 3.5
-// Precession:      ./main.x 3 -0.0032 -t 15000 -r 1000 
-// Infall:          ./main.x 3 0.2
+    fclose(f_prec);
+
+    return 0;
+}

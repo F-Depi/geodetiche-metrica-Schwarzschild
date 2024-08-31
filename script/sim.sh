@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Check if at least two arguments are passed
-if [ "$#" -lt 2 ]; then
+if [ "$#" -lt 1 ]; then
     echo "Usage: $0 <input1> <input2> [optional_inputs...]"
     exit 1
 fi
@@ -32,32 +32,41 @@ if [ "$?" -ne 0 ]; then
     exit 1
 fi
 
-# Ask the user if they want to save the data
-read -p "Do you want to save the data? (y/n): " user_choice
-
 # Format l and E to the right decimal places for the filename
 l_formatted=$(printf "%.3f" "$l")
 E_formatted=$(printf "%.5f" "$E")
 file="l${l_formatted}_E${E_formatted}.csv"
 
-if [[ "$user_choice" == "n" || "$user_choice" == "no" ]]; then
+while true; do
+    # Ask the user if they want to save the data
+    read -p "Do you want to save the data? (y/n): " user_choice
 
-    # Check if the file exists before attempting to delete it
-    if [ -f "data/$file" ]; then
-        rm "data/$file"
-        if [ "$?" -ne 0 ]; then
-            echo "Failed to delete the file."
+    if [[ "$user_choice" == "n" || "$user_choice" == "no" ]]; then
+
+        # Check if the file exists before attempting to delete it
+        if [ -f "data/$file" ]; then
+            rm "data/$file"
+            if [ "$?" -ne 0 ]; then
+                echo "Failed to delete the file."
+            else
+                echo "File deleted successfully."
+            fi
         else
-            echo "File deleted successfully."
+            echo "File does not exist: $file"
         fi
-    else
-        echo "File does not exist: $file"
-    fi
-else
-    read -p "name the file: " folder
-    mkdir "data/keep/$folder"
-    mv "data/$file" "data/keep/$folder/$file"
-    echo "./main.x $l $E $optional_inputs" > "data/keep/$folder/param.txt"
-    echo "Data saved in data/keep/$folder/"
+    elif [[ "$user_choice" == "y" || "$user_choice" == "yes" ]]; then
+        read -p "name the file: " folder
+        mkdir "data/keep/$folder"
+        mv "data/$file" "data/keep/$folder/$file"
+        echo "./main.x $l $E $optional_inputs" > "data/keep/$folder/param.txt"
+        echo "Data saved in data/keep/$folder/"
 
-fi
+    else
+        echo "Invalid input. Please enter 'y' or 'n'."
+        continue
+    fi
+
+    break
+
+done
+

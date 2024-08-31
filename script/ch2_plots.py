@@ -5,8 +5,8 @@ import numpy as np
 import sys
 import os
 
-SMALL_SIZE = 13
-MEDIUM_SIZE = 14
+SMALL_SIZE = 14
+MEDIUM_SIZE = 15
 BIGGER_SIZE = 18
 
 plt.rc('font', size=SMALL_SIZE)          # controls default text sizes
@@ -62,8 +62,7 @@ def plot_orbit(foldername, title):
     plt.xlabel(r'$\frac{x}{r_s}$')
     plt.ylabel(r'$\frac{y}{r_s}$', rotation=0)
     plt.tight_layout()
-    plt.legend()
-    plt.show()
+    plt.legend(loc='best')
 
 
 def animate_orbit(foldername):
@@ -205,10 +204,11 @@ def plt_tvstau():
 
 
 ''' Crazy infalls '''
-plot_orbit('infall','')
-#plot_orbit('infall2','')
+#plot_orbit('infall','')
+plot_orbit('infall2','')
 
 
+plt.show()
 
 
 
