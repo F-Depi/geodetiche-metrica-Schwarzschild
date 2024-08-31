@@ -5,7 +5,7 @@ import os
 from scipy.special import ellipk
 
 
-def data_precession(foldername):
+def plot_data_precession(foldername):
 
     filename = None
     for file in os.listdir(f'data/keep/{foldername}'):
@@ -20,23 +20,6 @@ def data_precession(foldername):
     r = data[:, 1]
     phi = data[:, 2]
 
-    index_inners = []
-    index_outers = []
-    for i in range(1, len(r)-1):
-        if r[i] > r[i-1] and r[i] > r[i+1]:
-            index_inners.append(i)
-        if r[i] < r[i-1] and r[i] < r[i+1]:
-            index_outers.append(i)
-    print(f'Data from: {filename}')
-
-    for i in range(len(index_inners)-1):
-        delta_phi = phi[index_inners[i+1]] - phi[index_inners[i]] - 2 * np.pi
-        print(f'Data inners: {delta_phi:f}')
-
-    for i in range(len(index_outers)-1):
-        delta_phi = phi[index_outers[i+1]] - phi[index_outers[i]] - 2 * np.pi
-        print(f'Data outers: {delta_phi:f}')
-
     plt.figure()
     plt.plot(phi, r, label='Precession')
     plt.title(f'Precession of massive particle in Schwarzschild metric\n{filename}')
@@ -44,6 +27,37 @@ def data_precession(foldername):
     plt.ylabel(r'$\frac{r}{r_s}$', rotation=0)
     plt.tight_layout()
     plt.show()
+
+
+def data_precession(l, E, h):
+
+    filename = f'data/precession/l{l:.3f}_E{E:.5f}_h{h:.0e}.csv'
+    data = np.loadtxt(filename, delimiter=',', skiprows=1)
+    r = data[:, 0]
+    phi = data[:, 1]
+
+    ## Precession with the outer turning points
+    rmid = (r[0] + r[1]) / 2
+    phi_outer = phi[r > rmid]
+    prec_outer = []
+    for i in range(1, len(phi_outer)):
+        delta = (phi_outer[i] - phi_outer[i-1]) - 2 * np.pi
+        prec_outer.append(delta)
+
+    ## Precession with the inner turning points
+    phi_inner = phi[r < rmid]
+    prec_inner = []
+    for i in range(1, len(phi_inner)):
+        delta = (phi_inner[i] - phi_inner[i-1]) - 2 * np.pi
+        prec_inner.append(delta)
+
+    ## Precession from inner to outer and vice versa
+    prec = []
+    for i in range(1, len(phi)):
+        delta = 2 * (phi[i] - phi[i-1] - np.pi)
+        prec.append(delta)
+
+    return prec_outer, prec_inner, prec
 
 
 def analytic_precession(l, E):
@@ -64,9 +78,42 @@ def analytic_precession(l, E):
     return Delta_phi - 2 * np.pi
 
 
+def plot_residuals(l, E, h):
+
+    # Get the data
+    prec = analytic_precession(l, E)
+    prec_outer, prec_inner, prec_12 = data_precession(l, E, h)
+
+    # Residuals
+    error_outer = (prec_outer - prec) / prec
+    error_inner = (prec_inner - prec) / prec
+    error_12 = prec_12 - prec
+
+    plt.figure()
+    plt.plot(error_outer, linestyle='', marker='.', label='Outer')
+    plt.plot(error_inner, linestyle='', marker='.', label='Inner')
+    #plt.plot(error_12, label='Inner to outer')
+    plt.axhline(0, color='black', label='Analytical')
+    plt.ticklabel_format(axis="y", style="sci", scilimits=(0, 0))
+    plt.xlabel('Step')
+    plt.ylabel('Precession')
+    plt.legend()
+    plt.title('Normalized precession residuals\n'rf'($\hat \ell = {l:.3f}$, $\mathcal{{E}} = {E:.5f}$, $h = {h:.0e}$)')
+    plt.tight_layout()
+
+
+## Write bisection to fine tune the energy
+
+
 l = 3
 E = -0.006
-prec = analytic_precession(l, E)
-print(f'Analytical (l = {l:.3f}, E = {E:.5f}): {prec:f}')
+for h in [1e-1, 1e-2, 1e-3, 1e-4]:
+    plot_residuals(l, E, h)
 
-data_precession('precession')
+
+l = 3
+E = -0.01
+for h in [1e-1, 1e-2, 1e-3, 1e-4]:
+    plot_residuals(l, E, h)
+#plt.show()
+

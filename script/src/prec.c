@@ -1,4 +1,4 @@
-// ::setlocal makeprg=cd\ script\ &&\ make\ main\ &&\ ./main.x
+// ::setlocal makeprg=cd\ script\ &&\ make\ prec\ &&\ ./prec.x
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
@@ -45,7 +45,7 @@ int main(int argc, char *argv[]){
         printf("Missing arguments\n");
         print_help(argv);
     }
-    if (argc > 15){
+    if (argc > 11){
         printf("Too many arguments\n");
         print_help(argv);
     }
@@ -67,11 +67,6 @@ int main(int argc, char *argv[]){
     /***** Other parameters that can be changed with optional arguments *****/
     double h = 1e-3;                // Proper time increment
     double tau_max = 100;           // Maximum proper time
-    int time2print;                 // Data saved every time2print steps
-    char filename[50];              // Output file
-    sprintf(filename, "data/l%.3f_E%.5f.csv", l, E);
-    char fps[20];                   // Frames per second
-    sprintf(fps, "50");
 
     /***** Optional arguments check *****/
     for (int i = 3; i < argc; i++){
@@ -93,12 +88,6 @@ int main(int argc, char *argv[]){
             case 't':
                 tau_max = atof(argv[i + 1]);
                 break;
-            case 'f':
-                sprintf(filename, "data/%s.csv", argv[i + 1]);
-                break;
-            case 'B':
-                sprintf(fps, "%s", argv[i + 1]);
-                break;
             default:
                 printf("Invalid argument %s\n", argv[i]);
                 print_help(argv);
@@ -106,17 +95,10 @@ int main(int argc, char *argv[]){
         i++;
     }
     
-    if (strcmp(fps, "all") == 0) 
-        time2print = 1;
-    else 
-        time2print = ceil(1 / h / atof(fps));
-
     chack_parameters(l, E, &r0, &r_lim, &sign);
     printf("r0\t%.3f\n", r0);
     printf("h\t%.3e\n", h);
-    printf("tau_max\t%.3f\n", tau_max);
-    printf("Saving data every %d steps (fps = %s)\n", time2print, fps);
-    printf("Output file: %s\n\n", filename);
+    printf("tau_max\t%.3f\n\n", tau_max);
 
 
     /***** Coordinates *****/
@@ -126,40 +108,46 @@ int main(int argc, char *argv[]){
     double t = 0.;                  // Schwarzschild time
 
     
-    FILE *f = fopen(filename, "w");
-    fprintf(f, "tau,r,phi,t\n");
-    fprintf(f, "%.10e,%.10e,%.10e,%.10e\n", tau, r, phi, t);
+    /***** Precession *****/
+    char filename_prec[50];
+    sprintf(filename_prec, "data/precession/l%.3f_E%.5f_h%.0e.csv", l, E, h);
+    FILE *f_prec = fopen(filename_prec, "w");
+    fprintf(f_prec, "r,phi\n");
+    int Nturns_old;
+    double r_old;
+    double phi_old;
 
     int kk = 0;
     while (tau < tau_max){
+
+        Nturns_old = Nturns;
+        r_old = r;
+        phi_old = phi;
 
         TESI_RK4(h, tau, &r, &phi, &t, E, l, &sign, &Nturns);
         tau += h;
         kk++;
 
-        if (kk % time2print == 0){
-            fprintf(f, "%.10e,%.10e,%.10e,%.10e\n", tau, r, phi, t);
-            printf("\rtau = %.3e\t r = %.3f", tau, r);
+        if (Nturns_old != Nturns){
+            fprintf(f_prec, "%.10e,%.10e\n", r_old, phi_old);
+            fflush(f_prec);
         }
+
+        if (kk % 100 == 0)
+            printf("\rtau = %.3e | r = %.3f | Turns = %d", tau, r, Nturns);
 
         if (r < 0.1){
             printf("\nMass reached (r < 0.1). Simulation terminated.\n");
             break;
         }
-        if (r > r_lim){
+        if (r >= 1.1 * r_lim){
             printf("\nEscape reached (r > %.0f). Simulation terminated.\n", r_lim);
             break;
         }
     }
 
-    fclose(f);
-
-    printf("Turns: %d\n", Nturns);
-    printf("\nEnded at:\n");
-    printf("r = %f\n", r);
-    printf("phi = %f\n", phi / (2 * M_PI));
-    printf("t = %f\n", t);
-    printf("tau = %f\n", tau);
+    if (tau >= tau_max)
+        printf("\nMaximum proper time reached\n");
 }
 
 // Unbound orbit:   ./main.x 10 3.5

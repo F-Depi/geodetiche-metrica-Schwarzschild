@@ -60,7 +60,8 @@ int TESI_RK4(double h, double tau, double *r, double *phi, double *t,
 
 double TESI_Veff(double r, double l){
     double foo = 1. / r;
-        return (pow(l * foo, 2) * (1. - foo) - foo) / 2.;
+    return ((l * l * foo * foo) * (1. - foo) - foo) / 2.;
+    //return (l * l * (r - 1.) - r * r) / (2 * r * r * r);
 }
 
 
@@ -94,33 +95,6 @@ void TESI_Veff_max_min(double l, double *r_max_min){
 }
 
 
-//double TESI_outer_turning_point(double l, double E){
-//    /*
-//      Uses bisection method to find the turning outer turning point.
-//      a turning point is a point where dr/dt = 0 that implies
-//      E - Veff(r) = 0
-//    */
-//
-//    double r_max_min[4];
-//    TESI_Veff_max_min(l, r_max_min);
-//
-//    // We know that it must be greater than r_min
-//    double a = r_max_min[1];
-//    double b = 1000;
-//    double c = (a + b) / 2;
-//    double Vc = TESI_Veff(c, l) - E;
-//    while (fabs(Vc) > 1e-8 || Vc > 0){ // E > Veff or the solver breaks
-//        if (Vc < 0){
-//            a = c;
-//        }
-//        else {
-//            b = c;
-//        }
-//        c = (a + b) / 2;
-//        Vc = TESI_Veff(c, l) - E;
-//    }
-//    return c;
-//}
 double TESI_extreme_turning_point(double l, double E){
     /*
       Uses bisection method to find the turning point for a particle already at
@@ -180,7 +154,7 @@ double TESI_bisezione(double a, double b, double l, double E){
     }
 
     int kk = 0;
-    while (fabs(start - end) > 1e-8 && kk < 100){
+    while (fabs(start - end) > 1e-8){
 
         mid = (start + end) / 2;
         double control = (E - TESI_Veff(start, l)) * (E - TESI_Veff(mid, l));
@@ -190,8 +164,59 @@ double TESI_bisezione(double a, double b, double l, double E){
         } else {
             start = mid;
         }
+        kk++;
     }
-
     return mid;
 }
 
+
+void chack_parameters(double l, double E, double *r0, double *r_lim, int *sign){
+
+    printf("Running with\nl\t%.3f\n", l);
+
+    double V_data[4];
+    TESI_Veff_max_min(l, V_data);
+
+    printf("V_max\t%.6e\n", V_data[2]);
+    printf("V_min\t%.6e\n", V_data[3]);
+    printf("E\t%.6e => ", E);
+
+    if (E > V_data[2] && *sign == 1){
+        printf("escape (the positive solution was chosen, sign = %d)\n", *sign);
+        *r_lim = 10 * (*r0);
+    }
+    else if (E >= V_data[2] && *sign == -1)
+        printf("infall (the negative solution was chosen, sign = %d)\n", *sign);
+    else if (E < V_data[2] && E > 0)
+        printf("unbound orbit\n");
+    else if (E < 0 && E >= V_data[3]){
+        double r12[2];
+        TESI_turning_points(l, E, r12);
+        *r_lim = r12[1];
+        printf("bound orbit, r1 = %.3f, r2 = %.3f\n", r12[0], r12[1]);
+        if (*r0 < r12[0]){
+            *r0 = (1 + 1e-8) * r12[0];
+            *sign = 1;
+            printf("bound orbit, r0 was to small, changed to r1.\n"
+                    "Positive solution chosen, sign = %d.\n", *sign);
+        }
+        else if (*r0 > r12[1]){
+            *r0 = (1 - 1e-8) * r12[1];
+            *sign = -1;
+            printf("bound orbit, r0 was to big, changed to r2.\n"
+                    "Negative solution chosen, sign = %d\n", *sign);
+        }
+    }
+    else if (E < V_data[3]){
+        printf("infall and already beyond r_max!\n");
+        double rx = TESI_extreme_turning_point(l, E);
+        printf("Extreme turning point at r = %.3f\n", rx);
+        if (*r0 > rx){
+            *r0 = rx;
+            printf("r0 too big, changed to r_extreme. Negative solution chosen\n");
+        }
+    }
+    else {
+        printf("I don't know what will happen\n");
+    }
+}

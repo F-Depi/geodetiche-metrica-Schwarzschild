@@ -30,4 +30,7 @@ void TESI_turning_points(double l, double E, double *r12);
 double TESI_extreme_turning_point(double l, double E);
 
 
+void chack_parameters(double l, double E, double *r0, double *r_lim, int *sign);
+
+
 #endif
