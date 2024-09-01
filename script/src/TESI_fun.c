@@ -4,6 +4,11 @@
 #include <stdlib.h>
 #include "../include/TESI_fun.h"
 
+
+/****************************** System functions ******************************/
+
+// dr / dtau = sqrt(2E - 2Veff)
+// If the argument is negative, change the sign and increase Nturns by 1
 double TESI_fun_r(double r, double E, double l, int *sign, int *Nturns){
     double foo = 2 * (E - TESI_Veff(r, l));
     if (foo < 0){
@@ -14,11 +19,14 @@ double TESI_fun_r(double r, double E, double l, int *sign, int *Nturns){
 }
 
 
+// dphi / dtau = l / r^2
 double TESI_fun_phi(double r, double l){
     return l / (r * r);
 }
 
 
+// dt / dtau = sqrt(2E + 1) * r / (r - 1)
+// If r < 1, return 0
 double TESI_fun_t(double r, double E){
     if (r < 1)
         return 0;
@@ -26,11 +34,21 @@ double TESI_fun_t(double r, double E){
 }
 
 
-// RK4 algorithm to advance 1 step of length h, in a system like
-// dr/d(tau) = fun_l(r, r, l)
-// d(phi)/d(tau) = fun_phi(r, l)
-// dt/d(tau) = fun_t(r, e)
+// Veff(r) = l^2 / (2r^2) - 1 / (2r) - l^2 / (2r^3)
+double TESI_Veff(double r, double l){
+    double foo = 1. / r;
+    return ((l * l * foo * foo) * (1. - foo) - foo) / 2.;
+    //return (l * l * (r - 1.) - r * r) / (2 * r * r * r);
+}
+/******************************************************************************/
 
+
+/*
+ RK4 algorithm to advance 1 step of length h, in a system like
+ dr/d(tau) = fun_l(r, r, l, sign, Nturns)
+ d(phi)/d(tau) = fun_phi(r, l)
+ dt/d(tau) = fun_t(r, E)
+*/
 int TESI_RK4(double h, double tau, double *r, double *phi, double *t,
                                     double E, double l, int *sign, int *Nturns){
 
@@ -58,21 +76,14 @@ int TESI_RK4(double h, double tau, double *r, double *phi, double *t,
 }
 
 
-double TESI_Veff(double r, double l){
-    double foo = 1. / r;
-    return ((l * l * foo * foo) * (1. - foo) - foo) / 2.;
-    //return (l * l * (r - 1.) - r * r) / (2 * r * r * r);
-}
-
-
+/*
+ Finds the points where Veff(r) has a maximum and a minimum r_max < r_min
+ respectively.
+ If there is just one stationary point, r_max = r_min.
+ If there are no stationary points, r_max = r_min = 0.
+ 3rd and 4th elements of r_max_min are Veff(r_max) and Veff(r_min) respectively.
+*/
 void TESI_Veff_max_min(double l, double *r_max_min){
-    /*
-      Finds the points where Veff(r) has a maximum and a minimum r_max < r_min
-      respectively.
-      If there is just one stationary point, r_max = r_min.
-      If there are no stationary points, r_max = r_min = 0.
-      3rd and 4th elements of r_max_min are Veff(r_max) and Veff(r_min)
-    */
     
     if (l < sqrt(3)){
         r_max_min[0] = 0;
@@ -95,36 +106,8 @@ void TESI_Veff_max_min(double l, double *r_max_min){
 }
 
 
-void TESI_turning_points(double l, double E, double *r12){
-    /*
-     * Uses bisection method to find the turning points.
-     * a turning point is a point where dr/dt = 0 that implies
-     * E - Veff(r) = 0
-     * r12[0] = r1, r12[1] = r2
-     * r1 is the inner turning point
-     * r2 is the outer turning point
-     */
-
-    double r_max_min[4];
-    TESI_Veff_max_min(l, r_max_min);
-
-    // We know that r_max < r1 < r_min < r2
-    // Find r1
-    double a = r_max_min[0];
-    double b = r_max_min[1];
-    r12[0] = TESI_bisezione(a, b, l, E);
-
-    // Find r2
-    a = r_max_min[1];
-    b = 1000;
-    if (E - TESI_Veff(b, l) > 0){
-        printf("r2 too big (r2 > 1e3), choose a smoller E or l\n");
-        exit(1);
-    }
-    r12[1] = TESI_bisezione(a, b, l, E);
-}
-
-
+// Good old bisection method, already adapted to find zeros of E - Veff(r)
+// in the interval [a, b]
 double TESI_bisezione(double a, double b, double l, double E){
     double start = a;
     double end = b;
@@ -152,6 +135,43 @@ double TESI_bisezione(double a, double b, double l, double E){
 }
 
 
+/*
+ Uses bisection method to find the turning points.
+ A turning point is a point where dr/dt = 0 that implies E - Veff(r) = 0
+ r12[0] = r1 is the inner turning point
+ r12[1] = r2 is the outer turning point
+*/
+void TESI_turning_points(double l, double E, double *r12){
+
+    double r_max_min[4];
+    TESI_Veff_max_min(l, r_max_min);
+
+    // We know that r_max < r1 < r_min < r2
+    // Find r1
+    double a = r_max_min[0];
+    double b = r_max_min[1];
+    r12[0] = TESI_bisezione(a, b, l, E);
+
+    // Find r2
+    a = r_max_min[1];
+    b = 1000;
+    if (E - TESI_Veff(b, l) > 0){
+        printf("r2 too big (r2 > 1e3), choose a smoller E or l\n");
+        exit(1);
+    }
+    r12[1] = TESI_bisezione(a, b, l, E);
+}
+
+
+/***************** User input handling and Orbit Recognition ******************/
+
+/*
+ Only for l < sqrt(3), function used in check_parameters()
+ Predicts the orbit type from l, E, sign and r0
+ Checks if r0 and sign are compatible with the l and E values otherwise changes
+ r0 to the closest allowed value and sign to the correct value
+ calls TESI_m_case1, TESI_m_case2 or TESI_m_case3 depending on l
+*/
 void TESI_m_case1(double l, double E, double *r0, double *r_lim, int *sign){
 
     printf("Veff(r) has no local maxima or minima\n");
@@ -187,6 +207,13 @@ void TESI_m_case1(double l, double E, double *r0, double *r_lim, int *sign){
 }
 
 
+/*
+ Only for sqrt(3) < l < 2, function used in check_parameters()
+ Predicts the orbit type from l, E, sign and r0
+ Checks if r0 and sign are compatible with the l and E values otherwise changes
+ r0 to the closest allowed value and sign to the correct value
+ calls TESI_m_case1, TESI_m_case2 or TESI_m_case3 depending on l
+*/
 void TESI_m_case2(double l, double E, double *r0, double *r_lim, int *sign){
 
     double V_data[4];
@@ -292,6 +319,13 @@ void TESI_m_case2(double l, double E, double *r0, double *r_lim, int *sign){
 }
 
 
+/*
+ Only for l > 2, function used in check_parameters()
+ Predicts the orbit type from l, E, sign and r0
+ Checks if r0 and sign are compatible with the l and E values otherwise changes
+ r0 to the closest allowed value and sign to the correct value
+ calls TESI_m_case1, TESI_m_case2 or TESI_m_case3 depending on l
+*/
 void TESI_m_case3(double l, double E, double *r0, double *r_lim, int *sign){
 
     double V_data[4];
@@ -357,11 +391,11 @@ void TESI_m_case3(double l, double E, double *r0, double *r_lim, int *sign){
     }
 
     // Vmin < E < 0
-    else if (E < 0 && E >= Vmin){
+    else if (E < 0 && E > Vmin){
         double r12[2];
         TESI_turning_points(l, E, r12);
         *r_lim = r12[1];
-        printf("bound orbit, r1 = %.3f, r2 = %.3f\n", r12[0], r12[1]);
+        printf("E\t%.3f => bound orbit, r1 = %.3f, r2 = %.3f\n", E, r12[0], r12[1]);
         if (*r0 < r12[0]){
             *r0 = (1 + 1e-8) * r12[0];
             *sign = 1;
@@ -379,11 +413,28 @@ void TESI_m_case3(double l, double E, double *r0, double *r_lim, int *sign){
             printf("sign\t%d\n", *sign);
         }
     }
+    else if (E == Vmin){
+        printf("E\t%.3f => circular orbit, r1 = r2 = %.3f\n", E, r_min);
+        if (*r0 != r_min){
+            *r0 = r_min;
+            *r_lim = r_min;
+            printf("r0\t%.3f\t(r0 != r1 = r2, r0 must be r1 = r2)\n", *r0);
+        }
+        else
+            printf("r0\t%.3f\n", *r0);
+    }
     else
         printf("I don't know this case\n");
+
 }
 
 
+/*
+ Predicts the orbit type from l, E, sign and r0
+ Checks if r0 and sign are compatible with the l and E values otherwise changes
+ r0 to the closest allowed value and sign to the correct value
+ calls TESI_m_case1, TESI_m_case2 or TESI_m_case3 depending on l
+*/
 void check_parameters(double l, double E, double *r0, double *r_lim, int *sign){
 
     printf("\nl\t%.3f\n", l);

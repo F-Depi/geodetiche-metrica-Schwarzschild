@@ -39,6 +39,37 @@ void print_help2(char *argv[]){
 }
 
 
+// Check E from argv[2], if it is "max" or "min" calculate the local maximum or
+// minimum of Veff and assign it to E
+double parse_E(char *argv[]){
+    double V_data[4];
+    TESI_Veff_max_min(atof(argv[1]), V_data);
+    
+    if (strcmp(argv[2], "max") == 0){
+        return V_data[2];
+    }
+    else if (strcmp(argv[2], "min") == 0){
+        return V_data[3];
+    }
+    return atof(argv[2]);
+}
+
+
+// Write the filename for the output data, using l and E from argv
+// If E is "max" or "min" the filename will be l%.3f_Emax.csv or l%.3f_Emin.csv
+void write_filename(char *filename, char *argv[]){
+    if (strcmp(argv[2], "max") == 0){
+        sprintf(filename, "data/l%.3f_Emax.csv", atof(argv[1]));
+        return;
+    }
+    else if (strcmp(argv[2], "min") == 0){
+        sprintf(filename, "data/l%.3f_Emin.csv", atof(argv[1]));
+        return;
+    }
+    sprintf(filename, "data/l%.3f_E%.5f.csv", atof(argv[1]), atof(argv[2]));
+}
+
+
 int main(int argc, char *argv[]){
 
     if (argc < 2){
@@ -56,7 +87,7 @@ int main(int argc, char *argv[]){
 
     /***** Orbit parameters *****/
     double l = atof(argv[1]);       // Angular momentum per unit rest mass per Sh. radius
-    double E = atof(argv[2]);       // Kinetic energy per unit rest mass
+    double E = parse_E(argv);       // Kinetic energy per unit rest mass
     double V_data[4];               // Veff(r) r max and min + V values
     double r0 = 10.;                // Starting radius in unit of Sh. radius
     double r_lim = 10.;             // Biggest r for the simulation
@@ -69,7 +100,7 @@ int main(int argc, char *argv[]){
     double tau_max = 100;           // Maximum proper time
     int time2print;                 // Data saved every time2print steps
     char filename[50];              // Output file
-    sprintf(filename, "data/l%.3f_E%.5f.csv", l, E);
+    write_filename(filename, argv);
     char fps[20];                   // Frames per second
     sprintf(fps, "50");
 
@@ -105,7 +136,7 @@ int main(int argc, char *argv[]){
         }
         i++;
     }
-    
+
     if (strcmp(fps, "all") == 0) 
         time2print = 1;
     else 
