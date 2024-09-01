@@ -34,7 +34,11 @@ fi
 
 # Format l and E to the right decimal places for the filename
 l_formatted=$(printf "%.3f" "$l")
-E_formatted=$(printf "%.5f" "$E")
+if [[ "$E" == "min" || "$E" == "max" ]]; then # E could be a string for edge cases
+    E_formatted="$E"
+else
+    E_formatted=$(printf "%.5f" "$E")
+fi
 file="l${l_formatted}_E${E_formatted}.csv"
 
 while true; do

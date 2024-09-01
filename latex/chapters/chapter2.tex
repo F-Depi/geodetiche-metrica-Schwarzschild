@@ -145,13 +145,15 @@ $r_{\rm max}$ for $r_1$ and between $r_{\rm max}$ and $\infty$ (1000 in our
 case) for $r_2$.
 
 %% NON MI PIACE
-
+\newpage
 
 
 
 
 
 \section{Numerical integration}
+
+\subsection{Infalls}
 
 Similarly to the previous chapter, we can start with a radial infall scenario,
 where $\hat \ell = 0$, $\mathcal E = 0$.
@@ -161,7 +163,7 @@ where $\hat \ell = 0$, $\mathcal E = 0$.
         \centering
         \includegraphics[width=\textwidth]{Figures/chapter2/radial_infall_plot.eps}
         \caption{Plot of the orbit of a particle in radial infall ($\hat \ell = 0$
-        and $\mathcal E = 0$). \\}
+        and $\mathcal E = 0$).}
     \end{minipage}
     \hspace{0.015 \textwidth}
     \begin{minipage}{0.48\textwidth}
@@ -180,26 +182,73 @@ found analytically in the previous chapter.
 By integrating numerically with this program, we can visualize some more
 complex infalls.
 
-\begin{figure}[h]
+\begin{figure}[h!]
     \begin{minipage}{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Figures/chapter2/infall1.eps}
-        \caption{Plot of the orbit of a particle with $\hat \ell = 1$
-        and $\mathcal E = 0.85993$.
-        The energy was chosen to be slightly above $V_{\rm eff}(r_{\rm max})$ to
-        decrease the radial velocity when approaching $\hat r = r_{\rm max}$.}
+        \caption{The particle starts at $\hat r_0 = 10$
+        ($\hat r_{\rm max} \simeq 1.6$) and has an energy slightly greater than
+        $V_{\rm eff}(r_{\rm max}) \simeq 0.859927$.
+        As a result the radial velocity decreases when the particle passes
+        through $\hat r = \hat r_{\rm max}$.}
     \end{minipage}
     \hspace{0.015 \textwidth}
     \begin{minipage}{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Figures/chapter2/infall2.eps}
-        \caption{$\hat \ell = 1$ and $\mathcal E = -0.042$.
-        The particle starts at $\hat r = 2$ with the radial velocity directed
-        outwards, but has a negative energy and will not be able to escape.}
-
+        \caption{$V_{\rm eff}$ is monotonic because $\ell < \sqrt{3}$.
+        The particle starts at $\hat r = 2$ with its radial velocity
+        directed outward; however, due to its negative energy $\mathcal E$, the
+        particle will not be able to escape.}
     \end{minipage}
 \end{figure}
 
 
+\subsection{Bound Orbits and Precession}
 
+We can also study bound orbits when considering particles with
+$\hat \ell > \sqrt{3}$ and $\mathcal E < \min \{V_{\rm max}, 0\}$.
+As seen in section \ref{cap1:ssec:circular_orbits} in the previous chapter we
+have a circular orbit only if $\mathcal E = V_{\rm eff}({\rm min})$.
+In this case holds the relation (from eq. \ref{cap1:eq:Omega2})
 
+\begin{equation}
+    \Omega^2 = \frac{1}{2 \hat r^3}
+    \quad \quad \quad {\rm where} \quad \quad \quad
+    \Omega := \dv{\phi}{\hat t} \, .
+\end{equation}
+
+In Figure \ref{cap2:fig:circ_orbit} we can see the orbit of a particle with
+$\hat \ell = 3$ and $\mathcal E = V_{\rm eff}(r_{\rm min}) \simeq
+\num{-1.478e-02}$.
+Figure \ref{cap2:fig:circ_orbit_res} shows the normalized residuals of the
+angular velocity $\Omega$ computed from $\phi$ and $\hat t$ obtained during the
+simulation against the expected value.
+
+\begin{figure}[h]
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/chapter2/circular_orbit.eps}
+        \caption{The perfectly circular orbit of a particle with $\hat \ell = 3$
+        and $\mathcal E = V_{\rm eff}(r_{\rm min}) \simeq \num{-1.478e-02}$.
+        The particle starts at $\hat r = r_{\rm min} \simeq 16.35$ and the
+        radius is left unchanged.}
+        \label{cap2:fig:circ_orbit}
+    \end{minipage}
+    \hspace{0.015 \textwidth}
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/chapter2/circular_orbit_res.eps}
+        \caption{The residual of the calculated angular velocity $\Omega$ from the
+        data of $\phi$ and $\hat t$ and the expected value calculated from the
+        initial radius $\Omega_{\rm analytic} = 1 / (2 \hat r_{\rm min})$.}
+        \label{cap2:fig:circ_orbit_res}
+    \end{minipage}
+\end{figure}
+
+The relative error is of order $10^{-7}$ with a time increment $h = 0.001$
+The residuals are evenly spread around 0 and a moving average of $\Omega$ over 200
+points yields a relative error of order of $10^{-10}$.
+
+Therefore, we can proceed with confidence to study bound orbits of different
+shapes.

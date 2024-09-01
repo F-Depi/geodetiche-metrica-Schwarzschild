@@ -7,8 +7,14 @@ import sys
 ''' It's used by sim.sh to immediately plot the orbit '''
 
 def plot_orbit(l, E):
-
-    filename = f'l{l:.3f}_E{E:.5f}.csv'
+    
+    if E == 'max':
+        filename = f'l{l:.3f}_Emax.csv'
+    elif E == 'min':
+        filename = f'l{l:.3f}_Emin.csv'
+    else:
+        E = float(E)
+        filename = f'l{l:.3f}_E{E:.5f}.csv'
 
     data = np.loadtxt(f'data/{filename}', delimiter=',', skiprows=1)
     tau = data[:, 0]
@@ -35,5 +41,5 @@ def plot_orbit(l, E):
 
 
 l = float(sys.argv[1])
-E = float(sys.argv[2])
+E = sys.argv[2]
 plot_orbit(l, E)

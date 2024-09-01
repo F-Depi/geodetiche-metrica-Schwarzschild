@@ -55,8 +55,8 @@ def plot_orbit(foldername, title):
              linestyle='-', marker='.', markersize=1, label='orbit')
     plt.plot(r[0] * np.cos(phi[0]), r[0] * np.sin(phi[0]), 'ro', label='start')
     #plt.plot(r[-1] * np.cos(phi[-1]), r[-1] * np.sin(phi[-1]), 'go', label='end')
-    plt.plot([0], [0], 'ko', label='black hole')
-    plt.plot(np.cos(r_s), np.sin(r_s), 'k--', label='Event Horizon')
+    #plt.plot([0], [0], 'ko', label='black hole')
+    plt.plot(np.cos(r_s), np.sin(r_s), 'k--', label=r'$r_s$')
     plt.axis('equal')
     plt.title(title)
     plt.xlabel(r'$\frac{x}{r_s}$')
@@ -190,6 +190,42 @@ def plt_tvstau():
     plt.show()
 
 
+def check_circular(foldername, h):
+    filename = None
+    for file in os.listdir(f'data/keep/{foldername}'):
+        if file.endswith(".csv"):
+            filename = file
+
+    if not filename:
+        print('No file found')
+        exit()
+
+    data = np.loadtxt(f'data/keep/{foldername}/{filename}', delimiter=',', skiprows=1)
+    tau = data[:, 0]
+    r = data[:, 1]
+    phi = data[:, 2]
+    t = data[:, 3]
+
+    N = 1
+    omega = [(phi[i+N] - phi[i]) / (t[i+N] - t[i]) for i in range(len(tau)-N)]
+    omega = np.array(omega)
+
+    ## Omega - Omega_analytic / Omega_analytic = sqrt(2 r^3) Omega - 1
+    omega_analytic = (1 / 2 / r[0]**3)**(1/2)
+    const = np.sqrt(2 * r[0]) * r[0] 
+    err = const * omega - 1
+
+    lab = r'$\frac{\Omega - \Omega_{\rm analytic}}{\Omega_{\rm analytic}}$, ' + rf'$\Omega_{{\rm analytic}} \simeq {omega_analytic:.3e}$'
+
+    plt.figure()
+    plt.plot(t[N:], err, 'b ', marker='.', label=lab)
+    plt.title(rf'Normalized residual for $\Omega$, $\hat \ell = 5$, $h = {h:.0e}$')
+    plt.xlabel(r'$\hat t$')
+    plt.tight_layout()
+    plt.legend()
+
+
+
 #plot_potential()
 
 
@@ -205,7 +241,16 @@ def plt_tvstau():
 
 ''' Crazy infalls '''
 #plot_orbit('infall','')
-plot_orbit('infall2','')
+#plot_orbit('infall2','')
+
+
+''' Circular Orbits '''
+#plot_orbit('circular_orbit3','')
+check_circular('circular_orbit3', 1e-3)
+#check_circular('circular_orbit4', 1e-4)
+#check_circular('circular_orbit5', 1e-5)
+#check_circular('test3_all', 1e-3)
+
 
 
 plt.show()
