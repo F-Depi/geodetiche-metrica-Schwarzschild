@@ -1,6 +1,7 @@
 #ifndef TESI_FUN
 #define TESI_FUN
 
+#define dR_MIN 1e-8
 #define R_MAX 1000
 
 /****************************** System functions ******************************/

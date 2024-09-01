@@ -145,15 +145,12 @@ $r_{\rm max}$ for $r_1$ and between $r_{\rm max}$ and $\infty$ (1000 in our
 case) for $r_2$.
 
 %% NON MI PIACE
+
+%% HOW TO CHANGE SIGN
 \newpage
 
 
-
-
-
-\section{Numerical integration}
-
-\subsection{Infalls}
+\section{Infalls}
 
 Similarly to the previous chapter, we can start with a radial infall scenario,
 where $\hat \ell = 0$, $\mathcal E = 0$.
@@ -204,7 +201,9 @@ complex infalls.
 \end{figure}
 
 
-\subsection{Bound Orbits and Precession}
+\section{Bound Orbits}
+
+\subsection{Circular Orbits}
 
 We can also study bound orbits when considering particles with
 $\hat \ell > \sqrt{3}$ and $\mathcal E < \min \{V_{\rm max}, 0\}$.
@@ -238,7 +237,7 @@ simulation against the expected value.
     \hspace{0.015 \textwidth}
     \begin{minipage}{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{Figures/chapter2/circular_orbit_res.eps}
+        \includegraphics[width=\textwidth]{Figures/chapter2/circular_orbit_res.png}
         \caption{The residual of the calculated angular velocity $\Omega$ from the
         data of $\phi$ and $\hat t$ and the expected value calculated from the
         initial radius $\Omega_{\rm analytic} = 1 / (2 \hat r_{\rm min})$.}
@@ -246,9 +245,12 @@ simulation against the expected value.
     \end{minipage}
 \end{figure}
 
-The relative error is of order $10^{-7}$ with a time increment $h = 0.001$
-The residuals are evenly spread around 0 and a moving average of $\Omega$ over 200
-points yields a relative error of order of $10^{-10}$.
+The relative error is of order $10^{-10}$ with a time increment $h = 0.001$, we
+can conclude that the numerical integration is correctly implemented and most
+of the error comes from the finite precision.
+
+
+\subsection{Precession}
 
 Therefore, we can proceed with confidence to study bound orbits of different
 shapes.

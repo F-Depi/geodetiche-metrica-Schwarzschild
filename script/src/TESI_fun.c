@@ -44,6 +44,12 @@ double TESI_Veff(double r, double l){
 
 
 /*
+ h is the step size
+ tau, r, phi, t are the system coordinates
+ l, E are the system parameters
+ sign is the sign of dr / dtau
+ Nturns is the number of turns the particle has done
+
  RK4 algorithm to advance 1 step of length h, in a system like
  dr/d(tau) = fun_l(r, r, l, sign, Nturns)
  d(phi)/d(tau) = fun_phi(r, l)
@@ -119,7 +125,7 @@ double TESI_bisezione(double a, double b, double l, double E){
     }
 
     int kk = 0;
-    while (fabs(start - end) > 1e-8){
+    while (fabs(start - end) > dR_MIN){
 
         mid = (start + end) / 2;
         double control = (E - TESI_Veff(start, l)) * (E - TESI_Veff(mid, l));
@@ -194,7 +200,7 @@ void TESI_m_case1(double l, double E, double *r0, double *r_lim, int *sign){
         printf("E\t%.3f => infall\n", E);
         *r_lim = TESI_bisezione(1, R_MAX, l, E);
         if (*r0 >= *r_lim){
-            *r0 = (1 - 1e-8) * (*r_lim);
+            *r0 = (1 - dR_MIN) * (*r_lim);
             *sign = -1;
             printf("r0\t%.3f\t(That's the maximum allowed)\n", *r0);
             printf("sign\t%d\t(r0 it's the extreme so the negative solution is forced)\n", *sign);
@@ -246,7 +252,7 @@ void TESI_m_case2(double l, double E, double *r0, double *r_lim, int *sign){
         printf("E\t%.3f => infall\n", E);
         *r_lim = TESI_bisezione(1, R_MAX, l, E);
         if (*r0 >= *r_lim){
-            *r0 = (1 - 1e-8) * (*r_lim);
+            *r0 = (1 - dR_MIN) * (*r_lim);
             *sign = -1;
             printf("r0\t%.3f\t(That's the maximum allowed)\n", *r0);
             printf("sign\t%d\t(r0 it's the extreme so the negative solution is forced)\n", *sign);
@@ -265,7 +271,7 @@ void TESI_m_case2(double l, double E, double *r0, double *r_lim, int *sign){
             *r_lim = TESI_bisezione(1, r_max, l, E);
 
             if (*r0 >= *r_lim){
-                *r0 = (1 - 1e-8) * *r_lim;
+                *r0 = (1 - dR_MIN) * *r_lim;
                 *sign = -1;
                 printf("r0\t%.3f\t(That's the maximum allowed)\n", *r0);
                 printf("sign\t%d\t(r0 is the extreme so the negative solution is forced)\n", *sign);
@@ -281,13 +287,13 @@ void TESI_m_case2(double l, double E, double *r0, double *r_lim, int *sign){
             *r_lim = r12[1];
             printf("E\t%.3f => bound orbit, r1 = %.3f, r2 = %.3f\n", E, r12[0], r12[1]);
             if (*r0 < r12[0]){
-                *r0 = (1 + 1e-8) * r12[0];
+                *r0 = (1 + dR_MIN) * r12[0];
                 *sign = 1;
                 printf("r0\t%.3f\t(That's the minimum allowed)\n", *r0);
                 printf("sign\t%d\t(r0 = r1 so the positive solution is forced)\n", *sign);
             }
             else if (*r0 > r12[1]){
-                *r0 = (1 - 1e-8) * r12[1];
+                *r0 = (1 - dR_MIN) * r12[1];
                 *sign = -1;
                 printf("r0\t%.3f\t(That's the maximum allowed)\n", *r0);
                 printf("sign\t%d\t(r0 = r2 so the negative solution is forced)\n", *sign);
@@ -304,7 +310,7 @@ void TESI_m_case2(double l, double E, double *r0, double *r_lim, int *sign){
         double rx = TESI_bisezione(1, r_max, l, E);
         printf("E\t%.3f => infall\n", E);
         if (*r0 > rx){
-            *r0 = (1 - 1e-8) * rx;
+            *r0 = (1 - dR_MIN) * rx;
             printf("r0\t%.3f\t(That's the maximum allowed)\n", *r0);
             *sign = -1;
             printf("sign\t%d\t(r0 is the extreme so the negative solution is forced)\n", *sign);
@@ -361,7 +367,7 @@ void TESI_m_case3(double l, double E, double *r0, double *r_lim, int *sign){
         *r_lim = TESI_bisezione(1, r_max, l, E);
 
         if (*r0 >= *r_lim){
-            *r0 = (1 - 1e-8) * *r_lim;
+            *r0 = (1 - dR_MIN) * *r_lim;
             *sign = -1;
             printf("r0\t%.3f\t(That's the maximum allowed)\n", *r0);
             printf("sign\t%d\t(r0 is the extreme so the negative solution is forced)\n", *sign);
@@ -377,7 +383,7 @@ void TESI_m_case3(double l, double E, double *r0, double *r_lim, int *sign){
         printf("E\t%.3f => unbound orbit\n", E);
         double r1 = TESI_bisezione(r_max, r_min, l, E);
         if (*r0 <= r1){
-            *r0 = (1 - 1e-8) * r1;
+            *r0 = (1 - dR_MIN) * r1;
             *sign = 1;
             printf("r0\t%.3f\t(That's the minimum allowed)\n", *r0);
             printf("sign\t%d\t(r0 it's the extreme so the positive solution is forced)\n", *sign);
@@ -397,13 +403,13 @@ void TESI_m_case3(double l, double E, double *r0, double *r_lim, int *sign){
         *r_lim = r12[1];
         printf("E\t%.3f => bound orbit, r1 = %.3f, r2 = %.3f\n", E, r12[0], r12[1]);
         if (*r0 < r12[0]){
-            *r0 = (1 + 1e-8) * r12[0];
+            *r0 = (1 + dR_MIN) * r12[0];
             *sign = 1;
             printf("r0\t%.3f\t(That's the minimum allowed)\n", *r0);
             printf("sign\t%d\t(r0 = r1 so the positive solution is forced)\n", *sign);
         }
         else if (*r0 > r12[1]){
-            *r0 = (1 - 1e-8) * r12[1];
+            *r0 = (1 - dR_MIN) * r12[1];
             *sign = -1;
             printf("r0\t%.3f\t(That's the maximum allowed)\n", *r0);
             printf("sign\t%d\t(r0 = r2 so the negative solution is forced)\n", *sign);

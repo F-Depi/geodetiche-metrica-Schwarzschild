@@ -5,6 +5,7 @@ OBJECTS_TEST = src/test.c src/TESI_fun.c
 OBJECTS_MAIN = src/main.c src/TESI_fun.c
 OBJECTS_PREC = src/prec.c src/TESI_fun.c
 
+all: test main prec
 
 test: $(OBJECTS_TEST)
 	$(CC) $(CFLAGS) -o test.x $(OBJECTS_TEST) -lm 

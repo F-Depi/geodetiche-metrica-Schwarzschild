@@ -246,7 +246,7 @@ def check_circular(foldername, h):
 
 ''' Circular Orbits '''
 #plot_orbit('circular_orbit3','')
-check_circular('circular_orbit3', 1e-3)
+#check_circular('circular_orbit3', 1e-3)
 #check_circular('circular_orbit4', 1e-4)
 #check_circular('circular_orbit5', 1e-5)
 #check_circular('test3_all', 1e-3)

@@ -115,5 +115,6 @@ l = 3
 E = -0.01
 for h in [1e-1, 1e-2, 1e-3, 1e-4]:
     plot_residuals(l, E, h)
-#plt.show()
+
+plt.show()
 
