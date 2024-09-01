@@ -80,7 +80,6 @@ int main(int argc, char *argv[]){
         printf("Too many arguments\n");
         print_help(argv);
     }
-
     if (argc == 2)
         print_help2(argv);
 
@@ -91,6 +90,7 @@ int main(int argc, char *argv[]){
     double V_data[4];               // Veff(r) r max and min + V values
     double r0 = 10.;                // Starting radius in unit of Sh. radius
     double r_lim = 10.;             // Biggest r for the simulation
+    double r12[2] = {};                  // Possible Inner and outer turning points 
     int sign = -1;                  // Initial radial velocity direction
     int Nturns = 0;                 // Number of turns
 
@@ -142,7 +142,7 @@ int main(int argc, char *argv[]){
     else 
         time2print = ceil(1 / h / atof(fps));
 
-    check_parameters(l, E, &r0, &r_lim, &sign);
+    check_parameters(l, E, &r0, &r_lim, &sign, r12);
     printf("r_lim\t%.3f\n", r_lim);
     printf("h\t%.3e\n", h);
     printf("tau_max\t%.3f\n", tau_max);
@@ -155,7 +155,7 @@ int main(int argc, char *argv[]){
     double r = r0;                  // Radius
     double phi = 0.;                // Azimuthal angle
     double t = 0.;                  // Schwarzschild time
-
+                                   
     
     FILE *f = fopen(filename, "w");
     fprintf(f, "tau,r,phi,t\n");
@@ -164,8 +164,15 @@ int main(int argc, char *argv[]){
     int kk = 0;
     while (tau < tau_max){
 
-        TESI_RK4(h, tau, &r, &phi, &t, E, l, &sign, &Nturns);
-        tau += h;
+        int status = TESI_RK4(h, tau, &r, &phi, &t, E, l, &sign, &Nturns);
+        if (status == 1){
+            printf("\nHandling the turning point");
+            TESI_dynamic_h(h, tau, &r, &phi, &t, E, l, &sign, &Nturns, r12);
+            break;
+        }
+        else
+            tau += h;
+        
         kk++;
 
         if (kk % time2print == 0){

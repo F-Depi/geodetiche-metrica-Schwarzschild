@@ -33,6 +33,31 @@ int TESI_RK4(double h, double tau, double *r, double *phi, double *t,
                                     double E, double l, int *sign, int *Nturns);
 
 
+/*
+ This function find a specific spet size h_tuned such that the particle gets
+ at the turning point r12[0] +/- dR_MIN, then uses it to evolve all the
+ variables. It should only be called when the particle is as close as possible
+ to a turning point and TESI_fun_r in TESI_RK4 is changing the variable sign
+ because it detects a negative argument in the square root.
+ Give sign as changed by the previous call to TESI_RK4 so that this function
+ knows if the particle needs to go inwards or outwards.
+ h is the step size use in the RK4 algorithm
+ tau, r, phi, t are the system coordinates
+ l, E are the system parameters
+ sign is the sign of dr / dtau
+ Nturns is the number of turns the particle has done
+ r12 is a vector of length 2 with theturning points r12[0] < r2[0]
+ if there are no turning points this function should not be called
+ if there is just one turning point r12[0] = r12[1]
+
+ dr/d(tau) = fun_l(r, r, l, sign, Nturns)
+ d(phi)/d(tau) = fun_phi(r, l)
+ dt/d(tau) = fun_t(r, E)
+*/
+int TESI_dynamic_h(double h, double tau, double *r, double *phi, double *t,
+                   double E, double l, int *sign, int *Nturns, double *r12);
+
+
 // Good old bisection method, already adapted to find zeros of E - Veff(r)
 // in the interval [a, b]
 double TESI_bisezione(double a, double b, double l, double E);
@@ -66,7 +91,7 @@ void TESI_turning_points(double l, double E, double *r12);
  r0 to the closest allowed value and sign to the correct value
  calls TESI_m_case1, TESI_m_case2 or TESI_m_case3 depending on l
 */
-void TESI_m_case1(double l, double E, double *r0, double *r_lim, int *sign);
+void TESI_m_case1(double l, double E, double *r0, double *r_lim, int *sign, double *r12);
 
 
 /*
@@ -76,7 +101,7 @@ void TESI_m_case1(double l, double E, double *r0, double *r_lim, int *sign);
  r0 to the closest allowed value and sign to the correct value
  calls TESI_m_case1, TESI_m_case2 or TESI_m_case3 depending on l
 */
-void TESI_m_case2(double l, double E, double *r0, double *r_lim, int *sign);
+void TESI_m_case2(double l, double E, double *r0, double *r_lim, int *sign, double *r12);
 
     
 /*
@@ -86,7 +111,7 @@ void TESI_m_case2(double l, double E, double *r0, double *r_lim, int *sign);
  r0 to the closest allowed value and sign to the correct value
  calls TESI_m_case1, TESI_m_case2 or TESI_m_case3 depending on l
 */
-void TESI_m_case3(double l, double E, double *r0, double *r_lim, int *sign);
+void TESI_m_case3(double l, double E, double *r0, double *r_lim, int *sign, double *r12);
 
 
 /*
@@ -95,7 +120,8 @@ void TESI_m_case3(double l, double E, double *r0, double *r_lim, int *sign);
  r0 to the closest allowed value and sign to the correct value
  calls TESI_m_case1, TESI_m_case2 or TESI_m_case3 depending on l
 */
-void check_parameters(double l, double E, double *r0, double *r_lim, int *sign);
+void check_parameters(double l, double E, double *r0, double *r_lim, int *sign,
+                                                                double *r12);
 
 
 #endif
