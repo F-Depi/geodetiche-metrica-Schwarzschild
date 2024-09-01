@@ -14,9 +14,8 @@ double TESI_fun_r(double r, double E, double l, int *sign, int *Nturns){
     if (foo < 0){
         *sign *= -1;
         *Nturns += 1;
-        return 1;
     }
-    return *sign * pow(foo, 1. / 2.);
+    return *sign * pow(fabs(foo), 1. / 2.);
 }
 
 
@@ -60,59 +59,57 @@ int TESI_RK4(double h, double tau, double *r, double *phi, double *t,
                                     double E, double l, int *sign, int *Nturns){
 
     int prev_sign = *sign;
+    int ret = 0;
 
     double k_1 = h * TESI_fun_r(*r, E, l, sign, Nturns);
     double l_1 = h * TESI_fun_phi(*r, l);
     double g_1 = h * TESI_fun_t(*r, E);
 
-    if (*sign != prev_sign){
-        printf("\nsign changed\n");
-        return 1;
+    if (prev_sign != *sign){
+        printf("Sign changed at k_1\n");
+        ret = 1;
     }
 
     double k_2 = h * TESI_fun_r(*r + k_1 / 2, E, l, sign, Nturns);
     double l_2 = h * TESI_fun_phi(*r + k_1 / 2, l);
     double g_2 = h * TESI_fun_t(*r + k_1 / 2, E);
 
-    if (*sign != prev_sign){
-        printf("\nsign changed\n");
-        return 1;
+    if (prev_sign != *sign){
+        printf("Sign changed at k_2\n");
+        ret = 1;
     }
 
     double k_3 = h * TESI_fun_r(*r + k_2 / 2, E, l, sign, Nturns);
     double l_3 = h * TESI_fun_phi(*r + k_2 / 2, l);
     double g_3 = h * TESI_fun_t(*r + k_2 / 2, E);
 
-    if (*sign != prev_sign){
-        printf("\nsign changed\n");
-        return 1;
+    if (prev_sign != *sign){
+        printf("Sign changed at k_3\n");
+        ret = 1;
     }
 
     double k_4 = h * TESI_fun_r(*r + k_3, E, l, sign, Nturns);
     double l_4 = h * TESI_fun_phi(*r + k_3, l);
     double g_4 = h * TESI_fun_t(*r + k_3, E);
 
-    if (*sign != prev_sign){
-        printf("\nsign changed\n");
-        return 1;
+    if (prev_sign != *sign){
+        printf("Sign changed at k_4\n");
+        ret = 1;
     }
 
     *r += (k_1 + 2 * k_2 + 2 * k_3 + k_4) / 6.;
     *phi += (l_1 + 2 * l_2 + 2 * l_3 + l_4) / 6.;
     *t += (g_1 + 2 * g_2 + 2 * g_3 + g_4) / 6.;
 
-    return 0;
+    return ret;
 }
 
 
 /*
- This function find a specific spet size h_tuned such that the particle gets
+ This function find a specific step size h_tuned such that the particle gets
  at the turning point r12[0] +/- dR_MIN, then uses it to evolve all the
- variables. It should only be called when the particle is as close as possible
- to a turning point and TESI_fun_r in TESI_RK4 is changing the variable sign
- because it detects a negative argument in the square root.
- Give sign as changed by the previous call to TESI_RK4 so that this function
- knows if the particle needs to go inwards or outwards.
+ variables. It should only be called when the particle has just passed a
+ turning point but TESI_fun_r in TESI_RK4 has not changed the variable sign
  h is the step size use in the RK4 algorithm
  tau, r, phi, t are the system coordinates
  l, E are the system parameters
@@ -131,19 +128,22 @@ int TESI_dynamic_h(double h, double tau, double *r, double *phi, double *t,
 
     // Determine wich turning point is closer
     int i;
-    if (fabs(*r - r12[0]) <= fabs(*r - r12[1]))
+    if (fabs(*r - r12[0]) <= fabs(*r - r12[1])){
         i = 0;
-    else
-        i = 1;
-    
-    double h_tuned = (r12[i] - *r + (*sign) * dR_MIN)
-                   / fabs(TESI_fun_r(*r, E, l, sign, Nturns));
-    if (h_tuned > h) {
-        printf("h_tuned > h, %.3e\n", h_tuned);
-        exit(1);
+        printf("\nInner turning point %.10e\n", r12[0]);
+        printf("                r = %.10e\n", *r);
     }
+    else {
+        i = 1;
+        printf("\nOuter turning point %.10e\n", r12[1]);
+        printf("                r = %.10e\n", *r);
+    }
+    
+    double h_tuned = - (*sign) * (r12[i] - *r + (*sign) * dR_MIN)
+                   / fabs(TESI_fun_r(*r, E, l, sign, Nturns));
+
     if (h_tuned < 0) {
-        printf("h_tuned < 0, %.3e\n", h_tuned);
+        printf("\nERROR: h_tuned < 0, %.3e\n", h_tuned);
         exit(1);
     }
     printf("h_tuned = %.3e\n", h_tuned);
@@ -246,9 +246,8 @@ void TESI_turning_points(double l, double E, double *r12){
  Predicts the orbit type from l, E, sign and r0
  Checks if r0 and sign are compatible with the l and E values otherwise changes
  r0 to the closest allowed value and sign to the correct value
- r12 is a vector of length 2 with the turning points r12[0] < r2[0],
-    if there is 1 turning point r12[0] = r12[1],
-    if there are no turning points r12[0] = r12[1] = 0.
+ r12 is a vector of length 2 with the turning points r12[0] < r2[0], the array
+ is initialized with {0, R_MAX}, if any turning point is found it is updated
  calls TESI_m_case1, TESI_m_case2 or TESI_m_case3 depending on l
 */
 void TESI_m_case1(double l, double E, double *r0, double *r_lim, int *sign,
@@ -273,7 +272,6 @@ void TESI_m_case1(double l, double E, double *r0, double *r_lim, int *sign,
     else {
         printf("E\t%.3f => infall\n", E);
         r12[0] = TESI_bisezione(1, R_MAX, l, E);
-        r12[1] = r12[0]; // There is only one turning point
         if (*r0 >= *r_lim){
             *r0 = (1 - dR_MIN) * (*r_lim);
             *sign = -1;
@@ -293,9 +291,8 @@ void TESI_m_case1(double l, double E, double *r0, double *r_lim, int *sign,
  Predicts the orbit type from l, E, sign and r0
  Checks if r0 and sign are compatible with the l and E values otherwise changes
  r0 to the closest allowed value and sign to the correct value
- r12 is a vector of length 2 with the turning points r12[0] < r2[0],
-    if there is 1 turning point r12[0] = r12[1],
-    if there are no turning points r12[0] = r12[1] = 0.
+ r12 is a vector of length 2 with the turning points r12[0] < r2[0], the array
+ is initialized with {0, R_MAX}, if any turning point is found it is updated
  calls TESI_m_case1, TESI_m_case2 or TESI_m_case3 depending on l
 */
 void TESI_m_case2(double l, double E, double *r0, double *r_lim, int *sign,
@@ -329,10 +326,9 @@ void TESI_m_case2(double l, double E, double *r0, double *r_lim, int *sign,
 
     // Vmax < E < 0
     else if (E > Vmax && E < 0){
-        printf("E\t%.3f => infall\n", E);
         *r_lim = TESI_bisezione(1, R_MAX, l, E);
-        r12[0] = *r_lim; // There is only one outer turning point
         r12[1] = *r_lim; // There is only one outer turning point
+        printf("E\t%.3f => infall (r2 = %.3f)\n", E, r12[1]);
         if (*r0 >= *r_lim){
             *r0 = (1 - dR_MIN) * (*r_lim);
             *sign = -1;
@@ -351,7 +347,6 @@ void TESI_m_case2(double l, double E, double *r0, double *r_lim, int *sign,
         if (*r0 < r_max)
             printf(" (r0 < r_max was chosen)\n");
         *r_lim = TESI_bisezione(1, r_max, l, E);
-        r12[0] = *r_lim; // There is only one outer turning point
         r12[1] = *r_lim; // There is only one outer turning point
 
         if (*r0 >= *r_lim){
@@ -398,9 +393,8 @@ void TESI_m_case2(double l, double E, double *r0, double *r_lim, int *sign,
  Predicts the orbit type from l, E, sign and r0
  Checks if r0 and sign are compatible with the l and E values otherwise changes
  r0 to the closest allowed value and sign to the correct value
- r12 is a vector of length 2 with the turning points r12[0] < r2[0],
-    if there is 1 turning point r12[0] = r12[1],
-    if there are no turning points r12[0] = r12[1] = 0.
+ r12 is a vector of length 2 with the turning points r12[0] < r2[0], the array
+ is initialized with {0, R_MAX}, if any turning point is found it is updated
  calls TESI_m_case1, TESI_m_case2 or TESI_m_case3 depending on l
 */
 void TESI_m_case3(double l, double E, double *r0, double *r_lim, int *sign,
@@ -439,7 +433,6 @@ void TESI_m_case3(double l, double E, double *r0, double *r_lim, int *sign,
         if (*r0 < r_max)
             printf(" (r0 < r_max was chosen)\n");
         *r_lim = TESI_bisezione(1, r_max, l, E);
-        r12[0] = *r_lim; // There is only one outer turning point
         r12[1] = *r_lim; // There is only one outer turning point
 
         if (*r0 >= *r_lim){
@@ -456,9 +449,8 @@ void TESI_m_case3(double l, double E, double *r0, double *r_lim, int *sign,
 
     // 0 < E < Vmax (unbound orbit)
     else if (E < Vmax && E >= 0){
-        printf("E\t%.3f => unbound orbit\n", E);
         r12[0] = TESI_bisezione(r_max, r_min, l, E);
-        r12[1] = r12[0]; // There is only one inner turning point
+        printf("E\t%.3f => unbound orbit (r1 = %.3f)\n", E, r12[0]);
         if (*r0 <= r12[0]){
             *r0 = (1 - dR_MIN) * r12[0];
             *sign = 1;
@@ -499,6 +491,11 @@ void TESI_m_case3(double l, double E, double *r0, double *r_lim, int *sign,
         printf("E\t%.3f => circular orbit, r1 = r2 = %.3f\n", E, r_min);
         r12[0] = r_min; // Circular orbit, the 2 turning points coincide
         r12[1] = r_min; // Circular orbit, the 2 turning points coincide
+        /*
+        It is dangerous considering that theese are used to check if the the
+        dynamic h function should be called, but with a circular orbit E should
+        be EXACTLY INITIALIZED to Vmin and TESI_fun_r should ALWAYS return 0
+        */
         if (*r0 != r_min){
             *r0 = r_min;
             *r_lim = r_min;
@@ -519,9 +516,8 @@ void TESI_m_case3(double l, double E, double *r0, double *r_lim, int *sign,
  Predicts the orbit type from l, E, sign and r0
  Checks if r0 and sign are compatible with the l and E values otherwise changes
  r0 to the closest allowed value and sign to the correct value
- r12 is a vector of length 2 with the turning points r12[0] < r2[0],
-    if there is 1 turning point r12[0] = r12[1],
-    if there are no turning points r12[0] = r12[1] = 0.
+ r12 is a vector of length 2 with the turning points r12[0] < r2[0], the array
+ is initialized with {0, R_MAX}, if any turning point is found it is updated
  calls TESI_m_case1, TESI_m_case2 or TESI_m_case3 depending on l
 */
 void check_parameters(double l, double E, double *r0, double *r_lim, int *sign,

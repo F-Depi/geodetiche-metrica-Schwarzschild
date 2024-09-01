@@ -1,0 +1,26 @@
+About TESI_dynamic_h()
+The aim is to make the integration step as close as possible to a turning point
+without overshooting it. RK4 is good and fast, but it is not adaptive.
+The idea is to let RK4 get as close as possible to the turning point and then
+stop it when:
+
+ - RK4 happens to overshoot during the computation of k_1, k_2, k_3 or k_4.
+   in this case TESI_fun_r() encounters a negative argument in the square root
+   and proceeds to take the fabs() and change the variable sign assuming it is
+   time to go back. In this case RK4 recognizes that there has been a change of
+   sign and returns 1. This is the signal for TESI_dynamic_h() to step in.
+
+ - RK4 does not overshoot during the computation of k_1, k_2, k_3 or k_4 but
+   the resulting increment with all k's results in an overshoot. RK4 won't
+   notice this, but we will in main, checking if r1 < r < r2 still holds.
+   When it doesn't (there was an overshoot), we will restore the previous r,
+   phi and t, change sign as TESI_fun_r() would have and call TESI_dynamic_h()
+   to step in.
+
+TESI_dynamic_h() will then understand is we want to go to r1 or r2 based on
+which one is closer to r, evaluate a h_tuned such that the resulting r will be
+almost the turning point (it will be dR_MIN away or TESI_fun_r() will allways
+return 0 from that point on) and perform a simple step df/d(tau) * h_tuned
+for all the variables.
+The lead is then given back to TESI_RK4() which will continue the integration
+until the next turning point is reached, or the program is ended.

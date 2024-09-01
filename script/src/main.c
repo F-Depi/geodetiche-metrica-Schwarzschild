@@ -90,7 +90,7 @@ int main(int argc, char *argv[]){
     double V_data[4];               // Veff(r) r max and min + V values
     double r0 = 10.;                // Starting radius in unit of Sh. radius
     double r_lim = 10.;             // Biggest r for the simulation
-    double r12[2] = {};                  // Possible Inner and outer turning points 
+    double r12[2] = {0, R_MAX};     // Possible Inner and outer turning points 
     int sign = -1;                  // Initial radial velocity direction
     int Nturns = 0;                 // Number of turns
 
@@ -155,6 +155,11 @@ int main(int argc, char *argv[]){
     double r = r0;                  // Radius
     double phi = 0.;                // Azimuthal angle
     double t = 0.;                  // Schwarzschild time
+    double r_old;
+    double phi_old;
+    double t_old;
+    int status;
+
                                    
     
     FILE *f = fopen(filename, "w");
@@ -164,20 +169,38 @@ int main(int argc, char *argv[]){
     int kk = 0;
     while (tau < tau_max){
 
-        int status = TESI_RK4(h, tau, &r, &phi, &t, E, l, &sign, &Nturns);
-        if (status == 1){
-            printf("\nHandling the turning point");
-            TESI_dynamic_h(h, tau, &r, &phi, &t, E, l, &sign, &Nturns, r12);
-            break;
+        r_old = r;
+        phi_old = phi;
+        t_old = t;
+
+        status = TESI_RK4(h, tau, &r, &phi, &t, E, l, &sign, &Nturns);
+
+        if (r < r12[0] || r > r12[1] || status == 1){
+            //sign *= -1;
+            printf(" delta r     = %.3e\n", r - r12[0]);
+            printf(" delta r_old = %.3e\n", r_old - r12[0]);
+            printf(" delta r     = %.3e\n", r - r12[1]);
+            printf(" delta r_old = %.3e\n", r_old - r12[1]);
+            //r = r_old;
+            //phi = phi_old;
+            //t = t_old;
         }
-        else
-            tau += h;
+
+        //if (status == 1){
+        //    printf("\nHandling the turning point");
+        //    double h_tuned = TESI_dynamic_h(h, tau, &r, &phi, &t, E, l, &sign,
+        //                                                        &Nturns, r12);
+        //    tau += h_tuned;
+        //    break;
+        //}
+        
+        tau += h;
         
         kk++;
 
         if (kk % time2print == 0){
             fprintf(f, "%.10e,%.10e,%.10e,%.10e\n", tau, r, phi, t);
-            printf("\rtau = %.3e | r = %.3f | Turns = %d", tau, r, Nturns);
+            //printf("\rtau = %.3e | r = %.3f | Turns = %d", tau, r, Nturns);
             fflush(f);
         }
 
