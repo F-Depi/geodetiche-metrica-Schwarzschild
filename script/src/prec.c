@@ -128,7 +128,7 @@ int main(int argc, char *argv[]){
         kk++;
 
         if (Nturns_old != Nturns){
-            fprintf(f_prec, "%.10e,%.10e\n", r_old, phi_old);
+            fprintf(f_prec, "%.15e,%.15e\n", r_old, phi_old);
             fflush(f_prec);
         }
 

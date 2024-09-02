@@ -254,3 +254,67 @@ of the error comes from the finite precision.
 
 Therefore, we can proceed with confidence to study bound orbits of different
 shapes.
+Recall from eq. \ref{cap1:eq:precession} and \ref{cap1:eq:delta_phi} that, for a
+bound orbit where the two turning points are labeled $r_1 < r_2$, the
+precession is given by
+
+\begin{equation}
+    \delta \phi = 2 \int_{r_1}^{r_2} \left( 2 \mathcal E + \frac{2M}{r}
+    - \frac{l^2}{r^2} + \frac{2Ml^2}{r^3} \right)^{-1/2} \, \dd{r}
+    \; - 2 \pi \, .
+\end{equation}
+
+If we make the substitution $r = 1 / u$ and use the definition of $\mathcal E
+= \frac{e^2 - 1}{2}$, we can rewrite the integral as
+
+\begin{equation}
+    \delta \phi = 2 \int_{u_2}^{u_1} \frac{1}{\sqrt{2 \mathcal E + 2Mu - l^2 u^2
+    + 2Ml^2 u^3}} \, \dd{u}
+    \; - 2 \pi \, .
+    \label{cap2:eq:delta_phi}
+\end{equation}
+
+The bounds of the integral are $u_2 = 1 / r_2 < u_1 = 1 / r_1$.
+Under the square root we have a cubic equation in $u$ with coefficients
+
+\begin{align}
+    &{\rm coefficients} && a = 2Ml^2, \quad b = -l^2, \quad c = 2M, \quad d = 2 \mathcal E \\
+    &{\rm roots}        && u_1, ~ u_2, ~ u_3 \, .
+    \label{cap2:eq:cubic_roots}
+\end{align}
+
+Since all the coefficients are real, the roots of the equation must either
+consist of three real roots or one real root and a pair of complex conjugate
+roots.
+Given that we are considering bound orbits, we know that two real roots must
+exist.
+Therefore, we can infer that all three roots are real and can be labeled such
+that $u_1 < u_2 < u_3$.
+
+The Wikipedia article \textit{Precession of orbits} \footcite{enwiki:1242536958}
+shows that, knowing the roots in \ref{cap2:eq:cubic_roots}, the integral in
+\ref{cap2:eq:delta_phi} can be expressed in terms of the complete elliptic
+integral of the first kind $K(m)$
+
+\begin{equation}
+    \delta \phi = 2 \int_{u_2}^{u_1} \frac{1}{\sqrt{(u - u_1)(u - u_2)(u - u_3)}}
+    \, \dd{u} \; - 2 \pi
+    = \frac{K(m)}{\sqrt{r_s (u_3 - u_1)}} - 2 \pi \, .
+\end{equation}
+
+Where $K$ and $m$ are respectively defined as
+
+\begin{equation}
+    K(m) = \int_0^{\pi/2} \frac{\dd{\theta}}{\sqrt{1 - m \sin^2 \theta}} \, ,
+    \quad \quad \quad
+    m = \frac{u_2 - u_1}{u_3 - u_1}
+\end{equation}
+
+and can be numerically solved in python using the \texttt{scipy.special.ellipk}
+function.
+
+We can now compare the precession of a particle computed from the numerical data
+of the simulation with the expected value calculated from the initial conditions
+with the library for elliptic integrals.
+
+
