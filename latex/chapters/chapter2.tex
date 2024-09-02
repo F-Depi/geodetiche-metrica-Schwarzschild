@@ -31,7 +31,7 @@ energy per rest mass unit, respectively eq. \ref{cap1:eq:conserved_l} and
 \end{subequations}
 
 Where $V_{\rm eff}$ is the effective potential defined in eq.
-\ref{cap2:fig:V_eff} and $\mathcal E = \frac{e^2 - 1}{2}$.
+\ref{cap1:eq:V_eff} and $\mathcal E = \frac{e^2 - 1}{2}$.
 
 To avoid numerical problems, we will keep geometrized units and express
 everything in unit of the \Sh radius $r_s = 2 M$:
@@ -62,7 +62,6 @@ The effective potential becomes
 \begin{equation}
     V_{\rm eff} = \frac{1}{2} \left(\frac{\hat \ell^2}{\hat r^2}
     - \frac{1}{\hat r} - \frac{\hat \ell^2}{\hat r^3} \right) \, .
-    \label{cap2:eq:V_eff}
 \end{equation}
 
 The condition on the angular momentum $\ell$ for the existence of a stable
@@ -317,7 +316,23 @@ We can now compare the precession of a particle computed from the numerical data
 of the simulation with the expected value calculated from the initial conditions
 with the library for elliptic integrals.
 
-Figure ref ref ref ref
+Figure \ref{cap2:fig:prec1} \ref{cap2:fig:prec2}  ref ref
 shows some examples of bound orbits with different values of $\hat \ell$ and
 $\mathcal E$.
 
+\begin{figure}[h]
+    \begin{minipage}{0.48 \textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/chapter2/prec1.eps}
+        \caption{$\hat \ell = 5$ produces a local minimum $V_{\rm eff}
+        (r_{\rm min}) \simeq = -0.0051$, }
+        \label{cap2:fig:prec1}
+    \end{minipage}
+    \hspace{0.015 \textwidth}
+    \begin{minipage}{0.48 \textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/chapter2/prec2.eps}
+        \caption{}
+        \label{cap2:fig:prec2}
+    \end{minipage}
+\end{figure}

@@ -26,7 +26,7 @@ def plot_potential():
     plt.show()
 
 
-def plot_orbit(foldername, title, loc):
+def plot_orbit(foldername, title, loc, figname):
 
     ## Find the file
     filename = None
@@ -56,7 +56,7 @@ def plot_orbit(foldername, title, loc):
 
     plt.figure()
     plt.plot(r * np.cos(phi), r * np.sin(phi),
-             linestyle='-', marker='.', markersize=1, label='orbit')
+             linestyle='-', marker='', markersize=1, label='orbit')
     plt.plot(r[0] * np.cos(phi[0]), r[0] * np.sin(phi[0]), 'ro', label='start')
     #plt.plot(r[-1] * np.cos(phi[-1]), r[-1] * np.sin(phi[-1]), 'go', label='end')
     #plt.plot([0], [0], 'ko', label='black hole')
@@ -66,6 +66,7 @@ def plot_orbit(foldername, title, loc):
     plt.xlabel(r'$\hat x$')
     plt.ylabel(r'$\hat y$', rotation=0)
     plt.tight_layout()
+    if figname != '': plt.savefig(figname)
     plt.legend(loc=loc)
 
 
@@ -257,7 +258,8 @@ def check_circular(foldername, h):
 
 
 ''' Precession '''
-plot_orbit('precession','', 'upper left')
+plot_orbit('precession1', '', 'upper left', '../latex/Figures/chapter2/prec1.eps')
+plot_orbit('precession2', '', 'upper left', '../latex/Figures/chapter2/prec2.eps')
 
 
 plt.show()
