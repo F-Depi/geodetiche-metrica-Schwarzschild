@@ -157,14 +157,14 @@ where $\hat \ell = 0$, $\mathcal E = 0$.
 \begin{figure}[h]
     \begin{minipage}{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{Figures/chapter2/radial_infall_plot.eps}
+        \includegraphics[width=\textwidth]{Figures/chapter2/radial_infall.eps}
         \caption{Plot of the orbit of a particle in radial infall ($\hat \ell = 0$
-        and $\mathcal E = 0$).}
+        and $\mathcal E = 0$). \\}
     \end{minipage}
     \hspace{0.015 \textwidth}
     \begin{minipage}{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{Figures/chapter2/radial_infall.eps}
+        \includegraphics[width=\textwidth]{Figures/chapter2/t_vs_tau.eps}
         \caption{Proper time against \Sh time with respect of the radius of a
         particle falling towards $r = r_s$.}
     \end{minipage}
@@ -173,10 +173,36 @@ where $\hat \ell = 0$, $\mathcal E = 0$.
 The orbit plot is not the most interesting, but the time plot shows that the
 numerical integration is working correctly, as the results are consistent with
 eq. \ref{cap1:eq:radial_infall_r_of_tau} and \ref{cap1:eq:radial_infall_r_of_t}
-found analytically in the previous chapter.
+found analytically in the previous chapter. \\
+Figures \ref{cap2:fig:t_res} and \ref{cap2:fig:tau_res} also show the residuals
+of $\hat t$ and $\hat \tau$ with respect to their analytical predictions.
+For $\hat \tau$ the error is of the order of $10^{-10}$.
+For $\hat t$ the vertical axis is in logarithmic scale to show that the error is
+constant around $10^{-10}$ only to increase when the particle gets closer to the
+\Sh radius.
+That's to be expected as $t \rightarrow \infty$ when $r \rightarrow r_s$.
+
+\begin{figure}[h]
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/chapter2/t_res.png}
+        \caption{Residual plot of $\hat t$ against the analytical prediction
+        found in eq. \ref{cap1:eq:radial_infall_r_of_t}.}
+        \label{cap2:fig:t_res}
+    \end{minipage}
+    \hspace{0.015 \textwidth}
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/chapter2/tau_res.png}
+        \caption{Residual plot of $\hat \tau$ against the analytical prediction
+        found in eq. \ref{cap1:eq:radial_infall_r_of_tau}.}
+        \label{cap2:fig:tau_res}
+    \end{minipage}
+\end{figure}
 
 By integrating numerically with this program, we can visualize some more
-complex infalls.
+complex infalls that are shown in Figures \ref{cap2:fig:infall1} and
+\ref{cap2:fig:infall2}.
 
 \begin{figure}[h!]
     \begin{minipage}{0.48\textwidth}
@@ -187,6 +213,7 @@ complex infalls.
         $V_{\rm eff}(r_{\rm max}) \simeq 0.859927$.
         As a result the radial velocity decreases when the particle passes
         through $\hat r = \hat r_{\rm max}$.}
+        \label{cap2:fig:infall1}
     \end{minipage}
     \hspace{0.015 \textwidth}
     \begin{minipage}{0.48\textwidth}
@@ -196,6 +223,7 @@ complex infalls.
         The particle starts at $\hat r = 2$ with its radial velocity
         directed outward; however, due to its negative energy $\mathcal E$, the
         particle will not be able to escape.}
+        \label{cap2:fig:infall2}
     \end{minipage}
 \end{figure}
 
@@ -226,7 +254,7 @@ simulation against the expected value.
 \begin{figure}[h]
     \begin{minipage}{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{Figures/chapter2/circular_orbit.eps}
+        \includegraphics[width=\textwidth]{Figures/chapter2/circ.eps}
         \caption{The perfectly circular orbit of a particle with $\hat \ell = 3$
         and $\mathcal E = V_{\rm eff}(r_{\rm min}) \simeq \num{-1.478e-02}$.
         The particle starts at $\hat r = r_{\rm min} \simeq 16.35$ and the

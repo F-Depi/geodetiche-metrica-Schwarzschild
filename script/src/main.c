@@ -169,7 +169,7 @@ int main(int argc, char *argv[]){
         kk++;
 
         if (kk % time2print == 0){
-            fprintf(f, "%.10e,%.10e,%.10e,%.10e\n", tau, r, phi, t);
+            fprintf(f, "%.15e,%.10e,%.10e,%.15e\n", tau, r, phi, t);
             printf("\rtau = %.3e | r = %.3f | Turns = %d", tau, r, Nturns);
             fflush(f);
         }

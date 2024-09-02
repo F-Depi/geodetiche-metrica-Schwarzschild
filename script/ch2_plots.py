@@ -59,15 +59,14 @@ def plot_orbit(foldername, title, loc, figname):
              linestyle='-', marker='', markersize=1, label='orbit')
     plt.plot(r[0] * np.cos(phi[0]), r[0] * np.sin(phi[0]), 'ro', label='start')
     #plt.plot(r[-1] * np.cos(phi[-1]), r[-1] * np.sin(phi[-1]), 'go', label='end')
-    #plt.plot([0], [0], 'ko', label='black hole')
-    plt.plot(np.cos(r_s), np.sin(r_s), 'k--', label=r'$r_s$')
+    plt.plot(np.cos(r_s), np.sin(r_s), 'k-', label=r'$r = r_s$')
     plt.axis('equal')
     plt.title(title)
     plt.xlabel(r'$\hat x$')
     plt.ylabel(r'$\hat y$', rotation=0)
     plt.tight_layout()
-    if figname != '': plt.savefig(figname)
     plt.legend(loc=loc)
+    if figname != '': plt.savefig(figname)
 
 
 def animate_orbit(foldername):
@@ -152,9 +151,8 @@ def fun_t_r(r):
     return - 2 / 3 * r**(3/2) - 2 * r**(1/2) + np.log(np.abs( (r**(1/2) + 1) / (r**(1/2) - 1) ))
 
 
-def plt_tvstau():
+def plt_tvstau(foldername):
 
-    foldername = 'radial_infall'
     filename = None
     for file in os.listdir(f'data/keep/{foldername}'):
         if file.endswith(".csv"):
@@ -174,7 +172,7 @@ def plt_tvstau():
     r = r[r > 1]
 
     tau_int_const = tau[0] - fun_tau_r(r[0])
-    analytic_t_tau = tau_int_const + fun_tau_r(r)
+    analytic_tau = tau_int_const + fun_tau_r(r)
 
     t_int_const = t[0] - fun_t_r(r[0])
     analytic_t = t_int_const + fun_t_r(r)
@@ -184,14 +182,38 @@ def plt_tvstau():
     plt.plot(r, t, marker='.', linestyle='', label=r'$\hat t$ vs $\hat r$')
     plt.plot(r, analytic_t, label=r'$\hat t_{\rm analytic}$($\hat r)$')
     plt.plot(r, tau, marker='.', linestyle='', label=r'$\hat \tau$ vs $\hat r$')
-    plt.plot(r, analytic_t_tau, label=r'$\hat \tau_{\rm analytic}$($\hat r)$')
+    plt.plot(r, analytic_tau, label=r'$\hat \tau_{\rm analytic}$($\hat r)$')
     plt.title(f'Radial Infall')
     plt.xlabel(r'$\hat r$')
     plt.ylabel('time')
     plt.gca().invert_xaxis()
     plt.tight_layout()
     plt.legend()
-    plt.savefig(f'../latex/Figures/chapter2/{foldername}.eps')
+    plt.savefig(f'../latex/Figures/chapter2/radial_infall.eps')
+
+
+    plt.figure(figsize=(7,5))
+    plt.plot(r[:-4], abs(t[:-4] - analytic_t[:-4]), linestyle='', marker='.',
+             label=r'$\hat t - \hat t_{\rm analytic}$')
+    plt.yscale('log')
+    plt.xlabel(r'$\hat t$')
+    plt.ylabel('Residuals')
+    plt.title(r'Residual graph of $\hat t$, simulated with $h = 10^{-4}$')
+    plt.tight_layout()
+    plt.legend()
+    plt.savefig('../latex/Figures/chapter2/t_res.png')
+
+
+    plt.figure(figsize=(7,5))
+    plt.plot(r, tau - analytic_tau, linestyle='', marker='.',
+             label=r'$\hat \tau - \hat \tau_{\rm analytic}$')
+    plt.xlabel(r'$\hat t$')
+    plt.ylabel('Residuals')
+    plt.title(r'Residual graph of $\hat \tau$, simulated with $h = 10^{-4}$')
+    plt.tight_layout()
+    plt.legend()
+    plt.savefig('../latex/Figures/chapter2/tau_res.png')
+
     plt.show()
 
 
@@ -240,17 +262,18 @@ def check_circular(foldername, h):
 #animate_orbit(foldername)
 
 ''' radial infall '''
-#plt_tvstau()
-#plot_orbit('radial_infall','Radial Infall')
+plt_tvstau('radial_infall4')
+#plot_orbit('radial_infall6','Radial Infall', 'upper right','')
 
+fold = '../latex/Figures/chapter2/'
 
 ''' Crazy infalls '''
-#plot_orbit('infall','')
-#plot_orbit('infall2','')
+#plot_orbit('infall','', 'upper right', fold + 'infall1.eps')
+#plot_orbit('infall2','', 'upper right', fold + 'infall2.eps')
 
 
 ''' Circular Orbits '''
-#plot_orbit('circular_orbit3','')
+#plot_orbit('circular_orbit3', '', 'upper left', '../latex/Figures/chapter2/circ.eps')
 #check_circular('circular_orbit3', 1e-3)
 #check_circular('circular_orbit4', 1e-4)
 #check_circular('circular_orbit5', 1e-5)
@@ -258,8 +281,8 @@ def check_circular(foldername, h):
 
 
 ''' Precession '''
-plot_orbit('precession1', '', 'upper left', '../latex/Figures/chapter2/prec1.eps')
-plot_orbit('precession2', '', 'upper left', '../latex/Figures/chapter2/prec2.eps')
+#plot_orbit('precession1', '', 'upper left', '../latex/Figures/chapter2/prec1.eps')
+#plot_orbit('precession2', '', 'upper left', '../latex/Figures/chapter2/prec2.eps')
 
 
 plt.show()
