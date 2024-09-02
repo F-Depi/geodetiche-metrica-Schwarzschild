@@ -103,18 +103,21 @@ def plot_residuals(l, E, h):
 
 
 ## Write bisection to fine tune the energy
+for E in np.arange(-0.001, -0.01, -0.0005):
+    p = analytic_precession(2, E)
+    print(rf'E = {E:.4f}, $p = {p / np.pi:.3f} \pi$')
 
 
-l = 3
-E = -0.006
-for h in [1e-1, 1e-2, 1e-3, 1e-4]:
-    plot_residuals(l, E, h)
-
-
-l = 3
-E = -0.01
-for h in [1e-1, 1e-2, 1e-3, 1e-4]:
-    plot_residuals(l, E, h)
-
-plt.show()
+#l = 3
+#E = -0.006
+#for h in [1e-1, 1e-2, 1e-3, 1e-4]:
+#    plot_residuals(l, E, h)
+#
+#
+#l = 3
+#E = -0.01
+#for h in [1e-1, 1e-2, 1e-3, 1e-4]:
+#    plot_residuals(l, E, h)
+#
+#plt.show()
 

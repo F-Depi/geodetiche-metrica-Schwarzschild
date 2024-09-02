@@ -83,7 +83,7 @@ def animate_orbit(foldername):
     ani = animation.FuncAnimation(fig, update, frames=len(tau), interval=2, blit=True, repeat=False)
 
     filename = f'media/{foldername}.mov'
-    #ani.save(filename, writer='ffmpeg', fps=60, dpi=300, extra_args=['-vcodec', 'libx264'])
+    ani.save(filename, writer='ffmpeg', fps=60, dpi=300, extra_args=['-vcodec', 'libx264'])
 
     # Show the plot
     plt.show()

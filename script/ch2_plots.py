@@ -26,16 +26,25 @@ def plot_potential():
     plt.show()
 
 
-def plot_orbit(foldername, title):
+def plot_orbit(foldername, title, loc):
 
+    ## Find the file
     filename = None
     for file in os.listdir(f'data/keep/{foldername}'):
         if file.endswith(".csv"):
             filename = file
-
     if not filename:
         print('No file found')
         exit()
+
+    ## Make the title
+    if title == '':
+        l = filename[1:2]
+        E = filename[8:15]
+        title = rf'Massive Particle with $\hat \ell = {l}$, $\mathcal{{E}} = {E}$'
+
+    ## Prepare the legend location
+    if loc == '': loc = 'best'
 
     data = np.loadtxt(f'data/keep/{foldername}/{filename}', delimiter=',', skiprows=1)
     tau = data[:, 0]
@@ -44,11 +53,6 @@ def plot_orbit(foldername, title):
     t = data[:, 3]
 
     r_s = np.linspace(0, 2 * np.pi, 100)
-
-    if title == '':
-        l = filename[1:2]
-        E = filename[8:15]
-        title = rf'Massive Particle with $\hat \ell = {l}$, $\mathcal{{E}} = {E}$'
 
     plt.figure()
     plt.plot(r * np.cos(phi), r * np.sin(phi),
@@ -59,10 +63,10 @@ def plot_orbit(foldername, title):
     plt.plot(np.cos(r_s), np.sin(r_s), 'k--', label=r'$r_s$')
     plt.axis('equal')
     plt.title(title)
-    plt.xlabel(r'$\frac{x}{r_s}$')
-    plt.ylabel(r'$\frac{y}{r_s}$', rotation=0)
+    plt.xlabel(r'$\hat x$')
+    plt.ylabel(r'$\hat y$', rotation=0)
     plt.tight_layout()
-    plt.legend(loc='best')
+    plt.legend(loc=loc)
 
 
 def animate_orbit(foldername):
@@ -251,6 +255,9 @@ def check_circular(foldername, h):
 #check_circular('circular_orbit5', 1e-5)
 #check_circular('test3_all', 1e-3)
 
+
+''' Precession '''
+plot_orbit('precession','', 'upper left')
 
 
 plt.show()
