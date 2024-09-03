@@ -28,7 +28,7 @@ void print_help(char *argv[]){
 void print_help2(char *argv[]){
     double l = atof(argv[1]);
     double V_data[4];
-    printf("l =\t\t%.6f\n", l);
+    printf("l\t\t%.6f\n", l);
     TESI_Veff_max_min(l, V_data);
     printf("r_max\t\t%.6f\n", V_data[0]);
     printf("r_min\t\t%.6f\n", V_data[1]);

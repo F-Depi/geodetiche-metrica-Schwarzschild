@@ -24,17 +24,18 @@ energy per rest mass unit, respectively eq. \ref{cap1:eq:conserved_l} and
 \label{cap2:eq:eq_of_motion}
 	\begin{align}[left = {\empheqlbrace}]
         &\frac{1}{2} \left(\dv{r}{\tau}\right)^2 = \mathcal E - V_{\rm eff} (r)
-        \\
+        \label{cap2:eq:radial_eq} \\
         &\dv{\phi}{\tau} = \frac{l}{r^2} \\
         &\dv{t}{\tau} = \frac{e}{1 - 2 M / r}
 	\end{align}
 \end{subequations}
 
-Where $V_{\rm eff}$ is the effective potential defined in eq.
+In \ref{cap2:eq:radial_eq} $V_{\rm eff}$ is the effective potential defined in eq.
 \ref{cap1:eq:V_eff} and $\mathcal E = \frac{e^2 - 1}{2}$.
 
-To avoid numerical problems, we will keep geometrized units and express
-everything in unit of the \Sh radius $r_s = 2 M$:
+To simplify even further the form of the equations and discuss the problem in a
+more general way, we will keep geometrized units and express them with the \Sh
+radius $r_s = 2 M$:
 
 \begin{equation}
     r = r_s \hat r \quad \quad
@@ -48,29 +49,29 @@ The system of equations \ref{cap2:eq:eq_of_motion} can be rewritten as
 \begin{subequations}
     \begin{align}[left = {\empheqlbrace}]
         &\dv{\hat r}{\hat \tau} = \pm \sqrt{2 \mathcal E - 2 V_{\rm eff}}
-        \label{cap2:eq:radial_eq_as} \\
+        \label{cap2:eq:radial_eq_ad} \\
         &\dv{\phi}{\hat \tau} = \frac{\hat \ell}{\hat r^2}
-        \label{cap2:eq:angular_eq_dimless} \\
+        \label{cap2:eq:angular_eq_ad} \\
         &\dv{t}{\hat \tau} = \sqrt{2 \mathcal E + 1}
-        \left(\frac{\hat r}{\hat r - 1}\right) \label{cap2:eq:time_eq_dimless}
+        \left(\frac{\hat r}{\hat r - 1}\right) \label{cap2:eq:time_eq_ad}
     \end{align}
     \label{cap2:eq:eq_of_motion_ad}
 \end{subequations}
 
-The effective potential becomes
+and the effective potential becomes
 
 \begin{equation}
     V_{\rm eff} = \frac{1}{2} \left(\frac{\hat \ell^2}{\hat r^2}
     - \frac{1}{\hat r} - \frac{\hat \ell^2}{\hat r^3} \right) \, .
 \end{equation}
 
-The condition on the angular momentum $\ell$ for the existence of a stable
-orbits is $\ell > \sqrt{12} M$ and becomes $\hat \ell > \sqrt{3}$.
+The condition on the angular momentum $\ell$ for the existence of stable orbits
+is $\ell > \sqrt{12} M$ and becomes $\hat \ell > \sqrt{3}$.
 The stationary points of $V_{\rm eff}$ from eq. \ref{cap1:eq:V_eff} are
 
 \begin{subequations}
     \begin{align}
-        \hat r_{\substack{\text{min} \\ \text{max}}} &= \hat \ell^2
+        \hat r_{\substack{\rm max \\ \rm min}} &= \hat \ell^2
         \left(1 \pm \sqrt{1 - \frac{3}{\hat \ell^2}} \right)
         &&{\rm for} \quad \hat \ell > \sqrt{3} \\
         \hat r_{\rm ISCO} &= 3
@@ -78,16 +79,19 @@ The stationary points of $V_{\rm eff}$ from eq. \ref{cap1:eq:V_eff} are
     \end{align}
 \end{subequations}
 
-Where $\hat r_{\substack{\text{min} \\ \text{max}}}$ respectively represent a
-local minimum and maximum of the effective potential.
+We will often refer to the local maximum of the effective potential as
+$V_{\rm max} = V_{\rm eff}(\hat r_{\rm max})$ and the local minimum as
+$V_{\rm min} = V_{\rm eff}(\hat r_{\rm min})$.
+
 The system in \ref{cap2:eq:eq_of_motion_ad} can be solved numerically with
 a fourth-order \texttt{Runge-Kutta} method.
 The initial conditions that determine the orbit are $\hat \ell$,
-$\mathcal E$ and a compatible starting radius $\hat r_0$ (refer to Figure
-\ref{cap1:fig:V_eff_orbits}).
+$\mathcal E$, a starting radius $\hat r_0$ compatible with the condition
+$\mathcal E - V_{\rm eff} \geq 0$ (refer to Figure
+\ref{cap1:fig:V_eff_orbits}) and the sign choice in eq. \ref{cap2:eq:radial_eq_ad}.
 
 To find the range of $r$ that the particle can explore we need to study when the
-argument of the square root in eq. \ref{cap2:eq:radial_eq_as} is positive.
+argument of the square root in eq. \ref{cap2:eq:radial_eq_ad} is positive.
 In general, we need to solve a cubic equation
 
 \begin{equation}
@@ -100,33 +104,76 @@ In general, we need to solve a cubic equation
     \label{cap2:eq:cubic_eq}
 \end{equation}
 
-All the possible scenarios are resumed in Table \ref{cap2:tab:scenarios}.
+From the real, positive roots of eq. \ref{cap2:eq:cubic_eq} we can find the
+turning points, if any exist.
+Instead of solving the cubic equation analytically, the limiting radii can be
+calculated using the bisect method and imposing that \ref{cap2:eq:cubic_eq}
+must be 0 between in the correct interval. \\
+All the possible scenarios are resumed in Figures \ref{cap2:fig:scenario0},
+\ref{cap2:fig:scenario1} and \ref{cap2:fig:scenario2}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width= 0.8 \textwidth]{Figures/chapter2/scenario0.eps}
+    \caption{Possible scenarios for $\hat \ell < \sqrt{3}$.
+    The outer turning points are labeled as $\hat r_2$ and the inner ones as}
+    \label{cap2:fig:scenario0}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{Figures/chapter2/scenario1.eps}
+    \caption{Possible scenarios for $\hat \ell < 2$.
+    The outer turning points are labeled as $\hat r_2$ and the inner ones as
+    $\hat r_1$.
+    Orbits with energy $\mathcal E > 0$ are infalls only if the minus sign is
+    chosen in eq. \ref{cap2:eq:radial_eq_ad}.
+    Orbits with energy like $\mathcal E_3$ can be bound orbits or infalls
+    depending on the initial radius $\hat r_0$ chosen.
+    Orbits like $\mathcal E_2$ are effectively infalls like $\mathcal E_4$, with
+    the difference that the radial velocity of the particle will slow during
+    between $r_{\rm min}$ and $r_{\rm max}$.}
+    \label{cap2:fig:scenario1}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{Figures/chapter2/scenario2.eps}
+    \caption{Possible scenarios for $\hat \ell > 2$.
+    The outer turning points are labeled as $\hat r_2$ and the inner ones as
+    $\hat r_1$.
+    Orbits with energy $\mathcal E > V_{\rm max}$ are infalls only if the minus
+    sign is chosen in eq. \ref{cap2:eq:radial_eq_ad}.
+    Orbits with $\mathcal E < V_{\rm max}$ can be infalls (purple) if the starting
+    radius is small enough.
+    Bound and unbound orbits are represented in yellow and green.}
+    \label{cap2:fig:scenario2}
+\end{figure}
+
+Fixing the limit of the numerical simulation at \texttt{R\_MAX = 1000}, when the
+inner turning point $ \hat{r}_1 $ exists, it is always in the interval 
+$[\hat{r}_{\text{max}}, ~ \hat{r}_{\text{min}}]$.
+When the outer turning point $ \hat{r}_2 $ exists, it is always in the interval 
+$[1, ~ \hat{r}_{\text{max}}]$ or $[\hat{r}_{\text{min}}, ~ \texttt{R\_MAX}]$.
+The program can determine whether a turning point exists and can choose the correct
+interval based on the initial conditions $ \hat{\ell} $ and $ \mathcal{E} $.
+
+All possible scenarios are summarized in Table \ref{cap2:tab:scenarios}.
 
 \begin{table}[h]
     \centering
     \begin{tabular}{cccc}
-        $\hat \ell$     & $\mathcal E$                  & $\hat r$     
-                                                        & Scenario \\
-        $[0,~\sqrt{3}]$ & $[0,~\infty]$                 & $(1,~\infty)$
-                                                        & depends on the sign\\
-        $[0,~\sqrt{3}]$ & $[-\frac{1}{2},~0]$           & $(1,~r_e)$   
-                                                        & infall \\
-        $(\sqrt{3},~2]$ & $[0,~\infty]$                 & $(1,~\infty)$ 
-                                                        & depends on the sign \\
-        $(\sqrt{3},~2]$ & $[V_{\rm max},~0]$            & $(1,~r_2)$
-                                                        & infall \\
-        $(\sqrt{3},~2]$ & $[V_{\rm min},~V_{\rm max}]$  & $(r_1,~r_2)$
-                                                        & bound orbit \\
-        $(\sqrt{3},~2]$ & $[-\frac{1}{2},~V_{\rm min}]$ & $(1,~r_e)$
-                                                        & infall \\
-        $(2, \infty)$   & $[V_{\rm max},~\infty]$       & $(1,~\infty)$ 
-                                                        & depends on the sign \\
-        $(2, \infty)$   & $[0,~V_{\rm max}]$            & $(r_1,~\infty)$
-                                                        & unbound orbit \\
-        $(2, \infty)$   & $[V_{\rm min},~V_{\rm min}]$  & $(r_1,~r_2)$
-                                                        & bound orbit \\
-        $(2, \infty)$   & $[-\frac{1}{2},~V_{\rm min}]$ & $(1,~r_e)$
-                                                        & infall \\
+        $\hat \ell$     & $\mathcal E$                              & $\hat r$                    & Scenario \\
+        $[0,~\sqrt{3}]$ & $\left[0,~\frac{1}{2} \right)$            & $\left(1,~  \infty \right)$ & depends on the sign\\
+        $[0,~\sqrt{3}]$ & $\left[-\frac{1}{2},~0 \right)$           & $\left(1,~     r_e \right)$ & infall \\
+        $(\sqrt{3},~2]$ & $\left[0,~\frac{1}{2} \right)$            & $\left(1,~  \infty \right)$ & depends on the sign \\
+        $(\sqrt{3},~2]$ & $\left[V_{\rm max},~0 \right]$            & $\left(1,~     r_2 \right)$ & infall \\
+        $(\sqrt{3},~2]$ & $\left[V_{\rm min},~V_{\rm max} \right]$  & $\left(r_1,~   r_2 \right)$ & bound orbit \\
+        $(\sqrt{3},~2]$ & $\left[-\frac{1}{2},~V_{\rm min} \right]$ & $\left(1,~     r_e \right)$ & infall \\
+        $(2, \infty)$   & $\left[V_{\rm max},~\frac{1}{2} \right)$  & $\left(1,~  \infty \right)$ & depends on the sign \\
+        $(2, \infty)$   & $\left[0,~V_{\rm max} \right]$            & $\left(r_1,~\infty \right)$ & unbound orbit \\
+        $(2, \infty)$   & $\left[V_{\rm min},~V_{\rm min} \right]$  & $\left(r_1,~   r_2 \right)$ & bound orbit \\
+        $(2, \infty)$   & $\left[-\frac{1}{2},~V_{\rm min} \right]$ & $\left(1,~     r_e \right)$ & infall \\
     \end{tabular}
     \caption{Possible scenarios for the motion of a particle in the \Sh
     spacetime.}
@@ -134,18 +181,9 @@ All the possible scenarios are resumed in Table \ref{cap2:tab:scenarios}.
     %% A Figure would probably be better
 \end{table}
 
-In the table we referred to the local maximum and minimum of the effective
-potential calculated in $r_{\substack{\text{min} \\ \text{max}}}$ as
-$V_{\rm min}$ and $V_{\rm max}$ respectively.
-Instead of solving the cubic equation analytically, the limiting radii can be
-calculated using the bisect method and imposing that \ref{cap2:eq:cubic_eq}
-must be 0 between 1 and $r_{\rm min}$ for $r_e$, between $r_{\rm min}$ and
-$r_{\rm max}$ for $r_1$ and between $r_{\rm max}$ and $\infty$ (1000 in our
-case) for $r_2$.
-
-%% NON MI PIACE
-
 %% HOW TO CHANGE SIGN
+
+
 \newpage
 
 

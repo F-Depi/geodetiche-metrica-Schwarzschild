@@ -26,7 +26,7 @@ def fun_W_eff(r_per_rs, M):
 
 def plot_Vs(l_per_M, save=['yes','no']):
 
-    filename = '../latex/Figures/V_eff.eps'
+    filename = '../latex/Figures/chapter1/V_eff.eps'
     r_per_M = np.arange(2,40,0.1)
     Veff = fun_V_eff(r_per_M, l_per_M)
     label_eff = r'$V_{\rm eff} \, \left( \frac{r}{M} \right)$'
@@ -47,7 +47,7 @@ def plot_Vs(l_per_M, save=['yes','no']):
 
 def plot_some_V_eff(save=['yes','no']):
 
-    filename = '../latex/Figures/V_eff_tanti.eps'
+    filename = '../latex/Figures/chapter1/V_eff_tanti.eps'
 
     lines = ['--', '-', ':', '-.']; kk = 0
     lines = ['-','-','-','-']
@@ -74,7 +74,7 @@ def plot_some_V_eff(save=['yes','no']):
 
 def plot_radial_infall(save=['yes','no']):
 
-    filename = '../latex/Figures/radial_infall.eps'
+    filename = '../latex/Figures/chapter1/radial_infall.eps'
 
     # It's not just about plotting them, we also need to choose tau* and t* so
     # that the slopes appears together in the graph.
@@ -111,7 +111,7 @@ def plot_radial_infall(save=['yes','no']):
 
 def plot_V_eff_orbits(save=['yes','no']):
 
-    filename = '../latex/Figures/V_eff_orbits.eps'
+    filename = '../latex/Figures/chapter1/V_eff_orbits.eps'
     right_lim = 70
     bottom_lim = -0.06
 
@@ -127,7 +127,7 @@ def plot_V_eff_orbits(save=['yes','no']):
     # Different values of E
     r_max = l_per_M**2 / 2 * (1 + skrt)
     V_2 = fun_V_eff(r_max, l_per_M)
-    lab_e4 = r'$\mathcal{E}_4 = V_{\rm eff} \, (r_+)$'
+    lab_e4 = r'$\mathcal{E}_4 = V_{\rm eff} \, (r_{\rm min})$'
 
     e1 = 0.02
     x1_right =right_lim 
@@ -174,7 +174,7 @@ def plot_V_eff_orbits(save=['yes','no']):
     plt.text(x2_left + 0.5, e2 - 5e-3, r'$P_3$', fontsize=15)
 
     tiks = [0,10,20,30,40,50,60,70] + [r_min, r_max]
-    lab_tiks = ['0','10','20','30','40','50','60','70'] + [r'$r_-$', r'$r_+$']
+    lab_tiks = ['0','10','20','30','40','50','60','70'] + [r'$r_{\rm max}$', r'$r_{\rm min}$']
     plt.xticks(tiks, lab_tiks)
 
     plt.ylim([bottom_lim, 0.03])
@@ -189,7 +189,7 @@ def plot_V_eff_orbits(save=['yes','no']):
 
 def plot_W_eff(save=['yes','no']):
 
-    filename = '../latex/Figures/W_eff.eps'
+    filename = '../latex/Figures/chapter1/W_eff.eps'
     right_lim = 15
     bottom_lim = -0.02
     upper_lim = 0.04
@@ -217,7 +217,7 @@ def plot_W_eff(save=['yes','no']):
 
 def plot_W_eff_tanti(save=['yes','no']):
 
-    filename = '../latex/Figures/W_eff_tanti.eps'
+    filename = '../latex/Figures/chapter1/W_eff_tanti.eps'
     right_lim = 12
     bottom_lim = -0.02
     plt.figure()
@@ -246,7 +246,7 @@ def plot_W_eff_tanti(save=['yes','no']):
 
 def plot_W_eff_vs_b(save=['yes','no']):
 
-    filename = '../latex/Figures/W_eff_vs_b.eps'
+    filename = '../latex/Figures/chapter1/W_eff_vs_b.eps'
     right_lim = 15
     bottom_lim = 0
     upper_lim = 0.05
@@ -310,7 +310,7 @@ def fun_phi_def(M_per_b):
 
 def plot_light_deflection(save=['yes','no']):
 
-    filename = '../latex/Figures/deflection_w.eps'
+    filename = '../latex/Figures/chapter1/deflection_w.eps'
 
     limit = np.sqrt(1/27)
     lab_limit = r'$\frac{M}{b} = \frac{1}{\sqrt{27}}$'
@@ -343,7 +343,7 @@ def plot_light_deflection(save=['yes','no']):
 #plot_radial_infall('yes')
 
 ''' Veff vs values of e '''
-plot_V_eff_orbits('no')
+plot_V_eff_orbits('yes')
 
 ''' Weff '''
 #plot_W_eff('yes')
