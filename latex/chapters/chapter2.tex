@@ -11,7 +11,7 @@ The program will allow us to study more complex geodesics and better understand
 how they differ from the Newtonian case.
 
 
-\section{Equations of motion}
+\section{Equations of Motion and Program Structure}
 \label{cap2:sec:eq_of_motion}
 
 Recalling the results of the previous chapter we can rewrite the equation for
@@ -150,39 +150,98 @@ All the possible scenarios are resumed in Figures \ref{cap2:fig:scenario0},
     \label{cap2:fig:scenario2}
 \end{figure}
 
+The program can determine whether a turning point exists and can choose the correct
+interval based on the initial conditions $ \hat{\ell} $ and $ \mathcal{E} $.
 Fixing the limit of the numerical simulation at \texttt{R\_MAX = 1000}, when the
 inner turning point $ \hat{r}_1 $ exists, it is always in the interval 
 $[\hat{r}_{\text{max}}, ~ \hat{r}_{\text{min}}]$.
 When the outer turning point $ \hat{r}_2 $ exists, it is always in the interval 
 $[1, ~ \hat{r}_{\text{max}}]$ or $[\hat{r}_{\text{min}}, ~ \texttt{R\_MAX}]$.
-The program can determine whether a turning point exists and can choose the correct
-interval based on the initial conditions $ \hat{\ell} $ and $ \mathcal{E} $.
+This allows the program to check if the starting radius $ \hat{r}_0 $ is in an
+allowed interval and, if not, to move it to the closest turning point, from
+where the particle will start its motion.
 
-All possible scenarios are summarized in Table \ref{cap2:tab:scenarios}.
+All the possible scenarios are summarized in Table \ref{cap2:tab:scenarios}.
+
+%\begin{table}[h]
+%    \centering
+%    \begin{tabular}{cccc}
+%        \toprule
+%        $\hat \ell$     & $\mathcal E$                              & $\hat r$                    & Scenario \\
+%        \midrule
+%        $[0,~\sqrt{3}]$ & $\left[0,~\infty \right)$            & $\left(1,~  \infty \right)$ & depends on the sign\\
+%        $[0,~\sqrt{3}]$ & $\left[-\infty,~0 \right)$           & $\left(1,~     r_2 \right)$ & infall \\
+%        $(\sqrt{3},~2]$ & $\left[0,~\infty \right)$            & $\left(1,~  \infty \right)$ & depends on the sign \\
+%        $(\sqrt{3},~2]$ & $\left[V_{\rm max},~0 \right]$            & $\left(1,~     r_2 \right)$ & infall \\
+%        $(\sqrt{3},~2]$ & $\left[V_{\rm min},~V_{\rm max} \right]$  & $\left(r_1,~   r_2 \right)$ & bound orbit \\
+%        $(\sqrt{3},~2]$ & $\left[-\infty,~V_{\rm min} \right]$ & $\left(1,~     r_2 \right)$ & infall \\
+%        $(2, \infty)$   & $\left[V_{\rm max},~\infty \right)$  & $\left(1,~  \infty \right)$ & depends on the sign \\
+%        $(2, \infty)$   & $\left[0,~V_{\rm max} \right]$            & $\left(r_1,~\infty \right)$ & unbound orbit \\
+%        $(2, \infty)$   & $\left[V_{\rm min},~V_{\rm min} \right]$  & $\left(r_1,~   r_2 \right)$ & bound orbit \\
+%        $(2, \infty)$   & $\left[-\infty,~V_{\rm min} \right]$ & $\left(1,~     r_2 \right)$ & infall \\
+%        \bottomrule
+%    \end{tabular}
+%    \caption{Possible scenarios for the motion of a particle in the \Sh
+%    spacetime.}
+%    \label{cap2:tab:scenarios}
+%\end{table}
+
+%% Dubbio valori di massimi e minimi di E
 
 \begin{table}[h]
     \centering
-    \begin{tabular}{cccc}
-        $\hat \ell$     & $\mathcal E$                              & $\hat r$                    & Scenario \\
-        $[0,~\sqrt{3}]$ & $\left[0,~\frac{1}{2} \right)$            & $\left(1,~  \infty \right)$ & depends on the sign\\
-        $[0,~\sqrt{3}]$ & $\left[-\frac{1}{2},~0 \right)$           & $\left(1,~     r_e \right)$ & infall \\
-        $(\sqrt{3},~2]$ & $\left[0,~\frac{1}{2} \right)$            & $\left(1,~  \infty \right)$ & depends on the sign \\
-        $(\sqrt{3},~2]$ & $\left[V_{\rm max},~0 \right]$            & $\left(1,~     r_2 \right)$ & infall \\
-        $(\sqrt{3},~2]$ & $\left[V_{\rm min},~V_{\rm max} \right]$  & $\left(r_1,~   r_2 \right)$ & bound orbit \\
-        $(\sqrt{3},~2]$ & $\left[-\frac{1}{2},~V_{\rm min} \right]$ & $\left(1,~     r_e \right)$ & infall \\
-        $(2, \infty)$   & $\left[V_{\rm max},~\frac{1}{2} \right)$  & $\left(1,~  \infty \right)$ & depends on the sign \\
-        $(2, \infty)$   & $\left[0,~V_{\rm max} \right]$            & $\left(r_1,~\infty \right)$ & unbound orbit \\
-        $(2, \infty)$   & $\left[V_{\rm min},~V_{\rm min} \right]$  & $\left(r_1,~   r_2 \right)$ & bound orbit \\
-        $(2, \infty)$   & $\left[-\frac{1}{2},~V_{\rm min} \right]$ & $\left(1,~     r_e \right)$ & infall \\
+    \begin{tabular}{c@{\hspace{1cm}}r@{}c@{}c@{}c@{}l@{\hspace{1cm}}c@{\hspace{1cm}}c}
+        \toprule
+        $\hat \ell$     &    &&$\mathcal E$      &             &    & $\hat r_0$                  & Scenario            \\
+        \midrule
+        $[0,~\sqrt{3}]$ & $[$&$0            $&$,$&$\infty     $&$)$ & $\left(1,~  \infty \right)$ & depends on the sign \\[0.1cm]
+        $[0,~\sqrt{3}]$ & $($&$-\frac{1}{2} $&$,$&$0          $&$)$ & $\left(1,~     r_e \right)$ & infall              \\[0.1cm]
+        $(\sqrt{3},~2]$ & $[$&$0            $&$,$&$\infty     $&$)$ & $\left(1,~  \infty \right)$ & depends on the sign \\[0.1cm]
+        $(\sqrt{3},~2]$ & $[$&$V_{\rm max}  $&$,$&$0          $&$]$ & $\left(1,~     r_2 \right)$ & infall              \\[0.1cm]
+        $(\sqrt{3},~2]$ & $[$&$V_{\rm min}  $&$,$&$V_{\rm max}$&$]$ & $\left(r_1,~   r_2 \right)$ & bound orbit         \\[0.1cm]
+        $(\sqrt{3},~2]$ & $($&$-\frac{1}{2} $&$,$&$V_{\rm min}$&$]$ & $\left(1,~     r_e \right)$ & infall              \\[0.1cm]
+        $(2, \infty)$   & $[$&$V_{\rm max}  $&$,$&$\infty     $&$)$ & $\left(1,~  \infty \right)$ & depends on the sign \\[0.1cm]
+        $(2, \infty)$   & $[$&$0            $&$,$&$V_{\rm max}$&$]$ & $\left(r_1,~\infty \right)$ & unbound orbit       \\[0.1cm]
+        $(2, \infty)$   & $[$&$V_{\rm min}  $&$,$&$V_{\rm min}$&$]$ & $\left(r_1,~   r_2 \right)$ & bound orbit         \\[0.1cm]
+        $(2, \infty)$   & $($&$-\frac{1}{2} $&$,$&$V_{\rm min}$&$]$ & $\left(1,~     r_e \right)$ & infall              \\
+        \bottomrule
     \end{tabular}
-    \caption{Possible scenarios for the motion of a particle in the \Sh
-    spacetime.}
+    \caption{Possible scenarios for the motion of a particle in the Schwarzschild spacetime.}
     \label{cap2:tab:scenarios}
-    %% A Figure would probably be better
 \end{table}
 
-%% HOW TO CHANGE SIGN
 
+One last detail to consider is the change of sign in eq.
+\ref{cap2:eq:radial_eq_ad}.
+To allow the particle to change radial direction an int \texttt{sign} that has
+value $+1$ or $-1$ is passed to the function corresponding to the radial
+derivative.
+The code snippet is shown in Listing \ref{cap2:lst:sign_change} below.
+
+\begin{lstlisting}[language=C, label=cap2:lst:sign_change, caption=Function to compute the radial derivative]
+double TESI_fun_r(double r, double E, double l, int *sign, int *Nturns){
+    double foo = 2 * (E - TESI_Veff(r, l));
+    if (foo < 0){
+        *sign *= -1;
+        *Nturns += 1;
+    }
+    return *sign * pow(fabs(foo), 1. / 2.);
+}
+\end{lstlisting}
+
+\texttt{E} is $\mathcal E$, \texttt{l} is $\hat \ell$ and \texttt{TESI\_Veff()} is
+the function that computes the effective potential.
+If \texttt{foo} is negative, the sign is changed and the number of turns
+updated.
+Then the square root is computed with the correct sign and taking the absolute
+value of \texttt{foo}.
+This is a simple way of handling the particle getting close and crossing the
+turning point, but adds a small error in the overall computation of the other
+variables as we allow the particle to overshoot the turning point.
+At the beginning of the simulation we will always set
+$\hat \tau = \hat \phi = \hat t = 0$ and, unless otherwise specified, the step
+increment performed on $\hat \tau$ for each iteration of \texttt{RK4} will be
+$h = 0.001$.
 
 \newpage
 
@@ -196,19 +255,23 @@ where $\hat \ell = 0$, $\mathcal E = 0$.
     \begin{minipage}{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Figures/chapter2/radial_infall.eps}
-        \caption{Plot of the orbit of a particle in radial infall ($\hat \ell = 0$
-        and $\mathcal E = 0$). \\}
+        \caption{Plot of the orbit of a particle in radial infall
+        ($\hat \ell = 0$, $\mathcal E = 0$, $r_0 = 5$, $h = 10^{-4}$). \\}
+        \label{cap2:fig:radial_infall}
     \end{minipage}
     \hspace{0.015 \textwidth}
     \begin{minipage}{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Figures/chapter2/t_vs_tau.eps}
         \caption{Proper time against \Sh time with respect of the radius of a
-        particle falling towards $r = r_s$.}
+        particle falling towards $r = r_s$.
+        (Data from Figure \ref{cap2:fig:radial_infall}).}
+        \label{cap2:fig:t_vs_tau}
     \end{minipage}
 \end{figure}
 
-The orbit plot is not the most interesting, but the time plot shows that the
+The orbit plot (Figure \ref{cap2:fig:radial_infall}) is not the most
+interesting, but the time plot (Figure \ref{cap2:fig:t_vs_tau}) shows that the
 numerical integration is working correctly, as the results are consistent with
 eq. \ref{cap1:eq:radial_infall_r_of_tau} and \ref{cap1:eq:radial_infall_r_of_t}
 found analytically in the previous chapter. \\
@@ -216,8 +279,8 @@ Figures \ref{cap2:fig:t_res} and \ref{cap2:fig:tau_res} also show the residuals
 of $\hat t$ and $\hat \tau$ with respect to their analytical predictions.
 For $\hat \tau$ the error is of the order of $10^{-10}$.
 For $\hat t$ the vertical axis is in logarithmic scale to show that the error is
-constant around $10^{-10}$ only to increase when the particle gets closer to the
-\Sh radius.
+constant around $10^{-10}$, only to increase when the particle gets closer to
+the \Sh radius.
 That's to be expected as $t \rightarrow \infty$ when $r \rightarrow r_s$.
 
 \begin{figure}[h]
@@ -225,7 +288,8 @@ That's to be expected as $t \rightarrow \infty$ when $r \rightarrow r_s$.
         \centering
         \includegraphics[width=\textwidth]{Figures/chapter2/t_res.png}
         \caption{Residual plot of $\hat t$ against the analytical prediction
-        found in eq. \ref{cap1:eq:radial_infall_r_of_t}.}
+        found in eq. \ref{cap1:eq:radial_infall_r_of_t}. \\
+        (Data from Figure \ref{cap2:fig:radial_infall})}
         \label{cap2:fig:t_res}
     \end{minipage}
     \hspace{0.015 \textwidth}
@@ -233,7 +297,8 @@ That's to be expected as $t \rightarrow \infty$ when $r \rightarrow r_s$.
         \centering
         \includegraphics[width=\textwidth]{Figures/chapter2/tau_res.png}
         \caption{Residual plot of $\hat \tau$ against the analytical prediction
-        found in eq. \ref{cap1:eq:radial_infall_r_of_tau}.}
+        found in eq. \ref{cap1:eq:radial_infall_r_of_tau}. \\
+        (Data from Figure \ref{cap2:fig:radial_infall})}
         \label{cap2:fig:tau_res}
     \end{minipage}
 \end{figure}
@@ -242,7 +307,7 @@ By integrating numerically with this program, we can visualize some more
 complex infalls that are shown in Figures \ref{cap2:fig:infall1} and
 \ref{cap2:fig:infall2}.
 
-\begin{figure}[h!]
+\begin{figure}[h]
     \begin{minipage}{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Figures/chapter2/infall1.eps}
@@ -265,36 +330,58 @@ complex infalls that are shown in Figures \ref{cap2:fig:infall1} and
     \end{minipage}
 \end{figure}
 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.73 \textwidth]{Figures/chapter2/volevi.eps}
+    \caption{The particle starts at $\hat r_0 = 2$ with $\hat \ell = 1$,
+    $\mathcal E = -0.02367591$ and its radial velocity directed outward.
+    $V_{\rm eff} (\hat r_{\rm max} = 2.13) = -0.02367592$, meaning the particle
+    has just enough energy to surpass the potential barrier.
+    However, the radial velocity will almost go to zero at
+    $\hat r \simeq \hat r_{\rm max}$.
+    This results in the particle almost starting a circular orbit, completing
+    three full revolutions before gradually moving farther from the origin
+    The radial velocity then increases unit
+    $\hat r > \hat r_{\rm min} \simeq 5$, where the potential rises again.
+    The energy is sufficient to reach the turning point at $r_2 \simeq 16.9$,
+    after which the particle falls back toward the origin, performing three more
+    turns around $\hat r \simeq 2.13$.}
+    \label{cap2:fig:volevi}
+\end{figure}
+
 
 \section{Bound Orbits}
 
+To study bound orbits we need to consider particles with $\hat \ell > \sqrt{3}$
+and $V_{\rm min} \leq \mathcal E < \min \{V_{\rm max}, 0\}$.
+
 \subsection{Circular Orbits}
 
-We can also study bound orbits when considering particles with
-$\hat \ell > \sqrt{3}$ and $\mathcal E < \min \{V_{\rm max}, 0\}$.
 As seen in section \ref{cap1:ssec:circular_orbits} in the previous chapter we
-have a circular orbit only if $\mathcal E = V_{\rm eff}({\rm min})$.
-In this case holds the relation (from eq. \ref{cap1:eq:Omega2})
+have a circular orbit only if $\mathcal E = V_{\rm min}$.
+In this case the relation found in eq. \ref{cap1:eq:Omega2} holds:
 
 \begin{equation}
-    \Omega^2 = \frac{1}{2 \hat r^3}
+    \hat \Omega^2 = \frac{1}{2 \hat r^3}
     \quad \quad \quad {\rm where} \quad \quad \quad
-    \Omega := \dv{\phi}{\hat t} \, .
+    \hat \Omega := \dv{\phi}{\hat t} \, .
+    \label{cap2:eq:Omega2}
 \end{equation}
 
 In Figure \ref{cap2:fig:circ_orbit} we can see the orbit of a particle with
-$\hat \ell = 3$ and $\mathcal E = V_{\rm eff}(r_{\rm min}) \simeq
+$\hat \ell = 3$ and $\mathcal E = V_{\rm min} \simeq
 \num{-1.478e-02}$.
 Figure \ref{cap2:fig:circ_orbit_res} shows the normalized residuals of the
-angular velocity $\Omega$ computed from $\phi$ and $\hat t$ obtained during the
-simulation against the expected value.
+angular velocity $\hat \Omega$ computed from $\phi$ and $\hat t$ obtained
+during the simulation against the expected value evaluated from eq.
+\ref{cap2:eq:Omega2} with the initial radius $\hat r_{\rm min}$.
 
 \begin{figure}[h]
     \begin{minipage}{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Figures/chapter2/circ.eps}
-        \caption{The perfectly circular orbit of a particle with $\hat \ell = 3$
-        and $\mathcal E = V_{\rm eff}(r_{\rm min}) \simeq \num{-1.478e-02}$.
+        \caption{The perfectly circular orbit of a particle ($\hat \ell = 3$,
+        $\mathcal E = V_{\rm min} \simeq \num{-1.478e-02}$).
         The particle starts at $\hat r = r_{\rm min} \simeq 16.35$ and the
         radius is left unchanged.}
         \label{cap2:fig:circ_orbit}
@@ -302,10 +389,11 @@ simulation against the expected value.
     \hspace{0.015 \textwidth}
     \begin{minipage}{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{Figures/chapter2/circular_orbit_res.png}
-        \caption{The residual of the calculated angular velocity $\Omega$ from the
-        data of $\phi$ and $\hat t$ and the expected value calculated from the
-        initial radius $\Omega_{\rm analytic} = 1 / (2 \hat r_{\rm min})$.}
+        \includegraphics[width=1.08\textwidth]{Figures/chapter2/circ_res.png}
+        \caption{The residual of the angular velocity $\hat \Omega$ computed
+        from the data of $\phi$ and $\hat t$ with respect to the expected value 
+        $\hat \Omega_{\rm analytic}
+        = 1 / (2 ~ \hat r_{\rm min}) \simeq \num{1.07e-2}$.}
         \label{cap2:fig:circ_orbit_res}
     \end{minipage}
 \end{figure}
@@ -314,13 +402,14 @@ The relative error is of order $10^{-10}$ with a time increment $h = 0.001$, we
 can conclude that the numerical integration is correctly implemented and most
 of the error comes from the finite precision.
 
+Therefore, we can proceed with confidence to study bound orbits of different
+shapes.
+
 
 \subsection{Precession}
 
-Therefore, we can proceed with confidence to study bound orbits of different
-shapes.
 Recall from eq. \ref{cap1:eq:precession} and \ref{cap1:eq:delta_phi} that, for a
-bound orbit where the two turning points are labeled $r_1 < r_2$, the
+bound orbit where the two turning points are, as usual, labeled $r_1 < r_2$, the
 precession is given by
 
 \begin{equation}
@@ -333,14 +422,14 @@ If we make the substitution $r = 1 / u$ and use the definition of $\mathcal E
 = \frac{e^2 - 1}{2}$, we can rewrite the integral as
 
 \begin{equation}
-    \delta \phi = 2 \int_{u_2}^{u_1} \frac{1}{\sqrt{2 \mathcal E + 2Mu - l^2 u^2
+    \delta \phi = 2 \int_{u_2}^{u_3} \frac{1}{\sqrt{2 \mathcal E + 2Mu - l^2 u^2
     + 2Ml^2 u^3}} \, \dd{u}
     \; - 2 \pi \, .
     \label{cap2:eq:delta_phi}
 \end{equation}
 
-The bounds of the integral are $u_2 = 1 / r_2 < u_1 = 1 / r_1$.
-Under the square root we have a cubic equation in $u$ with coefficients
+The bounds of the integral are $u_2 = 1 / r_2 < u_3 = 1 / r_1$.
+Under the square root we have a cubic equation in $u$ with
 
 \begin{align}
     &{\rm coefficients} && a = 2Ml^2, \quad b = -l^2, \quad c = 2M, \quad d = 2 \mathcal E \\
@@ -349,7 +438,7 @@ Under the square root we have a cubic equation in $u$ with coefficients
 \end{align}
 
 Since all the coefficients are real, the roots of the equation must either
-consist of three real roots or one real root and a pair of complex conjugate
+consist of three real numbers or one real root and a pair of complex conjugate
 roots.
 Given that we are considering bound orbits, we know that two real roots must
 exist.
@@ -362,9 +451,10 @@ shows that, knowing the roots in \ref{cap2:eq:cubic_roots}, the integral in
 integral of the first kind $K(m)$
 
 \begin{equation}
-    \delta \phi = 2 \int_{u_2}^{u_1} \frac{1}{\sqrt{(u - u_1)(u - u_2)(u - u_3)}}
+    \delta \phi = 2 \int_{u_2}^{u_3} \frac{1}{\sqrt{(u - u_1)(u - u_2)(u - u_3)}}
     \, \dd{u} \; - 2 \pi
     = \frac{K(m)}{\sqrt{r_s (u_3 - u_1)}} - 2 \pi \, .
+    \label{cap2:eq:delta_phi_elliptic}
 \end{equation}
 
 Where $K$ and $m$ are respectively defined as
@@ -382,23 +472,54 @@ We can now compare the precession of a particle computed from the numerical data
 of the simulation with the expected value calculated from the initial conditions
 with the library for elliptic integrals.
 
-Figure \ref{cap2:fig:prec1} \ref{cap2:fig:prec2}  ref ref
-shows some examples of bound orbits with different values of $\hat \ell$ and
-$\mathcal E$.
+Figure \ref{cap2:fig:prec1} \ref{cap2:fig:prec2} shows two examples of bound
+orbits with different values of $\hat \ell$ and $\mathcal E$, giving rise to
+different precessions.
 
 \begin{figure}[h]
     \begin{minipage}{0.48 \textwidth}
         \centering
         \includegraphics[width=\textwidth]{Figures/chapter2/prec1.eps}
-        \caption{$\hat \ell = 5$ produces a local minimum $V_{\rm eff}
-        (r_{\rm min}) \simeq = -0.0051$, }
+        \caption{$\hat \ell = 5$, $\mathcal E = -0.004$,
+        $\hat r_0 = r_1 \simeq 32.9$, evolved for $\hat \tau = \num{1.2e5}$. \\
+        $\delta \phi_{\rm theory} \simeq 0.0652 \pi$ from eq.
+        \ref{cap2:eq:delta_phi_elliptic}.}
         \label{cap2:fig:prec1}
     \end{minipage}
     \hspace{0.015 \textwidth}
     \begin{minipage}{0.48 \textwidth}
         \centering
         \includegraphics[width=\textwidth]{Figures/chapter2/prec2.eps}
-        \caption{}
+        \caption{$\hat \ell = 3$, $\mathcal E = -0.006$,
+        $\hat r_0 = r_1 \simeq 73.2$, evolved for $\hat \tau = \num{1e4}$. \\
+        $\delta \phi_{\rm theory} \simeq 0.221 \pi$ from eq.
+        \ref{cap2:eq:delta_phi_elliptic}.}
         \label{cap2:fig:prec2}
     \end{minipage}
 \end{figure}
+
+Letting the system evolve for a longer time, we can collect more data points.
+The angle spanned by the particle in the $\phi$ direction can be computed by
+the data of the simulation looking at the angle corresponding to the local
+maxima and minima of the radius.
+Figure \ref{cap2:fig:prec1_res} and \ref{cap2:fig:prec2_res} show the residuals
+of the precession angle computed from the simulation data with respect to the
+expected value calculated from the initial conditions
+(eq. \ref{cap2:eq:delta_phi_elliptic}).
+
+\begin{figure}[h]
+    \begin{minipage}{0.48 \textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/chapter2/prec1_res.eps}
+        \caption{}
+        \label{cap2:fig:prec1_res}
+    \end{minipage}
+    \hspace{0.015 \textwidth}
+    \begin{minipage}{0.48 \textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/chapter2/prec2_res.eps}
+        \caption{}
+        \label{cap2:fig:prec2_res}
+    \end{minipage}
+\end{figure}
+

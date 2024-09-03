@@ -57,7 +57,14 @@ def data_precession(l, E, h):
         delta = 2 * (phi[i] - phi[i-1] - np.pi)
         prec.append(delta)
 
-    return prec_outer, prec_inner, prec
+    if r[0] < r[1]:
+        prec_i2o = prec[::2]
+        prec_o2i = prec[1::2]
+    else:
+        prec_i2o = prec[1::2]
+        prec_o2i = prec[::2]
+
+    return prec_outer, prec_inner, prec_i2o, prec_o2i
 
 
 def analytic_precession(l, E):
@@ -70,9 +77,11 @@ def analytic_precession(l, E):
         exit()
 
     roots = np.sort(roots)
+    print(f'Roots: {roots}')
 
     ## k^2 = (u2 - u1)/(u3 - u1)
     m = (roots[1] - roots[0])/(roots[2] - roots[0])
+    print(f'm = {m:.5f}')
     K = ellipk(m)
     Delta_phi = 4 * K / np.sqrt(roots[2] - roots[0])
     return Delta_phi - 2 * np.pi
@@ -82,17 +91,19 @@ def plot_residuals(l, E, h):
 
     # Get the data
     prec = analytic_precession(l, E)
-    prec_outer, prec_inner, prec_12 = data_precession(l, E, h)
+    prec_outer, prec_inner, prec_i2o, prec_o2i = data_precession(l, E, h)
 
     # Residuals
     error_outer = (prec_outer - prec) / prec
     error_inner = (prec_inner - prec) / prec
-    error_12 = prec_12 - prec
+    error_i2o = (prec_i2o - prec) / prec
+    error_o2i = (prec_o2i - prec) / prec
 
     plt.figure()
-    plt.plot(error_outer, linestyle='', marker='.', label='Outer')
+    plt.plot(error_outer, linestyle='', marker='<', label='Outer')
     plt.plot(error_inner, linestyle='', marker='.', label='Inner')
-    #plt.plot(error_12, label='Inner to outer')
+    plt.plot(error_i2o, linestyle='', marker='.', label='Inner to outer')
+    plt.plot(error_o2i, linestyle='', marker='.', label='Outer to inner')
     plt.axhline(0, color='black', label='Analytical')
     plt.ticklabel_format(axis="y", style="sci", scilimits=(0, 0))
     plt.xlabel('Step')
@@ -103,21 +114,24 @@ def plot_residuals(l, E, h):
 
 
 ## Write bisection to fine tune the energy
-for E in np.arange(-0.001, -0.01, -0.0005):
-    p = analytic_precession(2, E)
-    print(rf'E = {E:.4f}, $p = {p / np.pi:.3f} \pi$')
+#for E in np.arange(-0.001, -0.01, -0.0005):
+#    p = analytic_precession(2, E)
+#    print(rf'E = {E:.4f}, $p = {p / np.pi:.3f} \pi$')
 
 
-#l = 3
-#E = -0.006
-#for h in [1e-1, 1e-2, 1e-3, 1e-4]:
-#    plot_residuals(l, E, h)
-#
-#
-#l = 3
-#E = -0.01
-#for h in [1e-1, 1e-2, 1e-3, 1e-4]:
-#    plot_residuals(l, E, h)
-#
-#plt.show()
+
+l = 3
+E = -0.006
+print(analytic_precession(l, E) / np.pi)
+for h in [1e-3, 1e-4]:
+    plot_residuals(l, E, h)
+
+
+l = 5
+E = -0.004
+print(analytic_precession(l, E) / np.pi)
+for h in [1e-3, 1e-4]:
+    plot_residuals(l, E, h)
+
+plt.show()
 

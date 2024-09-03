@@ -127,6 +127,11 @@ int main(int argc, char *argv[]){
         tau += h;
         kk++;
 
+        if (r < 1){
+            printf("\nMass reached (r < 0.1). Simulation terminated.\n");
+            break;
+        }
+
         if (Nturns_old != Nturns){
             fprintf(f_prec, "%.15e,%.15e\n", r_old, phi_old);
             fflush(f_prec);
@@ -135,10 +140,6 @@ int main(int argc, char *argv[]){
         if (kk % 100 == 0)
             printf("\rtau = %.3e | r = %.3f | Turns = %d", tau, r, Nturns);
 
-        if (r < 0.5){
-            printf("\nMass reached (r < 0.1). Simulation terminated.\n");
-            break;
-        }
         if (r >= r_lim){
             printf("\nEscape reached (r > %.0f). Simulation terminated.\n", r_lim);
             break;

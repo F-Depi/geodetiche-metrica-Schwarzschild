@@ -25,7 +25,8 @@ def fun_V_eff(r, l):
 def plot_scenario0(save=['yes','no']):
 
     filename = '../latex/Figures/chapter2/scenario0.eps'
-    right_lim = 35
+    left_lim = 1
+    right_lim = 300
     bottom_lim = -0.1
     up_lim = 0.015
 
@@ -36,13 +37,13 @@ def plot_scenario0(save=['yes','no']):
 
     # Different values of E
     e1 = 0.005
-    x1_left = 0
+    x1_left = left_lim
     x1_right = right_lim 
     lab_e1 = r'$\mathcal{E}_1 =$'+str(e1)
 
     e2 = -0.07
+    x2_left = left_lim
     x2_right = root_scalar(lambda x: e2 - fun_V_eff(x, l), bracket=[1, right_lim], method='bisect').root
-    x2_left = 0
     lab_e2 = r'$\mathcal{E}_2 =$'+str(e2)
 
     ax = plt.figure(figsize=(10,4))
@@ -53,12 +54,13 @@ def plot_scenario0(save=['yes','no']):
     plt.plot(x2_right, e2, color='green', marker='o')
     plt.text(x2_right - 0.4, e2 + 5e-3, r'$\hat r_2  $', fontsize=15)
 
-    tiks = [0,10,20,30,40,50,60,70]
-    lab_tiks = ['0','10','20','30','40','50','60','70']
+    plt.xscale('log')
+    tiks = [1,10,30,100,300]
+    lab_tiks = ['1','10','30','100','300']
     plt.xticks(tiks, lab_tiks)
 
     plt.ylim([bottom_lim, up_lim])
-    plt.xlim([0, right_lim])
+    plt.xlim([left_lim, right_lim])
     plt.title(rf'Different orbit for $\hat \ell = {l:.1f}$')
     plt.xlabel(r'$\hat r$')
     plt.ylabel(r'$V$')
@@ -71,7 +73,8 @@ def plot_scenario0(save=['yes','no']):
 def plot_scenario1(save=['yes','no']):
 
     filename = '../latex/Figures/chapter2/scenario1.eps'
-    right_lim = 35
+    left_lim = 1
+    right_lim = 300
     bottom_lim = -0.06
     up_lim = 0.015
 
@@ -90,13 +93,13 @@ def plot_scenario1(save=['yes','no']):
     lab_e4 = r'$\mathcal{E}_4 = V_{\rm eff} \, (\hat r_{\rm min})$'
 
     e1 = 0.005
-    x1_left = 0
+    x1_left = left_lim
     x1_right = right_lim 
     lab_e1 = r'$\mathcal{E}_1 =$'+str(e1)
 
     e2 = -0.015
+    x2_left = left_lim
     x2_right = root_scalar(lambda x: e2 - fun_V_eff(x, l), bracket=[r_min, right_lim], method='bisect').root
-    x2_left = 0
     lab_e2 = r'$\mathcal{E}_2 =$'+str(e2)
 
     e3 = -0.030
@@ -105,7 +108,7 @@ def plot_scenario1(save=['yes','no']):
     lab_e3 = r'$\mathcal{E}_3 =$'+str(e3)
 
     e4 = -0.04
-    x4_left = 0
+    x4_left = left_lim
     x4_right = root_scalar(lambda x: e4 - fun_V_eff(x, l), bracket=[1, r_max], method='bisect').root
     lab_e4 = r'$\mathcal{E}_4 =$'+str(e4)
 
@@ -119,23 +122,24 @@ def plot_scenario1(save=['yes','no']):
     plt.hlines(e4, x4_left, x4_right, linestyle='--', color='purple', label=lab_e4)
 
     plt.plot(x2_right, e2, color='green', marker='o')
-    plt.text(x2_right - 0.1, e2 + 2e-3, r'$\hat r_2  $', fontsize=15)
+    plt.text(x2_right, e2 + 2e-3, r'$\hat r_2  $', fontsize=15)
 
     plt.plot(x3_left, e3, color='orange', marker='o')
-    plt.text(x3_left - 0.1, e3 + 2e-3, r'$\hat r_1$', fontsize=15)
+    plt.text(x3_left, e3 + 2e-3, r'$\hat r_1$', fontsize=15)
 
     plt.plot(x3_right, e3, color='orange', marker='o')
-    plt.text(x3_right - 0.1, e3 + 2e-3, r'$\hat r_2$', fontsize=15)
+    plt.text(x3_right - 0.6, e3 + 2e-3, r'$\hat r_2$', fontsize=15)
 
     plt.plot(x4_right, e4, color='purple', marker='o')
-    plt.text(x4_right - 0.8, e4 + 2e-3, r'$\hat r_2  $', fontsize=15)
+    plt.text(x4_right - 0.2, e4 + 2e-3, r'$\hat r_2  $', fontsize=15)
 
-    tiks = [0,10,20,30,40,50,60,70] + [r_max, r_min]
-    lab_tiks = ['0','10','20','30','40','50','60','70'] + [r'$\hat r_{\rm max}$', r'$\hat r_{\rm min}$']
+    plt.xscale('log')
+    tiks = [1,10,30,100,300] + [r_max, r_min]
+    lab_tiks = ['1','10','30','100','300'] + [r'$\hat r_{\rm max}$', r'$\hat r_{\rm min}$']
     plt.xticks(tiks, lab_tiks)
 
     plt.ylim([bottom_lim, up_lim])
-    plt.xlim([0, right_lim])
+    plt.xlim([left_lim, right_lim])
     plt.title(rf'Different orbit for $\hat \ell = {l:.1f}$')
     plt.xlabel(r'$\hat r$')
     plt.ylabel(r'$V$')
@@ -148,12 +152,13 @@ def plot_scenario1(save=['yes','no']):
 def plot_scenario2(save=['yes','no']):
 
     filename = '../latex/Figures/chapter2/scenario2.eps'
-    right_lim = 35
+    left_lim = 1
+    right_lim = 300
     bottom_lim = -0.06
     up_lim = 0.08
 
     r = np.arange(1,right_lim,0.01)
-    l = 2.2
+    l = 2.15
     Veff = fun_V_eff(r, l)
     label_eff = r'$V_{\rm eff} \, (r)$'
 
@@ -167,7 +172,7 @@ def plot_scenario2(save=['yes','no']):
     lab_e4 = r'$\mathcal{E}_4 = V_{\rm eff} \, (\hat r_{\rm min})$'
 
     e1 = 0.065
-    x1_left = 0
+    x1_left = left_lim
     x1_right =right_lim 
     lab_e1 = r'$\mathcal{E}_1 =$'+str(e1)
 
@@ -182,12 +187,12 @@ def plot_scenario2(save=['yes','no']):
     lab_e3 = r'$\mathcal{E}_3 =$'+str(e3)
 
     e4 = -0.04
-    x4_left = 0
+    x4_left = left_lim
     x4_right = root_scalar(lambda x: e4 - fun_V_eff(x, l), bracket=[1, r_max], method='bisect').root
     lab_e4 = r'$\mathcal{E}_4 =$'+str(e4)
 
     e5 = +0.01
-    x5_left = 0
+    x5_left = left_lim
     x5_right = root_scalar(lambda x: e5 - fun_V_eff(x, l), bracket=[1, r_max], method='bisect').root
     lab_e5 = r'$\mathcal{E}_4 =$'+str(e5)
 
@@ -202,26 +207,27 @@ def plot_scenario2(save=['yes','no']):
     plt.hlines(e5, x5_left, x5_right, linestyle='--', color='purple')
 
     plt.plot(x2_left, e2, color='green', marker='o')
-    plt.text(x2_left + 0.1, e2 + 2e-3, r'$\hat r_1  $', fontsize=15)
+    plt.text(x2_left, e2 + 3e-3, r'$\hat r_1  $', fontsize=15)
 
     plt.plot(x3_left, e3, color='orange', marker='o')
-    plt.text(x3_left - 0.1, e3 + 2e-3, r'$\hat r_1$', fontsize=15)
+    plt.text(x3_left , e3 + 3e-3, r'$\hat r_1$', fontsize=15)
 
     plt.plot(x3_right, e3, color='orange', marker='o')
-    plt.text(x3_right - 0.1, e3 + 2e-3, r'$\hat r_2$', fontsize=15)
+    plt.text(x3_right, e3 + 3e-3, r'$\hat r_2$', fontsize=15)
 
     plt.plot(x4_right, e4, color='purple', marker='o')
-    plt.text(x4_right - 0.9, e4 + 2e-3, r'$\hat r_2  $', fontsize=15)
+    plt.text(x4_right + 0.05, e4 + 3e-3, r'$\hat r_2  $', fontsize=15)
 
     plt.plot(x5_right, e5, color='purple', marker='o')
-    plt.text(x5_right - 0.9, e5 + 2e-3, r'$\hat r_2  $', fontsize=15)
+    plt.text(x5_right + 0.05, e5 + 3e-3, r'$\hat r_2  $', fontsize=15)
 
-    tiks = [0,10,20,30,40,50,60,70] + [r_max, r_min]
-    lab_tiks = ['0','10','20','30','40','50','60','70'] + [r'$\hat r_{\rm max}$', r'$\hat r_{\rm min}$']
+    plt.xscale('log')
+    tiks = [1,10,30,100,300] + [r_max, r_min]
+    lab_tiks = ['1','10','30','100','300'] + [r'$\hat r_{\rm max}$', r'$\hat r_{\rm min}$']
     plt.xticks(tiks, lab_tiks)
 
     plt.ylim([bottom_lim, up_lim])
-    plt.xlim([0, right_lim])
+    plt.xlim([left_lim, right_lim])
     plt.title(rf'Different orbits for $\hat \ell = {l:.1f}$')
     plt.xlabel(r'$\hat r$')
     plt.ylabel(r'$V$')
@@ -254,7 +260,7 @@ def plot_orbit(foldername, title, loc, figname):
 
     ## Make the title
     if title == '':
-        l = filename[1:2]
+        l = filename[1:4]
         E = filename[8:15]
         title = rf'Massive Particle with $\hat \ell = {l}$, $\mathcal{{E}} = {E}$'
 
@@ -266,6 +272,10 @@ def plot_orbit(foldername, title, loc, figname):
     r = data[:, 1]
     phi = data[:, 2]
     t = data[:, 3]
+    tau = tau[r > 1]
+    phi = phi[r > 1]
+    t = t[r > 1]
+    r = r[r > 1]
 
     r_s = np.linspace(0, 2 * np.pi, 100)
 
@@ -273,7 +283,7 @@ def plot_orbit(foldername, title, loc, figname):
     plt.plot(r * np.cos(phi), r * np.sin(phi),
              linestyle='-', marker='', markersize=1, label='orbit')
     plt.plot(r[0] * np.cos(phi[0]), r[0] * np.sin(phi[0]), 'ro', label='start')
-    #plt.plot(r[-1] * np.cos(phi[-1]), r[-1] * np.sin(phi[-1]), 'go', label='end')
+    plt.plot(r[-1] * np.cos(phi[-1]), r[-1] * np.sin(phi[-1]), 'go', label='end')
     plt.plot(np.cos(r_s), np.sin(r_s), 'k-', label=r'$r = r_s$')
     plt.axis('equal')
     plt.title(title)
@@ -432,7 +442,7 @@ def plt_tvstau(foldername):
     plt.show()
 
 
-def check_circular(foldername, h):
+def check_circular(foldername, h, figname):
     filename = None
     for file in os.listdir(f'data/keep/{foldername}'):
         if file.endswith(".csv"):
@@ -454,51 +464,48 @@ def check_circular(foldername, h):
 
     ## Omega - Omega_analytic / Omega_analytic = sqrt(2 r^3) Omega - 1
     omega_analytic = (1 / 2 / r[0]**3)**(1/2)
+    print(omega_analytic)
     const = np.sqrt(2 * r[0]) * r[0] 
     err = const * omega - 1
 
-    lab = r'$\frac{\Omega - \Omega_{\rm analytic}}{\Omega_{\rm analytic}}$, ' + rf'$\Omega_{{\rm analytic}} \simeq {omega_analytic:.3e}$'
-
+    lab = r'$\frac{\Omega - \Omega_{\rm analytic}}{\Omega_{\rm analytic}}$'
     plt.figure()
     plt.plot(t[N:], err, 'b ', marker='.', label=lab)
-    plt.title(rf'Normalized residual for $\Omega$, $\hat \ell = 5$, $h = {h:.0e}$')
+    plt.title(rf'Normalized residual for $\Omega$, $\hat \ell = 5$')
     plt.xlabel(r'$\hat t$')
     plt.tight_layout()
-    plt.legend()
+    if figname != '': plt.savefig(figname, dpi=200)
+    plt.legend(fontsize=18, loc='lower left')
 
 
 
+''' Potential check '''
 #plot_potential()
 
 
-#foldername = sys.argv[1]
-#plot_orbit(foldername)
-#precession(foldername)
-#animate_orbit(foldername)
-
 ''' Different orbits '''
-plot_scenario0('yes')
+#plot_scenario0('yes')
 #plot_scenario1('yes')
 #plot_scenario2('yes')
 
 
+fold = '../latex/Figures/chapter2/'
+
 ''' radial infall '''
 #plt_tvstau('radial_infall4')
-#plot_orbit('radial_infall6','Radial Infall', 'upper right','')
+#plot_orbit('radial_infall4','Radial Infall', 'upper right', fold + 'radial_infall.eps')
 
-fold = '../latex/Figures/chapter2/'
 
 ''' Crazy infalls '''
 #plot_orbit('infall','', 'upper right', fold + 'infall1.eps')
 #plot_orbit('infall2','', 'upper right', fold + 'infall2.eps')
+#plot_orbit('volevi', '', 'upper right', fold + 'volevi.eps')
 
 
 ''' Circular Orbits '''
-#plot_orbit('circular_orbit3', '', 'upper left', '../latex/Figures/chapter2/circ.eps')
-#check_circular('circular_orbit3', 1e-3)
+#plot_orbit('circular_orbit3', '', 'upper left', '')
+check_circular('circular_orbit3', 1e-3, fold + 'circ_res.png')
 #check_circular('circular_orbit4', 1e-4)
-#check_circular('circular_orbit5', 1e-5)
-#check_circular('test3_all', 1e-3)
 
 
 ''' Precession '''

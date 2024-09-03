@@ -168,19 +168,20 @@ int main(int argc, char *argv[]){
         tau += h;
         kk++;
 
-        if (kk % time2print == 0){
-            fprintf(f, "%.15e,%.10e,%.10e,%.15e\n", tau, r, phi, t);
-            printf("\rtau = %.3e | r = %.3f | Turns = %d", tau, r, Nturns);
-            fflush(f);
-        }
-
-        if (r < 0.5){
+        if (r < 1){
             printf("\nMass reached (r < 0.1). Simulation terminated.\n");
             break;
         }
+
         if (r > 1.1 * r_lim){
             printf("\nEscape reached (r > %.0f). Simulation terminated.\n", r_lim);
             break;
+        }
+
+        if (kk % time2print == 0){
+            fprintf(f, "%.15e,%.15e,%.15e,%.15e\n", tau, r, phi, t);
+            printf("\rtau = %.3e | r = %.3f | Turns = %d", tau, r, Nturns);
+            fflush(f);
         }
     }
 
