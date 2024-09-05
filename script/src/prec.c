@@ -119,7 +119,7 @@ int main(int argc, char *argv[]){
     int kk = 0;
 
     double v = TESI_fun_r(r, E, l, &sign, &Nturns);
-    printf("v = %.7e\n", v);
+    double E0 = v*v/2. + TESI_Veff(r, l);
 
     while (tau < tau_max){
 
@@ -128,8 +128,9 @@ int main(int argc, char *argv[]){
         r_old = r;
         phi_old = phi;
 
-        // TESI_RKN4(h, tau, &v, &r, &phi, &t, E, l, &sign, &Nturns);
+        // TESI_RK4(h, tau, &r, &phi, &t, E, l, &sign, &Nturns);
         TESI_RK4_corrected(h, tau, &v, &r, &phi, &t, E, l, &sign, &Nturns);
+        // TESI_RKN4(h, tau, &v, &r, &phi, &t, E, l, &sign, &Nturns);
         tau += h;
         kk++;
 
@@ -160,7 +161,9 @@ int main(int argc, char *argv[]){
     if (tau >= tau_max)
         printf("\nMaximum proper time reached\n");
 
-    printf("v = %.7e\n", v);
+    double E_fin = v*v/2. + TESI_Veff(r, l);
+    printf("E = %.7e\n", E_fin);
+    printf("E - E0 = %.7e\n", (E_fin - E0) / E0);
     fclose(f_prec);
 
     return 0;

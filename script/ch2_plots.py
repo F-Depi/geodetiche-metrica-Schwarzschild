@@ -421,7 +421,7 @@ def plt_tvstau(foldername, save=['yes','no']):
     plt.figure(figsize=(7,5))
     plt.plot(r[:-4], t[:-4] - analytic_t[:-4], linestyle='', marker='.',
              label=r'$\hat t - \hat t_{\rm analytic}$')
-    #plt.yscale('log')
+    plt.yscale('log')
     plt.xlabel(r'$\hat t$')
     plt.ylabel('Residuals')
     plt.title(r'Residual graph of $\hat t$, simulated with $h = 10^{-4}$')
@@ -494,7 +494,7 @@ fold = '../latex/Figures/chapter2/'
 ''' radial infall '''
 #plt_tvstau('radial_infall4', 'no')
 #plt_tvstau('radial_infall4_RKN4', 'no')
-#plt_tvstau('radial_infall4_RK4_corrected', 'no')
+plt_tvstau('radial_infall4_RK4_corr', 'no')
 #plot_orbit('radial_infall4','Radial Infall', 'upper right', fold + 'radial_infall.eps')
 
 

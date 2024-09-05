@@ -500,7 +500,7 @@ different precessions.
 
 Letting the system evolve for a longer time, we can collect more data points.
 The angle spanned by the particle in the $\phi$ direction can be computed from
-the data of the simulation looking at the angle corresponding to the local
+the data of the simulation by looking at the angle corresponding to the local
 maxima and minima of the radius.
 Figure \ref{cap2:fig:prec1_res} and \ref{cap2:fig:prec2_res} show the residuals
 of the precession angle computed from the simulation data with respect to the
@@ -511,15 +511,130 @@ expected value calculated from the initial conditions
     \begin{minipage}{0.48 \textwidth}
         \centering
         \includegraphics[width=\textwidth]{Figures/chapter2/prec1_res.eps}
-        \caption{}
+        \caption{The simulation was run for $\hat \tau = \num{2e5}$.
+        The expected precession angle is $\delta \phi_{\rm theory} \simeq 0.0652
+        \pi$.
+        The relative error is quite small, in the order of $10^{-5}$, but we are
+        systematically underestimating the precession.
+        Averaging the $\delta \phi$ values obtained from $\hat r_2$ we get: \\
+        $\delta \phi_{\rm avg} = \delta \phi_{\rm theory} - \num{7e-6} \pm \num{2e-8}$.}
         \label{cap2:fig:prec1_res}
     \end{minipage}
     \hspace{0.015 \textwidth}
     \begin{minipage}{0.48 \textwidth}
         \centering
         \includegraphics[width=\textwidth]{Figures/chapter2/prec2_res.eps}
-        \caption{}
+        \caption{The simulation was run for $\hat \tau = \num{1e5}$.
+        The expected precession angle is $\delta \phi_{\rm theory} \simeq 0.221
+        \pi$.
+        The relative error is quite small, in the order of $10^{-5}$, but we are
+        systematically underestimating the precession.
+        Averaging the $\delta \phi$ values obtained from $\hat r_2$ we get: \\
+        $\delta \phi_{\rm avg} = \delta \phi_{\rm theory} - \num{3e-5} \pm \num{2e-8}$.}
         \label{cap2:fig:prec2_res}
     \end{minipage}
 \end{figure}
+
+With a time increment $h = 0.001$ the relative error is of order $10^{-5}$.
+The error is not as small as in the previous cases, but the most concerning
+aspect is that we are systematically underestimating the precession.
+As mentioned when presenting the code snippet \ref{cap2:lst:sign_change} used to
+evaluate the radial derivative, the particle is allowed to overshoot the turning
+point.
+In particular when the argument of the square root ($2 \mathcal E
+- 2 V_{\rm eff}$) is negative we just take the absolute value, change the sign
+outside the square root and use that to compute the radial derivative.
+In reality, the particle should get close to the turning point, its radial
+velocity should slowly approach zero and then start increasing again, but with
+an opposite sign.
+
+It's important to note that the error is not given by the overshoot in itself,
+but by the fact that the particle velocity never goes to zero, or at least
+doesn't get close enough to it.
+In fact, even if we used an adaptive step size method, that allows to take the
+particle exactly to the turning point, we would still be overestimating the
+modulus of the particle radial velocity (and therefore underestimating the
+precession) as the acceleration is not negligible when the radial velocity is
+very small.
+Moreover, reducing the systematic error by reducing the step size brings a lot
+of risks of numerical instability because of the singularity at the turning
+point: the moment that the radius is really closer to a turning point the radial
+derivative goes to zero and radius will not change anymore.
+An alternative method to avoid this problem is presented in the next section.
+
+
+\section{Alternative Integration Method}
+
+To avoid the singularity of the radial derivative at the turning points, we can
+use the second derivative instead.
+Using the acceleration is in fact safer as it never goes to zero and does not
+have sign changes to worry about.
+We can therefore rewrite the system of equations \ref{cap2:eq:eq_of_motion_ad}
+as
+
+\begin{subequations}
+    \begin{align}[left = {\empheqlbrace}]
+        &\dv{\hat v}{\hat \tau} = - \dv{V_{\rm eff}}{\hat r} 
+        = \frac{\hat \ell^2}{\hat r^3} - \frac{1}{2 r^2}
+        - \frac{3 \hat \ell^2}{2 \hat r^4} \label{cap2:eq:acc_eq_ad} \\
+        &\dv{\hat r}{\hat \tau} = \hat v \\
+        &\dv{\phi}{\hat \tau} = \frac{\hat \ell}{\hat r^2} \\
+        &\dv{t}{\hat \tau} = \sqrt{2 \mathcal E + 1}
+        \left(\frac{\hat r}{\hat r - 1}\right)
+        \label{cap2:eq:t_ad_v2}
+    \end{align}
+    \label{cap2:eq:eq_of_motion_v2}
+\end{subequations}
+
+where we defined $\hat v = \dv{\hat r}{\hat \tau}$ as the radial velocity of the
+particle and derived eq. \ref{cap2:eq:radial_eq_ad} that in this case is
+equivalent to deriving the effective potential with respect to $\hat r$.
+
+This solution allows for a more precise computation of the precession angle.
+We infact repeated the simulations represented in Figures 
+\ref{cap2:fig:prec1} and \ref{cap2:fig:prec2} integrating the system in 
+\ref{cap2:eq:eq_of_motion_v2} and the results are shown in Figures
+\ref{cap2:fig:prec1_res_corr} and \ref{cap2:fig:prec2_res_corr}, and eliminate
+any additional sign changes or risks of the particle getting stuck at the
+turning point.
+
+\begin{figure}[h]
+    \begin{minipage}{0.48 \textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/chapter2/prec1_res_corr.eps}
+        \caption{The simulation was run for $\hat \tau = \num{2e5}$.
+        The expected precession angle is $\delta \phi_{\rm theory} \simeq 0.0652
+        \pi$.
+        Averaging the $\delta \phi$ values obtained from $\hat r_2$ we get: \\
+        $\delta \phi_{\rm avg} = \delta \phi_{\rm theory} + (8 \pm 40) \times \num{e-9}$.}
+        \label{cap2:fig:prec1_res_corr}
+    \end{minipage}
+    \hspace{0.015 \textwidth}
+    \begin{minipage}{0.48 \textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/chapter2/prec2_res_corr.eps}
+        \caption{The simulation was run for $\hat \tau = \num{1e5}$.
+        The expected precession angle is $\delta \phi_{\rm theory} \simeq 0.221
+        \pi$.
+        Averaging the $\delta \phi$ values obtained from $\hat r_2$ we get: \\
+        $\delta \phi_{\rm avg} = \delta \phi_{\rm theory} - (9 \pm 40) \times \num{e-9}$.}
+        \label{cap2:fig:prec2_res_corr}
+    \end{minipage}
+\end{figure}
+
+There are some drawbacks to this method, however.
+The first one being the obvious increase in computational time, as we need
+to simultaneously solve 4 differential equations with the \texttt{RK4} method
+instead of 3.
+The second one is that the energy of the particle $\mathcal E$ is not conserved
+anymore: we in fact compute the velocity numerically, using the acceleration
+in eq. \ref{cap2:eq:acc_eq_ad}, and not analytically from the $V_{\rm eff}$ and
+$\mathcal E$ as in eq. \ref{cap2:eq:radial_eq_ad}.
+This also makes it necessary to compute the energy ($\mathcal E = \hat v^2 / 2 +
+V_{\rm eff}$) at each step of the simulation, before updating the \Sh time $t$ with eq. \ref{cap2:eq:t_ad_v2}. \\
+For both the simulations run to compute the precession in Figure
+\ref{cap2:fig:prec1_res_corr} and \ref{cap2:fig:prec2_res_corr} the energy 
+relative error at the end is of order $10^{-13}$ (an energy loss to be precise),
+negligible in this context, but it could be a problem for longer
+simulations.
 

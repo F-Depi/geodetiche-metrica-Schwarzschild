@@ -5,6 +5,18 @@ import os
 from scipy.special import ellipk
 
 
+SMALL_SIZE = 14
+MEDIUM_SIZE = 15
+BIGGER_SIZE = 18
+
+plt.rc('font', size=SMALL_SIZE)          # controls default text sizes
+plt.rc('axes', titlesize=BIGGER_SIZE)     # fontsize of the axes title
+plt.rc('axes', labelsize=MEDIUM_SIZE)    # fontsize of the x and y labels
+plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+plt.rc('legend', fontsize=MEDIUM_SIZE)    # legend fontsize
+
+
 def plot_data_precession(foldername):
 
     filename = None
@@ -29,9 +41,9 @@ def plot_data_precession(foldername):
     plt.show()
 
 
-def data_precession(l, E, h):
+def data_precession(l, E, h, other):
 
-    filename = f'data/precession/l{l:.3f}_E{E:.5f}_h{h:.0e}.csv'
+    filename = f'data/precession/l{l:.3f}_E{E:.5f}_h{h:.0e}{other}.csv'
     data = np.loadtxt(filename, delimiter=',', skiprows=1)
     r = data[:, 0]
     phi = data[:, 1]
@@ -95,40 +107,50 @@ def analytic_precession(l, E):
         exit()
 
     roots = np.sort(roots)
-    print(f'Roots: {roots}')
 
     ## k^2 = (u2 - u1)/(u3 - u1)
     m = (roots[1] - roots[0])/(roots[2] - roots[0])
-    print(f'm = {m:.5f}')
     K = ellipk(m)
     Delta_phi = 4 * K / np.sqrt(roots[2] - roots[0])
     return Delta_phi - 2 * np.pi
 
 
-def plot_residuals(l, E, h):
+def plot_residuals(l, E, h, lloc=None, other=None, figname=None):
 
     # Get the data
     prec = analytic_precession(l, E)
-    prec_outer, prec_inner, prec_i2o, prec_o2i = data_precession(l, E, h)
+    prec_outer, prec_inner, prec_i2o, prec_o2i = data_precession(l, E, h, other)
 
     # Residuals
-    error_outer = (prec_outer - prec) / prec
-    error_inner = (prec_inner - prec) / prec
-    error_i2o = (prec_i2o - prec) / prec
-    error_o2i = (prec_o2i - prec) / prec
+    error_outer = prec_outer - prec 
+    error_inner = prec_inner - prec 
+    error_i2o = prec_i2o - prec
+    error_o2i = prec_o2i - prec
+    print(f'Error outer: {np.mean(error_outer):.3e} +/- {np.std(error_outer) / np.sqrt(len(error_outer)):.3e}')
+    print(f'Error inner: {np.mean(error_inner):.3e} +/- {np.std(error_inner) / np.sqrt(len(error_inner)):.3e}')
+
+    ## Normalize the residuals
+    error_outer /= prec
+    error_inner /= prec
+    error_i2o /= prec
+    error_o2i /= prec
 
     plt.figure()
-    plt.plot(error_outer, linestyle='', marker='<', label='Outer')
-    plt.plot(error_inner, linestyle='', marker='.', label='Inner')
-    #plt.plot(error_i2o, linestyle='', marker='.', label='Inner to outer')
-    #plt.plot(error_o2i, linestyle='', marker='.', label='Outer to inner')
-    plt.axhline(0, color='black', label='Analytical')
+    plt.plot(error_outer, linestyle='', marker='<', label=r'between $r_2$')
+    plt.plot(error_inner, linestyle='', marker='.', label=r'between $r_1$')
+    #plt.plot(error_i2o, linestyle='', marker='.', label=r'$r_1$ to $r_2$')
+    #plt.plot(error_o2i, linestyle='', marker='.', label=r'$r_2$ to $r_1$')
+    plt.axhline(0, color='black')
     plt.ticklabel_format(axis="y", style="sci", scilimits=(0, 0))
     plt.xlabel('Revolutions')
-    plt.ylabel('Precession')
-    plt.legend()
-    plt.title('Normalized precession residuals\n'rf'($\hat \ell = {l:.3f}$, $\mathcal{{E}} = {E:.5f}$, $h = {h:.0e}$)')
+    plt.ylabel('Relative error')
+    plt.legend(loc=lloc)
+    plt.title('Normalized precession residuals\n'rf'($\hat \ell = {l:.0f}$, $\mathcal{{E}} = {E:.3f}$, $h = {h:.0e}$)')
     plt.tight_layout()
+    if figname is not None:
+        plt.savefig(f'../latex/Figures/chapter2/{figname}')
+
+
 
 
 ## Write bisection to fine tune the energy
@@ -138,18 +160,18 @@ def plot_residuals(l, E, h):
 
 
 
-l = 3
-E = -0.006
-print(analytic_precession(l, E) / np.pi)
-for h in [1e-3, 1e-4]:
-    plot_residuals(l, E, h)
-
-
 l = 5
 E = -0.004
-print(analytic_precession(l, E) / np.pi)
-for h in [1e-3, 1e-4, 1e-5]:
-    plot_residuals(l, E, h)
+print(f'prec = {analytic_precession(l, E) / np.pi} pi')
+plot_residuals(l, E, 1e-3, 'center right', other='_RK4')#, figname='prec1_res.eps')
+plot_residuals(l, E, 1e-3, 'lower right', other='_RK4_corr')#, figname='prec1_res_corr.eps')
 
-plt.show()
 
+l = 3
+E = -0.006
+print(f'prec = {analytic_precession(l, E) / np.pi} pi')
+plot_residuals(l, E, 1e-3,'center right', other='_RK4')#, figname='prec2_res.eps')
+plot_residuals(l, E, 1e-3,'lower right', other='_RK4_corr')#, figname='prec2_res_corr.eps')
+
+
+#plt.show()
