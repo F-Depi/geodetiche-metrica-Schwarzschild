@@ -155,6 +155,7 @@ int main(int argc, char *argv[]){
     double r = r0;                  // Radius
     double phi = 0.;                // Azimuthal angle
     double t = 0.;                  // Schwarzschild time
+    double v = TESI_fun_r(r, E, l, &sign, &Nturns);
 
     
     FILE *f = fopen(filename, "w");
@@ -164,7 +165,8 @@ int main(int argc, char *argv[]){
     int kk = 0;
     while (tau < tau_max){
 
-        TESI_RK4(h, tau, &r, &phi, &t, E, l, &sign, &Nturns);
+        // TESI_RK4(h, tau, &r, &phi, &t, E, l, &sign, &Nturns);
+        TESI_RK4_corrected(h, tau, &v, &r, &phi, &t, E, l, &sign, &Nturns);
         tau += h;
         kk++;
 

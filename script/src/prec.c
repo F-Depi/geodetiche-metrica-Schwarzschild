@@ -113,17 +113,23 @@ int main(int argc, char *argv[]){
     FILE *f_prec = fopen(filename_prec, "w");
     fprintf(f_prec, "r,phi\n");
     int Nturns_old;
-    double r_old;
+    double r_old, r_old_old;
     double phi_old;
 
     int kk = 0;
+
+    double v = TESI_fun_r(r, E, l, &sign, &Nturns);
+    printf("v = %.7e\n", v);
+
     while (tau < tau_max){
 
         Nturns_old = Nturns;
+        r_old_old = r_old;
         r_old = r;
         phi_old = phi;
 
-        TESI_RK4(h, tau, &r, &phi, &t, E, l, &sign, &Nturns);
+        // TESI_RKN4(h, tau, &v, &r, &phi, &t, E, l, &sign, &Nturns);
+        TESI_RK4_corrected(h, tau, &v, &r, &phi, &t, E, l, &sign, &Nturns);
         tau += h;
         kk++;
 
@@ -132,15 +138,20 @@ int main(int argc, char *argv[]){
             break;
         }
 
-        if (Nturns_old != Nturns){
+        if (r_old_old <= r_old && r_old >= r){
+            printf("\nOuter turning point at r = %.3f\n", r_old);
             fprintf(f_prec, "%.15e,%.15e\n", r_old, phi_old);
-            fflush(f_prec);
+        }
+
+        if (r_old_old >= r_old && r_old <= r){
+            printf("\nInner turning point at r = %.3f\n", r_old);
+            fprintf(f_prec, "%.15e,%.15e\n", r_old, phi_old);
         }
 
         if (kk % 100 == 0)
             printf("\rtau = %.3e | r = %.3f | Turns = %d", tau, r, Nturns);
 
-        if (r >= r_lim){
+        if (r > 1.1*r_lim){
             printf("\nEscape reached (r > %.0f). Simulation terminated.\n", r_lim);
             break;
         }
@@ -149,6 +160,7 @@ int main(int argc, char *argv[]){
     if (tau >= tau_max)
         printf("\nMaximum proper time reached\n");
 
+    printf("v = %.7e\n", v);
     fclose(f_prec);
 
     return 0;

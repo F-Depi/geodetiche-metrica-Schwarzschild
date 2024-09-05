@@ -11,6 +11,7 @@
 double TESI_fun_r(double r, double E, double l, int *sign, int *Nturns) {
     double foo = 2 * (E - TESI_Veff(r, l));
     if (foo < 0) {
+        printf(" Negative argument in sqrt\n");
         *sign *= -1;
         *Nturns += 1;
     }
@@ -33,6 +34,13 @@ double TESI_Veff(double r, double l) {
     double foo = 1. / r;
     return ((l * l * foo * foo) * (1. - foo) - foo) / 2.;
     // return (l * l * (r - 1.) - r * r) / (2 * r * r * r);
+}
+
+
+// Derivative of Veff(r) with respect to r, d^2 r / d tau^2 = Feff(r)
+double TESI_Feff(double r, double l){
+    double foo = 1. / r;
+    return foo * foo * (l * l * foo * (1. - 3. * foo / 2.) - 1. / 2.);
 }
 /******************************************************************************/
 
@@ -70,6 +78,85 @@ int TESI_RK4(double h, double tau, double *r, double *phi, double *t, double E,
     *r += (k_1 + 2 * k_2 + 2 * k_3 + k_4) / 6.;
     *phi += (l_1 + 2 * l_2 + 2 * l_3 + l_4) / 6.;
     *t += (g_1 + 2 * g_2 + 2 * g_3 + g_4) / 6.;
+
+    return 0;
+}
+
+
+// we rewrite the system of ODEs in the form
+// dv/d(tau) = Feff(r)
+// dr/d(tau) = v
+// d(phi)/d(tau) = l / r^2
+// dt/d(tau) = sqrt(2E + 1) * r / (r - 1)
+int TESI_RK4_corrected(double h, double tau, double *v_meh, double *r, double *phi, double *t, double E,
+        double l, int *sign, int *Nturns) {
+
+    // Having a formula for the velocity, we don't need to pass it as an
+    // argument.
+
+    // v = TESI_fun_r(*r, E, l, sign, Nturns);
+    double v = *v_meh;
+
+    double a_1 = h * TESI_Feff   (*r, l);
+    double k_1 = h * v;
+    double l_1 = h * TESI_fun_phi(*r, l);
+    double g_1 = h * TESI_fun_t  (*r, E);
+
+    double a_2 = h * TESI_Feff(*r + k_1 / 2, l);
+    double k_2 = h * (v + a_1 / 2);
+    double l_2 = h * TESI_fun_phi(*r + k_1 / 2, l);
+    double g_2 = h * TESI_fun_t(*r + k_1 / 2, E);
+
+    double a_3 = h * TESI_Feff(*r + k_2 / 2, l);
+    double k_3 = h * (v + a_2 / 2);
+    double l_3 = h * TESI_fun_phi(*r + k_2 / 2, l);
+    double g_3 = h * TESI_fun_t(*r + k_2 / 2, E);
+
+    double a_4 = h * TESI_Feff(*r + k_3, l);
+    double k_4 = h * (v + a_3);
+    double l_4 = h * TESI_fun_phi(*r + k_3, l);
+    double g_4 = h * TESI_fun_t(*r + k_3, E);
+
+    *v_meh += (a_1 + 2 * a_2 + 2 * a_3 + a_4) / 6.;
+    *r += (k_1 + 2 * k_2 + 2 * k_3 + k_4) / 6.;
+    *phi += (l_1 + 2 * l_2 + 2 * l_3 + l_4) / 6.;
+    *t += (g_1 + 2 * g_2 + 2 * g_3 + g_4) / 6.;
+
+    //if ((k_1 + 2 * k_2 + 2 * k_3 + k_4) / 6. < 0) {
+    //    printf(" Negative argument in sqrt\n");
+    //    *sign *= -1;
+    //    *Nturns += 1;
+    //}
+
+    return 0;
+}
+
+
+/*
+ Runke-Kutta-Nystrom 4th order algorithm to advance 1 step of length h, in a system like
+ dv / d tau = Feff(r)
+ dr/d(tau) = v
+ d(phi)/d(tau) = l / r^2
+ dt/d(tau) = sqrt(2E + 1) * r / (r - 1)
+*/
+int TESI_RKN4(double h, double tau, double *v, double *r, double *phi, double *t,
+                                    double E, double l, int *sign, int *Nturns){
+
+    double k_0 = h * TESI_Feff   (*r, l);
+    double l_0 = h * TESI_fun_phi(*r, l);
+    double g_0 = h * TESI_fun_t  (*r, E);
+
+    double k_1 = h * TESI_Feff   (*r + h * (*v) / 2 + h * k_0 / 8, l);
+    double l_1 = h * TESI_fun_phi(*r + h * (*v) / 2 + h * k_0 / 8, l);
+    double g_1 = h * TESI_fun_t  (*r + h * (*v) / 2 + h * k_0 / 8, E);
+
+    double k_2 = h * TESI_Feff(*r + h * (*v) + h * k_1 / 2, l);
+
+
+    *r += h * (*v) + h * (k_0 + 2 * k_1) / 6;
+    *v += (k_0 + 4 * k_1 + k_2) / 6;
+    *phi += (l_0 + 2 * l_1) / 3;
+    *t += (g_0 + 2 * g_1) / 3;
 
     return 0;
 }

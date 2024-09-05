@@ -36,8 +36,26 @@ def data_precession(l, E, h):
     r = data[:, 0]
     phi = data[:, 1]
 
+    ## Clean the data from duplicates of the same turning point:
+    ## sometimes the condition used in prec.c r_prev < r_turning < r_next is
+    ## satisfied more than once in the same turn, so more than one point is
+    ## saved as the turning point
+
+    rmid = (np.max(r) + np.min(r)) / 2
+    r_new = []
+    phi_new = []
+    for i in range(0, len(r) - 1):
+        if r[i] > rmid and r[i+1] > rmid:
+            continue
+        if r[i] < rmid and r[i+1] < rmid:
+            continue
+        r_new.append(r[i])
+        phi_new.append(phi[i])
+
+    r = np.array(r_new)
+    phi = np.array(phi_new)
+
     ## Precession with the outer turning points
-    rmid = (r[0] + r[1]) / 2
     phi_outer = phi[r > rmid]
     prec_outer = []
     for i in range(1, len(phi_outer)):
@@ -102,11 +120,11 @@ def plot_residuals(l, E, h):
     plt.figure()
     plt.plot(error_outer, linestyle='', marker='<', label='Outer')
     plt.plot(error_inner, linestyle='', marker='.', label='Inner')
-    plt.plot(error_i2o, linestyle='', marker='.', label='Inner to outer')
-    plt.plot(error_o2i, linestyle='', marker='.', label='Outer to inner')
+    #plt.plot(error_i2o, linestyle='', marker='.', label='Inner to outer')
+    #plt.plot(error_o2i, linestyle='', marker='.', label='Outer to inner')
     plt.axhline(0, color='black', label='Analytical')
     plt.ticklabel_format(axis="y", style="sci", scilimits=(0, 0))
-    plt.xlabel('Step')
+    plt.xlabel('Revolutions')
     plt.ylabel('Precession')
     plt.legend()
     plt.title('Normalized precession residuals\n'rf'($\hat \ell = {l:.3f}$, $\mathcal{{E}} = {E:.5f}$, $h = {h:.0e}$)')
@@ -130,7 +148,7 @@ for h in [1e-3, 1e-4]:
 l = 5
 E = -0.004
 print(analytic_precession(l, E) / np.pi)
-for h in [1e-3, 1e-4]:
+for h in [1e-3, 1e-4, 1e-5]:
     plot_residuals(l, E, h)
 
 plt.show()

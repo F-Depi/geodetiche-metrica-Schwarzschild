@@ -376,7 +376,7 @@ def fun_t_r(r):
     return - 2 / 3 * r**(3/2) - 2 * r**(1/2) + np.log(np.abs( (r**(1/2) + 1) / (r**(1/2) - 1) ))
 
 
-def plt_tvstau(foldername):
+def plt_tvstau(foldername, save=['yes','no']):
 
     filename = None
     for file in os.listdir(f'data/keep/{foldername}'):
@@ -414,13 +414,14 @@ def plt_tvstau(foldername):
     plt.gca().invert_xaxis()
     plt.tight_layout()
     plt.legend()
-    plt.savefig(f'../latex/Figures/chapter2/radial_infall.eps')
+    if save == 'yes':
+        plt.savefig(f'../latex/Figures/chapter2/radial_infall.eps')
 
 
     plt.figure(figsize=(7,5))
-    plt.plot(r[:-4], abs(t[:-4] - analytic_t[:-4]), linestyle='', marker='.',
+    plt.plot(r[:-4], t[:-4] - analytic_t[:-4], linestyle='', marker='.',
              label=r'$\hat t - \hat t_{\rm analytic}$')
-    plt.yscale('log')
+    #plt.yscale('log')
     plt.xlabel(r'$\hat t$')
     plt.ylabel('Residuals')
     plt.title(r'Residual graph of $\hat t$, simulated with $h = 10^{-4}$')
@@ -437,9 +438,8 @@ def plt_tvstau(foldername):
     plt.title(r'Residual graph of $\hat \tau$, simulated with $h = 10^{-4}$')
     plt.tight_layout()
     plt.legend()
-    plt.savefig('../latex/Figures/chapter2/tau_res.png')
-
-    plt.show()
+    if save == 'yes':
+        plt.savefig('../latex/Figures/chapter2/tau_res.png')
 
 
 def check_circular(foldername, h, figname):
@@ -492,7 +492,9 @@ def check_circular(foldername, h, figname):
 fold = '../latex/Figures/chapter2/'
 
 ''' radial infall '''
-#plt_tvstau('radial_infall4')
+#plt_tvstau('radial_infall4', 'no')
+#plt_tvstau('radial_infall4_RKN4', 'no')
+#plt_tvstau('radial_infall4_RK4_corrected', 'no')
 #plot_orbit('radial_infall4','Radial Infall', 'upper right', fold + 'radial_infall.eps')
 
 
@@ -504,7 +506,8 @@ fold = '../latex/Figures/chapter2/'
 
 ''' Circular Orbits '''
 #plot_orbit('circular_orbit3', '', 'upper left', '')
-check_circular('circular_orbit3', 1e-3, fold + 'circ_res.png')
+#check_circular('circular_orbit3', 1e-3, fold + 'circ_res.png')
+#check_circular('circular_orbit3_RK4_corrected', 1e-3, '')
 #check_circular('circular_orbit4', 1e-4)
 
 

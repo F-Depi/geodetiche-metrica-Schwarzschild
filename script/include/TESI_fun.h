@@ -1,7 +1,7 @@
 #ifndef TESI_FUN
 #define TESI_FUN
 
-#define dR_OFFSET 1e-8
+#define dR_OFFSET 1e-14
 #define dR_MIN 1e-8
 #define R_MAX 1e5
 
@@ -31,6 +31,20 @@ double TESI_Veff(double r, double l);
 // d(phi)/d(tau) = fun_phi(r, l)
 // dt/d(tau) = fun_t(r, E)
 int TESI_RK4(double h, double tau, double *r, double *phi, double *t,
+                                    double E, double l, int *sign, int *Nturns);
+
+
+// we rewrite the system of ODEs in the form
+// dv/d(tau) = Feff(r)
+// dr/d(tau) = v
+// d(phi)/d(tau) = l / r^2
+// dt/d(tau) = sqrt(2E + 1) * r / (r - 1)
+int TESI_RK4_corrected(double h, double tau, double *v_meh, double *r, double *phi, double *t, double E,
+        double l, int *sign, int *Nturns);
+
+
+// Same as TESI_RK4 but with the addition of the 1/2 h^2 F term on the radius
+int TESI_RKN4(double h, double tau, double *v, double *r, double *phi, double *t,
                                     double E, double l, int *sign, int *Nturns);
 
 
