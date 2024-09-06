@@ -2,6 +2,7 @@
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
+from matplotlib.ticker import ScalarFormatter
 from scipy.optimize import root_scalar
 import numpy as np
 import sys
@@ -473,51 +474,50 @@ def plt_tvstau(foldername, h, save=['yes','no']):
 
 
 def check_stability_infall2(hs, save=['yes','no']):
-    foldername = 'data/keep/infall2_'
+    foldername = 'data/keep/infall2_stability/l1.8_E-0.042_h'
     fig, ax = plt.subplots(figsize=(12, 6))
 
     # Create an inset axes for the zoomed-in region
-    ax_inset1 = inset_axes(ax, width="30%", height="30%", loc='upper right')  # Adjust the size and position
-    ax_inset2 = inset_axes(ax, width="30%", height="30%", loc='lower right')  # Adjust the size and position
+    ax_inset1 = inset_axes(ax, width="30%", height="30%", loc='upper right')
+    ax_inset2 = inset_axes(ax, width="30%", height="30%", loc='lower right')
 
-    for h in hs:
+    colors = ["#00202e","#003f5c","#2c4875","#8a508f","#bc5090","#ff6361","#ff8531","#ffa600","#ffd380"]
+    colors = ["#ffd380","#ffa600","#ff8531","#ff6361","#bc5090","#8a508f","#2c4875","#003f5c","#00202e"]
+
+    tau = []
+    x = []
+    y = []
+
+    for h, col in zip(hs, colors):
         # Construct the filename
-        filename = None
-        for file in os.listdir(f'{foldername}{h:.1e}'):
-            if file.endswith(".csv"):
-                filename = f'{foldername}{h:.1e}/' + file
-
-        if not filename:
-            print('No file found')
-            continue
+        filename = foldername + f'{h:.1e}.csv'
 
         data = np.loadtxt(filename, delimiter=',', skiprows=1)
         tau = data[:, 0]
         r = data[:, 1]
         phi = data[:, 2]
-        t = data[:, 3]
 
         x = r * np.cos(phi)
         y = r * np.sin(phi)
 
         # Plot the main data
-        ax.plot(x, y, label=f'$h = {h:.1e}$')
+        ax.plot(x, y, color=col, label=f'$h = {h:.1e}$')
         # Plot the zoomed-in data
-        ax_inset1.plot(x, y)
-        ax_inset2.plot(x, y)
+        ax_inset1.plot(x, y, color=col)
+        ax_inset2.plot(x, y, color=col)
 
 
     ## ZOOM 1
     # Define the region to zoom in
-    x1 = - 4.04 - 0.00495
-    x2 = - 4.04 - 0.00475 
-    y1 = 5.47 + 0.00690
-    y2 = 5.47 + 0.00700 
+    x1 = - 4.044 - 0.00095
+    x2 = - 4.044 - 0.00075 
+    y1 =   5.477 - 0.00010
+    y2 =   5.477 + 0.00000 
     ax_inset1.set_xlim(x1, x2)
     ax_inset1.set_ylim(y1, y2)
 
     ax_inset1.set_xticks([-9*1e-4 - 4.044, -8*1e-4 - 4.044])
-    ax_inset1.set_yticks([])
+    ax_inset1.set_yticklabels([])
     ax_inset1.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
 
     # Add a rectangle to highlight the zoomed-in area in the main plot
@@ -528,27 +528,54 @@ def check_stability_infall2(hs, save=['yes','no']):
     mark_inset(ax, ax_inset1, loc1=2, loc2=3, fc="none", ec="0.5")
 
     ## ZOOM 2
-    x1 = -1.976 - 51.25e-5
-    x2 = -1.976 - 49.75e-5
-    y1 = 0.2359 + 24e-6
-    y2 = 0.2359 + 32e-6
+    #x1 = -1.976 - 51.25e-5
+    #x2 = -1.976 - 49.75e-5
+    #y1 = 0.2359 + 24e-6
+    #y2 = 0.2359 + 32e-6
+    x1 = 0.1834 + 0e-5
+    x2 = 0.1834 + 5e-5
+    y1 = 2.3002 + 5.7e-5
+    y2 = 2.3002 + 8.3e-5
     ax_inset2.set_xlim(x1, x2)
     ax_inset2.set_ylim(y1, y2)
 
-    ax_inset2.set_yticks([])
+    N = 1932
+    x_ann = 0.1834323
+    y_ann = 2.3002672
+    ax_inset2.annotate(rf'$\hat \tau \simeq {tau[N]:.2f}$', xy=(x_ann, y_ann),
+                       xytext=(x_ann - 0.5e-5, y_ann - 1e-5),
+                       arrowprops=dict(facecolor='black', arrowstyle='-'),)
+    N = 70146
+    x_ann = 0.18341669
+    y_ann = 2.3002783
+    lab = rf'$\hat \tau \simeq {tau[N]:.2f}$'
+    ax_inset2.annotate(lab, xy=(x_ann + 0.8e-5, y_ann),
+                       xytext=(x_ann - 1.5e-5, y_ann - 1.5e-5),
+                       arrowprops=dict(facecolor='black', arrowstyle='-'),)
+    ax_inset2.annotate('               ', xy=(x_ann + 0.8e-5, y_ann - 0.7e-5),
+                       xytext=(x_ann - 1.5e-5, y_ann - 1.5e-5),
+                       arrowprops=dict(facecolor='black', arrowstyle='-'),)
+    ax_inset2.annotate('               ', xy=(x_ann + 0.8e-5, y_ann - 1.7e-5),
+                       xytext=(x_ann - 1.5e-5, y_ann - 1.5e-5),
+                       arrowprops=dict(facecolor='black', arrowstyle='-'),)
+
+    ax_inset2.set_xticks([1e-5 + 0.1834, 2e-5 + 0.1834, 3e-5 + 0.1834, 4e-5 + 0.1834])
+    ax_inset2.set_yticklabels([])
     ax_inset2.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
     ax_inset2.xaxis.set_ticks_position('top') 
+    #ax_inset2.axis('equal')
 
     mark_inset(ax, ax_inset2, loc1=2, loc2=3, fc="none", ec="0.5")
 
     ## Main plot
     r_s = np.linspace(0, 2 * np.pi, 100)
-    ax.plot(np.cos(r_s), np.sin(r_s), 'k:', label='Event Horizon')
+    ax.plot(np.cos(r_s), np.sin(r_s), 'k-', label=r'$\hat r = \hat r_s$')
     ax.plot(x[0], y[0], 'ro', label='Start')
     ax.plot(x[-1], y[-1], 'go', label='End')
 
     ax.axis('equal')
-    ax.set_title('Stability of the numerical solution')
+    ax.set_xlim(-12.5, 15)
+    ax.set_title(r'Stability of the numerical solution, $\hat r$ and $\phi$')
     ax.set_xlabel(r'$\hat x$')
     ax.set_ylabel(r'$\hat y$', rotation=0)
     ax.legend(loc='upper left')
@@ -561,6 +588,55 @@ def check_stability_infall2(hs, save=['yes','no']):
 
     plt.show()
 
+
+def check_time_infall2(hs, save=['yes','no']):
+    foldername = 'data/keep/infall2_'
+    fig, ax = plt.subplots()
+
+    colors = ["#00202e","#003f5c","#2c4875","#8a508f","#bc5090","#ff6361","#ff8531","#ffa600","#ffd380"]
+
+    filename = None
+    for file in os.listdir(f'{foldername}{hs[-1]:.1e}'):
+        if file.endswith(".csv"):
+            filename = f'{foldername}{hs[-1]:.1e}/' + file
+    if filename == None: exit()
+
+    data = np.loadtxt(filename, delimiter=',', skiprows=1)
+    tau0 = data[:, 0]
+    r0 = data[:, 1]
+    t0 = data[:, 3]
+    
+    for h, col in zip(hs, colors):
+        filename = None
+        for file in os.listdir(f'{foldername}{h:.1e}'):
+            if file.endswith(".csv"):
+                filename = f'{foldername}{h:.1e}/' + file
+
+        if filename == None:
+            print('No file found')
+            continue
+
+        data = np.loadtxt(filename, delimiter=',', skiprows=1)
+        tau = data[:, 0]
+        r = data[:, 1]
+        t = data[:, 3]
+
+        # Plot the main data
+        ax.plot(r, t, color=col, label=rf'$\hat t (\hat r), ~ h = {h:.1e}$')
+        ax.plot(r, tau, color=col, label=rf'$\hat t (\hat r), ~ h = {h:.1e}$')
+
+    ax.set_title(r'Stability of the numerical solution, $\hat t$ and $\hat \tau$')
+    ax.set_xlabel(r'$\hat r$')
+    ax.set_ylabel(r'$\hat t, ~ \hat \tau$', rotation=0)
+    #ax.legend()
+    plt.tight_layout()
+
+    # Save the figure if needed
+    save = 'yes'
+    if save == 'yes':
+        plt.savefig(f'../latex/Figures/chapter2/t_stability_infall2.eps')
+
+    plt.show()
 
 
 def check_circular(foldername, h, figname):
@@ -626,7 +702,8 @@ fold = '../latex/Figures/chapter2/'
 #plot_orbit('infall','', 'upper right', fold + 'infall1.eps')
 #plot_orbit('infall2','', 'upper right', fold + 'infall2.eps')
 #plot_orbit('volevi', '', 'upper right', fold + 'volevi.eps')
-check_stability_infall2([2e-3, 1e-3, 8e-4, 4e-4, 2e-4, 1e-4, 5e-5, 2.5e-5, 1e-5], 'yes')
+#check_stability_infall2([2e-3, 1e-3, 8e-4, 4e-4, 2e-4, 1e-4, 5e-5, 2.5e-5, 1e-5], 'yes')
+check_time_infall2([2e-3, 1e-3, 8e-4, 4e-4, 2e-4, 1e-4, 5e-5, 2.5e-5, 1e-5], 'no')
 
 
 ''' Circular Orbits '''

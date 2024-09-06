@@ -349,12 +349,16 @@ The result for the infall from Figure \ref{cap2:fig:infall2} is shown in Figure
     \centering
     \includegraphics[width=\textwidth]{Figures/chapter2/stability_infall2.eps}
     \caption{$\hat \ell = 1.8$, $\mathcal E = -0.042$, $\hat r_0 = 2$, starting
-    radial velocity directed outward.
-    The plot shows the orbit of the particle with different time increments.
-    $h$ is almost halved at each step, from $h = \num{2e-3}$ to $h = \num{1e-5}$.
-    The orbits are almost indistinguishable and smaller values of h appears to
-    be converging to the same orbit, showing that the numerical integration is
-    stable.}
+    radial velocity directed outward, $x$ and $y$ axes have always the same
+    scale.
+    $h$ is almost halved at each step, ranging from $h = \num{2e-3}$ to
+    $h = \num{1e-5}$.
+    The orbits are nearly indistinguishable initially, as seen in the zoomed-in
+    section on the lower right where different $h$ values overlap (forming a
+    thick yellow line).
+    Over time, slight differences emerge in the final part of the orbit, but
+    smaller $h$ values remain close, confirming the stability and convergence of
+    the numerical integration.}
     \label{cap2:fig:stability_infall2}
 \end{figure}
 
