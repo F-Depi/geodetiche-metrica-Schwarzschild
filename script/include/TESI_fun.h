@@ -43,6 +43,10 @@ int TESI_RK4_corrected(double h, double tau, double *v_meh, double *r, double *p
         double l, int *sign, int *Nturns);
 
 
+int TESI_RK4_corrected2(double h, double tau, double *r, double *phi, double *t, double E,
+        double l, int *sign, int *Nturns);
+
+
 // Same as TESI_RK4 but with the addition of the 1/2 h^2 F term on the radius
 int TESI_RKN4(double h, double tau, double *v, double *r, double *phi, double *t,
                                     double E, double l, int *sign, int *Nturns);

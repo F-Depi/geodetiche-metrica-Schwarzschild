@@ -3,7 +3,7 @@
 
 #!/bin/bash
 
-# Common parameters
+# Infall2
 L=1.8
 E=-0.042
 S=1
@@ -14,7 +14,25 @@ A=0
 DIR="keep/infall2_stability"
 
 # Run the commands with varying 'h' values
+#for H in 2.0e-03 1.0e-03 8.0e-04 4.0e-04 2.0e-04 1.0e-04 5.0e-05 2.5e-05 1.0e-05; do
+#    ./main.x $L $E -s $S -t $T -r $R -B $B -h $H -a $A -f "$DIR/l${L}_E${E}_h${H}"
+#done
+
+
+## Volevi
+
+L=1.9
+E=-0.02367591
+S=1
+T=1000
+R=2
+B=500
+A=0
+DIR="keep/volevi_stability"
+
+# Run the commands with varying 'h' values
 for H in 2.0e-03 1.0e-03 8.0e-04 4.0e-04 2.0e-04 1.0e-04 5.0e-05 2.5e-05 1.0e-05; do
     ./main.x $L $E -s $S -t $T -r $R -B $B -h $H -a $A -f "$DIR/l${L}_E${E}_h${H}"
 done
+
 

@@ -355,12 +355,17 @@ The result for the infall from Figure \ref{cap2:fig:infall2} is shown in Figure
     $h = \num{1e-5}$.
     The orbits are nearly indistinguishable initially, as seen in the zoomed-in
     section on the lower right where different $h$ values overlap (forming a
-    thick yellow line).
-    Over time, slight differences emerge in the final part of the orbit, but
+    thick dark line at $\hat \tau \simeq 3.86$); successive orbits are drawn
+    at $\hat \tau \simeq 140.29$, when the particle is falling back in.
+    Over time, slight differences emerge in the final part of the orbit but
     smaller $h$ values remain close, confirming the stability and convergence of
     the numerical integration.}
     \label{cap2:fig:stability_infall2}
 \end{figure}
+
+The orbits solutions from Figures \ref{cap2:fig:infall1} and
+\ref{cap2:fig:volevi} behave similarly, with the same time increments.
+
 
 \section{Bound Orbits}
 
@@ -634,6 +639,69 @@ turning point.
     \end{minipage}
 \end{figure}
 
+To ensure the stability of the program, we can compare the precession obtained
+with different time increments, the data is reported in Table
+\ref{cap2:tab:prec1_corr} and \ref{cap2:tab:prec2_corr}.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \multicolumn{3}{|c|}{$\hat \ell = 5, ~ \mathcal E = -0.004,
+        ~ \delta \phi_{\rm theory} \simeq 0.0652 \pi$} \\
+        \hline
+        $h$ & $\delta \phi_{\rm avg}$ outer & $\delta \phi_{\rm avg}$ inner \\
+        \hline
+        $\num{1e-3}$ & $\delta \phi_{\rm theory} + (8 \pm 40) \times \num{e-9}$
+        & $\delta \phi_{\rm theory} + (6 \pm 30) \times \num{e-8}$ \\
+        \hline
+        $\num{5e-4}$ & $\delta \phi_{\rm theory} + (1 \pm 20) \times \num{e-9}$
+        & $\delta \phi_{\rm theory} + (9 \pm 90) \times \num{e-9}$ \\
+        \hline
+        $\num{2e-4}$ & $\delta \phi_{\rm theory} - (2 \pm 60) \times \num{e-10}$
+        & $\delta \phi_{\rm theory} - (2 \pm 40) \times \num{e-9}$ \\
+        \hline
+        $\num{1e-4}$ & $\delta \phi_{\rm theory} - (2 \pm 40) \times \num{e-10}$
+        & $\delta \phi_{\rm theory} - (2 \pm 30) \times \num{e-9}$ \\
+        \hline
+        $\num{5e-5}$ & $\delta \phi_{\rm theory} - (2 \pm 20) \times \num{e-10}$
+        & $\delta \phi_{\rm theory} - (2 \pm 20) \times \num{e-9}$ \\
+        \hline
+    \end{tabular}
+    \caption{Precession angle computed from the simulation data with different
+    time increments.}
+    \label{cap2:tab:prec1_corr}
+\end{table}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \multicolumn{3}{|c|}{$\hat \ell = 3, ~ \mathcal E = -0.006,
+        ~ \delta \phi_{\rm theory} \simeq 0.221 \pi$} \\
+        \hline
+        $h$ & $\delta \phi_{\rm avg}$ outer & $\delta \phi_{\rm avg}$ inner \\
+        \hline
+        $\num{1e-3}$ & $\delta \phi_{\rm theory} - (9 \pm 40) \times \num{e-9}$
+        & $\delta \phi_{\rm theory} - (1 \pm 30) \times \num{e-7}$ \\
+        \hline
+        $\num{5e-4}$ & $\delta \phi_{\rm theory} - (2 \pm 10) \times \num{e-9}$
+        & $\delta \phi_{\rm theory} - (1 \pm 8) \times \num{e-7}$ \\
+        \hline
+        $\num{2e-4}$ & $\delta \phi_{\rm theory} - (1 \pm 8) \times \num{e-9}$
+        & $\delta \phi_{\rm theory} + (6 \pm 60) \times \num{e-8}$ \\
+        \hline
+        $\num{1e-4}$ & $\delta \phi_{\rm theory} - (1 \pm 4) \times \num{e-9}$
+        & $\delta \phi_{\rm theory} + (6 \pm 30) \times \num{e-8}$ \\
+        \hline
+        $\num{5e-5}$ & $\delta \phi_{\rm theory} + (5 \pm 20) \times \num{e-10}$
+        & $\delta \phi_{\rm theory} + (1 \pm 10) \times \num{e-8}$ \\
+        \hline
+    \end{tabular}
+    \caption{Precession angle computed from the simulation data with different
+    time increments.}
+    \label{cap2:tab:prec2_corr}
+\end{table}
+
 There are some drawbacks to this method, however.
 The first one being the obvious increase in computational time, as we need
 to simultaneously solve 4 differential equations with the \texttt{RK4} method
@@ -650,3 +718,5 @@ relative error at the end is of order $10^{-13}$ (an energy loss to be precise),
 negligible in this context, but it could be a problem for longer
 simulations.
 
+
+\subsection{Fixing the Energy Loss}

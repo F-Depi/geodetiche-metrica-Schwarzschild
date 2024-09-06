@@ -130,6 +130,7 @@ int main(int argc, char *argv[]){
 
         // TESI_RK4(h, tau, &r, &phi, &t, E, l, &sign, &Nturns);
         TESI_RK4_corrected(h, tau, &v, &r, &phi, &t, E, l, &sign, &Nturns);
+        // TESI_RK4_corrected2(h, tau, &r, &phi, &t, E, l, &sign, &Nturns);
         // TESI_RKN4(h, tau, &v, &r, &phi, &t, E, l, &sign, &Nturns);
         tau += h;
         kk++;

@@ -126,8 +126,8 @@ def plot_residuals(l, E, h, lloc=None, other=None, figname=None):
     error_inner = prec_inner - prec 
     error_i2o = prec_i2o - prec
     error_o2i = prec_o2i - prec
-    print(f'Error outer: {np.mean(error_outer):.3e} +/- {np.std(error_outer) / np.sqrt(len(error_outer)):.3e}')
-    print(f'Error inner: {np.mean(error_inner):.3e} +/- {np.std(error_inner) / np.sqrt(len(error_inner)):.3e}')
+    print(f'Error outer ({h:.1e}): {np.mean(error_outer):.0e} +/- {np.std(error_outer) / np.sqrt(len(error_outer)):.0e}')
+    print(f'Error inner ({h:.1e}): {np.mean(error_inner):.0e} +/- {np.std(error_inner) / np.sqrt(len(error_inner)):.0e}\n')
 
     ## Normalize the residuals
     error_outer /= prec
@@ -163,15 +163,25 @@ def plot_residuals(l, E, h, lloc=None, other=None, figname=None):
 l = 5
 E = -0.004
 print(f'prec = {analytic_precession(l, E) / np.pi} pi')
-plot_residuals(l, E, 1e-3, 'center right', other='_RK4')#, figname='prec1_res.eps')
+#plot_residuals(l, E, 1e-3, 'center right', other='_RK4')#, figname='prec1_res.eps')
 plot_residuals(l, E, 1e-3, 'lower right', other='_RK4_corr')#, figname='prec1_res_corr.eps')
+plot_residuals(l, E, 5e-4, 'lower right', other='_RK4_corr')
+plot_residuals(l, E, 2e-4, 'lower right', other='_RK4_corr')
+plot_residuals(l, E, 1e-4, 'lower right', other='_RK4_corr')
+plot_residuals(l, E, 5e-5, 'lower right', other='_RK4_corr')
 
 
 l = 3
 E = -0.006
 print(f'prec = {analytic_precession(l, E) / np.pi} pi')
-plot_residuals(l, E, 1e-3,'center right', other='_RK4')#, figname='prec2_res.eps')
-plot_residuals(l, E, 1e-3,'lower right', other='_RK4_corr')#, figname='prec2_res_corr.eps')
+#plot_residuals(l, E, 1e-3,'center right', other='_RK4')#, figname='prec2_res.eps')
+plot_residuals(l, E, 1e-3, 'lower right', other='_RK4_corr')#, figname='prec2_res_corr.eps')
+plot_residuals(l, E, 5e-4, 'lower right', other='_RK4_corr')
+plot_residuals(l, E, 2e-4, 'lower right', other='_RK4_corr')
+plot_residuals(l, E, 1e-4, 'lower right', other='_RK4_corr')
+plot_residuals(l, E, 5e-5, 'lower right', other='_RK4_corr')
 
+
+#plot_residuals(l, E, 1e-3,'center right', other='_RK4_corr2')#, figname='prec2_res.eps')
 
 #plt.show()
