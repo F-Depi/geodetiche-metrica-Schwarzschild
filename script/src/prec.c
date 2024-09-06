@@ -17,6 +17,7 @@ void print_help(char *argv[]){
     printf("-t :\ttau_max, maximum proper time (100 default)\n");
     printf("-f :\tfilename, output file (default is data/l\%.3f_E\%.5f.csv default)\n");
     printf("-B :\tframes per second (50 default, all to save all data)\n");
+    printf("-a :\talgorithm (0 = RK4, 1 = RK4_corrected, 3 = RK4_corrected2, 4 = RKN4) (0 default)\n");
     printf("\nl < sqrt(3) no stable points\n");
     printf("l = sqrt(3) one stationary point (r_ISCO = 3)\n");
     printf("l > sqrt(3) two stationary points\n");
@@ -67,6 +68,8 @@ int main(int argc, char *argv[]){
     /***** Other parameters that can be changed with optional arguments *****/
     double h = 1e-3;                // Proper time increment
     double tau_max = 100;           // Maximum proper time
+    int alg = 0;                    // Algorithm (0 = RK4, 1 = RK4_corrected,
+                                    // 3 = RK4_corrected2, 4 = RKN4)
 
     /***** Optional arguments check *****/
     for (int i = 3; i < argc; i++){
@@ -88,6 +91,9 @@ int main(int argc, char *argv[]){
             case 't':
                 tau_max = atof(argv[i + 1]);
                 break;
+            case 'a':
+                alg = atoi(argv[i + 1]);
+                break;
             default:
                 printf("Invalid argument %s\n", argv[i]);
                 print_help(argv);
@@ -98,6 +104,10 @@ int main(int argc, char *argv[]){
     check_parameters(l, E, &r0, &r_lim, &sign);
     printf("h\t%.3e\n", h);
     printf("tau_max\t%.3f\n\n", tau_max);
+    if (alg == 0) printf("Algorithm\tRK4\n");
+    if (alg == 1) printf("Algorithm\tRK4_corrected\n");
+    if (alg == 3) printf("Algorithm\tRK4_corrected2\n");
+    if (alg == 4) printf("Algorithm\tRKN4\n");
 
 
     /***** Coordinates *****/
@@ -128,10 +138,15 @@ int main(int argc, char *argv[]){
         r_old = r;
         phi_old = phi;
 
-        // TESI_RK4(h, tau, &r, &phi, &t, E, l, &sign, &Nturns);
-        TESI_RK4_corrected(h, tau, &v, &r, &phi, &t, E, l, &sign, &Nturns);
-        // TESI_RK4_corrected2(h, tau, &r, &phi, &t, E, l, &sign, &Nturns);
-        // TESI_RKN4(h, tau, &v, &r, &phi, &t, E, l, &sign, &Nturns);
+        if (alg == 0)
+            TESI_RK4(h, tau, &r, &phi, &t, E, l, &sign, &Nturns);
+        if (alg == 1)
+            TESI_RK4_corrected(h, tau, &v, &r, &phi, &t, E, l, &sign, &Nturns);
+        if (alg == 3)
+            TESI_RK4_corrected2(h, tau, &r, &phi, &t, E, l, &sign, &Nturns);
+        if (alg == 4)
+            TESI_RKN4(h, tau, &v, &r, &phi, &t, E, l, &sign, &Nturns);
+
         tau += h;
         kk++;
 

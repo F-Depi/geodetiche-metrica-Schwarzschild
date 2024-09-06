@@ -151,6 +151,14 @@ def plot_residuals(l, E, h, lloc=None, other=None, figname=None):
         plt.savefig(f'../latex/Figures/chapter2/{figname}')
 
  
+def get_E(l, prec):
+    E = 0
+    prec *= np.pi
+    while True:
+        if analytic_precession(l, E) / np.pi > prec:
+            break
+        E -= 0.0001
+    return E
 
 
 ## Write bisection to fine tune the energy
@@ -162,26 +170,32 @@ def plot_residuals(l, E, h, lloc=None, other=None, figname=None):
 
 l = 5
 E = -0.004
-print(f'prec = {analytic_precession(l, E) / np.pi} pi')
+#print(f'prec = {analytic_precession(l, E) / np.pi} pi')
 #plot_residuals(l, E, 1e-3, 'center right', other='_RK4')#, figname='prec1_res.eps')
-plot_residuals(l, E, 1e-3, 'lower right', other='_RK4_corr')#, figname='prec1_res_corr.eps')
-plot_residuals(l, E, 5e-4, 'lower right', other='_RK4_corr')
-plot_residuals(l, E, 2e-4, 'lower right', other='_RK4_corr')
-plot_residuals(l, E, 1e-4, 'lower right', other='_RK4_corr')
-plot_residuals(l, E, 5e-5, 'lower right', other='_RK4_corr')
+#plot_residuals(l, E, 5e-4, 'center right', other='_RK4')
+#plot_residuals(l, E, 2e-4, 'center right', other='_RK4')
+#plot_residuals(l, E, 1e-4, 'center right', other='_RK4')
+#plot_residuals(l, E, 1e-3, 'lower right', other='_RK4_corr')#, figname='prec1_res_corr.eps')
+#plot_residuals(l, E, 5e-4, 'lower right', other='_RK4_corr')
+#plot_residuals(l, E, 2e-4, 'lower right', other='_RK4_corr')
+#plot_residuals(l, E, 1e-4, 'lower right', other='_RK4_corr')
+#plot_residuals(l, E, 5e-5, 'lower right', other='_RK4_corr')
 
 
 l = 3
 E = -0.006
 print(f'prec = {analytic_precession(l, E) / np.pi} pi')
 #plot_residuals(l, E, 1e-3,'center right', other='_RK4')#, figname='prec2_res.eps')
-plot_residuals(l, E, 1e-3, 'lower right', other='_RK4_corr')#, figname='prec2_res_corr.eps')
-plot_residuals(l, E, 5e-4, 'lower right', other='_RK4_corr')
-plot_residuals(l, E, 2e-4, 'lower right', other='_RK4_corr')
-plot_residuals(l, E, 1e-4, 'lower right', other='_RK4_corr')
-plot_residuals(l, E, 5e-5, 'lower right', other='_RK4_corr')
+#plot_residuals(l, E, 1e-3, 'lower right', other='_RK4_corr')#, figname='prec2_res_corr.eps')
+#plot_residuals(l, E, 5e-4, 'lower right', other='_RK4_corr')
+#plot_residuals(l, E, 2e-4, 'lower right', other='_RK4_corr')
+#plot_residuals(l, E, 1e-4, 'lower right', other='_RK4_corr')
+#plot_residuals(l, E, 5e-5, 'lower right', other='_RK4_corr')
+plot_residuals(l, E, 1e-6, 'lower right', other='_RK4_corr')
 
 
 #plot_residuals(l, E, 1e-3,'center right', other='_RK4_corr2')#, figname='prec2_res.eps')
 
 #plt.show()
+
+

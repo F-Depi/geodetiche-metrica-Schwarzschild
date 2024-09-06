@@ -268,31 +268,35 @@ eq. \ref{cap1:eq:radial_infall_r_of_tau} and \ref{cap1:eq:radial_infall_r_of_t}
 found analytically in the previous chapter. \\
 Figures \ref{cap2:fig:t_res} and \ref{cap2:fig:tau_res} also show the residuals
 of $\hat t$ and $\hat \tau$ with respect to their analytical predictions.
-For $\hat \tau$ the error is of the order of $10^{-13}$.
-For $\hat t$ the vertical axis is in logarithmic scale to show that the error is
-constant around $10^{-13}$, only to increase when the particle gets closer to
-the \Sh radius.
-That's to be expected as $t \rightarrow \infty$ when $r \rightarrow r_s$.
+To ensure the stability of the simulation, we repeated the infall with different
+time increments $h$ and reported all the residuals.
 
 \begin{figure}[h]
     \begin{minipage}{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{Figures/chapter2/t_res.png}
+        \includegraphics[width=\textwidth]{Figures/chapter2/t_res_multi.png}
         \caption{Residual plot of $\hat t$ against the analytical prediction
-        found in eq. \ref{cap1:eq:radial_infall_r_of_t}. \\
-        (Data from Figure \ref{cap2:fig:radial_infall})}
+        found in eq. \ref{cap1:eq:radial_infall_r_of_t}.}
         \label{cap2:fig:t_res}
     \end{minipage}
     \hspace{0.015 \textwidth}
     \begin{minipage}{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{Figures/chapter2/tau_res.png}
+        \includegraphics[width=\textwidth]{Figures/chapter2/tau_res_multi.png}
         \caption{Residual plot of $\hat \tau$ against the analytical prediction
-        found in eq. \ref{cap1:eq:radial_infall_r_of_tau}. \\
-        (Data from Figure \ref{cap2:fig:radial_infall})}
+        found in eq. \ref{cap1:eq:radial_infall_r_of_tau}.}
         \label{cap2:fig:tau_res}
     \end{minipage}
 \end{figure}
+
+For $\hat \tau$ the error is of the order of $10^{-12}$.
+For $\hat t$ the vertical axis is in logarithmic scale to show that the error is
+constant around $10^{-13}$, only to increase when the particle gets closer to
+the \Sh radius.
+In this case we can see that a smaller $h$ minimizes the error when
+$r \rightarrow 1$, while the residuals from $h = \num{2e-3}, ~ \num{1e-3}$, and
+$\num{4e-4}$ (lines blue, orange and green) grow faster than the others.
+That's to be expected as $t \rightarrow \infty$ when $r \rightarrow r_s$.
 
 By integrating numerically with this program, we can visualize some more
 complex infalls that are shown in Figures \ref{cap2:fig:infall1},
@@ -323,7 +327,7 @@ complex infalls that are shown in Figures \ref{cap2:fig:infall1},
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width= 0.64 \textwidth]{Figures/chapter2/volevi.eps}
+    \includegraphics[width= 0.5 \textwidth]{Figures/chapter2/volevi.eps}
     \caption{The particle starts at $\hat r_0 = 2$ with $\hat \ell = 1$,
     $\mathcal E = -0.02367591$ and its radial velocity directed outward.
     $V_{\rm eff} (\hat r_{\rm max} = 2.13) = -0.02367592$, meaning the particle
@@ -518,11 +522,20 @@ different precessions.
 Letting the system evolve for a longer time, we can collect more data points.
 The angle spanned by the particle in the $\phi$ direction can be computed from
 the data of the simulation by looking at the angle corresponding to the local
-maxima and minima of the radius.
-Figure \ref{cap2:fig:prec1_res} and \ref{cap2:fig:prec2_res} show the residuals
-of the precession angle computed from the simulation data with respect to the
-expected value calculated from the initial conditions
-(eq. \ref{cap2:eq:delta_phi_elliptic}).
+maxima or minima of the radius.
+Taking the inner turning point as an example, the precession for can be computed 
+with
+
+\begin{equation}
+    \delta \phi_1 = \phi_{\hat r_1}' - \phi_{\hat r_1} - 2 \pi
+\end{equation}
+
+where $\phi_{\hat r_1}'$ is the angle corresponding to next local minimum of
+$\hat r$. The same can be done for the outer turning point. \\
+Figure \ref{cap2:fig:prec1_res} and \ref{cap2:fig:prec2_res} show the normalized
+residuals of the precession angle $\delta \phi_1$ and $\delta \phi_2$ against
+the expected value $\delta \phi_{\rm theory}$ (evaluated from the initial
+conditions with eq. \ref{cap2:eq:delta_phi_elliptic}).
 
 \begin{figure}[h]
     \begin{minipage}{0.48 \textwidth}
@@ -575,17 +588,59 @@ precession) as the acceleration is not negligible when the radial velocity is
 very small.
 Moreover, reducing the systematic error by reducing the step size brings a lot
 of risks of numerical instability because of the singularity at the turning
-point: the moment that the radius is really closer to a turning point the radial
+point: the moment that the radius is really close to a turning point the radial
 derivative goes to zero and radius will not change anymore.
-An alternative method to avoid this problem is presented in the next section.
+For this reason Table \ref{cap2:tab:prec1} does not show results with increments
+of $h = \num{5e-5}$ or smaller, as the simulation would reach $r = r_2$ and not
+be able to move anymore.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \multicolumn{3}{|c|}{$\hat \ell = 5, ~ \mathcal E = -0.004,
+        ~ \delta \phi_{\rm theory} \simeq 0.0652 \pi$} \\
+        \hline
+        $h$ & $\delta \phi_{\rm avg}$ outer & $\delta \phi_{\rm avg}$ inner \\
+        \hline
+        $\num{1e-3}$ & $\delta \phi_{\rm theory} - \num{7e-6} \pm \num{2e-8}$
+        & $\delta \phi_{\rm theory} - \num{7e-6} \pm \num{5e-9}$ \\
+        \hline
+        $\num{5e-4}$ & $\delta \phi_{\rm theory} - \num{2e-6} \pm \num{4e-8}$
+        & $\delta \phi_{\rm theory} - \num{1e-6} \pm \num{4e-9}$ \\
+        \hline
+        $\num{2e-4}$ & $\delta \phi_{\rm theory} - \num{1e-6} \pm \num{1e-9}$
+        & $\delta \phi_{\rm theory} - \num{1e-6} \pm \num{8e-11}$ \\
+        \hline
+        $\num{1e-4}$ & $\delta \phi_{\rm theory} - \num{4e-7} \pm \num{2e-9}$
+        & $\delta \phi_{\rm theory} - \num{4e-7} \pm \num{1e-9}$ \\
+        \hline
+    \end{tabular}
+    \caption{Precession angle computed from the simulation data with different
+    time increments.
+    As one could imagine by looking at the offsets and at the errors evaluated
+    from the standard deviation, the simulation is always underestimating the
+    precession angle and the residual plot would look exactly like the one in
+    Figure \ref{cap2:fig:prec1_res}, just rescaled vertical by some factor.}
+    \label{cap2:tab:prec1}
+\end{table}
+
+We likely did not encounter this issue in previous simulations because the
+particle never reached a turning point so far from the origin
+($\hat r_2 \simeq 91$ in this case) and thus consistently encountered a
+potential barrier sufficiently steep to push it back. \\
+An alternative method to completely avoid this problem is presented in section
+\ref{cap2:sec:alt_method}.
 
 
 \section{Alternative Integration Method}
+\label{cap2:sec:alt_method}
 
 To avoid the singularity of the radial derivative at the turning points, we can
-use the second derivative instead.
-Using the acceleration is in fact safer as it never goes to zero and does not
-have sign changes to worry about.
+instead use the second derivative. Employing the acceleration is safer because,
+even when it approaches zero, the particle can continue moving with its existing
+velocity.
+As a bonus we also remove the complications of sign changes.
 We can therefore rewrite the system of equations \ref{cap2:eq:eq_of_motion_ad}
 as
 
@@ -608,12 +663,10 @@ particle and derived eq. \ref{cap2:eq:radial_eq_ad} that in this case is
 equivalent to deriving the effective potential with respect to $\hat r$.
 
 This solution allows for a more precise computation of the precession angle.
-We infact repeated the simulations represented in Figures 
+We in fact repeated the simulations represented in Figures 
 \ref{cap2:fig:prec1} and \ref{cap2:fig:prec2} integrating the system in 
 \ref{cap2:eq:eq_of_motion_v2} and the results are shown in Figures
-\ref{cap2:fig:prec1_res_corr} and \ref{cap2:fig:prec2_res_corr}, and eliminate
-any additional sign changes or risks of the particle getting stuck at the
-turning point.
+\ref{cap2:fig:prec1_res_corr} and \ref{cap2:fig:prec2_res_corr}.
 
 \begin{figure}[h]
     \begin{minipage}{0.48 \textwidth}
@@ -642,6 +695,19 @@ turning point.
 To ensure the stability of the program, we can compare the precession obtained
 with different time increments, the data is reported in Table
 \ref{cap2:tab:prec1_corr} and \ref{cap2:tab:prec2_corr}.
+This time the offsets are not systematic and the prediction we can make for
+the precession by averaging the values obtained at each turn are compatible with
+the theoretical value.
+We were also able to decrease the time increment to $h = \num{5e-5}$ without
+and risk of numerical instability. \\
+%Table \ref{cap2:tab:prec2_corr} also shows the results obtained with
+%$h = \num{1e-6}$ with really good precision.
+Focussing on the results from the inner turning point, it is important to note
+that the error is consistently larger compared to that at the outer turning
+point.
+This is likely due to the particle moving at a higher velocity when reaching the
+inner turning point, resulting in greater error in the computation.
+Implementing an adaptive step size method could probably mitigate this issue.
 
 \begin{table}[h]
     \centering
@@ -672,6 +738,7 @@ with different time increments, the data is reported in Table
     time increments.}
     \label{cap2:tab:prec1_corr}
 \end{table}
+
 \begin{table}[h!]
     \centering
     \begin{tabular}{|c|c|c|}

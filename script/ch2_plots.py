@@ -516,19 +516,22 @@ def plt_tvstau_multi(hs, save=['yes','no']):
                  label=rf'$h = {h:.0e}$')
 
     ax1.set_yscale('log')
+    ax1.invert_xaxis()
     ax1.set_xlabel(r'$\hat r$')
     ax1.set_ylabel('Residuals')
     ax1.set_title(r'Normalized Residual: $\hat t / \hat t_{\rm analytic} - 1$')
     fig1.tight_layout()
-    ax1.legend(loc='upper right')
+    ax1.legend(loc='upper left')
     if save == 'yes':
         fig1.savefig('../latex/Figures/chapter2/t_res_multi.png')
 
+    ax2.invert_xaxis()
+    ax2.set_ylim(-2e-12, 7e-12)
     ax2.set_xlabel(r'$\hat r$')
     ax2.set_ylabel('Residuals')
     ax2.set_title(r'Normalized Residual: $\hat \tau / \hat \tau_{\rm analytic} - 1$')
     fig2.tight_layout()
-    ax2.legend(loc='upper right')
+    ax2.legend(loc='upper left')
     if save == 'yes':
         fig2.savefig('../latex/Figures/chapter2/tau_res_multi.png')
 
@@ -879,4 +882,5 @@ plt_tvstau_multi([2e-3, 1e-3, 4e-4, 2e-4, 1e-4, 5e-5, 2e-5], save='yes')
 #plot_orbit('precession2', '', 'upper left', '../latex/Figures/chapter2/prec2.eps')
 
 
+plt.tight_layout
 plt.show()
