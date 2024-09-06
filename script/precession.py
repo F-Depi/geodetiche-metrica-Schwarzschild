@@ -150,7 +150,7 @@ def plot_residuals(l, E, h, lloc=None, other=None, figname=None):
     if figname is not None:
         plt.savefig(f'../latex/Figures/chapter2/{figname}')
 
-
+ 
 
 
 ## Write bisection to fine tune the energy

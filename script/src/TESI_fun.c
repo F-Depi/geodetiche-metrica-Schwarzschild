@@ -18,16 +18,19 @@ double TESI_fun_r(double r, double E, double l, int *sign, int *Nturns) {
     return *sign * pow(fabs(foo), 1. / 2.);
 }
 
+
 // dphi / dtau = l / r^2
 double TESI_fun_phi(double r, double l) {
     return l / (r * r);
 }
+
 
 // dt / dtau = sqrt(2E + 1) * r / (r - 1)
 // If r < 1, return 0
 double TESI_fun_t(double r, double E) {
     return sqrt(2 * E + 1) * r / (r - 1.);
 }
+
 
 // Veff(r) = l^2 / (2r^2) - 1 / (2r) - l^2 / (2r^3)
 double TESI_Veff(double r, double l) {

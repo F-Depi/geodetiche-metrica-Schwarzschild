@@ -1,6 +1,7 @@
 # ::setlocal makeprg=cd\ script\ &&\ python\ ch2_plots.py
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
 from scipy.optimize import root_scalar
 import numpy as np
 import sys
@@ -41,18 +42,27 @@ def plot_scenario0(save=['yes','no']):
     x1_right = right_lim 
     lab_e1 = r'$\mathcal{E}_1 =$'+str(e1)
 
-    e2 = -0.07
+    e2 = -0.02
     x2_left = left_lim
     x2_right = root_scalar(lambda x: e2 - fun_V_eff(x, l), bracket=[1, right_lim], method='bisect').root
     lab_e2 = r'$\mathcal{E}_2 =$'+str(e2)
 
+    e3 = -0.07
+    x3_left = left_lim
+    x3_right = root_scalar(lambda x: e3 - fun_V_eff(x, l), bracket=[1, right_lim], method='bisect').root
+    lab_e3 = r'$\mathcal{E}_2 =$'+str(e3)
+
     ax = plt.figure(figsize=(10,4))
     plt.plot(r, Veff, color='black', label=label_eff)
     plt.hlines(e1, x1_left, x1_right, linestyle='--', color='b', label=lab_e1)
-    plt.hlines(e2, x2_left, x2_right, linestyle='--', color='g', label=lab_e2)
+    plt.hlines(e2, x2_left, x2_right, linestyle='-', color='g', label=lab_e2)
+    plt.hlines(e3, x3_left, x3_right, linestyle='--', color='g', label=lab_e3)
 
     plt.plot(x2_right, e2, color='green', marker='o')
     plt.text(x2_right - 0.4, e2 + 5e-3, r'$\hat r_2  $', fontsize=15)
+
+    plt.plot(x3_right, e3, color='green', marker='o')
+    plt.text(x3_right - 0.4, e3 + 5e-3, r'$\hat r_2  $', fontsize=15)
 
     plt.xscale('log')
     tiks = [1,10,30,100,300]
@@ -90,7 +100,6 @@ def plot_scenario1(save=['yes','no']):
     # Different values of E
     r_min = l**2 * (1 + skrt)
     V_min = fun_V_eff(r_min, l)
-    lab_e4 = r'$\mathcal{E}_4 = V_{\rm eff} \, (\hat r_{\rm min})$'
 
     e1 = 0.005
     x1_left = left_lim
@@ -107,31 +116,40 @@ def plot_scenario1(save=['yes','no']):
     x3_right = root_scalar(lambda x: fun_V_eff(x, l) - e3, bracket=[r_min, right_lim], method='bisect').root
     lab_e3 = r'$\mathcal{E}_3 =$'+str(e3)
 
-    e4 = -0.04
+    e4 = -0.035
     x4_left = left_lim
     x4_right = root_scalar(lambda x: e4 - fun_V_eff(x, l), bracket=[1, r_max], method='bisect').root
     lab_e4 = r'$\mathcal{E}_4 =$'+str(e4)
+
+    e5 = -0.053
+    x5_left = left_lim
+    x5_right = root_scalar(lambda x: e5 - fun_V_eff(x, l), bracket=[1, r_max], method='bisect').root
+    lab_e5 = r'$\mathcal{E}_5 =$'+str(e5)
 
     ax = plt.figure(figsize=(10,5))
     plt.plot(r, Veff, color='black', label=label_eff)
     plt.vlines(r_max, bottom_lim, V_max, color='r', linestyle='--', linewidth=1)
     plt.vlines(r_min, bottom_lim, V_min, color='r', linestyle='--', linewidth=1)
     plt.hlines(e1, x1_left, x1_right, linestyle='--', color='b', label=lab_e1)
-    plt.hlines(e2, x2_left, x2_right, linestyle='--', color='g', label=lab_e2)
-    plt.hlines(e3, x3_left, x3_right, linestyle='--', color='orange', label=lab_e3)
-    plt.hlines(e4, x4_left, x4_right, linestyle='--', color='purple', label=lab_e4)
+    plt.hlines(e2, x2_left, x2_right, linestyle='-', color='g', label=lab_e2)
+    plt.hlines(e3, x3_left, x3_right, linestyle='--', color='purple', label=lab_e3)
+    plt.hlines(e4, x4_left, x4_right, linestyle='--', color='g', label=lab_e4)
+    plt.hlines(e5, x5_left, x5_right, linestyle=':', color='g', label=lab_e5)
 
     plt.plot(x2_right, e2, color='green', marker='o')
     plt.text(x2_right, e2 + 2e-3, r'$\hat r_2  $', fontsize=15)
 
-    plt.plot(x3_left, e3, color='orange', marker='o')
+    plt.plot(x3_left, e3, color='purple', marker='o')
     plt.text(x3_left, e3 + 2e-3, r'$\hat r_1$', fontsize=15)
 
-    plt.plot(x3_right, e3, color='orange', marker='o')
+    plt.plot(x3_right, e3, color='purple', marker='o')
     plt.text(x3_right - 0.6, e3 + 2e-3, r'$\hat r_2$', fontsize=15)
 
-    plt.plot(x4_right, e4, color='purple', marker='o')
+    plt.plot(x4_right, e4, color='g', marker='o')
     plt.text(x4_right - 0.2, e4 + 2e-3, r'$\hat r_2  $', fontsize=15)
+
+    plt.plot(x5_right, e5, color='g', marker='o')
+    plt.text(x5_right - 0.2, e5 + 2e-3, r'$\hat r_2  $', fontsize=15)
 
     plt.xscale('log')
     tiks = [1,10,30,100,300] + [r_max, r_min]
@@ -186,12 +204,12 @@ def plot_scenario2(save=['yes','no']):
     x3_right = root_scalar(lambda x: e3 - fun_V_eff(x, l), bracket=[r_min, right_lim], method='bisect').root
     lab_e3 = r'$\mathcal{E}_3 =$'+str(e3)
 
-    e4 = -0.04
+    e4 = +0.01
     x4_left = left_lim
     x4_right = root_scalar(lambda x: e4 - fun_V_eff(x, l), bracket=[1, r_max], method='bisect').root
     lab_e4 = r'$\mathcal{E}_4 =$'+str(e4)
 
-    e5 = +0.01
+    e5 = -0.04
     x5_left = left_lim
     x5_right = root_scalar(lambda x: e5 - fun_V_eff(x, l), bracket=[1, r_max], method='bisect').root
     lab_e5 = r'$\mathcal{E}_4 =$'+str(e5)
@@ -201,24 +219,24 @@ def plot_scenario2(save=['yes','no']):
     plt.vlines(r_max, bottom_lim, V_max, color='r', linestyle='--', linewidth=1)
     plt.vlines(r_min, bottom_lim, V_min, color='r', linestyle='--', linewidth=1)
     plt.hlines(e1, x1_left, x1_right, linestyle='--', color='b', label=lab_e1)
-    plt.hlines(e2, x2_left, x2_right, linestyle='--', color='g', label=lab_e2)
-    plt.hlines(e3, x3_left, x3_right, linestyle='--', color='orange', label=lab_e3)
-    plt.hlines(e4, x4_left, x4_right, linestyle='--', color='purple')
-    plt.hlines(e5, x5_left, x5_right, linestyle='--', color='purple')
+    plt.hlines(e2, x2_left, x2_right, linestyle='--', color='orange', label=lab_e2)
+    plt.hlines(e3, x3_left, x3_right, linestyle='--', color='purple', label=lab_e3)
+    plt.hlines(e4, x4_left, x4_right, linestyle='-', color='green', label=lab_e4)
+    plt.hlines(e5, x5_left, x5_right, linestyle='--', color='green', label=lab_e5)
 
-    plt.plot(x2_left, e2, color='green', marker='o')
+    plt.plot(x2_left, e2, color='orange', marker='o')
     plt.text(x2_left, e2 + 3e-3, r'$\hat r_1  $', fontsize=15)
 
-    plt.plot(x3_left, e3, color='orange', marker='o')
+    plt.plot(x3_left, e3, color='purple', marker='o')
     plt.text(x3_left , e3 + 3e-3, r'$\hat r_1$', fontsize=15)
 
-    plt.plot(x3_right, e3, color='orange', marker='o')
+    plt.plot(x3_right, e3, color='purple', marker='o')
     plt.text(x3_right, e3 + 3e-3, r'$\hat r_2$', fontsize=15)
 
-    plt.plot(x4_right, e4, color='purple', marker='o')
+    plt.plot(x4_right, e4, color='green', marker='o')
     plt.text(x4_right + 0.05, e4 + 3e-3, r'$\hat r_2  $', fontsize=15)
 
-    plt.plot(x5_right, e5, color='purple', marker='o')
+    plt.plot(x5_right, e5, color='green', marker='o')
     plt.text(x5_right + 0.05, e5 + 3e-3, r'$\hat r_2  $', fontsize=15)
 
     plt.xscale('log')
@@ -376,7 +394,7 @@ def fun_t_r(r):
     return - 2 / 3 * r**(3/2) - 2 * r**(1/2) + np.log(np.abs( (r**(1/2) + 1) / (r**(1/2) - 1) ))
 
 
-def plt_tvstau(foldername, save=['yes','no']):
+def plt_tvstau(foldername, h, save=['yes','no']):
 
     filename = None
     for file in os.listdir(f'data/keep/{foldername}'):
@@ -386,6 +404,7 @@ def plt_tvstau(foldername, save=['yes','no']):
     if not filename:
         print('No file found')
         exit()
+
 
     data = np.loadtxt(f'data/keep/{foldername}/{filename}', delimiter=',', skiprows=1)
     tau = data[:, 0]
@@ -417,29 +436,131 @@ def plt_tvstau(foldername, save=['yes','no']):
     if save == 'yes':
         plt.savefig(f'../latex/Figures/chapter2/radial_infall.eps')
 
+    r = r[tau > 0.1]
+    t = t[tau > 0.1]
+    analytic_t = analytic_t[tau > 0.1]
+    analytic_tau = analytic_tau[tau > 0.1]
+    tau = tau[tau > 0.1]
+
+    #t_res = abs(t / analytic_t - 1)
+    #tau_res = abs(tau / analytic_tau - 1)
+    t_res = abs(t - analytic_t)
+    tau_res = abs(tau - analytic_tau)
+
 
     plt.figure(figsize=(7,5))
-    plt.plot(r[:-4], t[:-4] - analytic_t[:-4], linestyle='', marker='.',
+    plt.plot(r, t_res, linestyle='', marker='.',
              label=r'$\hat t - \hat t_{\rm analytic}$')
     plt.yscale('log')
-    plt.xlabel(r'$\hat t$')
+    plt.xlabel(r'$\hat r$')
     plt.ylabel('Residuals')
-    plt.title(r'Residual graph of $\hat t$, simulated with $h = 10^{-4}$')
+    plt.title(rf'Normalized Residual of $\hat t$, $h = {h:.1e}$')
     plt.tight_layout()
     plt.legend()
-    plt.savefig('../latex/Figures/chapter2/t_res.png')
-
+    if save == 'yes':
+        plt.savefig('../latex/Figures/chapter2/t_res.png')
 
     plt.figure(figsize=(7,5))
-    plt.plot(r, tau - analytic_tau, linestyle='', marker='.',
+    plt.plot(r, tau_res, linestyle='', marker='.',
              label=r'$\hat \tau - \hat \tau_{\rm analytic}$')
-    plt.xlabel(r'$\hat t$')
+    plt.xlabel(r'$\hat r$')
     plt.ylabel('Residuals')
-    plt.title(r'Residual graph of $\hat \tau$, simulated with $h = 10^{-4}$')
+    plt.title(rf'Normalized Residual of $\hat \tau$, $h = {h:.1e}$')
     plt.tight_layout()
     plt.legend()
     if save == 'yes':
         plt.savefig('../latex/Figures/chapter2/tau_res.png')
+
+
+def check_stability_infall2(hs, save=['yes','no']):
+    foldername = 'data/keep/infall2_'
+    fig, ax = plt.subplots(figsize=(12, 6))
+
+    # Create an inset axes for the zoomed-in region
+    ax_inset1 = inset_axes(ax, width="30%", height="30%", loc='upper right')  # Adjust the size and position
+    ax_inset2 = inset_axes(ax, width="30%", height="30%", loc='lower right')  # Adjust the size and position
+
+    for h in hs:
+        # Construct the filename
+        filename = None
+        for file in os.listdir(f'{foldername}{h:.1e}'):
+            if file.endswith(".csv"):
+                filename = f'{foldername}{h:.1e}/' + file
+
+        if not filename:
+            print('No file found')
+            continue
+
+        data = np.loadtxt(filename, delimiter=',', skiprows=1)
+        tau = data[:, 0]
+        r = data[:, 1]
+        phi = data[:, 2]
+        t = data[:, 3]
+
+        x = r * np.cos(phi)
+        y = r * np.sin(phi)
+
+        # Plot the main data
+        ax.plot(x, y, label=f'$h = {h:.1e}$')
+        # Plot the zoomed-in data
+        ax_inset1.plot(x, y)
+        ax_inset2.plot(x, y)
+
+
+    ## ZOOM 1
+    # Define the region to zoom in
+    x1 = - 4.04 - 0.00495
+    x2 = - 4.04 - 0.00475 
+    y1 = 5.47 + 0.00690
+    y2 = 5.47 + 0.00700 
+    ax_inset1.set_xlim(x1, x2)
+    ax_inset1.set_ylim(y1, y2)
+
+    ax_inset1.set_xticks([-9*1e-4 - 4.044, -8*1e-4 - 4.044])
+    ax_inset1.set_yticks([])
+    ax_inset1.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
+
+    # Add a rectangle to highlight the zoomed-in area in the main plot
+    #rect = plt.Rectangle((x1, y1), x2-x1, y2-y1, edgecolor='red', facecolor='none', linestyle='--')
+    #ax.add_patch(rect)
+
+    # Mark the inset on the main plot
+    mark_inset(ax, ax_inset1, loc1=2, loc2=3, fc="none", ec="0.5")
+
+    ## ZOOM 2
+    x1 = -1.976 - 51.25e-5
+    x2 = -1.976 - 49.75e-5
+    y1 = 0.2359 + 24e-6
+    y2 = 0.2359 + 32e-6
+    ax_inset2.set_xlim(x1, x2)
+    ax_inset2.set_ylim(y1, y2)
+
+    ax_inset2.set_yticks([])
+    ax_inset2.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
+    ax_inset2.xaxis.set_ticks_position('top') 
+
+    mark_inset(ax, ax_inset2, loc1=2, loc2=3, fc="none", ec="0.5")
+
+    ## Main plot
+    r_s = np.linspace(0, 2 * np.pi, 100)
+    ax.plot(np.cos(r_s), np.sin(r_s), 'k:', label='Event Horizon')
+    ax.plot(x[0], y[0], 'ro', label='Start')
+    ax.plot(x[-1], y[-1], 'go', label='End')
+
+    ax.axis('equal')
+    ax.set_title('Stability of the numerical solution')
+    ax.set_xlabel(r'$\hat x$')
+    ax.set_ylabel(r'$\hat y$', rotation=0)
+    ax.legend(loc='upper left')
+    plt.tight_layout()
+
+    # Save the figure if needed
+    save = 'yes'
+    if save == 'yes':
+        plt.savefig(f'../latex/Figures/chapter2/stability_infall2.eps')
+
+    plt.show()
+
 
 
 def check_circular(foldername, h, figname):
@@ -492,16 +613,20 @@ def check_circular(foldername, h, figname):
 fold = '../latex/Figures/chapter2/'
 
 ''' radial infall '''
-#plt_tvstau('radial_infall4', 'no')
-#plt_tvstau('radial_infall4_RKN4', 'no')
-plt_tvstau('radial_infall4_RK4_corr', 'no')
-#plot_orbit('radial_infall4','Radial Infall', 'upper right', fold + 'radial_infall.eps')
+#plt_tvstau('rad_infall2e-3_RK4', 2e-3, 'no')
+#plt_tvstau('rad_infall1e-3_RK4', 1e-3, 'yes')
+#plt_tvstau('rad_infall5e-4_RK4', 5e-4, 'no')
+#plt_tvstau('rad_infall2e-3_RK4_corr', 2e-3, 'no')
+#plt_tvstau('rad_infall1e-3_RK4_corr', 1e-3, 'no')
+#plt_tvstau('rad_infall5e-4_RK4_corr', 5e-4, 'no')
+#plot_orbit('rad_infall1e-3_RK4','Radial Infall', 'upper right', fold + 'radial_infall.eps')
 
 
 ''' Crazy infalls '''
 #plot_orbit('infall','', 'upper right', fold + 'infall1.eps')
 #plot_orbit('infall2','', 'upper right', fold + 'infall2.eps')
 #plot_orbit('volevi', '', 'upper right', fold + 'volevi.eps')
+check_stability_infall2([2e-3, 1e-3, 8e-4, 4e-4, 2e-4, 1e-4, 5e-5, 2.5e-5, 1e-5], 'yes')
 
 
 ''' Circular Orbits '''

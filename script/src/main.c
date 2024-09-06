@@ -17,6 +17,7 @@ void print_help(char *argv[]){
     printf("-t :\ttau_max, maximum proper time (100 default)\n");
     printf("-f :\tfilename, output file (default is data/l\%.3f_E\%.5f.csv default)\n");
     printf("-B :\tframes per second (50 default, all to save all data)\n");
+    printf("-a :\talgorithm to use (0 = RK4, 1 = RK4_corrected) (0 default)\n");
     printf("\nl < sqrt(3) no stable points\n");
     printf("l = sqrt(3) one stationary point (r_ISCO = 3)\n");
     printf("l > sqrt(3) two stationary points\n");
@@ -76,11 +77,10 @@ int main(int argc, char *argv[]){
         printf("Missing arguments\n");
         print_help(argv);
     }
-    if (argc > 15){
+    if (argc > 17){
         printf("Too many arguments\n");
         print_help(argv);
     }
-
     if (argc == 2)
         print_help2(argv);
 
@@ -98,6 +98,7 @@ int main(int argc, char *argv[]){
     /***** Other parameters that can be changed with optional arguments *****/
     double h = 1e-3;                // Proper time increment
     double tau_max = 100;           // Maximum proper time
+    int alg = 0;                    // Algorithm to use (0 = RK4, 1 = RK4_corrected)
     int time2print;                 // Data saved every time2print steps
     char filename[50];              // Output file
     write_filename(filename, argv);
@@ -130,6 +131,13 @@ int main(int argc, char *argv[]){
             case 'B':
                 sprintf(fps, "%s", argv[i + 1]);
                 break;
+            case 'a':
+                alg = atoi(argv[i + 1]);
+                if (alg != 0 && alg != 1){
+                    printf("Invalid algorithm %d\n", alg);
+                    print_help(argv);
+                }
+                break;
             default:
                 printf("Invalid argument %s\n", argv[i]);
                 print_help(argv);
@@ -142,12 +150,15 @@ int main(int argc, char *argv[]){
     else 
         time2print = ceil(1 / h / atof(fps));
 
+
     check_parameters(l, E, &r0, &r_lim, &sign);
     printf("r_lim\t%.3f\n", r_lim);
     printf("h\t%.3e\n", h);
     printf("tau_max\t%.3f\n", tau_max);
     printf("Saving data every %d steps (fps = %s)\n", time2print, fps);
-    printf("Output file: %s\n\n", filename);
+    printf("Output file: %s\n", filename);
+    if (alg == 0) printf("Algorithm: RK4\n\n");
+    if (alg == 1) printf("Algorithm: RK4 corrected\n\n");
 
 
     /***** Coordinates *****/
@@ -159,14 +170,18 @@ int main(int argc, char *argv[]){
 
     
     FILE *f = fopen(filename, "w");
-    fprintf(f, "tau,r,phi,t\n");
-    fprintf(f, "%.10e,%.10e,%.10e,%.10e\n", tau, r, phi, t);
+    fprintf(f, "tau,r,phi,t,E\n");
+    fprintf(f, "%.15e,%.15e,%.15e,%.15e,%.15e\n", tau, r, phi, t, E);
 
     int kk = 0;
     while (tau < tau_max){
 
-        // TESI_RK4(h, tau, &r, &phi, &t, E, l, &sign, &Nturns);
-        TESI_RK4_corrected(h, tau, &v, &r, &phi, &t, E, l, &sign, &Nturns);
+        if (alg == 0)
+            TESI_RK4(h, tau, &r, &phi, &t, E, l, &sign, &Nturns);
+
+        if (alg == 1)
+            TESI_RK4_corrected(h, tau, &v, &r, &phi, &t, E, l, &sign, &Nturns);
+
         tau += h;
         kk++;
 
@@ -181,7 +196,7 @@ int main(int argc, char *argv[]){
         }
 
         if (kk % time2print == 0){
-            fprintf(f, "%.15e,%.15e,%.15e,%.15e\n", tau, r, phi, t);
+            fprintf(f, "%.15e,%.15e,%.15e,%.15e,%.15e\n", tau, r, phi, t, v*v/2 + TESI_Veff(r, l));
             printf("\rtau = %.3e | r = %.3f | Turns = %d", tau, r, Nturns);
             fflush(f);
         }
@@ -190,6 +205,10 @@ int main(int argc, char *argv[]){
     fclose(f);
 
     printf("\nEnded at:\n");
+    if (alg == 1){
+        double Efin = v * v / 2 + TESI_Veff(r, l);
+        printf("(E - E0)/E0 = %.3e\n", (Efin - E) / E);
+    }
     printf("tau = %f\n", tau);
     printf("r = %f\n", r);
     printf("phi = %f\n", phi / (2 * M_PI));

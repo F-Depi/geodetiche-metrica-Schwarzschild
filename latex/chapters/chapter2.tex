@@ -1,11 +1,13 @@
 % ::setlocal makeprg=cd\ latex\ &&\ pdflatex\ -interaction=batchmode\ main.tex\ &&\ xdg-open\ main.pdf\ &&\ exit
 
-As we have seen in the previous chapter, the Schwarzschild metric describes the
-geometry of spacetime around a spherically symmetric, non-rotating black hole.
+As we have seen in the previous chapter, the \Sh metric describes the
+geometry of spacetime around a spherically symmetric, non-rotating extended
+objects or black hole.
 Even though it is one of the simplest solutions to the Einstein field equations,
-the orbits of particles, in general, are not described by closed form solutions.
+the orbits of particles in this metric, in general, are not described by closed
+form solutions.
 
-In this chapter we will build a program in \texttt{C} that numerically
+In this chapter we will document a program in \texttt{C} that numerically
 integrates the equations of motion.
 The program will allow us to study more complex geodesics and better understand
 how they differ from the Newtonian case.
@@ -34,8 +36,8 @@ In \ref{cap2:eq:radial_eq} $V_{\rm eff}$ is the effective potential defined in e
 \ref{cap1:eq:V_eff} and $\mathcal E = \frac{e^2 - 1}{2}$.
 
 To simplify even further the form of the equations and discuss the problem in a
-more general way, we will keep geometrized units and express them with the \Sh
-radius $r_s = 2 M$:
+more general way, we will keep geometrized units and express them in terms of
+the \Sh radius $r_s = 2 M$:
 
 \begin{equation}
     r = r_s \hat r \quad \quad
@@ -88,7 +90,8 @@ a fourth-order \texttt{Runge-Kutta} method.
 The initial conditions that determine the orbit are $\hat \ell$,
 $\mathcal E$, a starting radius $\hat r_0$ compatible with the condition
 $\mathcal E - V_{\rm eff} \geq 0$ (refer to Figure
-\ref{cap1:fig:V_eff_orbits}) and the sign choice in eq. \ref{cap2:eq:radial_eq_ad}.
+\ref{cap1:fig:V_eff_orbits}) and the sign choice in eq.
+\ref{cap2:eq:radial_eq_ad}.
 
 To find the range of $r$ that the particle can explore we need to study when the
 argument of the square root in eq. \ref{cap2:eq:radial_eq_ad} is positive.
@@ -108,15 +111,20 @@ From the real, positive roots of eq. \ref{cap2:eq:cubic_eq} we can find the
 turning points, if any exist.
 Instead of solving the cubic equation analytically, the limiting radii can be
 calculated using the bisect method and imposing that \ref{cap2:eq:cubic_eq}
-must be 0 between in the correct interval. \\
-All the possible scenarios are resumed in Figures \ref{cap2:fig:scenario0},
-\ref{cap2:fig:scenario1} and \ref{cap2:fig:scenario2}.
+must be 0 in the correct interval. \\
+To find the correct interval we can refer to Figures \ref{cap2:fig:scenario0},
+\ref{cap2:fig:scenario1} and \ref{cap2:fig:scenario2} and Table
+\ref{cap2:tab:scenarios}, where all the possible scenarios are summarized.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width= 0.8 \textwidth]{Figures/chapter2/scenario0.eps}
+    \includegraphics[width= 0.66 \textwidth]{Figures/chapter2/scenario0.eps}
     \caption{Possible scenarios for $\hat \ell < \sqrt{3}$.
-    The outer turning points are labeled as $\hat r_2$ and the inner ones as}
+    When $\mathcal E > 0$ the particle can fall toward the origin or escape,
+    depending on the sign chosen in eq. \ref{cap2:eq:radial_eq_ad}.
+    Only outer turning points are possible and are labeled as $\hat r_2$, two
+    possible energy levels are shown in green lines
+    }
     \label{cap2:fig:scenario0}
 \end{figure}
 
@@ -126,90 +134,75 @@ All the possible scenarios are resumed in Figures \ref{cap2:fig:scenario0},
     \caption{Possible scenarios for $\hat \ell < 2$.
     The outer turning points are labeled as $\hat r_2$ and the inner ones as
     $\hat r_1$.
-    Orbits with energy $\mathcal E > 0$ are infalls only if the minus sign is
-    chosen in eq. \ref{cap2:eq:radial_eq_ad}.
-    Orbits with energy like $\mathcal E_3$ can be bound orbits or infalls
-    depending on the initial radius $\hat r_0$ chosen.
-    Orbits like $\mathcal E_2$ are effectively infalls like $\mathcal E_4$, with
-    the difference that the radial velocity of the particle will slow during
-    between $r_{\rm min}$ and $r_{\rm max}$.}
+    Orbits with energy $\mathcal E > 0$ (blue line) are infalls only if the
+    minus sign is chosen in eq. \ref{cap2:eq:radial_eq_ad}.
+    Orbits with energy like $\mathcal E_3$ can be bound orbits (purple line) or
+    infalls (green lines) depending on the initial radius $\hat r_0$ chosen, an
+    example is $\mathcal E_4$.
+    Orbits like $\mathcal E_2$ are effectively infalls like $\mathcal E_4$ and
+    $\mathcal E_5$, with the difference that the radial velocity of the particle
+    will slow between $r_{\rm min}$ and $r_{\rm max}$.}
     \label{cap2:fig:scenario1}
 \end{figure}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{Figures/chapter2/scenario2.eps}
+\begin{figure} \centering \includegraphics[width=\textwidth]{Figures/chapter2/scenario2.eps}
     \caption{Possible scenarios for $\hat \ell > 2$.
     The outer turning points are labeled as $\hat r_2$ and the inner ones as
     $\hat r_1$.
-    Orbits with energy $\mathcal E > V_{\rm max}$ are infalls only if the minus
-    sign is chosen in eq. \ref{cap2:eq:radial_eq_ad}.
-    Orbits with $\mathcal E < V_{\rm max}$ can be infalls (purple) if the starting
-    radius is small enough.
-    Bound and unbound orbits are represented in yellow and green.}
+    Orbits with energy $\mathcal E > V_{\rm max}$ (blue line) are infalls only
+    if the minus sign is chosen in eq. \ref{cap2:eq:radial_eq_ad}.
+    Orbits with $\mathcal E < V_{\rm max}$ can be infalls (green) if the
+    starting radius is small enough.
+    Unbound and bound orbits are represented in yellow and purple respectively.}
     \label{cap2:fig:scenario2}
 \end{figure}
 
-The program can determine whether a turning point exists and can choose the correct
-interval based on the initial conditions $ \hat{\ell} $ and $ \mathcal{E} $.
-Fixing the limit of the numerical simulation at \texttt{R\_MAX = 1000}, when the
-inner turning point $ \hat{r}_1 $ exists, it is always in the interval 
-$[\hat{r}_{\text{max}}, ~ \hat{r}_{\text{min}}]$.
-When the outer turning point $ \hat{r}_2 $ exists, it is always in the interval 
-$[1, ~ \hat{r}_{\text{max}}]$ or $[\hat{r}_{\text{min}}, ~ \texttt{R\_MAX}]$.
+The program can determine on a case by case base (using the initial conditions
+$\hat \ell$ and $\mathcal E$) whether a turning point exists.
+If a turning point exists the boundaries of the interval in which bisection can
+be done are established. \\
+Referring to figure \ref{cap2:fig:scenario2}, as an example, the program will
+do bisection in the interval $[1, ~ \hat r_{\rm max}]$ to find $\hat r_2$ for
+green lines and in the interval $[\hat r_{\rm max}, ~ \texttt{R\_MAX}]$ to find
+$\hat r_2$ for purple lines.
+\texttt{R\_MAX} is a constant that sets the limit of the numerical simulation,
+by default it is set to 1000.
+Similarly, the program will do bisection in the interval
+$[\hat r_{\rm max}, ~ \hat r_{\rm min}]$ to find $\hat r_1$ for yellow and
+purple lines.
 This allows the program to check if the starting radius $ \hat{r}_0 $ is in an
 allowed interval and, if not, to move it to the closest turning point, from
 where the particle will start its motion.
-
-All the possible scenarios are summarized in Table \ref{cap2:tab:scenarios}.
-
-%\begin{table}[h]
-%    \centering
-%    \begin{tabular}{cccc}
-%        \toprule
-%        $\hat \ell$     & $\mathcal E$                              & $\hat r$                    & Scenario \\
-%        \midrule
-%        $[0,~\sqrt{3}]$ & $\left[0,~\infty \right)$            & $\left(1,~  \infty \right)$ & depends on the sign\\
-%        $[0,~\sqrt{3}]$ & $\left[-\infty,~0 \right)$           & $\left(1,~     r_2 \right)$ & infall \\
-%        $(\sqrt{3},~2]$ & $\left[0,~\infty \right)$            & $\left(1,~  \infty \right)$ & depends on the sign \\
-%        $(\sqrt{3},~2]$ & $\left[V_{\rm max},~0 \right]$            & $\left(1,~     r_2 \right)$ & infall \\
-%        $(\sqrt{3},~2]$ & $\left[V_{\rm min},~V_{\rm max} \right]$  & $\left(r_1,~   r_2 \right)$ & bound orbit \\
-%        $(\sqrt{3},~2]$ & $\left[-\infty,~V_{\rm min} \right]$ & $\left(1,~     r_2 \right)$ & infall \\
-%        $(2, \infty)$   & $\left[V_{\rm max},~\infty \right)$  & $\left(1,~  \infty \right)$ & depends on the sign \\
-%        $(2, \infty)$   & $\left[0,~V_{\rm max} \right]$            & $\left(r_1,~\infty \right)$ & unbound orbit \\
-%        $(2, \infty)$   & $\left[V_{\rm min},~V_{\rm min} \right]$  & $\left(r_1,~   r_2 \right)$ & bound orbit \\
-%        $(2, \infty)$   & $\left[-\infty,~V_{\rm min} \right]$ & $\left(1,~     r_2 \right)$ & infall \\
-%        \bottomrule
-%    \end{tabular}
-%    \caption{Possible scenarios for the motion of a particle in the \Sh
-%    spacetime.}
-%    \label{cap2:tab:scenarios}
-%\end{table}
-
-%% Dubbio valori di massimi e minimi di E
+It also serves as a security measure to check, during the simulation, if the
+particle is moving in a forbidden region and to stop the simulation if it does.
 
 \begin{table}[h]
     \centering
     \begin{tabular}{c@{\hspace{1cm}}r@{}c@{}c@{}c@{}l@{\hspace{1cm}}c@{\hspace{1cm}}c}
         \toprule
-        $\hat \ell$     &    &&$\mathcal E$      &             &    & $\hat r_0$                  & Scenario            \\
+        $\hat \ell$     &    &&$\mathcal E$      &             &    & $\hat r_0$                  & Scenario\\
         \midrule
-        $[0,~\sqrt{3}]$ & $[$&$0            $&$,$&$\infty     $&$)$ & $\left(1,~  \infty \right)$ & depends on the sign \\[0.1cm]
-        $[0,~\sqrt{3}]$ & $($&$-\frac{1}{2} $&$,$&$0          $&$)$ & $\left(1,~     r_e \right)$ & infall              \\[0.1cm]
-        $(\sqrt{3},~2]$ & $[$&$0            $&$,$&$\infty     $&$)$ & $\left(1,~  \infty \right)$ & depends on the sign \\[0.1cm]
-        $(\sqrt{3},~2]$ & $[$&$V_{\rm max}  $&$,$&$0          $&$]$ & $\left(1,~     r_2 \right)$ & infall              \\[0.1cm]
-        $(\sqrt{3},~2]$ & $[$&$V_{\rm min}  $&$,$&$V_{\rm max}$&$]$ & $\left(r_1,~   r_2 \right)$ & bound orbit         \\[0.1cm]
-        $(\sqrt{3},~2]$ & $($&$-\frac{1}{2} $&$,$&$V_{\rm min}$&$]$ & $\left(1,~     r_e \right)$ & infall              \\[0.1cm]
-        $(2, \infty)$   & $[$&$V_{\rm max}  $&$,$&$\infty     $&$)$ & $\left(1,~  \infty \right)$ & depends on the sign \\[0.1cm]
-        $(2, \infty)$   & $[$&$0            $&$,$&$V_{\rm max}$&$]$ & $\left(r_1,~\infty \right)$ & unbound orbit       \\[0.1cm]
-        $(2, \infty)$   & $[$&$V_{\rm min}  $&$,$&$V_{\rm min}$&$]$ & $\left(r_1,~   r_2 \right)$ & bound orbit         \\[0.1cm]
-        $(2, \infty)$   & $($&$-\frac{1}{2} $&$,$&$V_{\rm min}$&$]$ & $\left(1,~     r_e \right)$ & infall              \\
+        $[0,~\sqrt{3}]$ & $[$&$0            $&$,$&$\infty     $&$)$ & $\left(1,~  \infty \right)$ & A, C    \\[0.1cm]
+        $[0,~\sqrt{3}]$ & $($&$-\frac{1}{2} $&$,$&$0          $&$)$ & $\left(1,~     r_2 \right)$ & A       \\[0.1cm]
+        $(\sqrt{3},~2]$ & $[$&$0            $&$,$&$\infty     $&$)$ & $\left(1,~  \infty \right)$ & A, C    \\[0.1cm]
+        $(\sqrt{3},~2]$ & $($&$-\frac{1}{2} $&$,$&$0          $&$]$ & $\left(1,~     r_2 \right)$ & A       \\[0.1cm]
+        $(\sqrt{3},~2]$ & $[$&$V_{\rm min}  $&$,$&$V_{\rm max}$&$]$ & $\left(r_1,~   r_2 \right)$ & B       \\[0.1cm]
+       %$(\sqrt{3},~2]$ & $($&$-\frac{1}{2} $&$,$&$V_{\rm max}$&$]$ & $\left(1,~     r_2 \right)$ & A       \\[0.1cm]
+        $(2, \infty)$   & $[$&$V_{\rm max}  $&$,$&$\infty     $&$)$ & $\left(1,~  \infty \right)$ & A, C    \\[0.1cm]
+        $(2, \infty)$   & $($&$-\frac{1}{2} $&$,$&$V_{\rm max}$&$]$ & $\left(1,~     r_2 \right)$ & A       \\
+        $(2, \infty)$   & $[$&$0            $&$,$&$V_{\rm max}$&$]$ & $\left(r_1,~\infty \right)$ & C       \\[0.1cm]
+        $(2, \infty)$   & $[$&$V_{\rm min}  $&$,$&$V_{\rm min}$&$]$ & $\left(r_1,~   r_2 \right)$ & B       \\[0.1cm]
         \bottomrule
     \end{tabular}
-    \caption{Possible scenarios for the motion of a particle in the Schwarzschild spacetime.}
+    \caption{A: infall, B: bound orbit, C: unbound orbit. \\
+    Possible scenarios for the motion of a particle in the \Sh spacetime.
+    When two scenarios are listed, A happens if the minus sign is chosen in eq.
+    \ref{cap2:eq:radial_eq_ad}, otherwise C happens.
+    As represented in Figures \ref{cap2:fig:scenario0}, \ref{cap2:fig:scenario1}
+    and \ref{cap2:fig:scenario2}, some overlaps are possible, when 3 turning
+    points exist.}
     \label{cap2:tab:scenarios}
 \end{table}
-
 
 One last detail to consider is the change of sign in eq.
 \ref{cap2:eq:radial_eq_ad}.
@@ -243,8 +236,6 @@ $\hat \tau = \hat \phi = \hat t = 0$ and, unless otherwise specified, the step
 increment performed on $\hat \tau$ for each iteration of \texttt{RK4} will be
 $h = 0.001$.
 
-\newpage
-
 
 \section{Infalls}
 
@@ -277,9 +268,9 @@ eq. \ref{cap1:eq:radial_infall_r_of_tau} and \ref{cap1:eq:radial_infall_r_of_t}
 found analytically in the previous chapter. \\
 Figures \ref{cap2:fig:t_res} and \ref{cap2:fig:tau_res} also show the residuals
 of $\hat t$ and $\hat \tau$ with respect to their analytical predictions.
-For $\hat \tau$ the error is of the order of $10^{-10}$.
+For $\hat \tau$ the error is of the order of $10^{-13}$.
 For $\hat t$ the vertical axis is in logarithmic scale to show that the error is
-constant around $10^{-10}$, only to increase when the particle gets closer to
+constant around $10^{-13}$, only to increase when the particle gets closer to
 the \Sh radius.
 That's to be expected as $t \rightarrow \infty$ when $r \rightarrow r_s$.
 
@@ -304,8 +295,8 @@ That's to be expected as $t \rightarrow \infty$ when $r \rightarrow r_s$.
 \end{figure}
 
 By integrating numerically with this program, we can visualize some more
-complex infalls that are shown in Figures \ref{cap2:fig:infall1} and
-\ref{cap2:fig:infall2}.
+complex infalls that are shown in Figures \ref{cap2:fig:infall1},
+\ref{cap2:fig:infall2} and \ref{cap2:fig:volevi}.
 
 \begin{figure}[h]
     \begin{minipage}{0.48\textwidth}
@@ -332,7 +323,7 @@ complex infalls that are shown in Figures \ref{cap2:fig:infall1} and
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.73 \textwidth]{Figures/chapter2/volevi.eps}
+    \includegraphics[width= 0.64 \textwidth]{Figures/chapter2/volevi.eps}
     \caption{The particle starts at $\hat r_0 = 2$ with $\hat \ell = 1$,
     $\mathcal E = -0.02367591$ and its radial velocity directed outward.
     $V_{\rm eff} (\hat r_{\rm max} = 2.13) = -0.02367592$, meaning the particle
@@ -341,7 +332,7 @@ complex infalls that are shown in Figures \ref{cap2:fig:infall1} and
     $\hat r \simeq \hat r_{\rm max}$.
     This results in the particle almost starting a circular orbit, completing
     three full revolutions before gradually moving farther from the origin
-    The radial velocity then increases unit
+    The radial velocity then increases until
     $\hat r > \hat r_{\rm min} \simeq 5$, where the potential rises again.
     The energy is sufficient to reach the turning point at $r_2 \simeq 16.9$,
     after which the particle falls back toward the origin, performing three more
@@ -349,6 +340,23 @@ complex infalls that are shown in Figures \ref{cap2:fig:infall1} and
     \label{cap2:fig:volevi}
 \end{figure}
 
+To ensure the numerical stability of the program, we can compute the orbits
+shown above with different time increments.
+The result for the infall from Figure \ref{cap2:fig:infall2} is shown in Figure
+\ref{cap2:fig:stability_infall2}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/chapter2/stability_infall2.eps}
+    \caption{$\hat \ell = 1.8$, $\mathcal E = -0.042$, $\hat r_0 = 2$, starting
+    radial velocity directed outward.
+    The plot shows the orbit of the particle with different time increments.
+    $h$ is almost halved at each step, from $h = \num{2e-3}$ to $h = \num{1e-5}$.
+    The orbits are almost indistinguishable and smaller values of h appears to
+    be converging to the same orbit, showing that the numerical integration is
+    stable.}
+    \label{cap2:fig:stability_infall2}
+\end{figure}
 
 \section{Bound Orbits}
 
@@ -357,8 +365,8 @@ and $V_{\rm min} \leq \mathcal E < \min \{V_{\rm max}, 0\}$.
 
 \subsection{Circular Orbits}
 
-As seen in section \ref{cap1:ssec:circular_orbits} in the previous chapter we
-have a circular orbit only if $\mathcal E = V_{\rm min}$.
+As seen in section \ref{cap1:ssec:circular_orbits} we have a circular orbit only
+if $\mathcal E = V_{\rm min}$.
 In this case the relation found in eq. \ref{cap1:eq:Omega2} holds:
 
 \begin{equation}
