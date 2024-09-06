@@ -473,6 +473,66 @@ def plt_tvstau(foldername, h, save=['yes','no']):
         plt.savefig('../latex/Figures/chapter2/tau_res.png')
 
 
+def plt_tvstau_multi(hs, save=['yes','no']):
+
+    fig1, ax1 = plt.subplots(figsize=(7,5))
+    fig2, ax2 = plt.subplots(figsize=(7,5))
+
+    for h in hs:
+
+        filename = f'data/keep/rad_infall_stability/l0_E0_h{h:.0e}.csv'
+        data = np.loadtxt(filename, delimiter=',', skiprows=1)
+        tau = data[:, 0]
+        r = data[:, 1]
+        t = data[:, 3]
+
+        tau = tau[r > 1]
+        t = t[r > 1]
+        r = r[r > 1]
+
+        tau_int_const = tau[0] - fun_tau_r(r[0])
+        analytic_tau = tau_int_const + fun_tau_r(r)
+
+        t_int_const = t[0] - fun_t_r(r[0])
+        analytic_t = t_int_const + fun_t_r(r)
+
+        r = r[tau > 0.1]
+        t = t[tau > 0.1]
+        analytic_t = analytic_t[tau > 0.1]
+        analytic_tau = analytic_tau[tau > 0.1]
+        tau = tau[tau > 0.1]
+
+        #t_res = abs(t / analytic_t - 1)
+        #tau_res = abs(tau / analytic_tau - 1)
+        t_res = abs(t - analytic_t) / t
+        tau_res = (tau - analytic_tau) / tau
+
+
+        h = float(h)
+        ax1.plot(r, t_res, linestyle='', marker='.',
+                 label=rf'$h = {h:.0e}$')
+
+        ax2.plot(r, tau_res, linestyle='', marker='.',
+                 label=rf'$h = {h:.0e}$')
+
+    ax1.set_yscale('log')
+    ax1.set_xlabel(r'$\hat r$')
+    ax1.set_ylabel('Residuals')
+    ax1.set_title(r'Normalized Residual: $\hat t / \hat t_{\rm analytic} - 1$')
+    fig1.tight_layout()
+    ax1.legend(loc='upper right')
+    if save == 'yes':
+        fig1.savefig('../latex/Figures/chapter2/t_res_multi.png')
+
+    ax2.set_xlabel(r'$\hat r$')
+    ax2.set_ylabel('Residuals')
+    ax2.set_title(r'Normalized Residual: $\hat \tau / \hat \tau_{\rm analytic} - 1$')
+    fig2.tight_layout()
+    ax2.legend(loc='upper right')
+    if save == 'yes':
+        fig2.savefig('../latex/Figures/chapter2/tau_res_multi.png')
+
+
 def check_stability_infall2(hs, save=['yes','no']):
     foldername = 'data/keep/infall2_stability/l1.8_E-0.042_h'
     fig, ax = plt.subplots(figsize=(12, 6))
@@ -792,6 +852,7 @@ fold = '../latex/Figures/chapter2/'
 #plt_tvstau('rad_infall2e-3_RK4', 2e-3, 'no')
 #plt_tvstau('rad_infall1e-3_RK4', 1e-3, 'yes')
 #plt_tvstau('rad_infall5e-4_RK4', 5e-4, 'no')
+plt_tvstau_multi([2e-3, 1e-3, 4e-4, 2e-4, 1e-4, 5e-5, 2e-5], save='yes')
 #plt_tvstau('rad_infall2e-3_RK4_corr', 2e-3, 'no')
 #plt_tvstau('rad_infall1e-3_RK4_corr', 1e-3, 'no')
 #plt_tvstau('rad_infall5e-4_RK4_corr', 5e-4, 'no')
@@ -802,8 +863,8 @@ fold = '../latex/Figures/chapter2/'
 #plot_orbit('infall','', 'upper right', fold + 'infall1.eps')
 #plot_orbit('infall2','', 'upper right', fold + 'infall2.eps')
 #plot_orbit('volevi', '', 'upper right', fold + 'volevi.eps')
-check_stability_infall2([2e-3, 1e-3, 8e-4, 4e-4, 2e-4, 1e-4, 5e-5, 2.5e-5, 1e-5], 'yes')
-#check_time_infall2([2e-3, 1e-3, 4e-4, 2e-4, 1e-4, 5e-5, 2.5e-5, 1e-5], 'no')
+#check_stability_infall2(hs, 'yes')
+#check_time_infall2    ([2e-3, 1e-3, 4e-4, 2e-4, 1e-4, 5e-5, 2.5e-5, 1e-5], 'no')
 #check_stability_volevi([2e-3, 1e-3, 8e-4, 4e-4, 2e-4, 1e-4, 5e-5, 2.5e-5, 1e-5], 'no')
 
 ''' Circular Orbits '''
@@ -819,6 +880,3 @@ check_stability_infall2([2e-3, 1e-3, 8e-4, 4e-4, 2e-4, 1e-4, 5e-5, 2.5e-5, 1e-5]
 
 
 plt.show()
-
-
-
