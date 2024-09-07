@@ -89,11 +89,10 @@ The system in \ref{cap2:eq:eq_of_motion_ad} can be solved numerically with
 a fourth-order \texttt{Runge-Kutta} method.
 The initial conditions that determine the orbit are $\hat \ell$,
 $\mathcal E$, a starting radius $\hat r_0$ compatible with the condition
-$\mathcal E - V_{\rm eff} \geq 0$ (refer to Figure
-\ref{cap1:fig:V_eff_orbits}) and the sign choice in eq.
+$\mathcal E - V_{\rm eff} \geq 0$ and the sign choice in eq.
 \ref{cap2:eq:radial_eq_ad}.
 
-To find the range of $r$ that the particle can explore we need to study when the
+To find the range of $\hat r$ that the particle can explore we need to study when the
 argument of the square root in eq. \ref{cap2:eq:radial_eq_ad} is positive.
 In general, we need to solve a cubic equation
 
@@ -512,7 +511,7 @@ different precessions.
         \centering
         \includegraphics[width=\textwidth]{Figures/chapter2/prec2.eps}
         \caption{$\hat \ell = 3$, $\mathcal E = -0.006$,
-        $\hat r_0 = r_1 \simeq 73.2$, evolved for $\hat \tau = \num{1e4}$. \\
+        $\hat r_0 = r_2 \simeq 73.2$, evolved for $\hat \tau = \num{1e4}$. \\
         $\delta \phi_{\rm theory} \simeq 0.221 \pi$ from eq.
         \ref{cap2:eq:delta_phi_elliptic}.}
         \label{cap2:fig:prec2}
@@ -588,8 +587,8 @@ precession) as the acceleration is not negligible when the radial velocity is
 very small.
 Moreover, reducing the systematic error by reducing the step size brings a lot
 of risks of numerical instability because of the singularity at the turning
-point: the moment that the radius is really close to a turning point the radial
-derivative goes to zero and radius will not change anymore.
+point: the moment that the radius is really close to a turning point, the radial
+derivative goes to zero and the radius will not change anymore.
 For this reason Table \ref{cap2:tab:prec1} does not show results with increments
 of $h = \num{5e-5}$ or smaller, as the simulation would reach $r = r_2$ and not
 be able to move anymore.
@@ -621,7 +620,7 @@ be able to move anymore.
     As one could imagine by looking at the offsets and at the errors evaluated
     from the standard deviation, the simulation is always underestimating the
     precession angle and the residual plot would look exactly like the one in
-    Figure \ref{cap2:fig:prec1_res}, just rescaled vertical by some factor.}
+    Figure \ref{cap2:fig:prec1_res}, just rescaled vertically by some factor.}
     \label{cap2:tab:prec1}
 \end{table}
 
@@ -640,7 +639,7 @@ To avoid the singularity of the radial derivative at the turning points, we can
 instead use the second derivative. Employing the acceleration is safer because,
 even when it approaches zero, the particle can continue moving with its existing
 velocity.
-As a bonus we also remove the complications of sign changes.
+As a bonus we also remove the complications that arise from sign changes.
 We can therefore rewrite the system of equations \ref{cap2:eq:eq_of_motion_ad}
 as
 
@@ -703,7 +702,7 @@ and risk of numerical instability. \\
 %Table \ref{cap2:tab:prec2_corr} also shows the results obtained with
 %$h = \num{1e-6}$ with really good precision.
 Focussing on the results from the inner turning point, it is important to note
-that the error is consistently larger compared to that at the outer turning
+that the error is consistently larger than the of the outer turning
 point.
 This is likely due to the particle moving at a higher velocity when reaching the
 inner turning point, resulting in greater error in the computation.

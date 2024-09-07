@@ -1,25 +1,24 @@
 % ::setlocal makeprg=cd\ latex\ &&\ pdflatex\ -interaction=batchmode\ main.tex\ &&\ xdg-open\ main.pdf\ &&\ exit
 
-In this thesis the primary focus was to study the \Sh metric and to understand
-some of its consequences.
-We did so by studying the so-called geodesic equations, which describe the
-motion of a test particle or light ray in a given metric.
+In this thesis, the primary objective was to study the \Sh metric and explore
+its consequences through the analysis of geodesic equations, which describe the
+motion of test particles and light rays within a given metric.
 
 The first chapter introduced the \Sh metric and its properties, serving as a
 foundation for the second one.
-In particular two effective potentials were derived (one for massive particle an
-on for light rays), which allowed us to study the orbits in a Newtonian-like
-fashion.
-For the massive case we explored specific   such as radial infalls and circular
-orbits, because they could be solved analytically.
+In particular two effective potentials were derived (one for massive particle
+and one for light rays), which allowed us to study the orbits in a
+Newtonian-like fashion.
+For the massive case we explored specific scenarios such as radial infalls and
+circular orbits, because they could be solved analytically.
 We also studied the precession of the perihelion of a test particle, compared
 the results with the Newtonian case, but in this case there is no analytical
 solution, so the integral was left for the second part.
 
 The second chapter was dedicated to documenting a program that numerically
 integrates the equations of motion for a massive particle.
-The analytical results of the previous chapter served as an immediate for the
-results of our simulations.
+The analytical results of the previous chapter served as an immediate test for
+the results of our simulations.
 Once the program reached a satisfactory level of accuracy, we showed some of the
 more complex infalls we could find by tweaking the initial conditions.
 Finally, when we studied the precession, we acknowledged the limitations of the
@@ -27,3 +26,11 @@ integration techniques initially used, and proposed a more accurate method.
 We decided to rely on the derivative of the effective potential, thus an
 effective force, and solved a lot of the issues that were emerged previously.
 
+Despite the improvements, the new numerical model has limitations.
+One potential enhancement for future work could be the implementation of an
+adaptive step size method, which would enable more accurate and efficient
+integration of the equations of motion, particularly in regions near the \Sh
+radius.
+The focus though was on building a solid tool to visualize some of the orbits
+that general relativity has to offer and providing the tests to 
+validate it, in this regard this goal was achieved.
