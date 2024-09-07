@@ -17,6 +17,16 @@ plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
 plt.rc('legend', fontsize=MEDIUM_SIZE)    # legend fontsize
 
 
+def fun_V_eff(r, l):
+    return (l**2 / r**2 - 1 / r - l**2 / r**3) / 2
+
+
+def V_max_min(l):
+    r_max = l**2 * (1 - np.sqrt(1 - 3 / l**2))
+    r_min = l**2 * (1 + np.sqrt(1 - 3 / l**2))
+    return fun_V_eff(r_max, l), fun_V_eff(r_min, l)
+
+
 def plot_data_precession(foldername):
 
     filename = None
@@ -152,13 +162,38 @@ def plot_residuals(l, E, h, lloc=None, other=None, figname=None):
 
  
 def get_E(l, prec):
-    E = 0
+    ## prec is in units of pi
+
     prec *= np.pi
-    while True:
-        if analytic_precession(l, E) / np.pi > prec:
-            break
-        E -= 0.0001
-    return E
+    b, a = V_max_min(l)
+    if b > 0: b = 0
+
+    ## Offset the enrgy to avoid numerical errors
+    a += 1e-8
+    b -= 1e-8
+    mid = (a + b) / 2
+
+    if (prec - analytic_precession(l, a)) * (prec - analytic_precession(l, b)) > 0:
+        print(f'No root found min_prec = {analytic_precession(l, a) / np.pi} pi')
+        print(f'No root found max_prec = {analytic_precession(l, b) / np.pi} pi')
+        exit()
+
+    kk = 0
+    while abs(a - b) > 1e-10:
+        mid = (a + b) / 2
+        control = (prec - analytic_precession(l, a)) * (prec - analytic_precession(l, mid))
+
+        if control < 0:
+            b = mid
+        else:
+            a = mid
+
+        if kk > 1000:
+            print(f'kk = {kk:d}, stopping')
+            exit()
+        kk += 1
+
+    return mid
 
 
 ## Write bisection to fine tune the energy
@@ -184,18 +219,52 @@ E = -0.004
 
 l = 3
 E = -0.006
-print(f'prec = {analytic_precession(l, E) / np.pi} pi')
+#print(f'prec = {analytic_precession(l, E) / np.pi} pi')
 #plot_residuals(l, E, 1e-3,'center right', other='_RK4')#, figname='prec2_res.eps')
 #plot_residuals(l, E, 1e-3, 'lower right', other='_RK4_corr')#, figname='prec2_res_corr.eps')
 #plot_residuals(l, E, 5e-4, 'lower right', other='_RK4_corr')
 #plot_residuals(l, E, 2e-4, 'lower right', other='_RK4_corr')
 #plot_residuals(l, E, 1e-4, 'lower right', other='_RK4_corr')
 #plot_residuals(l, E, 5e-5, 'lower right', other='_RK4_corr')
-plot_residuals(l, E, 1e-6, 'lower right', other='_RK4_corr')
+#plot_residuals(l, E, 1e-6, 'lower right', other='_RK4_corr')
 
 
 #plot_residuals(l, E, 1e-3,'center right', other='_RK4_corr2')#, figname='prec2_res.eps')
 
 #plt.show()
 
+
+''' plot analytical precession '''
+plt.figure()
+L = np.arange(1.8, 5, 0.1)
+for l in L:
+    Emax, Emin = V_max_min(l)
+    if Emax > 0: Emax = 0
+    Emin += 1e-6
+    Emax -= 1e-6
+    E = np.arange(Emin, Emax, 0.0001)
+    prec = []
+    for e in E:
+        prec.append(analytic_precession(l, e) / np.pi)  
+
+    plt.plot(E, prec)#, label=rf'$\ell = {l:.2f}$')
+    plt.text(E[-1], prec[-1], rf'${l:.2f}$', fontsize=12)
+
+
+#plt.xlim(-0.048, 0)
+plt.xlabel(r'$\mathcal{E}$')
+plt.ylabel(r'Precession [$\pi$]')
+plt.title('Analytical precession')
+plt.tight_layout()
+plt.show()
+
+
+
+#print(get_E(1.95, 1))
+#print(get_E(2.26, 1/2))
+#print(get_E(2.555, 1/3))
+#print(get_E(2.827, 1/4))
+#print(get_E(4.1135, 1/10))
+print(analytic_precession(2, -0.02407) / np.pi)
+print(get_E(2, 1))
 

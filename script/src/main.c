@@ -17,7 +17,7 @@ void print_help(char *argv[]){
     printf("-t :\ttau_max, maximum proper time (100 default)\n");
     printf("-f :\tfilename, output file (default is data/l\%.3f_E\%.5f.csv default)\n");
     printf("-B :\tframes per second (50 default, all to save all data)\n");
-    printf("-a :\talgorithm to use (0 = RK4, 1 = RK4_corrected) (0 default)\n");
+    printf("-a :\talgorithm to use (0 = RK4, 1 = RK4_corrected, 2 = RK4_corrected2) (0 default)\n");
     printf("\nl < sqrt(3) no stable points\n");
     printf("l = sqrt(3) one stationary point (r_ISCO = 3)\n");
     printf("l > sqrt(3) two stationary points\n");
@@ -133,7 +133,7 @@ int main(int argc, char *argv[]){
                 break;
             case 'a':
                 alg = atoi(argv[i + 1]);
-                if (alg != 0 && alg != 1){
+                if (alg != 0 && alg != 1 && alg != 2){
                     printf("Invalid algorithm %d\n", alg);
                     print_help(argv);
                 }
@@ -159,6 +159,7 @@ int main(int argc, char *argv[]){
     printf("Output file: %s\n", filename);
     if (alg == 0) printf("Algorithm: RK4\n\n");
     if (alg == 1) printf("Algorithm: RK4 corrected\n\n");
+    if (alg == 2) printf("Algorithm: RK4 corrected 2\n\n");
 
 
     /***** Coordinates *****/
@@ -181,6 +182,9 @@ int main(int argc, char *argv[]){
 
         if (alg == 1)
             TESI_RK4_corrected(h, tau, &v, &r, &phi, &t, E, l, &sign, &Nturns);
+
+        if (alg == 2)
+            TESI_RK4_corrected2(h, tau, &r, &phi, &t, E, l, &sign, &Nturns);
 
         tau += h;
         kk++;

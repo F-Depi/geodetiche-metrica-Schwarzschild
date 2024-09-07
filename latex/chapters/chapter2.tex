@@ -778,12 +778,17 @@ anymore: we in fact compute the velocity numerically, using the acceleration
 in eq. \ref{cap2:eq:acc_eq_ad}, and not analytically from the $V_{\rm eff}$ and
 $\mathcal E$ as in eq. \ref{cap2:eq:radial_eq_ad}.
 This also makes it necessary to compute the energy ($\mathcal E = \hat v^2 / 2 +
-V_{\rm eff}$) at each step of the simulation, before updating the \Sh time $t$ with eq. \ref{cap2:eq:t_ad_v2}. \\
+V_{\rm eff}$) at each step of the simulation, before updating the \Sh time $t$
+with eq. \ref{cap2:eq:t_ad_v2}. \\
 For both the simulations run to compute the precession in Figure
 \ref{cap2:fig:prec1_res_corr} and \ref{cap2:fig:prec2_res_corr} the energy 
 relative error at the end is of order $10^{-13}$ (an energy loss to be precise),
 negligible in this context, but it could be a problem for longer
 simulations.
 
+Some beautiful orbits obtained using this method are reported in Appendix
+\ref{app:beautiful}.
 
-\subsection{Fixing the Energy Loss}
+%\subsection{Fixing the Energy Loss}
+
+
