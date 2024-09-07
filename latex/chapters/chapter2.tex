@@ -502,7 +502,7 @@ different precessions.
         \centering
         \includegraphics[width=\textwidth]{Figures/chapter2/prec1.eps}
         \caption{$\hat \ell = 5$, $\mathcal E = -0.004$,
-        $\hat r_0 = r_1 \simeq 32.9$, evolved for $\hat \tau = \num{1.2e5}$. \\
+        $\hat r_0 = r_2 \simeq 91.1$, evolved for $\hat \tau = \num{1.2e5}$. \\
         $\delta \phi_{\rm theory} \simeq 0.0652 \pi$ from eq.
         \ref{cap2:eq:delta_phi_elliptic}.}
         \label{cap2:fig:prec1}
@@ -512,7 +512,7 @@ different precessions.
         \centering
         \includegraphics[width=\textwidth]{Figures/chapter2/prec2.eps}
         \caption{$\hat \ell = 3$, $\mathcal E = -0.006$,
-        $\hat r_0 = r_1 \simeq 73.2$, evolved for $\hat \tau = \num{1e4}$. \\
+        $\hat r_0 = r_2 \simeq 73.2$, evolved for $\hat \tau = \num{1e4}$. \\
         $\delta \phi_{\rm theory} \simeq 0.221 \pi$ from eq.
         \ref{cap2:eq:delta_phi_elliptic}.}
         \label{cap2:fig:prec2}
@@ -588,8 +588,8 @@ precession) as the acceleration is not negligible when the radial velocity is
 very small.
 Moreover, reducing the systematic error by reducing the step size brings a lot
 of risks of numerical instability because of the singularity at the turning
-point: the moment that the radius is really close to a turning point the radial
-derivative goes to zero and radius will not change anymore.
+point: the moment that the radius is really close to a turning point, the radial
+derivative goes to zero and the radius will not change anymore.
 For this reason Table \ref{cap2:tab:prec1} does not show results with increments
 of $h = \num{5e-5}$ or smaller, as the simulation would reach $r = r_2$ and not
 be able to move anymore.
@@ -621,7 +621,7 @@ be able to move anymore.
     As one could imagine by looking at the offsets and at the errors evaluated
     from the standard deviation, the simulation is always underestimating the
     precession angle and the residual plot would look exactly like the one in
-    Figure \ref{cap2:fig:prec1_res}, just rescaled vertical by some factor.}
+    Figure \ref{cap2:fig:prec1_res}, just rescaled vertically by some factor.}
     \label{cap2:tab:prec1}
 \end{table}
 
@@ -695,9 +695,9 @@ We in fact repeated the simulations represented in Figures
 To ensure the stability of the program, we can compare the precession obtained
 with different time increments, the data is reported in Table
 \ref{cap2:tab:prec1_corr} and \ref{cap2:tab:prec2_corr}.
-This time the offsets are not systematic and the prediction we can make for
-the precession by averaging the values obtained at each turn are compatible with
-the theoretical value.
+This time the residuals are evenly distributed around zero and the prediction we
+can make for the precession by averaging the values obtained at each turn are
+compatible with the theoretical value.
 We were also able to decrease the time increment to $h = \num{5e-5}$ without
 and risk of numerical instability. \\
 %Table \ref{cap2:tab:prec2_corr} also shows the results obtained with
