@@ -156,13 +156,13 @@ To find the correct interval we can refer to Figures \ref{cap2:fig:scenario0},
     \label{cap2:fig:scenario2}
 \end{figure}
 
-The program can determine on a case by case base (using the initial conditions
+The program can determine on a case by case basis (using the initial conditions
 $\hat \ell$ and $\mathcal E$) whether a turning point exists.
 If a turning point exists the boundaries of the interval in which bisection can
 be done are established. \\
 Referring to figure \ref{cap2:fig:scenario2}, as an example, the program will
 do bisection in the interval $[1, ~ \hat r_{\rm max}]$ to find $\hat r_2$ for
-green lines and in the interval $[\hat r_{\rm max}, ~ \texttt{R\_MAX}]$ to find
+green lines and in the interval $[\hat r_{\rm min}, ~ \texttt{R\_MAX}]$ to find
 $\hat r_2$ for purple lines.
 \texttt{R\_MAX} is a constant that sets the limit of the numerical simulation,
 by default it is set to 1000.
@@ -354,11 +354,14 @@ with the same time increments.
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{Figures/chapter2/stability_infall2.eps}
-    \caption{$\hat \ell = 1.8$, $\mathcal E = -0.042$, $\hat r_0 = 2$, starting
-    radial velocity directed outward, $x$ and $y$ axes have always the same
-    scale.
-    $h$ is almost halved at each step, ranging from $h = \num{2e-3}$ to
-    $h = \num{1e-5}$.
+    \caption{Overlapping orbits with different time increments $h$.
+    The simulation is repeated multiple times with the same initial conditions,
+    $\hat \ell = 1.8$, $\mathcal E = -0.042$, $\hat r_0 = 2$, starting
+    radial velocity directed outward.
+    We only changed $h$, almost halving it every time, ranging from
+    $h = \num{2e-3}$ to $h = \num{1e-5}$.
+    In the main plot and in the zoomed-in sections $x$ and $y$ axes have always
+    the same scale.
     The orbits are nearly indistinguishable initially, as seen in the zoomed-in
     section on the lower right where different $h$ values overlap (forming a
     thick dark line at $\hat \tau \simeq 3.86$); successive orbits are drawn
@@ -522,7 +525,7 @@ Letting the system evolve for a longer time, we can collect more data points.
 The angle spanned by the particle in the $\phi$ direction can be computed from
 the data of the simulation by looking at the angle corresponding to the local
 maxima or minima of the radius.
-Taking the inner turning point as an example, the precession for can be computed 
+Taking the inner turning point as an example, the precession can be computed 
 with
 
 \begin{equation}
@@ -577,10 +580,10 @@ In reality, the particle should get close to the turning point, its radial
 velocity should slowly approach zero and then start increasing again, but with
 an opposite sign.
 
-It's important to note that the error is not given by the overshoot in itself,
+It is important to note that the error is not given by the overshoot in itself,
 but by the fact that the particle velocity never goes to zero, or at least
 doesn't get close enough to it.
-In fact, even if we used an adaptive step size method, that allows to take the
+In fact, even if we used an adaptive step size method that allows to take the
 particle exactly to the turning point, we would still be overestimating the
 modulus of the particle radial velocity (and therefore underestimating the
 precession) as the acceleration is not negligible when the radial velocity is
@@ -624,7 +627,7 @@ be able to move anymore.
     \label{cap2:tab:prec1}
 \end{table}
 
-We likely did not encounter this issue in previous simulations because the
+We probably did not encounter this issue in previous simulations because the
 particle never reached a turning point so far from the origin
 ($\hat r_2 \simeq 91$ in this case) and thus consistently encountered a
 potential barrier sufficiently steep to push it back. \\
@@ -698,11 +701,11 @@ This time the residuals are evenly distributed around zero and the prediction we
 can make for the precession by averaging the values obtained at each turn are
 compatible with the theoretical value.
 We were also able to decrease the time increment to $h = \num{5e-5}$ without
-and risk of numerical instability. \\
+the risk of numerical instability. \\
 %Table \ref{cap2:tab:prec2_corr} also shows the results obtained with
 %$h = \num{1e-6}$ with really good precision.
 Focussing on the results from the inner turning point, it is important to note
-that the error is consistently larger than the of the outer turning
+that the error is consistently larger than the one of the outer turning
 point.
 This is likely due to the particle moving at a higher velocity when reaching the
 inner turning point, resulting in greater error in the computation.
@@ -768,7 +771,7 @@ Implementing an adaptive step size method could probably mitigate this issue.
     \label{cap2:tab:prec2_corr}
 \end{table}
 
-There are some drawbacks to this method, however.
+However, there are some drawbacks to this method.
 The first one being the obvious increase in computational time, as we need
 to simultaneously solve 4 differential equations with the \texttt{RK4} method
 instead of 3.
@@ -779,8 +782,8 @@ $\mathcal E$ as in eq. \ref{cap2:eq:radial_eq_ad}.
 This also makes it necessary to compute the energy ($\mathcal E = \hat v^2 / 2 +
 V_{\rm eff}$) at each step of the simulation, before updating the \Sh time $t$
 with eq. \ref{cap2:eq:t_ad_v2}. \\
-For both the simulations run to compute the precession in Figure
-\ref{cap2:fig:prec1_res_corr} and \ref{cap2:fig:prec2_res_corr} the energy 
+For both the simulations, run to compute the precession in Figure
+\ref{cap2:fig:prec1_res_corr} and \ref{cap2:fig:prec2_res_corr}, the energy 
 relative error at the end is of order $10^{-13}$ (an energy loss to be precise),
 negligible in this context, but it could be a problem for longer
 simulations.
