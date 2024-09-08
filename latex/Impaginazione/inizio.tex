@@ -1,4 +1,4 @@
-% ::setlocal makeprg=cd\ latex\ &&\ pdflatex\ -interaction=batchmode\ main.tex\ &&\ xdg-open\ main.pdf
+% ::setlocal makeprg=cd\ latex\ &&\ pdflatex\ -interaction=batchmode\ main.tex\ &&\ xdg-open\ main.pdf\ &
 
 \Universita{University of Trento}
 \Dipartimento{Department of Physics}
@@ -11,7 +11,7 @@
 
 \Candidato{Federico \textsc{De Paoli}} 
 \Matricola{227552}
-\DataEsame{\today}
+\DataEsame{September 20, 2024}
 \Logo{Impaginazione/logo_rosso.png}
 \LogoWidth{4.5cm} %optional, default: 3cm
 \LogoPosition{top}
@@ -25,18 +25,29 @@
     \restoregeometry
 \end{titlepage}
 
+\thispagestyle{empty}
 \frontmatter
-% dedica
-~ \newpage
-\null\vspace{\stretch{1}}
-\begin{flushright}
-    \textit{Placeholder}
-\end{flushright}
-\vspace{\stretch{2}}\null
+%\pagestyle{plain}
+
+%% dedica
+%~ \newpage
+%\null\vspace{\stretch{1}}
+%\begin{flushright}
+%    \textit{Placeholder}
+%\end{flushright}
+%\vspace{\stretch{2}}\null
 
 %ringraziamenti
 \chapter*{Acknowledgments}
-Placeholder
+I would like to thank my family and friends for their support and encouragement
+during my studies and throughout the production of this thesis.
+A special thanks to my dear friend Arrigo, whose persistent encouragement
+motivated me to improve my English skills.
+
+I also wish to thank my supervisor, Dr. Albino Perego, for his guidance
+throughout this work.
+His ability to find a topic that perfectly aligned with both my interests and
+capabilities made this thesis possible.
 
 \begin{abstract}
     The \Sh metric provides a straightforward and effective framework for a
