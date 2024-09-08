@@ -215,6 +215,7 @@ E = -0.004
 #plot_residuals(l, E, 2e-4, 'lower right', other='_RK4_corr')
 #plot_residuals(l, E, 1e-4, 'lower right', other='_RK4_corr')
 #plot_residuals(l, E, 5e-5, 'lower right', other='_RK4_corr')
+#plot_residuals(l, E, 1e-6, 'lower right', other='')
 
 
 l = 3
@@ -234,37 +235,37 @@ E = -0.006
 #plt.show()
 
 
-''' plot analytical precession '''
-plt.figure()
-L = np.arange(1.8, 5, 0.1)
-for l in L:
-    Emax, Emin = V_max_min(l)
-    if Emax > 0: Emax = 0
-    Emin += 1e-6
-    Emax -= 1e-6
-    E = np.arange(Emin, Emax, 0.0001)
-    prec = []
-    for e in E:
-        prec.append(analytic_precession(l, e) / np.pi)  
+#''' plot analytical precession '''
+#plt.figure()
+#L = [1.8, 1.85, 1.9, 1.95, 2, 2.1, 2.3, 2.6, 3, 3.5, 4.1, 4.8]
+#for l in L:
+#    Emax, Emin = V_max_min(l)
+#    if Emax > 0: Emax = 0
+#    Emin += 1e-10
+#    E = np.arange(Emin, Emax, 0.00001)
+#    prec = []
+#    for e in E:
+#        prec.append(analytic_precession(l, e) / np.pi)  
+#
+#    plt.plot(E, prec)
+#    plt.text(E[-1], prec[-1], rf'$\hat \ell = {l:.2f}$', fontsize=12)
+#
+#
+#plt.ylim(0.05, 10)
+#plt.xlim(-0.054, 0.01)
+#plt.yscale('log')
+#plt.xlabel(r'$\mathcal{E}$')
+#plt.ylabel(r'Precession [$\pi$]')
+#plt.title('Analytical precession')
+#plt.tight_layout()
+#plt.show()
 
-    plt.plot(E, prec)#, label=rf'$\ell = {l:.2f}$')
-    plt.text(E[-1], prec[-1], rf'${l:.2f}$', fontsize=12)
 
-
-#plt.xlim(-0.048, 0)
-plt.xlabel(r'$\mathcal{E}$')
-plt.ylabel(r'Precession [$\pi$]')
-plt.title('Analytical precession')
-plt.tight_layout()
-plt.show()
-
-
-
-#print(get_E(1.95, 1))
-#print(get_E(2.26, 1/2))
-#print(get_E(2.555, 1/3))
-#print(get_E(2.827, 1/4))
-#print(get_E(4.1135, 1/10))
-print(analytic_precession(2, -0.02407) / np.pi)
-print(get_E(2, 1))
+N = [2, 3, 4, 5, 10, 20]
+L = [2, 2.2, 2.33, 2.47, 3.12, 4.12]
+with open('data/keep/fiori/param.csv', 'w') as f:
+    f.write('n,prec[pi],l,E\n')
+    for n, l in zip(N, L):
+        E = get_E(l, 2/n)
+        f.write(f'{n},{2/n:.3f},{l:.2f},{E:.10f}\n')
 

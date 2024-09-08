@@ -11,7 +11,6 @@
 double TESI_fun_r(double r, double E, double l, int *sign, int *Nturns) {
     double foo = 2 * (E - TESI_Veff(r, l));
     if (foo < 0) {
-        printf(" Negative argument in sqrt\n");
         *sign *= -1;
         *Nturns += 1;
     }
@@ -136,7 +135,6 @@ int TESI_RK4_corrected2(double h, double tau, double *r, double *phi, double *t,
     // Having a formula for the velocity, we don't need to pass it as an
     // argument.
 
-    // v = TESI_fun_r(*r, E, l, sign, Nturns);
     double v = TESI_fun_r(*r, E, l, sign, Nturns);
 
     double a_1 = h * TESI_Feff   (*r, l);
@@ -165,7 +163,7 @@ int TESI_RK4_corrected2(double h, double tau, double *r, double *phi, double *t,
     *t += (g_1 + 2 * g_2 + 2 * g_3 + g_4) / 6.;
 
     if ((v * (v + v_diff)) < 0) {
-        printf("Acceleration changed v sign\n");
+        printf(" | Acceleration changed v sign\n");
         *sign *= -1;
         *Nturns += 1;
     }
