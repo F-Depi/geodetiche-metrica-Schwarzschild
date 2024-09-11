@@ -1,0 +1,76 @@
+% ::setlocal makeprg=cd\ presentazione\ &&\ pdflatex\ -interaction=batchmode\ main.tex\ &&\ okular\ main.pdf\ &
+
+\section{Teoria}
+
+\begin{frame}[t]{La Metrica di \Sh}
+
+    \begin{equation*}
+        \dd s^2 = - \left( 1 - \frac{2GM}{c^2r} \right) c^2 \dd t^2
+        + \left( 1 - \frac{2GM}{c^2r} \right)^{-1} \dd r^2
+        + r^2 (\dd \theta^2 + \sin^2 \theta \dd \phi^2)
+    \end{equation*}
+
+    Descrive uno spaziotempo stazionario e a simmetria sferica
+
+    \begin{itemize}
+        \item stella sferica
+        \item buco nero
+    \end{itemize}
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.5\textwidth]{Figures/sh.jpg}
+        \caption{https://www.physicsforums.com/}%insights/wp-content/uploads/2017/12/Schwarzschild-Space.jpg
+    \end{figure}
+
+\end{frame}
+
+\begin{frame}[t]{La Metrica di \Sh}
+
+    \begin{equation*}
+        \dd s^2 = - \left( 1 - \frac{2M}{r} \right) \dd t^2
+        + \left( 1 - \frac{2M}{r} \right)^{-1} \dd r^2
+        + r^2 (\dd \theta^2 + \sin^2 \theta \dd \phi^2)
+    \end{equation*}
+    
+    Singolarità
+
+    \begin{itemize}
+        \item $r = 0$
+        \item $r = r_s = 2M$
+    \end{itemize}
+
+    \vspace{0.5cm}
+
+    Per $r \to \infty$ si recupera la metrica di \Mi
+
+\end{frame}
+
+
+\begin{frame}[t]{La Metrica di \Sh}
+
+    \begin{equation*}
+        \dd s^2 = - \left( 1 - \frac{2GM}{c^2r} \right) c^2 \dd t^2
+        + \left( 1 - \frac{2GM}{c^2r} \right)^{-1} \dd r^2
+        + r^2 (\dd \theta^2 + \sin^2 \theta \dd \phi^2)
+    \end{equation*}
+    
+    \vspace{0.5cm}
+
+    \`E indipendente da $t$ e $\phi$ $\implies$ Killing vector associati
+    
+    \begin{equation*}
+        \xi^\mu = \left( 1, 0, 0, 0 \right) \quad \eta^\mu = \left( 0, 0, 0, 1 \right)
+    \end{equation*}
+
+    Possiamo trovare delle costanti del moto
+
+    \begin{align*}
+        e &= - \mathbf{\xi \cdot u} = \left(\ - \frac{2M}{r} \right) \dv{t}{\tau} \\
+        l &= \eta_\mu u^\mu = r^2 \sin^2 \theta \dv{\phi}{\tau}
+    \end{align*}
+
+
+
+\end{frame}
+

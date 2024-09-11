@@ -1,0 +1,73 @@
+\usepackage[utf8]{inputenc}
+
+\usepackage{multirow,rotating}
+\usepackage{amsmath}
+%For mathematical formulas
+\usepackage{xparse}
+\usepackage{amssymb}
+\usepackage{physics}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+\usepackage{array}
+\usepackage{siunitx}
+\usepackage{mathtools,nccmath}%
+\usepackage{etoolbox, xparse} 
+\usetheme{CambridgeUS}
+\usecolortheme{dolphin}
+\usepackage{tikz}
+\usetikzlibrary{matrix}
+
+% set colors
+\definecolor{myNewColorA}{RGB}{158, 27,50}
+\definecolor{myNewColorB}{RGB}{158, 27,50}
+\definecolor{myNewColorC}{RGB}{158, 27,50} % {130,138,143}
+\setbeamercolor*{palette primary}{bg=myNewColorC}
+\setbeamercolor*{palette secondary}{bg=myNewColorB, fg = white}
+\setbeamercolor*{palette tertiary}{bg=myNewColorA, fg = white}
+\setbeamercolor*{titlelike}{fg=myNewColorA}
+\setbeamercolor*{title}{bg=myNewColorA, fg = white}
+\setbeamercolor*{item}{fg=myNewColorA}
+\setbeamercolor*{caption name}{fg=myNewColorA}
+\usefonttheme{professionalfonts}
+\usepackage{natbib}
+\usepackage{hyperref}
+\usepackage[labelformat=empty]{caption}
+\usepackage{braket}
+
+%------------------------------------------------------------
+% \titlegraphic{\includegraphics[height=0.75cm]{ua_eng_logo.png}} 
+
+\titlegraphic{%
+\includegraphics[width=3.0cm]{Figures/logo_rosso.png}
+}
+
+\setbeamerfont{title}{size=\large}
+\setbeamerfont{subtitle}{size=\small}
+\setbeamerfont{author}{size=\small}
+\setbeamerfont{date}{size=\footnotesize}
+\setbeamerfont{institute}{size=\footnotesize}
+\title[Geodesics in Schwarzschild Metric]{Geodesics in Schwarzschild Metric}%title
+%\subtitle{ }%%subtitle
+\author[]{Candidate: Federico De Paoli\\ Supervisor: Prof. Albino Perego}%%authors
+
+\institute[]{Bachelor degree in Physics, \\ University of Trento}
+\date{September 18, 2024}
+
+
+
+
+%% I'm defining two commands for the backup slides so there are not the slide numbers in the presentation (ex. 17/15)
+\newcommand{\backupbegin}{
+   \newcounter{finalframe}
+   \setcounter{finalframe}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+   \setcounter{framenumber}{\value{finalframe}}
+}
+
+
+\newcommand{\Sh}[0]{Schwarzschild }
+\newcommand{\Mi}[0]{Minkowski }
+\usepackage{multimedia}
+\usepackage{nicematrix}
