@@ -60,6 +60,8 @@
 \end{frame}
 
 
+\subsection{Particelle di Test}
+
 \begin{frame}[t]{La Metrica di \Sh}
 
     \begin{equation*}
@@ -139,22 +141,18 @@
             \dv{\phi}{\tau} &= \frac{l}{r^2}
         \end{align*}
 
-        \pause
+        ~
 
         \begin{equation*}
-            \mathbf{u} &= \left( \dv{t}{\tau}, \dv{r}{\tau}, \dv{\theta}{\tau},
+            \mathbf{u} = \left( \dv{t}{\tau}, \dv{r}{\tau}, \dv{\theta}{\tau},
             \dv{\phi}{\tau} \right) \\
         \end{equation*}
 
-        \pause
+        ~
 
         \begin{equation*}
             \mathbf{u \cdot u} = -1
         \end{equation*}
-
-        \pause
-
-
     \end{minipage}
 
 \end{frame}
@@ -242,13 +240,14 @@
 
 \begin{frame}{Orbite Stabili: Precessione}
 
-    \begin{minipage}{0.5 \textwidth}
+    \begin{minipage}{0.4 \textwidth}
         \begin{figure}
             \centering
-            \includegraphics[width=\textwidth]{Figures/ch1/precession_bozza.png}
+            \includegraphics[width= 0.9 \textwidth]{Figures/ch1/precession_bozza.png}
+            \caption{Da \textit{Gravity: An Introduction to Einstein's General Relativity, Hartle}}
         \end{figure}
     \end{minipage}
-    \begin{minipage}{0.5 \textwidth}
+    \begin{minipage}{0.6 \textwidth}
         \begin{align*}
             \delta \phi &= \Delta \phi - 2 \pi \\ \\
             \dv{\phi}{\tau} &= \frac{\ell}{r^2} \\
@@ -258,12 +257,15 @@
     \end{minipage}
 
     \begin{equation*}
-        \Delta \phi &= 2 \int_{r_1}^{r_2} \frac{l}{r^2}
+        \Delta \phi = 2 \int_{r_1}^{r_2} \frac{l}{r^2}
         \left[e^2 - \left(1 + \frac{\ell^2}{r^2}\right)
         \left(1 - \frac{2M}{r}\right)\right]^{-1/2} \dd r
     \end{equation*}
 
 \end{frame}
+
+
+\subsection{Raggi di Luce}
 
 
 \begin{frame}{Raggi di luce}
@@ -298,13 +300,17 @@
         \end{figure}
 
     \begin{equation*}
-        W_{\rm eff} (r) &= \frac{1}{r^2} \left( 1 - \frac{2M}{r} \right)
+        W_{\rm eff} (r) = \frac{1}{r^2} \left( 1 - \frac{2M}{r} \right)
     \end{equation*}
 
 \end{frame}
 
 
 \begin{frame}{Il Parametro d'Impatto}
+
+    \begin{equation*}
+        \frac{e^2}{l^2} &= \frac{1}{l^2} \left( \dv{r}{\lambda} \right)^2 + W_{\rm efff}
+    \end{equation*}
 
     Grazie alla possibilità di ridefinire $\lambda \to l^2 \lambda$ possiamo
     scrivere
