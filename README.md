@@ -1,8 +1,20 @@
-[main.pdf](latex/main.pdf) file found in latex/
+Batchelor degree thesis in Physics from the University of Trento.
 
-[Overleaf link](https://www.overleaf.com/read/mgwqrhrwhphc#dfb5b3) updated less often, close to compile timeout.
+The thesis can be found
+[Geodesics in Schwarzschild Metric, F. De Paoli](latex/main.pdf).
+
+# Chapter 1
+Theoretical introduction to the Schwarzschild metric and
+the geodesic equations for massive and massless particles.
+
+The content is mostly based on the books Gravity: an introduction to Einstein's
+general relativity by James B. Hartle and Black Holes, White Dwarfs and Neutron
+Stars by Stuart L. Shapiro and Saul A. Teukolsky. 
 
 # Chapter 2: Simulations
+The second chapter is a numerical simulation of the geodesic equations for
+a massive particle.
+
 [main.c](script/src/main.c) solves the equations for an orbit of a massive particle. To try the programm go to 
 the script folder and compile it
 ```
@@ -12,11 +24,16 @@ Run the script without any arguments the first time
 ```
 ./main.x
 ```
-Follow the instructions to choose the parameters for the simulation. \
-The data is saved in ```data/orbit.csv```, run the python script to automatically plot it
-```
-python3 ch2_plots.py
-```
+Follow the instructions to choose the parameters for the simulation.
+
+The data can be plotted with the python script ```plot_orbit.py``` by giving l
+and E as input arguments.
+
+Alternatively, the script ```sim.sh``` can be used to run the simulation,
+immediately plot the data and then get prompted to either save the data in a
+new folder in ```data/keep``` or delete it.
+
+```ani_orbit.py``` can be used to create an animation of the orbit.
 
 ## Some examples
 **Unbound orbit**: ```./main.x 10 3.5``` \
