@@ -1,10 +1,16 @@
-% ::setlocal makeprg=cd\ presentazione\ &&\ pdflatex\ -interaction=batchmode\ main.tex\ &&\ okular\ main.pdf\ &
+% ::setlocal makeprg=cd\ presentazione\ &&\ pdflatex\ -interaction=batchmode\ main.tex\ &&\ xdg-open\ main.pdf\ &
 
 \section{Capitolo 2}
 
 \begin{frame}{Simulazione}
 
-    con RK4
+    Equazioni del moto per una particella massiva
+
+	\begin{align*}[left = {\empheqlbrace}]
+        &\frac{1}{2} \left(\dv{r}{\tau}\right)^2 = \mathcal E - V_{\rm eff} (r) \\
+        &\dv{\phi}{\tau} = \frac{l}{r^2} \\
+        &\dv{t}{\tau} = \frac{e}{1 - 2 M / r}
+	\end{align*}
 
 \end{frame}
 
