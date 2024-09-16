@@ -1,7 +1,18 @@
 % ::setlocal makeprg=cd\ presentazione\ &&\ pdflatex\ -interaction=batchmode\ main.tex\ &&\ xdg-open\ main.pdf\ &
 
-\section{Conclusions}
-\begin{frame}{Conclusions}
+\section{Conclusione}
 
-    conclusione
+{
+\usebackgroundtemplate{
+\hspace{1.4cm}
+\includegraphics[trim=200 120 126 90, clip,height=\paperheight]
+{Figures/end/spirograph.eps}}
+\begin{frame}
+    \vspace{-2.3cm}
+    \begin{tcolorbox}[enhanced, colback=white!80!black, colframe=white!80!black,
+        width=\textwidth, boxrule=0.5mm, arc=2mm, auto outer arc]
+        \center{\Huge \textbf{Grazie per l'attenzione!}}
+    \end{tcolorbox}
+
 \end{frame}
+}
