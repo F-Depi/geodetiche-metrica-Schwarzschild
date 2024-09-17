@@ -268,114 +268,114 @@
 \end{frame}
 
 
-\subsection{Raggi di Luce}
-
-
-\begin{frame}{Raggi di luce}
-
-    Le uniche differenze sono la normalizzazione della velocità
-    
-    \begin{equation*}
-        \mathbf{u \cdot u} = 0
-    \end{equation*}
-
-    e l'utilizzo di un parametro $\lambda$ al posto di $\tau$
-
-    \begin{equation*}
-        \dv{t}{\lambda} = \frac{e}{1 - \frac{2M}{r}} \quad \quad \quad
-        \dv{\phi}{\lambda} = \frac{l}{r^2}
-    \end{equation*}
-
-    \begin{align*}
-        \implies e^2 &= \left( \dv{r}{\lambda} \right)^2 + \ell^2 \,
-        \underbrace{\frac{1}{r^2} \left( 1 - \frac{2M}{r} \right)}_{W_{\rm eff}} \\
-    \end{align*}
-
-\end{frame}
-
-
-\begin{frame}{Il Parametro d'Impatto}
-
-    \begin{equation*}
-        \frac{e^2}{l^2} = \frac{1}{l^2} \left( \dv{r}{\lambda} \right)^2 + W_{\rm efff}
-    \end{equation*}
-
-    Grazie alla possibilità di ridefinire $\lambda \to l^2 \lambda$ possiamo
-    scrivere
-
-    \begin{equation*}
-        \frac{1}{b^2} = \left( \dv{r}{\lambda} \right)^2 + W_{\rm eff}(r)
-        \quad \quad \quad
-        {\rm dove} \quad b = \abs{\frac{\ell}{e}}
-    \end{equation*}
-
-    \begin{figure}
-    \centering
-    \begin{tikzpicture}
-
-        % Cartesian axes
-        \draw[thick,->] (-0.5,0) -- (6,0) node[right] {$x$};
-        \draw[thick,->] (0,-0.5) -- (0,2) node[above] {$y$};
-
-        % Particle at (x, d)
-        \def\xP{5}
-        \def\yP{1.5}
-        \def\phiP{{atan(1.5 / 5)}}
-        \filldraw[black] (\xP ,\yP) circle (2pt) node[anchor=south west] {$(x, b)$};
-
-        % Draw the line r and d
-        \draw[dashed] (0,0) -- (\xP, \yP) node[midway, above, sloped] {$r$};
-        \draw[dashed] (\xP,0) -- (\xP, \yP) node[midway,right] {$b$};
-        \draw[->] (\xP, \yP) -- (\xP - 1, \yP) node[above] {$v$};
-
-        % Draw the angle theta
-        \draw[thick,->] (2,0) arc [start angle=0,end angle=\phiP,radius=2cm];
-        \node at (2.2,0.3) {$\phi$};
-
-        % Star at origin (highlighted part)
-        \shade[inner color=white, outer color=blue!60!black] (0,0,0) circle (4pt);
-
-    \end{tikzpicture}
-    \caption{Se $x \gg b$ allora $b$ è il parametro d'impatto}
-    \end{figure}
-
-\end{frame}
-
-
-\begin{frame}{Il Potenziale Efficacie $W_{\rm eff}$}
-    Ha solo un massimo $W_{\rm eff} (r = 3M) = \frac{1}{27 M^2}$
-
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.9\textwidth]{Figures/ch1/W_eff_vs_b.eps}
-    \end{figure}
-    
-    \begin{equation*}
-        W_{\rm eff} (r) = \frac{1}{r^2} \left( 1 - \frac{2M}{r} \right)
-    \end{equation*}
-
-\end{frame}
-
-
-\begin{frame}{Deflessione della Luce}
-
-    \begin{equation*}
-        \delta \phi = 2\int_{r_1}^\infty \frac{1}{r^2} \left[\frac{1}{b^2}
-        - \frac{1}{r^2} \left(1 - \frac{2M}{r} \right) \right]^{-1/2} \mathrm{d}r
-    \end{equation*}
-
-    \begin{minipage}{0.49 \textwidth}
-        \begin{figure}
-            \centering
-            \includegraphics[width=\textwidth]{Figures/ch1/deflection.png}
-            \caption{Da \textit{Gravity: An Introduction to Einstein's General Relativity, Hartle}}
-        \end{figure}
-    \end{minipage}
-    \begin{minipage}{0.49 \textwidth}
-        \begin{figure}
-            \centering
-            \includegraphics[width=\textwidth]{Figures/ch1/deflection_w.eps}
-        \end{figure}
-    \end{minipage}
-
-\end{frame}
+%\subsection{Raggi di Luce}
+%
+%
+%\begin{frame}{Raggi di luce}
+%
+%    Le uniche differenze sono la normalizzazione della velocità
+%    
+%    \begin{equation*}
+%        \mathbf{u \cdot u} = 0
+%    \end{equation*}
+%
+%    e l'utilizzo di un parametro $\lambda$ al posto di $\tau$
+%
+%    \begin{equation*}
+%        \dv{t}{\lambda} = \frac{e}{1 - \frac{2M}{r}} \quad \quad \quad
+%        \dv{\phi}{\lambda} = \frac{l}{r^2}
+%    \end{equation*}
+%
+%    \begin{align*}
+%        \implies e^2 &= \left( \dv{r}{\lambda} \right)^2 + \ell^2 \,
+%        \underbrace{\frac{1}{r^2} \left( 1 - \frac{2M}{r} \right)}_{W_{\rm eff}} \\
+%    \end{align*}
+%
+%\end{frame}
+%
+%
+%\begin{frame}{Il Parametro d'Impatto}
+%
+%    \begin{equation*}
+%        \frac{e^2}{l^2} = \frac{1}{l^2} \left( \dv{r}{\lambda} \right)^2 + W_{\rm efff}
+%    \end{equation*}
+%
+%    Grazie alla possibilità di ridefinire $\lambda \to l^2 \lambda$ possiamo
+%    scrivere
+%
+%    \begin{equation*}
+%        \frac{1}{b^2} = \left( \dv{r}{\lambda} \right)^2 + W_{\rm eff}(r)
+%        \quad \quad \quad
+%        {\rm dove} \quad b = \abs{\frac{\ell}{e}}
+%    \end{equation*}
+%
+%    \begin{figure}
+%    \centering
+%    \begin{tikzpicture}
+%
+%        % Cartesian axes
+%        \draw[thick,->] (-0.5,0) -- (6,0) node[right] {$x$};
+%        \draw[thick,->] (0,-0.5) -- (0,2) node[above] {$y$};
+%
+%        % Particle at (x, d)
+%        \def\xP{5}
+%        \def\yP{1.5}
+%        \def\phiP{{atan(1.5 / 5)}}
+%        \filldraw[black] (\xP ,\yP) circle (2pt) node[anchor=south west] {$(x, b)$};
+%
+%        % Draw the line r and d
+%        \draw[dashed] (0,0) -- (\xP, \yP) node[midway, above, sloped] {$r$};
+%        \draw[dashed] (\xP,0) -- (\xP, \yP) node[midway,right] {$b$};
+%        \draw[->] (\xP, \yP) -- (\xP - 1, \yP) node[above] {$v$};
+%
+%        % Draw the angle theta
+%        \draw[thick,->] (2,0) arc [start angle=0,end angle=\phiP,radius=2cm];
+%        \node at (2.2,0.3) {$\phi$};
+%
+%        % Star at origin (highlighted part)
+%        \shade[inner color=white, outer color=blue!60!black] (0,0,0) circle (4pt);
+%
+%    \end{tikzpicture}
+%    \caption{Se $x \gg b$ allora $b$ è il parametro d'impatto}
+%    \end{figure}
+%
+%\end{frame}
+%
+%
+%\begin{frame}{Il Potenziale Efficacie $W_{\rm eff}$}
+%    Ha solo un massimo $W_{\rm eff} (r = 3M) = \frac{1}{27 M^2}$
+%
+%    \begin{figure}
+%        \centering
+%        \includegraphics[width=0.9\textwidth]{Figures/ch1/W_eff_vs_b.eps}
+%    \end{figure}
+%    
+%    \begin{equation*}
+%        W_{\rm eff} (r) = \frac{1}{r^2} \left( 1 - \frac{2M}{r} \right)
+%    \end{equation*}
+%
+%\end{frame}
+%
+%
+%\begin{frame}{Deflessione della Luce}
+%
+%    \begin{equation*}
+%        \delta \phi = 2\int_{r_1}^\infty \frac{1}{r^2} \left[\frac{1}{b^2}
+%        - \frac{1}{r^2} \left(1 - \frac{2M}{r} \right) \right]^{-1/2} \mathrm{d}r
+%    \end{equation*}
+%
+%    \begin{minipage}{0.49 \textwidth}
+%        \begin{figure}
+%            \centering
+%            \includegraphics[width=\textwidth]{Figures/ch1/deflection.png}
+%            \caption{Da \textit{Gravity: An Introduction to Einstein's General Relativity, Hartle}}
+%        \end{figure}
+%    \end{minipage}
+%    \begin{minipage}{0.49 \textwidth}
+%        \begin{figure}
+%            \centering
+%            \includegraphics[width=\textwidth]{Figures/ch1/deflection_w.eps}
+%        \end{figure}
+%    \end{minipage}
+%
+%\end{frame}
